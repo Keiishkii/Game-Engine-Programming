@@ -1,17 +1,16 @@
-#include <vector>
 #include <memory>
-
-#include "Entity.cpp"
-
+#include <vector>
 
 
 namespace Engine
 {
-	class Entity
+	struct Component;
+	struct Entity
 	{
 	private:
-		std::vector<std::shared_ptr<Entity>> _entityList;
-	public:
+		std::vector<std::shared_ptr<Component>> componentList;
 
+	public:
+		std::shared_ptr<Component> AddComponent();
 	};
 }
