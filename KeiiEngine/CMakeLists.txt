@@ -13,4 +13,10 @@ add_executable(KeiiEngine
 
 	src/engine/Component.cpp
 	src/engine/Component.h
+
+	src/engine/Enviroment.cpp
+	src/engine/Enviroment.h
+
+	src/engine/Time.cpp
+	src/engine/Time.h
 )

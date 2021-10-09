@@ -4,6 +4,9 @@
 	#include <memory>
 
 	#include "Core.h"
+	#include "Time.h"
+	#include "Enviroment.h"
+
 	#include "Entity.h"
 	#include "Component.h"
 

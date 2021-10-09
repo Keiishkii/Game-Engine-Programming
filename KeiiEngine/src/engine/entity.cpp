@@ -1,10 +1,18 @@
 #include "Entity.h"
 #include "Component.h"
 
-std::shared_ptr<Engine::Component> Engine::Entity::AddComponent()
+void Engine::Entity::Update()
 {
-	std::shared_ptr<Engine::Component> component = std::make_shared<Engine::Component>();
-	componentList.push_back(component);
+	for (int i = 0; i < componentList.size(); i++)
+	{
+		componentList[i]->Update();
+	}
+}
 
-	return component;
+void Engine::Entity::PhysicsUpdate()
+{
+	for (int i = 0; i < componentList.size(); i++)
+	{
+		componentList[i]->PhysicsUpdate();
+	}
 }

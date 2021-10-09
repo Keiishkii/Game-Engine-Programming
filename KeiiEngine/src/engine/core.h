@@ -14,6 +14,9 @@ namespace Engine
 
 		void MainLoop();
 
+		void Update();
+		void PhysicsUpdate();
+
 	public:
 		static std::shared_ptr<Core> Initialise();
 

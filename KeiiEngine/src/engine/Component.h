@@ -1,10 +1,12 @@
 namespace Engine
 {
+	struct Entity;
 	struct Component
 	{
+		friend Engine::Entity;
+
 	private:
-
-	public:
-
+		virtual void Update();
+		virtual void PhysicsUpdate();
 	};
 }

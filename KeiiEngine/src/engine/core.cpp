@@ -2,9 +2,11 @@
 #include <chrono>
 #include <thread>
 #include <cmath>
+#include <iostream>
 
 #include "Core.h"
 #include "Entity.h"
+#include "Time.h"
 
 
 
@@ -25,24 +27,41 @@ void Engine::Core::Start()
 
 void Engine::Core::MainLoop()
 {
+	std::shared_ptr<Time> timeClass = std::make_shared<Time>(60, 60);
+
 	int i = 0;
-	std::chrono::steady_clock::time_point frameStart = std::chrono::high_resolution_clock::now();
+	std::chrono::steady_clock::time_point frameStart = std::chrono::steady_clock::now();
 
 	while (running)
 	{
-		std::chrono::steady_clock::time_point frameEnd = std::chrono::high_resolution_clock::now();
-		std::chrono::duration<float> elapsed = std::chrono::high_resolution_clock::now() - frameStart;
 		
-		int waitDuration = (int)(1000.f * std::fmaxf(elapsed.count() - (1 / (float)targetUpdatesPerSecond), 0));
+		Update();
 
-		std::this_thread::sleep_for(std::chrono::milliseconds(waitDuration));
+		int physicsCycles = timeClass->CheckForFixedUpdates();
+		for (int i = 0; i < physicsCycles; i++)
+		{
+			PhysicsUpdate();
+		}
 
-		std::cout << "Elaped: " << elapsed.count() << std::endl;
-		frameStart = std::chrono::high_resolution_clock::now();
+		timeClass->WaitForEndOfFrame();
+	}
+}
 
+void Engine::Core::Update()
+{
+	std::cout << "Update" << std::endl;
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		entityList[i]->Update();
+	}
+}
 
-		// Create Time Class -> Let the time class calculate above code and halt loop.
-		// Create Enviroment Class -> Let enviroment perform ticks on things
+void Engine::Core::PhysicsUpdate()
+{
+	std::cout << "Physics Update" << std::endl;
+	for (int i = 0; i < entityList.size(); i++)
+	{
+		entityList[i]->Update();
 	}
 }
 
