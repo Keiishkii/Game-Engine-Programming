@@ -7,6 +7,7 @@
 #include "Core.h"
 #include "Entity.h"
 #include "Time.h"
+#include "Debugging.h"
 
 
 
@@ -29,6 +30,8 @@ void Engine::Core::MainLoop()
 {
 	std::shared_ptr<Time> timeClass = std::make_shared<Time>(60, 60);
 
+	std::shared_ptr<Debugging> debug = std::make_shared<Debugging>();
+
 	int i = 0;
 	std::chrono::steady_clock::time_point frameStart = std::chrono::steady_clock::now();
 
@@ -36,11 +39,13 @@ void Engine::Core::MainLoop()
 	{
 		
 		Update();
+		debug->LogUpdate();
 
 		int physicsCycles = timeClass->CheckForFixedUpdates();
 		for (int i = 0; i < physicsCycles; i++)
 		{
 			PhysicsUpdate();
+			debug->LogFixedUpdate();
 		}
 
 		timeClass->WaitForEndOfFrame();

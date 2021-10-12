@@ -64,12 +64,19 @@ void Engine::Time::WaitForEndOfFrame()
 	float waitDuration = (1 / _targetFramerate) - timeElapsed.count();
 
 	if (waitDuration > 0)
-		Sleep(waitDuration);
+	{
+		//Sleep(waitDuration);
+		std::this_thread::sleep_for(std::chrono::milliseconds((int) (waitDuration * 1000.0f)));
+		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (1)));
+		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (0)));
+	}
 
 	std::chrono::steady_clock::time_point timeAfterSleep = std::chrono::steady_clock::now();
 
 	timeElapsed = timeAfterSleep - _timeOfPreviousFrameEnd;
 	_deltaTime = timeElapsed.count();
+
+	//std::cout << "FPS: " << (1 / _deltaTime) << std::endl;
 
 	_timeOfPreviousFrameEnd = timeAfterSleep;
 }

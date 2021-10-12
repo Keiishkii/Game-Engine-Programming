@@ -4,6 +4,9 @@ add_executable(KeiiEngine
 	src/engine/Main.cpp
 
 	src/engine/KeiiEngine.h
+	
+	src/engine/Debugging.cpp
+	src/engine/Debugging.h
 
 	src/engine/Core.cpp
 	src/engine/Core.h
