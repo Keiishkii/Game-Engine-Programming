@@ -1,6 +1,7 @@
 #include <thread>
 #include <cmath>
 #include <iostream>
+#include <Windows.h>
 
 #include "Time.h"
 
@@ -66,7 +67,9 @@ void Engine::Time::WaitForEndOfFrame()
 	if (waitDuration > 0)
 	{
 		//Sleep(waitDuration);
-		std::this_thread::sleep_for(std::chrono::milliseconds((int) (waitDuration * 1000.0f)));
+		::_sleep(waitDuration);
+		//::Sleep((int)(waitDuration * 1000.0f));
+		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (waitDuration * 1000.0f)));
 		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (1)));
 		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (0)));
 	}

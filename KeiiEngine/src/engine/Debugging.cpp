@@ -8,7 +8,7 @@ void Engine::Debugging::LogUpdate()
 	if (updates > 0)
 	{
 		totalUpdateTime += (currentTime - lastUpdateTime);
-		std::cout << "Average FPS: " << ((updates) / totalUpdateTime.count());
+		std::cout << "UPDATE: Average FPS: " << ((updates) / totalUpdateTime.count()) << std::endl;
 	}
 
 	lastUpdateTime = currentTime;
@@ -22,7 +22,7 @@ void Engine::Debugging::LogFixedUpdate()
 	if (fixedUpdates > 0)
 	{
 		totalFixedUpdateTime += (currentTime - lastFixedUpdateTime);
-		std::cout << "Average FPS: " << ((fixedUpdates) / totalFixedUpdateTime.count());
+		std::cout << "FIXED: Average FPS: " << ((fixedUpdates) / totalFixedUpdateTime.count()) << std::endl;
 	}
 
 	lastFixedUpdateTime = currentTime;

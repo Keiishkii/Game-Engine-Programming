@@ -28,7 +28,7 @@ void Engine::Core::Start()
 
 void Engine::Core::MainLoop()
 {
-	std::shared_ptr<Time> timeClass = std::make_shared<Time>(60, 60);
+	std::shared_ptr<Time> timeClass = std::make_shared<Time>(80, 120);
 
 	std::shared_ptr<Debugging> debug = std::make_shared<Debugging>();
 
@@ -54,7 +54,7 @@ void Engine::Core::MainLoop()
 
 void Engine::Core::Update()
 {
-	std::cout << "Update" << std::endl;
+	std::cout << " - Update" << std::endl;
 	for (int i = 0; i < entityList.size(); i++)
 	{
 		entityList[i]->Update();
@@ -63,7 +63,7 @@ void Engine::Core::Update()
 
 void Engine::Core::PhysicsUpdate()
 {
-	std::cout << "Physics Update" << std::endl;
+	std::cout << " - Physics Update" << std::endl;
 	for (int i = 0; i < entityList.size(); i++)
 	{
 		entityList[i]->Update();
