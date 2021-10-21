@@ -67,7 +67,7 @@ void Engine::Time::WaitForEndOfFrame()
 	if (waitDuration > 0)
 	{
 		//Sleep(waitDuration);
-		::_sleep(waitDuration);
+		//::_sleep(waitDuration);
 		//::Sleep((int)(waitDuration * 1000.0f));
 		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (waitDuration * 1000.0f)));
 		//std::this_thread::sleep_for(std::chrono::milliseconds((int) (1)));
