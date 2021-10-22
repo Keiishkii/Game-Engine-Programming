@@ -6,7 +6,7 @@
 
 namespace Engine
 {
-	struct Debugging
+	struct Debugger
 	{
 	private:
 		int updates, fixedUpdates;

@@ -1,7 +1,7 @@
-#include "Debugging.h"
+#include "Debugger.h"
 #include <iostream>
 
-void Engine::Debugging::LogUpdate()
+void Engine::Debugger::LogUpdate()
 {
 	std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
 
@@ -15,7 +15,7 @@ void Engine::Debugging::LogUpdate()
 	updates++;
 }
 
-void Engine::Debugging::LogFixedUpdate()
+void Engine::Debugger::LogFixedUpdate()
 {
 	std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
 

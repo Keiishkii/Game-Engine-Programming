@@ -7,13 +7,15 @@
 #include "Core.h"
 #include "Entity.h"
 #include "Time.h"
-#include "Debugging.h"
+#include "Debugger.h"
 
+#include <SDL2/SDL.h>
 
 
 std::shared_ptr<Engine::Core> Engine::Core::Initialise()
 {
 	std::shared_ptr<Engine::Core> core = std::make_shared<Engine::Core>();
+	core->_debugger = std::make_shared<Debugger>();
 
 	return core;
 }
@@ -30,8 +32,6 @@ void Engine::Core::MainLoop()
 {
 	std::shared_ptr<Time> timeClass = std::make_shared<Time>(80, 120);
 
-	std::shared_ptr<Debugging> debug = std::make_shared<Debugging>();
-
 	int i = 0;
 	std::chrono::steady_clock::time_point frameStart = std::chrono::steady_clock::now();
 
@@ -39,13 +39,13 @@ void Engine::Core::MainLoop()
 	{
 		
 		Update();
-		debug->LogUpdate();
+		_debugger->LogUpdate();
 
 		int physicsCycles = timeClass->CheckForFixedUpdates();
 		for (int i = 0; i < physicsCycles; i++)
 		{
 			PhysicsUpdate();
-			debug->LogFixedUpdate();
+			_debugger->LogFixedUpdate();
 		}
 
 		timeClass->WaitForEndOfFrame();
@@ -55,18 +55,18 @@ void Engine::Core::MainLoop()
 void Engine::Core::Update()
 {
 	std::cout << " - Update" << std::endl;
-	for (int i = 0; i < entityList.size(); i++)
+	for (int i = 0; i < _entityList.size(); i++)
 	{
-		entityList[i]->Update();
+		_entityList[i]->Update();
 	}
 }
 
 void Engine::Core::PhysicsUpdate()
 {
 	std::cout << " - Physics Update" << std::endl;
-	for (int i = 0; i < entityList.size(); i++)
+	for (int i = 0; i < _entityList.size(); i++)
 	{
-		entityList[i]->Update();
+		_entityList[i]->Update();
 	}
 }
 
@@ -77,8 +77,10 @@ void Engine::Core::Stop()
 
 std::shared_ptr<Engine::Entity> Engine::Core::AddEntity()
 {
-	std::shared_ptr<Engine::Entity> entity = std::make_shared<Engine::Entity>();
-	entityList.push_back(entity);
+	std::shared_ptr<Engine::Entity> entity = Entity::Initialise(_self);;
+	_entityList.push_back(entity);
+
+	
 
 	return entity;
 }

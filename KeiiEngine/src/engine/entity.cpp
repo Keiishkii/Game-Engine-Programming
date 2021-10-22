@@ -1,6 +1,16 @@
 #include "Entity.h"
 #include "Component.h"
 
+std::shared_ptr<Engine::Entity> Engine::Entity::Initialise(std::weak_ptr<Core> corePtr)
+{
+	std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+
+	entity->_self = entity;
+	entity->corePtr = corePtr;
+
+	return entity;
+}
+
 void Engine::Entity::Update()
 {
 	for (int i = 0; i < componentList.size(); i++)

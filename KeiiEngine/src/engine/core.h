@@ -3,15 +3,20 @@
 
 namespace Engine
 {
+	struct Debugger;
 	struct Entity;
 	struct Core
 	{
 	private:
-		std::vector<std::shared_ptr<Entity>> entityList;
+		std::weak_ptr<Core> _self;
+
+		std::shared_ptr<Debugger> _debugger;
+		std::vector<std::shared_ptr<Entity>> _entityList;
 
 		int targetUpdatesPerSecond;
 		bool running;
 
+	private:
 		void MainLoop();
 
 		void Update();

@@ -10,9 +10,16 @@ namespace Engine
 	{
 		friend Engine::Core;
 	private:
+		std::weak_ptr<Entity> _self;
+
 		std::vector<std::shared_ptr<Component>> componentList;
 
+	public:
+		std::weak_ptr<Engine::Core> corePtr;
+
 	private:
+		static std::shared_ptr<Entity> Initialise(std::weak_ptr<Core> corePtr);
+		
 		void Update();
 		void PhysicsUpdate();
 
