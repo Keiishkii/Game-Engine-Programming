@@ -74,3 +74,33 @@ add_executable(game
 )
 
 target_link_libraries(game keiiengine)
+
+
+
+# Tidy up project
+
+if(MSVC_IDE)
+	# Macro to preserve source files hierarchy in the IDE
+	macro(GroupSources curdir)
+		file(GLOB children RELATIVE ${PROJECT_SOURCE_DIR}/${curdir} ${PROJECT_SOURCE_DIR}/${curdir}/*)
+
+		foreach(child ${children})
+			if(IS_DIRECTORY ${PROJECT_SOURCE_DIR}/${curdir}/${child})
+				GroupSources(${curdir}/${child})
+			else()
+				string(REPLACE "/" "\\" groupname ${curdir})
+				string(REPLACE "src" "Sources" groupname ${groupname})
+				source_group(${groupname} FILES ${PROJECT_SOURCE_DIR}/${curdir}/${child})
+			endif()
+		endforeach()
+	endmacro()
+
+	# Run macro
+	GroupSources(src)
+endif()
+
+if(WIN32)
+	configure_file(dlls/SDL2.dll SDL2.dll COPYONLY)
+	configure_file(dlls/libfbxsdk.dll libfbxsdk.dll COPYONLY)
+	configure_file(dlls/glew32.dll glew32.dll COPYONLY)
+endif()
