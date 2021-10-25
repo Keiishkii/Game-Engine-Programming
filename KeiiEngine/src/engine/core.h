@@ -1,40 +1,43 @@
 #pragma once
-#include <memory>
-#include <vector>
+#ifndef CORE
+#define CORE
+	#include <memory>
+	#include <vector>
 
-#include <SDL.h>
+	#include <SDL.h>
 
 
-namespace Engine
-{
-	struct Debugger;
-	struct Entity;
-	struct Core
+	namespace Engine
 	{
-	private:
-		std::weak_ptr<Core> _self;
+		struct Debugger;
+		struct Entity;
+		struct Core
+		{
+		private:
+			std::weak_ptr<Core> _self;
 
-		std::shared_ptr<Debugger> _debugger;
-		std::shared_ptr<SDL_Window*> _window;
-		std::vector<std::shared_ptr<Entity>> _entityList;
+			std::shared_ptr<Debugger> _debugger;
+			std::shared_ptr<SDL_Window*> _window;
+			std::vector<std::shared_ptr<Entity>> _entityList;
 
-		int targetUpdatesPerSecond;
-		bool running;
+			int targetUpdatesPerSecond;
+			bool running;
 
-	private:
-		void MainLoop();
+		private:
+			void MainLoop();
 
-		void Update();
-		void PhysicsUpdate();
+			void Update();
+			void PhysicsUpdate();
 
-	public:
-		static std::shared_ptr<Core> Initialise();
+		public:
+			static std::shared_ptr<Core> Initialise();
 
-		~Core();
+			~Core();
 
-		void Start();
-		void Stop();
+			void Start();
+			void Stop();
 
-		std::shared_ptr<Entity> AddEntity();
-	};
-}
+			std::shared_ptr<Entity> AddEntity();
+		};
+	}
+#endif

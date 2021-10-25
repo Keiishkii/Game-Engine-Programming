@@ -1,20 +1,21 @@
 #pragma once
+#ifndef DEBUGGER
+#define DEBUGGER
+	#include <chrono>
 
-#include <chrono>
 
-
-
-namespace Engine
-{
-	struct Debugger
+	namespace Engine
 	{
-	private:
-		int updates, fixedUpdates;
-		std::chrono::steady_clock::time_point lastUpdateTime, lastFixedUpdateTime;
-		std::chrono::duration<float> totalUpdateTime, totalFixedUpdateTime;
+		struct Debugger
+		{
+		private:
+			int updates, fixedUpdates;
+			std::chrono::steady_clock::time_point lastUpdateTime, lastFixedUpdateTime;
+			std::chrono::duration<float> totalUpdateTime, totalFixedUpdateTime;
 
-	public:
-		void LogUpdate();
-		void LogFixedUpdate();
-	};
-}
+		public:
+			void LogUpdate();
+			void LogFixedUpdate();
+		};
+	}
+#endif

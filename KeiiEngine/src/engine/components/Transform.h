@@ -1,23 +1,26 @@
 #pragma once
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
+#ifndef TRANSFORM
+#define TRANSFORM
+	#include <glm/vec3.hpp>
+	#include <glm/vec4.hpp>
 
-#include "Component.h"
+	#include "Component.h"
 
-namespace Engine
-{
-	struct Transform : Component
+	namespace Engine
 	{
-	public:
-		glm::vec3 position;
-		glm::vec4 rotation;
-		glm::vec3 scale;
+		struct Transform : Component
+		{
+		public:
+			glm::vec3 position;
+			glm::vec4 rotation;
+			glm::vec3 scale;
 
-	private:
-		virtual void Update();
-		virtual void PhysicsUpdate();
+		private:
+			virtual void Update();
+			virtual void PhysicsUpdate();
 
-	public:
-		Transform();
-	};
-}
+		public:
+			Transform();
+		};
+	}
+#endif

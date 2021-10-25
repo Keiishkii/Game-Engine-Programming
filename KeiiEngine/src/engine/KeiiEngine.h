@@ -1,8 +1,6 @@
 #pragma once
 #ifndef ENGINE_KEIIENGINE
 #define ENGINE_KEIIENGINE
-	#include <memory>
-
 	#include "Core.h"
 	#include "Debugger.h"
 	#include "Time.h"
