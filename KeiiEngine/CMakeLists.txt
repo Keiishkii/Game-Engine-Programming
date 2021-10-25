@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.6)
 project(KEIIENGINE)
 
 
@@ -79,6 +79,8 @@ target_link_libraries(game keiiengine)
 
 # Tidy up project
 
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT game)
+
 if(MSVC_IDE)
 	# Macro to preserve source files hierarchy in the IDE
 	macro(GroupSources curdir)
@@ -99,8 +101,10 @@ if(MSVC_IDE)
 	GroupSources(src)
 endif()
 
+Message (\n Message: Hello \n)
+
 if(WIN32)
-	configure_file(dlls/SDL2.dll SDL2.dll COPYONLY)
-	configure_file(dlls/libfbxsdk.dll libfbxsdk.dll COPYONLY)
-	configure_file(dlls/glew32.dll glew32.dll COPYONLY)
+	configure_file(contrib/SDL2/lib/x64/SDL2.dll SDL2.dll COPYONLY)
+	configure_file(contrib/FBXSDK/lib/vs2017/x64/debug/libfbxsdk.dll libfbxsdk.dll COPYONLY)
+	configure_file(contrib/glew/bin/Release/x64/glew32.dll glew32.dll COPYONLY)
 endif()
