@@ -3,21 +3,29 @@
 #include <thread>
 #include <cmath>
 #include <iostream>
+#include <SDL.h>
 
 #include "Core.h"
 #include "Entity.h"
 #include "Time.h"
 #include "Debugger.h"
 
-#include <SDL2/SDL.h>
-
+#define WINDOW_WIDTH 800	
+#define WINDOW_HEIGHT 600
 
 std::shared_ptr<Engine::Core> Engine::Core::Initialise()
 {
 	std::shared_ptr<Engine::Core> core = std::make_shared<Engine::Core>();
+
+	core->_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Graphics Program", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
 	core->_debugger = std::make_shared<Debugger>();
 
 	return core;
+}
+
+Engine::Core::~Core()
+{
+	SDL_DestroyWindow(*_window);
 }
 
 void Engine::Core::Start()

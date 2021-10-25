@@ -1,5 +1,11 @@
 #include "Entity.h"
-#include "Component.h"
+#include "components/Component.h"
+#include "components/Transform.h"
+
+Engine::Entity::Entity()
+{
+	_transform = AddComponent<Transform>();
+}
 
 std::shared_ptr<Engine::Entity> Engine::Entity::Initialise(std::weak_ptr<Core> corePtr)
 {

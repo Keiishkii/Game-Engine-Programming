@@ -1,5 +1,9 @@
+#pragma once
 #include <memory>
 #include <vector>
+
+#include <SDL.h>
+
 
 namespace Engine
 {
@@ -11,6 +15,7 @@ namespace Engine
 		std::weak_ptr<Core> _self;
 
 		std::shared_ptr<Debugger> _debugger;
+		std::shared_ptr<SDL_Window*> _window;
 		std::vector<std::shared_ptr<Entity>> _entityList;
 
 		int targetUpdatesPerSecond;
@@ -24,6 +29,8 @@ namespace Engine
 
 	public:
 		static std::shared_ptr<Core> Initialise();
+
+		~Core();
 
 		void Start();
 		void Stop();
