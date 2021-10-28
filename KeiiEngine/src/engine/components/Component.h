@@ -24,6 +24,7 @@
 			static std::shared_ptr<Component> Initialise(std::weak_ptr<Entity> entityPtr);
 
 			virtual void Update();
+			virtual void Render();
 			virtual void PhysicsUpdate();
 		};
 	}

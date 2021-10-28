@@ -12,5 +12,6 @@ std::shared_ptr<Engine::Component> Engine::Component::Initialise(std::weak_ptr<E
 	return component;
 }
 
+void Engine::Component::Render() { }
 void Engine::Component::Update() { }
 void Engine::Component::PhysicsUpdate() { }

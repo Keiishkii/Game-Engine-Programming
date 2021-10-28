@@ -17,6 +17,14 @@ std::shared_ptr<Engine::Entity> Engine::Entity::Initialise(std::weak_ptr<Core> c
 	return entity;
 }
 
+void Engine::Entity::Render()
+{
+	for (int i = 0; i < componentList.size(); i++)
+	{
+		componentList[i]->Render();
+	}
+}
+
 void Engine::Entity::Update()
 {
 	for (int i = 0; i < componentList.size(); i++)

@@ -17,7 +17,7 @@ if(MSVC)
 	link_directories(
  		${CMAKE_SOURCE_DIR}/contrib/SDL2/lib/x64
  		${CMAKE_SOURCE_DIR}/contrib/glew/lib/Release/x64
- 		${CMAKE_SOURCE_DIR}/contrib/FBXSDK/lib/vs2017/x64/debug
+ 		${CMAKE_SOURCE_DIR}/contrib/FBXSDK/lib/vs2017/x64/release
 	)
 else()
  	#Linux, Emscripten, macOS equivalents
@@ -29,8 +29,6 @@ if(MSVC)
 	add_definitions(-DSDL_MAIN_HANDLED)
 endif()
 
-
-add_library(glm "contrib/glm/glm.hpp")
 add_library(keiiengine
 	src/engine/Main.cpp
 
@@ -59,6 +57,9 @@ add_library(keiiengine
 
 	src/engine/components/Transform.cpp
 	src/engine/components/Transform.h
+
+	src/engine/components/Camera.cpp
+	src/engine/components/Camera.h
 )
 
 
@@ -79,9 +80,9 @@ target_link_libraries(game keiiengine)
 
 # Tidy up project
 
-set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT game)
-
-if(MSVC_IDE)
+if(MSVC)
+	set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT game)
+	
 	# Macro to preserve source files hierarchy in the IDE
 	macro(GroupSources curdir)
 		file(GLOB children RELATIVE ${PROJECT_SOURCE_DIR}/${curdir} ${PROJECT_SOURCE_DIR}/${curdir}/*)

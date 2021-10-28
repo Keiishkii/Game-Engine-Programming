@@ -7,6 +7,7 @@
 
 #include "Core.h"
 #include "Entity.h"
+#include "components/Camera.h"
 #include "Time.h"
 #include "Debugger.h"
 
@@ -45,10 +46,8 @@ void Engine::Core::MainLoop()
 	std::chrono::steady_clock::time_point frameStart = std::chrono::steady_clock::now();
 
 	while (running)
-	{
-		
+	{		
 		Update();
-		_debugger->LogUpdate();
 
 		int physicsCycles = timeClass->CheckForFixedUpdates();
 		for (int i = 0; i < physicsCycles; i++)
@@ -57,7 +56,25 @@ void Engine::Core::MainLoop()
 			_debugger->LogFixedUpdate();
 		}
 
+		Render();
 		timeClass->WaitForEndOfFrame();
+
+		_debugger->LogUpdate();
+	}
+}
+
+void Engine::Core::Render()
+{
+	//
+
+	std::cout << " - Render" << std::endl;
+	for (int i = 0; i < _cameraList.size(); i++)
+	{
+		_activeCamera = _cameraList[i];
+		for (int i = 0; i < _entityList.size(); i++)
+		{
+			_entityList[i]->Render();
+		}
 	}
 }
 

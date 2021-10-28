@@ -26,6 +26,7 @@
 			static std::shared_ptr<Entity> Initialise(std::weak_ptr<Core> corePtr);
 		
 			void Update();
+			void Render();
 			void PhysicsUpdate();
 
 		public:
