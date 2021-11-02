@@ -33,9 +33,13 @@ add_library(keiiengine
 	src/engine/Main.cpp
 
 	src/engine/KeiiEngine.h
+
+		#Error Handling
+	src/engine/error-handling/Exception.cpp
+	src/engine/error-handling/Exception.h
 	
-	src/engine/Debugger.cpp
-	src/engine/Debugger.h
+	src/engine/error-handling/Debugger.cpp
+	src/engine/error-handling/Debugger.h
 
 		#Core
 	src/engine/Core.cpp
@@ -60,6 +64,22 @@ add_library(keiiengine
 
 	src/engine/components/Camera.cpp
 	src/engine/components/Camera.h
+	
+		#Resources
+	src/engine/resources/Resources.cpp
+	src/engine/resources/Resources.h
+
+	src/engine/resources/Resource.cpp
+	src/engine/resources/Resource.h
+
+	src/engine/resources/Model.cpp
+	src/engine/resources/Model.h
+
+	src/engine/resources/Texture.cpp
+	src/engine/resources/Texture.h
+
+	src/engine/resources/Sound.cpp
+	src/engine/resources/Sound.h
 )
 
 

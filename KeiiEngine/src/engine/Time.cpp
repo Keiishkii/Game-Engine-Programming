@@ -79,8 +79,6 @@ void Engine::Time::WaitForEndOfFrame()
 	timeElapsed = timeAfterSleep - _timeOfPreviousFrameEnd;
 	_deltaTime = timeElapsed.count();
 
-	//std::cout << "FPS: " << (1 / _deltaTime) << std::endl;
-
 	_timeOfPreviousFrameEnd = timeAfterSleep;
 }
 

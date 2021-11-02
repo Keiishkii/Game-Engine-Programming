@@ -35,7 +35,7 @@
 			template <typename T>
 			std::shared_ptr<T> AddComponent()
 			{
-				std::shared_ptr<T> component = std::make_shared<T>();
+				std::shared_ptr<T> component = T::Initialise(_self);
 				componentList.push_back(component);
 
 				return component;

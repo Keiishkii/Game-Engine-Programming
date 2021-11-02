@@ -3,13 +3,13 @@
 #define CORE
 	#include <memory>
 	#include <vector>
-
 	#include <SDL.h>
 
+	#include "error-handling/Debugger.h"
+	#include "resources/Resources.h"
 
 	namespace Engine
 	{
-		struct Debugger;
 		struct Camera;
 		struct Entity;
 
@@ -18,8 +18,9 @@
 		private:
 			std::weak_ptr<Core> _self;
 
-			std::shared_ptr<Debugger> _debugger;
+			std::shared_ptr<Engine::ErrorHandling::Debugger> _debugger;
 			std::shared_ptr<SDL_Window*> _window;
+
 			std::vector<std::shared_ptr<Entity>> _entityList;
 
 			std::vector<std::weak_ptr<Camera>> _cameraList;
@@ -27,9 +28,13 @@
 
 			int targetUpdatesPerSecond;
 			bool running;
+			
+		public:
+			std::shared_ptr<Engine::ResourceManagement::Resources> resources;
 
 		private:
 			void MainLoop();
+			void SDLInitialisation();
 
 			void Render();
 			void Update();

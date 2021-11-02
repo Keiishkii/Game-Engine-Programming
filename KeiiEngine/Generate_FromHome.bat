@@ -3,6 +3,6 @@ cmake --version
 
 mkdir build
 cd build
-cmake ..
+cmake -A x64 ..
 
 pause
