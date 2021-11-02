@@ -140,8 +140,6 @@ std::shared_ptr<Engine::Entity> Engine::Core::AddEntity()
 {
 	std::shared_ptr<Engine::Entity> entity = Entity::Initialise(_self);;
 	_entityList.push_back(entity);
-
 	
-
 	return entity;
 }

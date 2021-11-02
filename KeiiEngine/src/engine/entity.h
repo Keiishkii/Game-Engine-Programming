@@ -13,6 +13,7 @@
 		struct Entity
 		{
 			friend Engine::Core;
+
 		private:
 			std::weak_ptr<Entity> _self;
 			std::weak_ptr<Transform> _transform;
@@ -30,12 +31,12 @@
 			void PhysicsUpdate();
 
 		public:
-			Entity();
-
 			template <typename T>
 			std::shared_ptr<T> AddComponent()
 			{
-				std::shared_ptr<T> component = T::Initialise(_self);
+				std::shared_ptr<T> component = std::make_shared<T>();
+				component->Initialise(component, _self);
+
 				componentList.push_back(component);
 
 				return component;

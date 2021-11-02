@@ -11,9 +11,8 @@
 		{
 			friend Engine::Entity;
 
-		private:
+		protected:
 			std::weak_ptr<Component> _self;
-
 			std::weak_ptr<float> _deltaTimePtr;
 
 		public:
@@ -21,11 +20,12 @@
 			std::weak_ptr<Engine::Core> corePtr;
 
 		private:
-			static std::shared_ptr<Component> Initialise(std::weak_ptr<Entity> entityPtr);
-
 			virtual void Update();
 			virtual void Render();
 			virtual void PhysicsUpdate();
+
+		public:
+			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr);
 		};
 	}
 #endif

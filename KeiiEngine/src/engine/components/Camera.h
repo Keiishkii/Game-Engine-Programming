@@ -16,9 +16,9 @@ namespace Engine
 	private:
 		virtual void Update();
 		virtual void PhysicsUpdate();
-
+		
 	public:
-		Camera();
+		virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr) override;
 	};
 }
 #endif

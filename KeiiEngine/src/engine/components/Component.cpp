@@ -1,15 +1,13 @@
 #include "Component.h"
 #include "engine/Entity.h"
 
-std::shared_ptr<Engine::Component> Engine::Component::Initialise(std::weak_ptr<Engine::Entity> entityPtr)
+void Engine::Component::Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr)
 {
-	std::shared_ptr<Component> component = std::make_shared<Component>();
+	std::shared_ptr<Component> component = self.lock();
 
-	component->_self = component;
+	component->_self = self;
 	component->entityPtr = entityPtr;
 	component->corePtr = entityPtr.lock()->corePtr;
-	
-	return component;
 }
 
 void Engine::Component::Render() { }
