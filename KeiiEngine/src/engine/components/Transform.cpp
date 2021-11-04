@@ -23,7 +23,7 @@ void Engine::Transform::Update()
 {
 	std::cout << "Transform:" << std::endl;
 	std::cout << "		 - Position:	{" << position.x << ", " << position.y << ", " << position.z << "}" << std::endl;
-	std::cout << "		 - Rotation:	{" << rotation.x << ", " << rotation.y << ", " << rotation.z << ", " << rotation.w << "}" << std::endl;
+	std::cout << "		 - Rotation:	{" << rotation.w << ", " << rotation.x << ", " << rotation.y << ", " << rotation.z << "}" << std::endl;
 	std::cout << "		 - Scale:	{" << scale.x << ", " << scale.y << ", " << scale.z << "}" << std::endl;
 }
 

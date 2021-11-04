@@ -14,10 +14,11 @@ namespace Engine
 		struct Resources
 		{
 		private:
+			std::string _resourceLocation;
 			std::map<std::string, std::shared_ptr<Resource>> _loadedAssets;
 
 		public:
-			void Load(std::string assetPath);
+			std::shared_ptr<Resource> FindAsset(std::string assetPath);
 		};
 	}
 }

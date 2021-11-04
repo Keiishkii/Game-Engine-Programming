@@ -30,8 +30,6 @@ if(MSVC)
 endif()
 
 add_library(keiiengine
-	src/engine/Main.cpp
-
 	src/engine/KeiiEngine.h
 
 		#Error Handling
@@ -72,6 +70,9 @@ add_library(keiiengine
 	src/engine/resources/Resource.cpp
 	src/engine/resources/Resource.h
 
+	src/engine/resources/ShaderProgram.cpp
+	src/engine/resources/ShaderProgram.h
+
 	src/engine/resources/Model.cpp
 	src/engine/resources/Model.h
 
@@ -91,7 +92,7 @@ target_link_libraries(keiiengine
 )
 
 add_executable(game
-	src/engine/main.cpp
+	src/game/Main.cpp
 )
 
 target_link_libraries(game keiiengine)
