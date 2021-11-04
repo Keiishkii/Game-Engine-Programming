@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Camera.h"
+#include "Transform.h"
 #include "engine/entity.h"
 
 void Engine::Camera::Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPointer)
