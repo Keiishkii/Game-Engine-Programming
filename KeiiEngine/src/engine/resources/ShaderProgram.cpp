@@ -32,8 +32,6 @@ namespace Engine
 			GLuint fragmentShaderID = 0;
 			GenerateFragmentShader(fileContent, fragmentShaderID);
 
-			//std::cout << "Vertex Shader ID: " << vertexShaderID << ", Fragment Shader ID: " << fragmentShaderID << std::endl;
-
 			GLuint programId = glCreateProgram();
 
 			glAttachShader(programId, vertexShaderID);
@@ -125,7 +123,9 @@ namespace Engine
 					words.push_back(word);
 				}
 				
-				glBindAttribLocation(programID, 1, words[words.size() - 1].c_str());
+				std::string attribute = words[words.size() - 1];
+
+				glBindAttribLocation(programID, 1, attribute.substr(0, attribute.size() - 1).c_str());
 			}
 		}
 

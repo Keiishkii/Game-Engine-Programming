@@ -9,6 +9,8 @@
 		{
 			struct Model : Resource
 			{
+			private:
+				virtual void Load(std::string path) override;
 			};
 		}
 	}
