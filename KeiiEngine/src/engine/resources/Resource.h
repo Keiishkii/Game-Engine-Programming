@@ -1,13 +1,13 @@
 #pragma once
 #ifndef RESOURCE
 #define RESOURCE
+	#include <string>
+	#include <memory>
 
 namespace Engine
 {
 	namespace ResourceManagement
-	{
-		#include <string>
-		
+	{		
 		struct Resource
 		{
 		public:
@@ -15,4 +15,5 @@ namespace Engine
 		};
 	}
 }
+
 #endif

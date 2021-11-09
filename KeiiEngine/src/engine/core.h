@@ -8,47 +8,49 @@
 	#include "error-handling/Debugger.h"
 	#include "resources/Resources.h"
 
-	namespace Engine
+namespace Engine
+{
+	struct Camera;
+	struct Entity;
+
+	struct Core
 	{
-		struct Camera;
-		struct Entity;
+	private:
+		std::weak_ptr<Core> _self;
 
-		struct Core
-		{
-		private:
-			std::weak_ptr<Core> _self;
+		std::shared_ptr<ResourceManagement::Resources> _resources;
+		std::shared_ptr<ErrorHandling::Debugger> _debugger;
+		std::shared_ptr<SDL_Window*> _window;
 
-			std::shared_ptr<Engine::ErrorHandling::Debugger> _debugger;
-			std::shared_ptr<SDL_Window*> _window;
+		std::vector<std::shared_ptr<Entity>> _entityList;
 
-			std::vector<std::shared_ptr<Entity>> _entityList;
+		std::vector<std::weak_ptr<Camera>> _cameraList;
+		std::weak_ptr<Camera> _activeCamera;
 
-			std::vector<std::weak_ptr<Camera>> _cameraList;
-			std::weak_ptr<Camera> _activeCamera;
+		int targetUpdatesPerSecond;
+		bool running;
 
-			int targetUpdatesPerSecond;
-			bool running;
-			
-		public:
-			std::shared_ptr<Engine::ResourceManagement::Resources> resources;
 
-		private:
-			void MainLoop();
-			void SDLInitialisation();
+	private:
+		void MainLoop();
+		void SDLInitialisation();
 
-			void Render();
-			void Update();
-			void PhysicsUpdate();
+		void Render();
+		void Update();
+		void PhysicsUpdate();
 
-		public:
-			static std::shared_ptr<Core> Initialise();
+	public:
+		~Core();
+		static std::shared_ptr<Core> Initialise();
 
-			~Core();
+		std::shared_ptr<ResourceManagement::Resources> ResourceManager();
+		std::shared_ptr<ErrorHandling::Debugger> Debugger();
 
-			void Start();
-			void Stop();
+		void Start();
+		void Stop();
 
-			std::shared_ptr<Entity> AddEntity();
-		};
-	}
+		std::shared_ptr<Entity> AddEntity();
+	};
+}
+
 #endif

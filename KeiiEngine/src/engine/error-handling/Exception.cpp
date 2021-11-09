@@ -17,6 +17,6 @@ const std::string Engine::ErrorHandling::Exception::What()
 
 void Engine::ErrorHandling::Exception::Print()
 {
-	std::cout << _errorMessage << std::endl;
+	std::cout << "\x1B[31m" << "Exception:" << "\033[0m" << " " << _errorMessage << std::endl;
 }
 

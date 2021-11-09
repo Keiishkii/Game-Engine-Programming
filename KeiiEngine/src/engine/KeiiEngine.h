@@ -11,6 +11,7 @@
 
 	#include "resources/Resources.h"
 	#include "resources/Resource.h"
+	#include "resources/ShaderProgram.h"
 	#include "resources/Model.h"
 	#include "resources/Sound.h"
 	#include "resources/Texture.h"

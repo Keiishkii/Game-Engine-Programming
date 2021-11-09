@@ -20,11 +20,15 @@ using Engine::ResourceManagement::Resources;
 
 
 
+
+std::shared_ptr<Resources> Engine::Core::ResourceManager() { return _resources; }
+std::shared_ptr<Debugger> Engine::Core::Debugger() { return _debugger; }
+
 std::shared_ptr<Engine::Core> Engine::Core::Initialise()
 {
 	std::shared_ptr<Engine::Core> core = std::make_shared<Engine::Core>();
-	core->_debugger = std::make_shared<Debugger>();
-	core->resources = std::make_shared<Resources>();
+	core->_debugger = std::make_shared<ErrorHandling::Debugger>();
+	core->_resources = std::make_shared<Resources>();
 
 	core->SDLInitialisation();
 
@@ -102,6 +106,9 @@ void Engine::Core::MainLoop()
 
 void Engine::Core::Render()
 {
+	glClearColor(0.125f, 0.4f, 1.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
 	std::cout << " - Render" << std::endl;
 	for (int i = 0; i < _cameraList.size(); i++)
 	{
@@ -111,6 +118,9 @@ void Engine::Core::Render()
 			_entityList[i]->Render();
 		}
 	}
+
+	glUseProgram(0);
+	SDL_GL_SwapWindow(*_window);
 }
 
 void Engine::Core::Update()
