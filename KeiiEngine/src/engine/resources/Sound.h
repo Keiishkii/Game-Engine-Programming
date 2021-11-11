@@ -1,15 +1,17 @@
-#pragma once
-#ifndef SOUND
-#define SOUND
-	#include "Resource.h"
+#include "Resource.h"
 
-	namespace Engine
+namespace Engine
+{
+	namespace ResourceManagement
 	{
-		namespace ResourceManagement
+		struct Sound : Resource
 		{
-			struct Sound : Resource
-			{
-			};
-		}
+		private:
+		public:
+
+
+		private:
+		public:
+		};
 	}
-#endif
+}

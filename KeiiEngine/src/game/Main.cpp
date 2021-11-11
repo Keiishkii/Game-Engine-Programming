@@ -2,7 +2,6 @@
 
 #include "engine/KeiiEngine.h"
 
-
 int main()
 {
 	std::shared_ptr<Core> core = Core::Initialise();

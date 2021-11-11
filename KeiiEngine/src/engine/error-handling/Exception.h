@@ -1,25 +1,24 @@
-#pragma once
-#ifndef EXCEPTION
-#define EXCEPTION
-	#include <exception>
-	#include <string>
+#include <exception>
+#include <string>
 
-	namespace Engine
+namespace Engine
+{
+	namespace ErrorHandling
 	{
-		namespace ErrorHandling
+		struct Exception : public std::exception
 		{
-			struct Exception : public std::exception
-			{
-			private:
-				std::string _errorMessage;
+		private:
+			std::string _errorMessage;
+		public:
 
-			public:
-				Exception(std::string errorMessage);
-				~Exception() throw();
 
-				const std::string What();
-				void Print();
-			};
-		}
+		private:
+		public:
+			Exception(std::string errorMessage);
+			~Exception() throw();
+
+			const std::string What();
+			void Print();
+		};
 	}
-#endif
+}

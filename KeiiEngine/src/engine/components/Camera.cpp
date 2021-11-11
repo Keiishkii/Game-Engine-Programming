@@ -4,21 +4,20 @@
 #include "Transform.h"
 #include "engine/entity.h"
 
-void Engine::Camera::Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPointer)
+namespace Engine
 {
-	std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(self.lock());
+	namespace Components
+	{
+		void Camera::Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPointer)
+		{
+			std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(self.lock());
 
-	_self = self;
-	entityPtr = entityPointer;
-	corePtr = entityPointer.lock()->corePtr;
-}
+			_self = self;
+			entityPtr = entityPointer;
+			corePtr = entityPointer.lock()->corePtr;
+		}
 
-void Engine::Camera::Update()
-{
-
-}
-
-void Engine::Camera::PhysicsUpdate()
-{
-
+		void Camera::Update() { }
+		void Camera::PhysicsUpdate() { }
+	}
 }

@@ -123,10 +123,10 @@ if(MSVC)
 	GroupSources(src)
 endif()
 
-Message (\n Message: Hello \n)
-
 if(WIN32)
 	configure_file(contrib/SDL2/lib/x64/SDL2.dll SDL2.dll COPYONLY)
 	configure_file(contrib/FBXSDK/lib/vs2017/x64/debug/libfbxsdk.dll libfbxsdk.dll COPYONLY)
 	configure_file(contrib/glew/bin/Release/x64/glew32.dll glew32.dll COPYONLY)
 endif()
+
+Message (\n Build  Succesful \n)

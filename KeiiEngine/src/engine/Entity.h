@@ -1,23 +1,24 @@
-#pragma once
-#ifndef ENTITY
-#define ENTITY
-	#include <memory>
-	#include <vector>
+#include <memory>
+#include <vector>
 
 namespace Engine
 {
 	struct Core;
-	struct Component;
-	struct Transform;
+	namespace Components
+	{
+		struct Component;
+		struct Transform;
+	}
+	
 	struct Entity
 	{
 		friend Engine::Core;
 
 	private:
 		std::weak_ptr<Entity> _self;
-		std::weak_ptr<Transform> _transform;
+		std::weak_ptr<Components::Transform> _transform;
 
-		std::vector<std::shared_ptr<Component>> componentList;
+		std::vector<std::shared_ptr<Components::Component>> componentList;
 
 	public:
 		std::weak_ptr<Engine::Core> corePtr;
@@ -42,5 +43,3 @@ namespace Engine
 		}
 	};
 }
-
-#endif

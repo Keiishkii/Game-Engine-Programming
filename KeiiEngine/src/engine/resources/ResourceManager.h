@@ -1,11 +1,8 @@
-#pragma once
-#ifndef RESOURCES_H
-#define RESOURCES_H
-	#include <memory>
-	#include <string>
-	#include <fstream>
-	#include <map>
-	#include <fbxsdk.h>
+#include <memory>
+#include <string>
+#include <fstream>
+#include <map>
+#include <fbxsdk.h>
 
 namespace Engine
 {
@@ -24,12 +21,13 @@ namespace Engine
 
 			bool _resourceLocationFound = false;
 			std::string _resourceLocation;
-			std::map<std::string, std::shared_ptr<Resource>> _loadedAssets;
-			
+			std::map<std::string, std::shared_ptr<Resource>> _loadedAssets;		
+		public:
+
+
 		private:
 			bool FindResourceFolder();
 			void FBXInitialisation();
-
 		public:
 			void Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Core> corePtr);
 
@@ -88,5 +86,3 @@ namespace Engine
 		};
 	}
 }
-
-#endif

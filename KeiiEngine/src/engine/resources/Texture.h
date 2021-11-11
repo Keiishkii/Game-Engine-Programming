@@ -1,15 +1,17 @@
-#pragma once
-#ifndef TEXTURE
-#define TEXTURE
-	#include "Resource.h"
+#include "Resource.h"
 
-	namespace Engine
+namespace Engine
+{
+	namespace ResourceManagement
 	{
-		namespace ResourceManagement
+		struct Texture : Resource
 		{
-			struct Texture : Resource
-			{
-			};
-		}
+		private:
+		public:
+
+
+		private:
+		public:
+		};
 	}
-#endif
+}

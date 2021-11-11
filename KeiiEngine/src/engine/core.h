@@ -1,21 +1,14 @@
-#pragma once
-#ifndef CORE
-#define CORE
-	#include <memory>
-	#include <vector>
-	#include <SDL.h>
-
-	#include "error-handling/Debugger.h"
+#include <memory>
+#include <vector>
+#include <SDL.h>
 
 namespace Engine
 {
-	struct Camera;
-	struct Entity;
+	namespace ResourceManagement { struct ResourceManager; }
+	namespace ErrorHandling { struct Debugger; }
 
-	namespace ResourceManagement
-	{
-		struct ResourceManager;
-	}
+	struct Entity;
+	namespace Components { struct Camera; }
 
 	struct Core
 	{
@@ -28,11 +21,10 @@ namespace Engine
 
 		std::vector<std::shared_ptr<Entity>> _entityList;
 
-		std::vector<std::weak_ptr<Camera>> _cameraList;
-		std::weak_ptr<Camera> _activeCamera;
+		std::vector<std::weak_ptr<Components::Camera>> _cameraList;
+		std::weak_ptr<Components::Camera> _activeCamera;
 
-		int targetUpdatesPerSecond;
-		bool running;
+		bool _running;
 
 
 	private:
@@ -56,5 +48,3 @@ namespace Engine
 		std::shared_ptr<Entity> AddEntity();
 	};
 }
-
-#endif

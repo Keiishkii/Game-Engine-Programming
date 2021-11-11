@@ -1,17 +1,18 @@
-#pragma once
-#ifndef MODEL
-#define MODEL
-	#include "Resource.h"
+#include "Resource.h"
 
-	namespace Engine
+namespace Engine
+{
+	namespace ResourceManagement
 	{
-		namespace ResourceManagement
+		struct Model : Resource
 		{
-			struct Model : Resource
-			{
-			private:
-				virtual void Load(std::string path) override;
-			};
-		}
+		private:
+		public:
+
+
+		private:
+			virtual void Load(std::string path) override;
+		public:
+		};
 	}
-#endif
+}
