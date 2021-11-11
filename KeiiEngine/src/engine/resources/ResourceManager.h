@@ -1,27 +1,37 @@
 #pragma once
-#ifndef RESOURCES
-#define RESOURCES
+#ifndef RESOURCES_H
+#define RESOURCES_H
 	#include <memory>
 	#include <string>
 	#include <fstream>
 	#include <map>
+	#include <fbxsdk.h>
 
 namespace Engine
 {
+	struct Core;
+
 	namespace ResourceManagement
 	{
 		struct Resource;
-		struct Resources
+		struct ResourceManager
 		{
 		private:
-			std::shared_ptr<ResourceManagement::Resources> _resources;
+			std::weak_ptr<Core> _core;
+			std::weak_ptr<ResourceManager> _self;
+
+			std::shared_ptr<FbxManager*> _fbxManager;
 
 			bool _resourceLocationFound = false;
 			std::string _resourceLocation;
 			std::map<std::string, std::shared_ptr<Resource>> _loadedAssets;
+			
+		private:
+			bool FindResourceFolder();
+			void FBXInitialisation();
 
 		public:
-			Resources();
+			void Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Core> corePtr);
 
 			template <typename T>
 			std::shared_ptr<T> FindAsset(std::string assetPath)
@@ -55,7 +65,7 @@ namespace Engine
 
 								resourcePointer->Load(completeAssetPath);
 
-								_loadedAssets.insert(std::pair<std::string, std::shared_ptr<Resource>>(assetPath, resourcePointer));								
+								_loadedAssets.insert(std::pair<std::string, std::shared_ptr<Resource>>(assetPath, resourcePointer));
 							}
 							else
 							{
@@ -75,9 +85,6 @@ namespace Engine
 
 				return resourcePointer;
 			}
-
-		private:
-			bool FindResourceFolder();
 		};
 	}
 }

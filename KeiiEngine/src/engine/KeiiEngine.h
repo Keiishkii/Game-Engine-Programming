@@ -9,7 +9,7 @@
 	#include "error-handling/Debugger.h"
 	#include "error-handling/Exception.h"
 
-	#include "resources/Resources.h"
+	#include "resources/ResourceManager.h"
 	#include "resources/Resource.h"
 	#include "resources/ShaderProgram.h"
 	#include "resources/Model.h"

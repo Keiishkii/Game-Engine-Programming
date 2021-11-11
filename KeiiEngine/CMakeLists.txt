@@ -64,8 +64,8 @@ add_library(keiiengine
 	src/engine/components/Camera.h
 	
 		#Resources
-	src/engine/resources/Resources.cpp
-	src/engine/resources/Resources.h
+	src/engine/resources/ResourceManager.cpp
+	src/engine/resources/ResourceManager.h
 
 	src/engine/resources/Resource.cpp
 	src/engine/resources/Resource.h

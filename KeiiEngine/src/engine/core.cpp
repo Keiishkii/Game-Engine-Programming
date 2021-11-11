@@ -16,19 +16,22 @@
 using Engine::ErrorHandling::Exception;
 using Engine::ErrorHandling::Debugger;
 
-using Engine::ResourceManagement::Resources;
+using Engine::ResourceManagement::ResourceManager;
 
 
 
 
-std::shared_ptr<Resources> Engine::Core::ResourceManager() { return _resources; }
+std::shared_ptr<ResourceManager> Engine::Core::ResourceManager() { return _resources; }
 std::shared_ptr<Debugger> Engine::Core::Debugger() { return _debugger; }
 
 std::shared_ptr<Engine::Core> Engine::Core::Initialise()
 {
 	std::shared_ptr<Engine::Core> core = std::make_shared<Engine::Core>();
+	
+	core->_self = core;
 	core->_debugger = std::make_shared<ErrorHandling::Debugger>();
-	core->_resources = std::make_shared<Resources>();
+	core->_resources = std::make_shared<ResourceManagement::ResourceManager>();
+	core->_resources->Initialise(core->_resources, core);
 
 	core->SDLInitialisation();
 

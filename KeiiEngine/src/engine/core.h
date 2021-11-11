@@ -6,19 +6,23 @@
 	#include <SDL.h>
 
 	#include "error-handling/Debugger.h"
-	#include "resources/Resources.h"
 
 namespace Engine
 {
 	struct Camera;
 	struct Entity;
 
+	namespace ResourceManagement
+	{
+		struct ResourceManager;
+	}
+
 	struct Core
 	{
 	private:
 		std::weak_ptr<Core> _self;
 
-		std::shared_ptr<ResourceManagement::Resources> _resources;
+		std::shared_ptr<ResourceManagement::ResourceManager> _resources;
 		std::shared_ptr<ErrorHandling::Debugger> _debugger;
 		std::shared_ptr<SDL_Window*> _window;
 
@@ -43,7 +47,7 @@ namespace Engine
 		~Core();
 		static std::shared_ptr<Core> Initialise();
 
-		std::shared_ptr<ResourceManagement::Resources> ResourceManager();
+		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
 
 		void Start();

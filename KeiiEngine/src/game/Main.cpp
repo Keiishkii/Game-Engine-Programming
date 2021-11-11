@@ -6,9 +6,9 @@
 int main()
 {
 	std::shared_ptr<Core> core = Core::Initialise();
-	core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("shaderprogram.glsl");
+	core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/shaderprogram.glsl");
 	
-	std::shared_ptr<ResourceManagement::ShaderProgram> shader = core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("shaderprogram.glsl");
+	std::shared_ptr<ResourceManagement::ShaderProgram> shader = core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/shaderprogram.glsl");
 	std::cout << " - ShaderID: " << shader->GetShaderID() << std::endl;
 
 	//std::shared_ptr<Entity> entity = core->AddEntity();

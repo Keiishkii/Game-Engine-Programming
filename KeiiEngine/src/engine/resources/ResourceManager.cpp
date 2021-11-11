@@ -1,20 +1,31 @@
-#include "Resources.h"
+#include "ResourceManager.h"
 #include "Resource.h"
 #include "ShaderProgram.h"
 #include "engine/error-handling/Exception.h"
+#include "engine/core.h"
 
 #include <Windows.h>
 #include <filesystem>
 #include <memory>
 #include <iostream>
 #include <fstream>
+#include <fbxsdk.h>
+
+using Engine::ErrorHandling::Exception;
+
+
 
 namespace Engine
 {
 	namespace ResourceManagement
 	{
-		Resources::Resources()
+		void ResourceManager::Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Engine::Core> corePtr)
 		{
+			std::shared_ptr<ResourceManager> resourceManager = self.lock();
+
+			resourceManager->_self = self;
+			resourceManager->_core = corePtr;
+
 			try
 			{
 				if (!FindResourceFolder())
@@ -28,7 +39,32 @@ namespace Engine
 			}
 		}
 
-		bool Resources::FindResourceFolder()
+		void ResourceManager::FBXInitialisation()
+		{
+			_fbxManager = std::make_shared<FbxManager*>(FbxManager::Create());
+
+			try
+			{
+				if (!_fbxManager)
+				{
+					throw Exception("Failed to set relative mouse position");
+				}
+				else
+				{
+					FbxIOSettings* ios = FbxIOSettings::Create(*_fbxManager, IOSROOT);
+					(*_fbxManager)->SetIOSettings(ios);
+
+					FbxString lPath = FbxGetApplicationDirectory();
+					(*_fbxManager)->LoadPluginsDirectory(lPath.Buffer());
+				}
+			}
+			catch (ErrorHandling::Exception e)
+			{
+				e.Print();
+			}
+		}
+
+		bool ResourceManager::FindResourceFolder()
 		{
 			char executablePathAsArray[_MAX_PATH];
 			GetModuleFileName(NULL, executablePathAsArray, _MAX_PATH - 1);
