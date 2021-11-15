@@ -19,6 +19,13 @@ namespace Engine
 {
 	namespace ResourceManagement
 	{
+		ResourceManager::~ResourceManager()
+		{
+			(*_fbxManager)->Destroy();
+		}
+
+		std::shared_ptr<FbxManager*> ResourceManager::FBXManager() { return _fbxManager; }
+
 		void ResourceManager::Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Engine::Core> corePtr)
 		{
 			std::shared_ptr<ResourceManager> resourceManager = self.lock();
@@ -37,6 +44,8 @@ namespace Engine
 			{
 				e.Print();
 			}
+
+			FBXInitialisation();
 		}
 
 		void ResourceManager::FBXInitialisation()

@@ -30,11 +30,15 @@ namespace Engine
 			void FBXInitialisation();
 		public:
 			void Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Core> corePtr);
+			~ResourceManager();
+
+			std::shared_ptr<FbxManager*> FBXManager();
 
 			template <typename T>
 			std::shared_ptr<T> FindAsset(std::string assetPath)
 			{
 				std::shared_ptr<T> resourcePointer = std::make_shared<T>();
+				resourcePointer->Initialise(_self);
 
 				try
 				{

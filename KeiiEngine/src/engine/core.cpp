@@ -71,6 +71,7 @@ namespace Engine
 	Core::~Core()
 	{
 		SDL_DestroyWindow(*_window);
+		SDL_Quit();
 	}
 
 	void Core::Start()

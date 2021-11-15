@@ -25,6 +25,7 @@ namespace Engine
 		std::weak_ptr<Components::Camera> _activeCamera;
 
 		bool _running;
+	public:
 
 
 	private:

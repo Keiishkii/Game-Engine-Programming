@@ -39,6 +39,7 @@ add_library(keiiengine
 	src/engine/error-handling/Debugger.cpp
 	src/engine/error-handling/Debugger.h
 
+
 		#Core
 	src/engine/Core.cpp
 	src/engine/Core.h
@@ -49,9 +50,22 @@ add_library(keiiengine
 	src/engine/Time.cpp
 	src/engine/Time.h
 
+
+		#Graphics
+	src/engine/graphics/VertexBuffer.cpp
+	src/engine/graphics/VertexBuffer.h
+	
+	src/engine/graphics/VertexArray.cpp
+	src/engine/graphics/VertexArray.h
+	
+	src/engine/graphics/PolygonMaterialGroup.cpp
+	src/engine/graphics/PolygonMaterialGroup.h
+		
+		
 		#Entitys
 	src/engine/Entity.cpp
 	src/engine/Entity.h
+		
 		
 		#Components
 	src/engine/components/Component.cpp
@@ -62,6 +76,7 @@ add_library(keiiengine
 
 	src/engine/components/Camera.cpp
 	src/engine/components/Camera.h
+	
 	
 		#Resources
 	src/engine/resources/ResourceManager.cpp

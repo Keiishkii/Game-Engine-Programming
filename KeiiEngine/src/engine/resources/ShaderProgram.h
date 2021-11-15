@@ -21,6 +21,7 @@ namespace Engine
 			void GenerateShaderAttributes(GLuint programID, std::string path);
 		public:
 			virtual void Load(std::string path) override;
+
 			GLuint& GetShaderID();
 		};
 	}

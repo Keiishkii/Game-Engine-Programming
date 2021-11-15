@@ -1,18 +1,50 @@
+#include <fbxsdk.h>
+#include <map>
+#include <vector>
+#include <glm/vec3.hpp>
+
 #include "Resource.h"
 
 namespace Engine
 {
+	namespace Graphics { struct PolygonMaterialGroup; }
+	namespace Graphics { struct VertexBuffer; }
+
 	namespace ResourceManagement
 	{
+		struct ResourceManager;
+
 		struct Model : Resource
 		{
 		private:
+			std::shared_ptr<FbxManager*> _fbxManager;
+
+			int _totalVertexCount;
+
+			std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>> _polygonMaterialGroups;
+			//std::vector<>
 		public:
 
 
 		private:
-			virtual void Load(std::string path) override;
+			bool LoadScene(FbxManager* pManager, FbxDocument* pScene, const char* pFilename);
+			void ProbeNode(FbxNode* _node);
+
+			void AppendVertexPositionData(FbxMesh* mesh);
+			void AppendTexutreUVData(FbxMesh* mesh);
+			void AppendMaterialData(FbxMesh* mesh);
+
+			void UnpackMesh(FbxMesh* mesh);
+			int GetPolygonMaterial(FbxMesh* mesh, int polygonIndex);
+			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialID);
+
 		public:
+			virtual void Initialise(std::weak_ptr<ResourceManager> resourceManager) override;
+			virtual void Load(std::string path) override;
+
+			int TotalVertexCount();
+			int TotalMaterialGroups();
+			std::shared_ptr<Graphics::PolygonMaterialGroup> GetPolygonMaterialGroup(int materialIndex);
 		};
 	}
 }
