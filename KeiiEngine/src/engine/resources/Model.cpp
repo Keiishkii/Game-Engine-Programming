@@ -2,6 +2,7 @@
 #include <glm/vec3.hpp>
 
 #include "Model.h"
+#include "engine/graphics/VertexArray.h"
 #include "ResourceManager.h"
 #include "engine/graphics/PolygonMaterialGroup.h"
 #include "engine/graphics/VertexBuffer.h"
@@ -71,6 +72,13 @@ namespace Engine
 					else
 					{
 						ProbeNode(routeNode);
+
+						for (std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>>::iterator it = _polygonMaterialGroups.begin(); it != _polygonMaterialGroups.end(); it++)
+						{
+							std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = it->second;
+
+							polygonMaterialGroup->_materialGroupVertexArray->setVertexCount(polygonMaterialGroup->VertexCount());
+						}
 					}
                 }
             }
@@ -128,6 +136,8 @@ namespace Engine
 
 				AddToPolygonMaterialGroup(mesh, i, materialIndex);
 			}
+
+
 		}
 
 		int Model::GetPolygonMaterial(FbxMesh* mesh, int polygonIndex)
@@ -155,10 +165,10 @@ namespace Engine
 				mesh->GetPolygonVertexNormal(polygonIndex, v, normal);
 
 				glm::vec3 vertexPosition(controlPoint.mData[0], controlPoint.mData[1], controlPoint.mData[2]);
-				polygonMaterialGroup->vertexPositions->add(vertexPosition);
+				polygonMaterialGroup->vertexPositionBuffer->add(vertexPosition);
 
 				glm::vec3 vertexNormal(normal.mData[0], normal.mData[1], normal.mData[2]);
-				polygonMaterialGroup->vertexNormals->add(vertexNormal);
+				polygonMaterialGroup->vertexNormalBuffer->add(vertexNormal);
 
 				_totalVertexCount++;
 				polygonMaterialGroup->_vertexCount++;

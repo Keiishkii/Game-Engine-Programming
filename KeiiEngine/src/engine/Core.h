@@ -12,6 +12,8 @@ namespace Engine
 
 	struct Core
 	{
+		friend Components::Camera;
+
 	private:
 		std::weak_ptr<Core> _self;
 

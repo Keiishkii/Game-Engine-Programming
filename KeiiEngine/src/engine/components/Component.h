@@ -22,8 +22,8 @@ namespace Engine
 
 		private:
 			virtual void Update();
-			virtual void Render();
 			virtual void PhysicsUpdate();
+			virtual void Render();
 		public:
 			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr);
 		};

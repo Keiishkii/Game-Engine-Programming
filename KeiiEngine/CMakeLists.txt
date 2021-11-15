@@ -77,6 +77,9 @@ add_library(keiiengine
 	src/engine/components/Camera.cpp
 	src/engine/components/Camera.h
 	
+	src/engine/components/MeshRenderer.cpp
+	src/engine/components/MeshRenderer.h
+	
 	
 		#Resources
 	src/engine/resources/ResourceManager.cpp

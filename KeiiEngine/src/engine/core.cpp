@@ -108,13 +108,22 @@ namespace Engine
 
 	void Core::Render()
 	{
+		int width = 0, height = 0;
+		SDL_GetWindowSize(*_window, &width, &height);
+
+		glViewport(0, 0, width, height);
+
 		glClearColor(0.125f, 0.4f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_CULL_FACE);
 
 		std::cout << " - Render" << std::endl;
 		for (int i = 0; i < _cameraList.size(); i++)
 		{
 			_activeCamera = _cameraList[i];
+			_cameraList[i].lock()->GenerateNewProjectionMatrix(width, height);
+
 			for (int i = 0; i < _entityList.size(); i++)
 			{
 				_entityList[i]->Render();

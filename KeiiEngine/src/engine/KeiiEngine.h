@@ -22,6 +22,7 @@
 	#include "components/Component.h"
 	#include "components/Transform.h"
 	#include "components/Camera.h"
+	#include "components/MeshRenderer.h"
 
 // Graphics
 	#include "graphics/PolygonMaterialGroup.h"

@@ -1,4 +1,5 @@
 #include "VertexBuffer.h"
+#include "VertexArray.h"
 #include "PolygonMaterialGroup.h"
 
 namespace Engine
@@ -8,10 +9,11 @@ namespace Engine
 		PolygonMaterialGroup::PolygonMaterialGroup()
 		{
 			_vertexCount = 0;
+			_materialGroupVertexArray = std::make_shared<VertexArray>();
 
-			vertexPositions = std::make_shared<VertexBuffer>();
-			vertexNormals = std::make_shared<VertexBuffer>();
-			textureUVs = std::make_shared<VertexBuffer>();
+			vertexPositionBuffer = std::make_shared<VertexBuffer>();
+			vertexNormalBuffer = std::make_shared<VertexBuffer>();
+			textureUVBuffer = std::make_shared<VertexBuffer>();
 		}
 
 		int PolygonMaterialGroup::VertexCount() { return _vertexCount; }
