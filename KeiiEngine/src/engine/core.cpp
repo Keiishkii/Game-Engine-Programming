@@ -10,6 +10,7 @@
 #include "Time.h"
 #include "Entity.h"
 #include "components/Camera.h"
+#include "components/Transform.h"
 #include "error-handling/Debugger.h"
 #include "error-handling/Exception.h"
 #include "resources/ResourceManager.h"
@@ -58,6 +59,10 @@ namespace Engine
 					if (glewInit() != GLEW_OK)
 					{
 						throw Exception("Failed to initialise GLEW");
+					}
+					else
+					{
+						std::cout << "Successfuly initialised graphics libuaries" << std::endl;
 					}
 				}
 			}
@@ -113,20 +118,19 @@ namespace Engine
 
 		glViewport(0, 0, width, height);
 
-		glClearColor(0.125f, 0.4f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
 
 		std::cout << " - Render" << std::endl;
 		for (int i = 0; i < _cameraList.size(); i++)
 		{
-			_activeCamera = _cameraList[i];
 			_cameraList[i].lock()->GenerateNewProjectionMatrix(width, height);
 
-			for (int i = 0; i < _entityList.size(); i++)
+			for (int j = 0; j < _entityList.size(); j++)
 			{
-				_entityList[i]->Render();
+				_entityList[j]->Render(_cameraList[i]);
 			}
 		}
 

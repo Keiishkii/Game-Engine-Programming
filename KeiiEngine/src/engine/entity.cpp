@@ -1,9 +1,12 @@
 #include "Entity.h"
 #include "components/Component.h"
 #include "components/Transform.h"
+#include "components/Camera.h"
 
 namespace Engine
 {
+	std::weak_ptr<Components::Transform> Entity::Transform() { return _transform; }
+
 	std::shared_ptr<Entity> Entity::Initialise(std::weak_ptr<Core> corePtr)
 	{
 		std::shared_ptr<Entity> entity = std::make_shared<Entity>();
@@ -16,11 +19,11 @@ namespace Engine
 		return entity;
 	}
 
-	void Entity::Render()
+	void Entity::Render(std::weak_ptr<Components::Camera>& activeCamera)
 	{
 		for (int i = 0; i < componentList.size(); i++)
 		{
-			componentList[i]->Render();
+			componentList[i]->Render(activeCamera);
 		}
 	}
 

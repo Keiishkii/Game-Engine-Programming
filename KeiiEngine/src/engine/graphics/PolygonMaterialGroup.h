@@ -28,6 +28,7 @@ namespace Engine
 		private:
 		public:
 			PolygonMaterialGroup();
+			GLuint VertexArrayID();
 			int VertexCount();
 		};
 	}

@@ -36,8 +36,6 @@ namespace Engine
 			return polygonMaterialGroup;
 		}
 
-
-
         void Model::Initialise(std::weak_ptr<ResourceManager> resourceManager)
         {
             Resource::Initialise(resourceManager);
@@ -76,8 +74,15 @@ namespace Engine
 						for (std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>>::iterator it = _polygonMaterialGroups.begin(); it != _polygonMaterialGroups.end(); it++)
 						{
 							std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = it->second;
+							int materialGroupID = it->first;
 
-							polygonMaterialGroup->_materialGroupVertexArray->setVertexCount(polygonMaterialGroup->VertexCount());
+							std::cout << "Adding Material Group: " << materialGroupID << " to its VAO" << std::endl;
+
+							polygonMaterialGroup->_materialGroupVertexArray->SetVertexCount(polygonMaterialGroup->VertexCount());
+
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->vertexPositionBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->vertexNormalBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
 						}
 					}
                 }
@@ -136,8 +141,6 @@ namespace Engine
 
 				AddToPolygonMaterialGroup(mesh, i, materialIndex);
 			}
-
-
 		}
 
 		int Model::GetPolygonMaterial(FbxMesh* mesh, int polygonIndex)
@@ -165,10 +168,10 @@ namespace Engine
 				mesh->GetPolygonVertexNormal(polygonIndex, v, normal);
 
 				glm::vec3 vertexPosition(controlPoint.mData[0], controlPoint.mData[1], controlPoint.mData[2]);
-				polygonMaterialGroup->vertexPositionBuffer->add(vertexPosition);
+				polygonMaterialGroup->vertexPositionBuffer->Add(vertexPosition);
 
 				glm::vec3 vertexNormal(normal.mData[0], normal.mData[1], normal.mData[2]);
-				polygonMaterialGroup->vertexNormalBuffer->add(vertexNormal);
+				polygonMaterialGroup->vertexNormalBuffer->Add(vertexNormal);
 
 				_totalVertexCount++;
 				polygonMaterialGroup->_vertexCount++;

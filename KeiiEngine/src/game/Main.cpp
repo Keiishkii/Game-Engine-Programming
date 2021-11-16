@@ -12,6 +12,9 @@ int main()
 	std::shared_ptr<Entity> playerEntity = core->AddEntity();
 	std::shared_ptr<Components::MeshRenderer> meshRenderer = playerEntity->AddComponent<Components::MeshRenderer>(core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/shulk.fbx"));
 
+	playerEntity->Transform().lock()->position = glm::vec3(10, 0, 0);
+
+
 
 	core->Start();
 

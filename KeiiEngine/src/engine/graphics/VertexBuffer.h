@@ -10,10 +10,10 @@ namespace Engine
 		struct VertexBuffer
 		{
 		private:
-			GLuint id = 0;
-			int components = 0;
-			std::vector<GLfloat> data;
-			bool dirty = false;
+			GLuint _ID = 0;
+			int _components = 0;
+			std::vector<GLfloat> _data;
+			bool _dirty = false;
 		public:
 
 
@@ -22,11 +22,12 @@ namespace Engine
 			VertexBuffer();
 
 			GLuint getID();
-			std::vector<GLfloat> getData() { return data; };
+			int VertexBuffer::GetComponentSize();
+			std::vector<GLfloat> GetData();
 
-			void add(const glm::vec2& value);
-			void add(const glm::vec3& value);
-			void add(const glm::vec4& value);
+			void Add(const glm::vec2& value);
+			void Add(const glm::vec3& value);
+			void Add(const glm::vec4& value);
 		};
 	}
 }

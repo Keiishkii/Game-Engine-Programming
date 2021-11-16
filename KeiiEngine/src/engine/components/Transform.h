@@ -1,5 +1,5 @@
-#include <glm/vec3.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
 
 #include "Component.h"
 
@@ -22,6 +22,8 @@ namespace Engine
 		public:
 			Transform();
 			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr) override;
+
+			glm::mat4x4 TransformationMatrix();
 		};
 	}
 }

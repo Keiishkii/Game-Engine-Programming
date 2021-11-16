@@ -4,9 +4,14 @@
 #include <glm/ext.hpp>
 
 #include "MeshRenderer.h"
+#include "Camera.h"
+#include "Transform.h"
 #include "engine/Core.h"
 #include "engine/resources/ResourceManager.h"
 #include "engine/resources/ShaderProgram.h"
+#include "engine/resources/Model.h"
+#include "engine/graphics/PolygonMaterialGroup.h"
+#include "engine/error-handling/Exception.h"
 
 namespace Engine
 {
@@ -20,28 +25,44 @@ namespace Engine
 		void MeshRenderer::Update() { }
 		void MeshRenderer::PhysicsUpdate() { }
 
-		void MeshRenderer::Render() 
+		//void MeshRenderer::Render(std::weak_ptr<Components::Camera>& activeCamera)
+		void MeshRenderer::Render(std::weak_ptr<Components::Camera>& activeCamera)
 		{
-			GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
+			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
+			{
+				GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
 
-			GLint modelID = glGetUniformLocation(programID, "in_Model");
-			GLint projectionID = glGetUniformLocation(programID, "in_Projection");
-			GLint invVeiwingID = glGetUniformLocation(programID, "in_InverseVeiwing");
+				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
+				GLint inverseVeiwingMatrixID = glGetUniformLocation(programID, "in_InverseVeiwing");
+				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
 
-			glm::mat4x4 model(1.0f);
-			model = glm::translate(model, glm::vec3(0, 0, -2));
+				
+				glUseProgram(programID);
 
-			glUseProgram(programID);
-			glBindVertexArray(getVertexArrayObject()->getID());
+				glBindVertexArray(_renderModel->GetPolygonMaterialGroup(i)->VertexArrayID());
 
-			glUniformMatrix4fv(modelID, 1, GL_FALSE, glm::value_ptr(model));
-			glUniformMatrix4fv(projectionID, 1, GL_FALSE, glm::value_ptr(_projection));
-			glUniformMatrix4fv(invVeiwingID, 1, GL_FALSE, glm::value_ptr(_veiwing));
+				glm::mat4x4 modelMatrix = Transform().lock()->TransformationMatrix();
+				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-			// Draw to the screen
-			glEnable(GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glDrawArrays(GL_TRIANGLES, 0, getVertexArrayObject()->getVertexCount());
+				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera.lock()->Transform().lock()->TransformationMatrix());
+				glUniformMatrix4fv(inverseVeiwingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
+
+				glm::mat4x4 projectionMatrix = activeCamera.lock()->ProjectionMatrix();
+				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+
+
+				std::cout << "MATRIX DATA: ------ " << std::endl;
+				for (int j = 0; j < modelMatrix.length(); j++)
+					std::cout << modelMatrix[j].x << ", " << modelMatrix[j].y << ", " << modelMatrix[j].z << ", " << modelMatrix[j].w << std::endl;
+
+
+
+				// Draw to the screen
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glDrawArrays(GL_TRIANGLES, 0, _renderModel->GetPolygonMaterialGroup(i)->VertexCount());
+			}			
 		}
 	}
 }

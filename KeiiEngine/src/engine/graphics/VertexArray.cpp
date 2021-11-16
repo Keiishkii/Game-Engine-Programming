@@ -1,90 +1,79 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 
+#include "engine/error-handling/Exception.h"
+
 namespace Engine
 {
 	namespace Graphics
 	{
 		VertexArray::VertexArray()
 		{
-			glGenVertexArrays(1, &id);
+			glGenVertexArrays(1, &_id);
 
-			if (!id)
+			if (!_id)
 			{
-				throw std::exception();
+				throw ErrorHandling::Exception("Failed to generate an ID for the 'Vertex Array'.");
 			}
 		}
 
-		void VertexArray::setVertexCount(int _vertexCount)
-		{
-			vertexCount = _vertexCount;
-		}
+		void VertexArray::SetVertexCount(int _vertexCount) { _vertexCount = _vertexCount; }
+		int VertexArray::GetVertexCount() { return _vertexCount; }
 
-		GLuint VertexArray::getID()
+		GLuint VertexArray::GetID()
 		{
-			if (dirty)
+			if (_dirty)
 			{
-				glBindVertexArray(id);
+				glBindVertexArray(_id);
 
-				//VertexPositions
-				glBindBuffer(GL_ARRAY_BUFFER, vertexPositions->getID());
-				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(0);
+				int bufferID = 0;
+				for (std::map<std::string, std::shared_ptr<VertexBuffer>>::iterator it = _vertexBuffers.begin(); it != _vertexBuffers.end(); it++, bufferID++)
+				{
+					std::shared_ptr<VertexBuffer> buffer = it->second;
 
-				//TexturesPositions
-				glBindBuffer(GL_ARRAY_BUFFER, textureUVs->getID());
-				glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(1);
-
-				//Normals
-				glBindBuffer(GL_ARRAY_BUFFER, vertexNormals->getID());
-				glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(2);
-
-				//Tangents
-				glBindBuffer(GL_ARRAY_BUFFER, vertexTangents->getID());
-				glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(3);
-
-				//Bitangents
-				glBindBuffer(GL_ARRAY_BUFFER, vertexBitangents->getID());
-				glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(3);
+					glBindBuffer(GL_ARRAY_BUFFER, buffer->getID());
+					glVertexAttribPointer(bufferID, buffer->GetComponentSize(), GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+					glEnableVertexAttribArray(bufferID);
+				}
 
 				// Reset the state
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
 				glBindVertexArray(0);
 
-				dirty = false;
+				_dirty = false;
 			}
 
-			return id;
+			return _id;
 		}
 
-		void VertexArray::setBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content)
+		std::shared_ptr<VertexBuffer> VertexArray::GetVertexBuffer(std::string key)
 		{
-			if (_buffer._Equal("VertexPositions"))
+			std::shared_ptr<VertexBuffer> buffer = NULL;
+
+			if (!_vertexBuffers.count(key))
 			{
-				vertexPositions = _content;
+				throw ErrorHandling::Exception("The VertexBuffer map does not contain any buffers using the key " + key + ".");
 			}
-			else if (_buffer._Equal("TextureUVs"))
+			else
 			{
-				textureUVs = _content;
-			}
-			else if (_buffer._Equal("VertexNormals"))
-			{
-				vertexNormals = _content;
-			}
-			else if (_buffer._Equal("VertexTangents"))
-			{
-				vertexTangents = _content;
-			}
-			else if (_buffer._Equal("VertexBitangents"))
-			{
-				vertexBitangents = _content;
+				buffer = _vertexBuffers[key];
 			}
 
-			dirty = true;
+			return buffer;
+		}
+
+		void VertexArray::SetBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content)
+		{
+			if (!_vertexBuffers.count(_buffer))
+			{
+				_vertexBuffers.insert(std::pair<std::string, std::shared_ptr<VertexBuffer>>(_buffer, _content));
+			}
+			else
+			{
+				_vertexBuffers[_buffer] = _content;
+			}
+
+			_dirty = true;
 		}
 	}
 }

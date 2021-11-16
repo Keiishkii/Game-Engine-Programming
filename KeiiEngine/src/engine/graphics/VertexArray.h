@@ -13,16 +13,12 @@ namespace Engine
 		struct VertexArray
 		{
 		private:
-			bool dirty = false;
+			bool _dirty = false;
 
-			int vertexCount = 0;
-			GLuint id = 0;
+			int _vertexCount = 0;
+			GLuint _id = 0;
 
-			std::shared_ptr<VertexBuffer> vertexPositions;
-			std::shared_ptr<VertexBuffer> textureUVs;
-			std::shared_ptr<VertexBuffer> vertexNormals;
-			std::shared_ptr<VertexBuffer> vertexTangents;
-			std::shared_ptr<VertexBuffer> vertexBitangents;
+			std::map<std::string, std::shared_ptr<VertexBuffer>> _vertexBuffers;
 		public:
 
 
@@ -30,13 +26,14 @@ namespace Engine
 		public:
 			VertexArray();
 
-			GLuint getID();
-			int getVertexCount() { return vertexCount; }
-			std::shared_ptr<VertexBuffer> getVertexList() { return vertexPositions; }
-			std::shared_ptr<VertexBuffer> getTextureUVList() { return textureUVs; }
+			GLuint GetID();
+			int GetVertexCount();
 
-			void setVertexCount(int _vertexCount);
-			void setBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content);
+
+			std::shared_ptr<VertexBuffer> GetVertexBuffer(std::string key);
+
+			void SetVertexCount(int _vertexCount);
+			void SetBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content);
 		};
 	}
 }

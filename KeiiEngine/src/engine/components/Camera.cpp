@@ -18,7 +18,7 @@ namespace Engine
 
 		void Camera::Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPointer)
 		{
-			std::shared_ptr<Transform> transform = std::dynamic_pointer_cast<Transform>(self.lock());
+			std::shared_ptr<Components::Transform> transform = std::dynamic_pointer_cast<Components::Transform>(self.lock());
 
 			_self = self;
 			entityPtr = entityPointer;

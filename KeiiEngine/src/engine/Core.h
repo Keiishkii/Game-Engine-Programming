@@ -24,7 +24,6 @@ namespace Engine
 		std::vector<std::shared_ptr<Entity>> _entityList;
 
 		std::vector<std::weak_ptr<Components::Camera>> _cameraList;
-		std::weak_ptr<Components::Camera> _activeCamera;
 
 		bool _running;
 	public:

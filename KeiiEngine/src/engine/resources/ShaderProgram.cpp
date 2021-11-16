@@ -125,7 +125,11 @@ namespace Engine
 				
 				std::string attribute = words[words.size() - 1];
 
-				glBindAttribLocation(programID, 1, attribute.substr(0, attribute.size() - 1).c_str());
+				std::string attributeName = attribute.substr(0, attribute.size() - 1);
+				std::cout << "SHADER ATTRIBUTE: " << attributeName << std::endl;
+
+				glBindAttribLocation(programID, i, attributeName.c_str());
+				//glBindAttribLocation(programID, 1, attribute.substr(0, attribute.size() - 1).c_str());
 			}
 		}
 

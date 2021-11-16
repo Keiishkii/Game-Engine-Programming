@@ -8,6 +8,8 @@ namespace Engine
 	struct Entity;
 	namespace Components
 	{
+		struct Camera;
+		struct Transform;
 		struct Component
 		{
 			friend Engine::Entity;
@@ -23,9 +25,11 @@ namespace Engine
 		private:
 			virtual void Update();
 			virtual void PhysicsUpdate();
-			virtual void Render();
+			virtual void Render(std::weak_ptr<Components::Camera>& activeCamera);
 		public:
 			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr);
+
+			std::weak_ptr<Transform> Transform();
 		};
 	}
 }

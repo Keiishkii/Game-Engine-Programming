@@ -7,6 +7,7 @@ namespace Engine
 	namespace Components
 	{
 		struct Component;
+		struct Camera;
 		struct Transform;
 	}
 	
@@ -27,10 +28,12 @@ namespace Engine
 		static std::shared_ptr<Entity> Initialise(std::weak_ptr<Core> corePtr);
 
 		void Update();
-		void Render();
+		void Render(std::weak_ptr<Components::Camera>& activeCamera);
 		void PhysicsUpdate();
 
 	public:
+		std::weak_ptr<Components::Transform> Transform();
+
 		template <typename T>
 		std::shared_ptr<T> AddComponent()
 		{

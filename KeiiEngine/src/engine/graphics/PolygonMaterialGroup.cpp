@@ -6,6 +6,11 @@ namespace Engine
 {
 	namespace Graphics
 	{
+		GLuint PolygonMaterialGroup::VertexArrayID()
+		{
+			return _materialGroupVertexArray->GetID();
+		}
+
 		PolygonMaterialGroup::PolygonMaterialGroup()
 		{
 			_vertexCount = 0;

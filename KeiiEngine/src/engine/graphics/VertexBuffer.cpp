@@ -6,74 +6,77 @@ namespace Engine
 	{
 		VertexBuffer::VertexBuffer()
 		{
-			glGenBuffers(1, &id);
+			glGenBuffers(1, &_ID);
 
-			if (!id)
+			if (!_ID)
 			{
 				throw std::exception();
 			}
 		}
+
+		int VertexBuffer::GetComponentSize() { return _components; }
+		std::vector<GLfloat> VertexBuffer::GetData() { return _data; }
 
 		GLuint VertexBuffer::getID()
 		{
-			if (dirty)
+			if (_dirty)
 			{
-				glBindBuffer(GL_ARRAY_BUFFER, id);
-				glBufferData(GL_ARRAY_BUFFER, sizeof(data.at(0)) * data.size(), &data.at(0), GL_STATIC_DRAW);
+				glBindBuffer(GL_ARRAY_BUFFER, _ID);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(_data.at(0)) * _data.size(), &_data.at(0), GL_STATIC_DRAW);
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-				dirty = false;
+				_dirty = false;
 			}
 
-			return id;
+			return _ID;
 		}
 
-		void VertexBuffer::add(const glm::vec2& _value)
+		void VertexBuffer::Add(const glm::vec2& _value)
 		{
-			if (components != 0 && components != 2)
+			if (_components != 0 && _components != 2)
 			{
 				throw std::exception();
 			}
 
-			data.push_back(_value.x);
-			data.push_back(_value.y);
+			_data.push_back(_value.x);
+			_data.push_back(_value.y);
 
-			dirty = true;
+			_dirty = true;
 
-			components = 2;
+			_components = 2;
 		}
 
-		void VertexBuffer::add(const glm::vec3& _value)
+		void VertexBuffer::Add(const glm::vec3& _value)
 		{
-			if (components != 0 && components != 3)
+			if (_components != 0 && _components != 3)
 			{
 				throw std::exception();
 			}
 
-			data.push_back(_value.x);
-			data.push_back(_value.y);
-			data.push_back(_value.z);
+			_data.push_back(_value.x);
+			_data.push_back(_value.y);
+			_data.push_back(_value.z);
 
-			dirty = true;
+			_dirty = true;
 
-			components = 3;
+			_components = 3;
 		}
 
-		void VertexBuffer::add(const glm::vec4& _value)
+		void VertexBuffer::Add(const glm::vec4& _value)
 		{
-			if (components != 0 && components != 4)
+			if (_components != 0 && _components != 4)
 			{
 				throw std::exception();
 			}
 
-			data.push_back(_value.x);
-			data.push_back(_value.y);
-			data.push_back(_value.z);
-			data.push_back(_value.w);
+			_data.push_back(_value.x);
+			_data.push_back(_value.y);
+			_data.push_back(_value.z);
+			_data.push_back(_value.w);
 
-			dirty = true;
+			_dirty = true;
 
-			components = 4;
+			_components = 4;
 		}
 	}
 }
