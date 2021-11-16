@@ -22,7 +22,7 @@ namespace Engine
 		public:
 			std::shared_ptr<VertexBuffer> vertexPositionBuffer;
 			std::shared_ptr<VertexBuffer> vertexNormalBuffer;
-			std::shared_ptr<VertexBuffer> textureUVBuffer;
+			//std::shared_ptr<VertexBuffer> textureUVBuffer;
 
 
 		private:

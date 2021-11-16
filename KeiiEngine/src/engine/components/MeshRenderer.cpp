@@ -34,13 +34,13 @@ namespace Engine
 
 				GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
 
+				glUseProgram(programID);
+
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
-				GLint inverseVeiwingMatrixID = glGetUniformLocation(programID, "in_InverseVeiwing");
+				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
 				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
 
 				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = _renderModel->GetPolygonMaterialGroup(i);
-
-				glUseProgram(programID);
 
 				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
 
@@ -50,7 +50,7 @@ namespace Engine
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera.lock()->Transform().lock()->TransformationMatrix());
-				glUniformMatrix4fv(inverseVeiwingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
+				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
 
 				glm::mat4x4 projectionMatrix = activeCamera.lock()->ProjectionMatrix();
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
@@ -58,14 +58,14 @@ namespace Engine
 
 
 				std::cout << "Matrix Data: ------ " << std::endl;
-				for (int j = 0; j < modelMatrix.length(); j++)
-					std::cout << modelMatrix[j].x << ", " << modelMatrix[j].y << ", " << modelMatrix[j].z << ", " << modelMatrix[j].w << std::endl;
+				for (int j = 0; j < viewingMatrix.length(); j++)
+					std::cout << viewingMatrix[j].x << ", " << viewingMatrix[j].y << ", " << viewingMatrix[j].z << ", " << modelMatrix[j].w << std::endl;
 
 
 
 				// Draw to the screen
-				glEnable(GL_BLEND);
-				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				//glEnable(GL_BLEND);
+				//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount() / 3);
 			}			
 		}

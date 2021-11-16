@@ -111,6 +111,9 @@ target_link_libraries(keiiengine
 
 add_executable(game
 	src/game/Main.cpp
+
+	src/game/components/PlayerController.cpp
+	src/game/components/PlayerController.h
 )
 
 target_link_libraries(game keiiengine)

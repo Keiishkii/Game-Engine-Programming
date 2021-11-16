@@ -24,13 +24,13 @@ namespace Engine
 	public:
 		std::weak_ptr<Engine::Core> corePtr;
 
+
 	private:
 		static std::shared_ptr<Entity> Initialise(std::weak_ptr<Core> corePtr);
 
 		void Update();
 		void Render(std::weak_ptr<Components::Camera>& activeCamera);
 		void PhysicsUpdate();
-
 	public:
 		std::weak_ptr<Components::Transform> Transform();
 

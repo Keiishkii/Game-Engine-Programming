@@ -18,7 +18,7 @@ namespace Engine
 
 			vertexPositionBuffer = std::make_shared<VertexBuffer>();
 			vertexNormalBuffer = std::make_shared<VertexBuffer>();
-			textureUVBuffer = std::make_shared<VertexBuffer>();
+			//textureUVBuffer = std::make_shared<VertexBuffer>();
 		}
 
 		int PolygonMaterialGroup::VertexCount() { return _vertexCount; }
