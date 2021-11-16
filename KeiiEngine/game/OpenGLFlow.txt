@@ -1,0 +1,50 @@
+Initi:											#
+ - SDL Initialisation - Glew Initiasilisation						#
+											#
+Startup:										#
+ - Get Model File Path									#
+ - Create Animated Model								#
+   AnimatedModel Constructor:								#
+     	 - Load Model Into Scene							#
+	 - Create VertexBuffers								#
+	 - Operate On Root Node (recursivly)						#
+     	   If Mesh									#
+		 - Get Position From Scene						#
+		 - Add to Vertex Buffers						#
+	 - Set Vertex Count to VertexArray						#
+	 - Set VertexBuffers to VertexArray						#
+ - Generate Vertex Shader								#
+ - Generate Fragment Shader								#
+ - Create Program									#
+ - Add Shaders to Program								#
+ - Bind Attributes to index's <--------- ID Based not name (For VAO)			#
+ - Link program										#
+ - Detach and Delete Shaders								#
+ - Get Uniform ID's (Fragment Shader)							#
+ - Create Projection Matrix								#
+ - Bind Textures to Variable ID <----- Ignore for now					#
+   Main Loop:				
+	 - Get Window Size								
+	 - Generate Viewport
+	 - Regenerate Projection Matrix
+	 - Clear Screen (Colour and BITs)
+	 - Enable Depth Tests
+	 - Enable Culling
+	 - Bind Texturs <------- Ignore
+	   Draw Functions:
+		 - Get Uniform ID's (Vertex Shader)
+		 - Use Shader Program
+		 - Bind VAO
+		 - Upload Uniforms
+		 - GL Enable
+		 - GL BlendFunc
+		 - GL Draw Arrays
+	 - Disable Depth Tests
+	 - Disable Culling
+	 - Unbind Texture
+	 - Unbind VAO
+	 - Unbind Program
+	 - Swap Window
+
+
+
