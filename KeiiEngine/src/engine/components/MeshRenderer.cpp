@@ -30,16 +30,21 @@ namespace Engine
 		{
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
+				std::cout << "--------------------------- ON RENDER " << std::endl;
+
 				GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
 
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
 				GLint inverseVeiwingMatrixID = glGetUniformLocation(programID, "in_InverseVeiwing");
 				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
 
-				
+				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = _renderModel->GetPolygonMaterialGroup(i);
+
 				glUseProgram(programID);
 
-				glBindVertexArray(_renderModel->GetPolygonMaterialGroup(i)->VertexArrayID());
+				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
+
+				std::cout << "Vertex Array ID: " << polygonMaterialGroup->VertexArrayID() << std::endl;
 
 				glm::mat4x4 modelMatrix = Transform().lock()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -52,7 +57,7 @@ namespace Engine
 
 
 
-				std::cout << "MATRIX DATA: ------ " << std::endl;
+				std::cout << "Matrix Data: ------ " << std::endl;
 				for (int j = 0; j < modelMatrix.length(); j++)
 					std::cout << modelMatrix[j].x << ", " << modelMatrix[j].y << ", " << modelMatrix[j].z << ", " << modelMatrix[j].w << std::endl;
 
@@ -61,7 +66,7 @@ namespace Engine
 				// Draw to the screen
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glDrawArrays(GL_TRIANGLES, 0, _renderModel->GetPolygonMaterialGroup(i)->VertexCount());
+				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount() / 3);
 			}			
 		}
 	}

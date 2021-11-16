@@ -82,7 +82,7 @@ namespace Engine
 
 							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->vertexPositionBuffer);
 							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->vertexNormalBuffer);
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
+							//polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
 						}
 					}
                 }
