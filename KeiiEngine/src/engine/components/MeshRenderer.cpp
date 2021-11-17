@@ -28,6 +28,7 @@ namespace Engine
 		//void MeshRenderer::Render(std::weak_ptr<Components::Camera>& activeCamera)
 		void MeshRenderer::Render(std::weak_ptr<Components::Camera>& activeCamera)
 		{
+			int total = 0;
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
 				GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
@@ -55,6 +56,7 @@ namespace Engine
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount());
+				total += polygonMaterialGroup->VertexCount();
 			}			
 		}
 	}

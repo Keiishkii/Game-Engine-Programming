@@ -26,11 +26,14 @@ namespace Engine
 
 		private:
 			bool LoadScene(FbxManager* pManager, FbxDocument* pScene, const char* pFilename);
-			void ProbeNode(FbxNode* node, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer);
+			void LoadUVInformation(FbxMesh* pMesh);
 
-			void UnpackMesh(FbxMesh* mesh, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer);
+			void ProbeNode(FbxNode* node);
+
+			void UnpackMesh(FbxMesh* mesh);
 			int GetPolygonMaterial(FbxMesh* mesh, int polygonIndex);
-			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialID, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer);
+			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex);
+			void AddTextureUVToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex);
 
 		public:
 			virtual void Initialise(std::weak_ptr<ResourceManager> resourceManager) override;

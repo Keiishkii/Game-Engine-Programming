@@ -69,11 +69,7 @@ namespace Engine
 					}
 					else
 					{
-						Graphics::VertexBuffer positionBuffer;
-						Graphics::VertexBuffer normalBuffer;
-						//textureUVBuffer = std::make_shared<VertexBuffer>();
-
-						ProbeNode(routeNode, positionBuffer, normalBuffer);
+						ProbeNode(routeNode);
 
 						int count = 0;
 						for (std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>>::iterator it = _polygonMaterialGroups.begin(); it != _polygonMaterialGroups.end(); it++)
@@ -85,9 +81,9 @@ namespace Engine
 
 							polygonMaterialGroup->_materialGroupVertexArray->SetVertexCount(polygonMaterialGroup->VertexCount());
 
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", positionBuffer);
-							//polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->vertexNormalBuffer);
-							//polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->vertexPositionBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->vertexNormalBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
 
 
 							std::cout << "Material Group Polygon Count: " << polygonMaterialGroup->VertexCount() << std::endl;
@@ -100,7 +96,7 @@ namespace Engine
             }
         }
 
-		void Model::ProbeNode(FbxNode* node, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer)
+		void Model::ProbeNode(FbxNode* node)
 		{
 			if (!((*node).GetNodeAttribute() == NULL))
 			{
@@ -125,7 +121,7 @@ namespace Engine
 							FbxMesh* mesh = (*node).GetMesh();
 							if (mesh != NULL)
 							{
-								UnpackMesh(mesh, positionBuffer, normalBuffer);
+								UnpackMesh(mesh);
 							}
 						} break;
 					}
@@ -138,19 +134,20 @@ namespace Engine
 			{
 				for (int i = 0; i < children; i++)
 				{
-					ProbeNode(((*node).GetChild(i)), positionBuffer, normalBuffer);
+					ProbeNode(((*node).GetChild(i)));
 				}
 			}
 		}
 
-		void Model::UnpackMesh(FbxMesh* mesh, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer)
+		void Model::UnpackMesh(FbxMesh* mesh)
 		{
 			int polygonCount = mesh->GetPolygonCount();
 			for (int i = 0; i < polygonCount; i++)
 			{
 				int materialIndex = GetPolygonMaterial(mesh, i);
 
-				AddToPolygonMaterialGroup(mesh, i, materialIndex, positionBuffer, normalBuffer);
+				AddToPolygonMaterialGroup(mesh, i, materialIndex);
+				AddTextureUVToPolygonMaterialGroup(mesh, i, materialIndex);
 			}
 		}
 
@@ -168,7 +165,7 @@ namespace Engine
 			return polygonMaterialIndex;
 		}
 
-		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer)
+		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex)
 		{
 			int* vertciesArray = mesh->GetPolygonVertices();
 			for (int v = 0; v < mesh->GetPolygonSize(polygonIndex); v++)
@@ -179,18 +176,120 @@ namespace Engine
 				mesh->GetPolygonVertexNormal(polygonIndex, v, normal);
 
 				glm::vec3 vertexPosition(controlPoint.mData[0], controlPoint.mData[1], controlPoint.mData[2]);
-				positionBuffer.Add(vertexPosition);
+				polygonMaterialGroup->vertexPositionBuffer->Add(vertexPosition);
 
 				glm::vec3 vertexNormal(normal.mData[0], normal.mData[1], normal.mData[2]);
-				normalBuffer.Add(vertexNormal);
+				polygonMaterialGroup->vertexNormalBuffer->Add(vertexNormal);
 
 				_totalVertexCount++;
 				polygonMaterialGroup->_vertexCount++;
 			}
 		}
 
+		void Model::AddTextureUVToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex)
+		{
+			FbxStringList lUVSetNameList;
+			mesh->GetUVSetNames(lUVSetNameList);
+
+			const char* lUVSetName = lUVSetNameList.GetStringAt(0);
+			const FbxGeometryElementUV* lUVElement = mesh->GetElementUV(lUVSetName);
+
+			for (int v = 0; v < mesh->GetPolygonSize(polygonIndex); v++)
+			{
+				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = GetPolygonMaterialGroup(materialIndex);
+
+				FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(polygonIndex);
+
+				glm::vec2 vertexPosition(lUVValue.mData[0], lUVValue.mData[1]);
+
+				polygonMaterialGroup->textureUVBuffer->Add(vertexPosition);
+			}
+		}
 
 
+		/*		
+		 
+		void Model::LoadUVInformation(FbxMesh* mesh)
+		{
+			//get all UV set names
+			FbxStringList lUVSetNameList;
+			mesh->GetUVSetNames(lUVSetNameList);
+
+			//iterating over all uv sets
+			for (int lUVSetIndex = 0; lUVSetIndex < lUVSetNameList.GetCount(); lUVSetIndex++)
+			{
+				//get lUVSetIndex-th uv set
+				const char* lUVSetName = lUVSetNameList.GetStringAt(lUVSetIndex);
+				const FbxGeometryElementUV* lUVElement = mesh->GetElementUV(lUVSetName);
+
+				if (!lUVElement)
+					continue;
+
+				// only support mapping mode eByPolygonVertex and eByControlPoint
+				if (lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex &&
+					lUVElement->GetMappingMode() != FbxGeometryElement::eByControlPoint)
+					return;
+
+				//index array, where holds the index referenced to the uv data
+				const bool lUseIndex = lUVElement->GetReferenceMode() != FbxGeometryElement::eDirect;
+				const int lIndexCount = (lUseIndex) ? lUVElement->GetIndexArray().GetCount() : 0;
+
+				//iterating through the data by polygon
+				const int lPolyCount = mesh->GetPolygonCount();
+
+				if (lUVElement->GetMappingMode() == FbxGeometryElement::eByControlPoint)
+				{
+					for (int lPolyIndex = 0; lPolyIndex < lPolyCount; ++lPolyIndex)
+					{
+						// build the max index array that we need to pass into MakePoly
+						const int lPolySize = mesh->GetPolygonSize(lPolyIndex);
+						for (int lVertIndex = 0; lVertIndex < lPolySize; ++lVertIndex)
+						{
+							FbxVector2 lUVValue;
+
+							//get the index of the current vertex in control points array
+							int lPolyVertIndex = mesh->GetPolygonVertex(lPolyIndex, lVertIndex);
+
+							//the UV index depends on the reference mode
+							int lUVIndex = lUseIndex ? lUVElement->GetIndexArray().GetAt(lPolyVertIndex) : lPolyVertIndex;
+
+							lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+
+							//User TODO:
+							//Print out the value of UV(lUVValue) or log it to a file
+						}
+					}
+				}
+				else if (lUVElement->GetMappingMode() == FbxGeometryElement::eByPolygonVertex)
+				{
+					int lPolyIndexCounter = 0;
+					for (int lPolyIndex = 0; lPolyIndex < lPolyCount; ++lPolyIndex)
+					{
+						// build the max index array that we need to pass into MakePoly
+						const int lPolySize = mesh->GetPolygonSize(lPolyIndex);
+						for (int lVertIndex = 0; lVertIndex < lPolySize; ++lVertIndex)
+						{
+							if (lPolyIndexCounter < lIndexCount)
+							{
+								FbxVector2 lUVValue;
+
+								//the UV index depends on the reference mode
+								int lUVIndex = lUseIndex ? lUVElement->GetIndexArray().GetAt(lPolyIndexCounter) : lPolyIndexCounter;
+
+								lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+
+								glm::vec2 vertexPosition(lUVValue.mData[0], lUVValue.mData[1]);
+								(*_textureUVs).add(vertexPosition);
+
+								lPolyIndexCounter++;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		*/
 
         // Import function from the FBXSDK sample code
         bool Model::LoadScene(FbxManager* pManager, FbxDocument* pScene, const char* pFilename)
