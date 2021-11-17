@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <glm/vec3.hpp>
+#include <glm/vec2.hpp>
 
 #include "Resource.h"
 
@@ -26,15 +27,13 @@ namespace Engine
 
 		private:
 			bool LoadScene(FbxManager* pManager, FbxDocument* pScene, const char* pFilename);
-			void LoadUVInformation(FbxMesh* pMesh);
+			void LoadUVInformation(FbxMesh* mesh, std::vector<glm::vec2>& textureUVs);
 
 			void ProbeNode(FbxNode* node);
 
 			void UnpackMesh(FbxMesh* mesh);
 			int GetPolygonMaterial(FbxMesh* mesh, int polygonIndex);
-			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex);
-			void AddTextureUVToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex);
-
+			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex, std::vector<glm::vec2>& textureUVs);
 		public:
 			virtual void Initialise(std::weak_ptr<ResourceManager> resourceManager) override;
 			virtual void Load(std::string path) override;

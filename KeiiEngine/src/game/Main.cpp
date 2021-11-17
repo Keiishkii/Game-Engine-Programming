@@ -14,17 +14,25 @@ int main()
 
 	std::shared_ptr<Entity> cameraEntity = core->AddEntity();
 	{
-		std::shared_ptr<Components::Camera> camera = cameraEntity->AddComponent<Components::Camera>();
+		std::shared_ptr<Components::Camera> camera = cameraEntity->AddComponent<Components::Camera>(); 
 		cameraEntity->Transform().lock()->position = glm::vec3(0, 2, 0);
 		cameraEntity->Transform().lock()->rotation = glm::quat(glm::vec3(-0.25f, 0.0f, 0.0f));
 	}
 
-	std::shared_ptr<Entity> mapEntity = core->AddEntity();
+	//std::shared_ptr<Entity> mapEntity = core->AddEntity();
 	{
-		std::shared_ptr<Components::MeshRenderer> meshRenderer = mapEntity->AddComponent<Components::MeshRenderer>(core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/gaur_plains.fbx"));
-		mapEntity->Transform().lock()->position = glm::vec3(-120, -15, 25);
-		cameraEntity->Transform().lock()->rotation = glm::quat(glm::vec3(0.0f, -(M_PI / 2), 0.0f));
-		mapEntity->Transform().lock()->scale = glm::vec3(0.1f, 0.1f, 0.1f);
+		//std::shared_ptr<Components::MeshRenderer> meshRenderer = mapEntity->AddComponent<Components::MeshRenderer>(core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/gaur_plains.fbx"));
+		//mapEntity->Transform().lock()->position = glm::vec3(-120, -15, 25);
+		//cameraEntity->Transform().lock()->rotation = glm::quat(glm::vec3(0.0f, -(M_PI / 2), 0.0f));
+		//mapEntity->Transform().lock()->scale = glm::vec3(0.1f, 0.1f, 0.1f);
+	}
+
+
+	std::shared_ptr<Entity> cubeEntity = core->AddEntity();
+	{
+		std::shared_ptr<Components::MeshRenderer> meshRenderer = cubeEntity->AddComponent<Components::MeshRenderer>(core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/cube.fbx"));
+		cubeEntity->Transform().lock()->position = glm::vec3(0, 1, -3);
+		cubeEntity->Transform().lock()->scale = glm::vec3(0.1f, 0.1f, 0.1f);
 	}
 
 	std::shared_ptr<Entity> playerEntity = core->AddEntity();

@@ -141,13 +141,15 @@ namespace Engine
 
 		void Model::UnpackMesh(FbxMesh* mesh)
 		{
+			std::vector<glm::vec2> textureUVs;
+			LoadUVInformation(mesh, textureUVs);
+
 			int polygonCount = mesh->GetPolygonCount();
 			for (int i = 0; i < polygonCount; i++)
 			{
 				int materialIndex = GetPolygonMaterial(mesh, i);
 
-				AddToPolygonMaterialGroup(mesh, i, materialIndex);
-				AddTextureUVToPolygonMaterialGroup(mesh, i, materialIndex);
+				AddToPolygonMaterialGroup(mesh, i, materialIndex, textureUVs);
 			}
 		}
 
@@ -165,14 +167,16 @@ namespace Engine
 			return polygonMaterialIndex;
 		}
 
-		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex)
+		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex, std::vector<glm::vec2>& textureUVs)
 		{
 			int* vertciesArray = mesh->GetPolygonVertices();
 			for (int v = 0; v < mesh->GetPolygonSize(polygonIndex); v++)
 			{
+				int vertexIndex = v + (polygonIndex * mesh->GetPolygonSize(polygonIndex));
+
 				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = GetPolygonMaterialGroup(materialIndex);
 
-				FbxVector4 normal, controlPoint = mesh->GetControlPointAt(vertciesArray[v + (polygonIndex * mesh->GetPolygonSize(polygonIndex))]);
+				FbxVector4 normal, controlPoint = mesh->GetControlPointAt(vertciesArray[vertexIndex]);
 				mesh->GetPolygonVertexNormal(polygonIndex, v, normal);
 
 				glm::vec3 vertexPosition(controlPoint.mData[0], controlPoint.mData[1], controlPoint.mData[2]);
@@ -181,35 +185,15 @@ namespace Engine
 				glm::vec3 vertexNormal(normal.mData[0], normal.mData[1], normal.mData[2]);
 				polygonMaterialGroup->vertexNormalBuffer->Add(vertexNormal);
 
+				polygonMaterialGroup->textureUVBuffer->Add(textureUVs[vertexIndex]);
+
 				_totalVertexCount++;
 				polygonMaterialGroup->_vertexCount++;
 			}
 		}
 
-		void Model::AddTextureUVToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex)
-		{
-			FbxStringList lUVSetNameList;
-			mesh->GetUVSetNames(lUVSetNameList);
-
-			const char* lUVSetName = lUVSetNameList.GetStringAt(0);
-			const FbxGeometryElementUV* lUVElement = mesh->GetElementUV(lUVSetName);
-
-			for (int v = 0; v < mesh->GetPolygonSize(polygonIndex); v++)
-			{
-				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = GetPolygonMaterialGroup(materialIndex);
-
-				FbxVector2 lUVValue = lUVElement->GetDirectArray().GetAt(polygonIndex);
-
-				glm::vec2 vertexPosition(lUVValue.mData[0], lUVValue.mData[1]);
-
-				polygonMaterialGroup->textureUVBuffer->Add(vertexPosition);
-			}
-		}
-
-
-		/*		
-		 
-		void Model::LoadUVInformation(FbxMesh* mesh)
+				 
+		void Model::LoadUVInformation(FbxMesh* mesh, std::vector<glm::vec2>& textureUVs)
 		{
 			//get all UV set names
 			FbxStringList lUVSetNameList;
@@ -279,7 +263,7 @@ namespace Engine
 								lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
 
 								glm::vec2 vertexPosition(lUVValue.mData[0], lUVValue.mData[1]);
-								(*_textureUVs).add(vertexPosition);
+								textureUVs.push_back(vertexPosition);
 
 								lPolyIndexCounter++;
 							}
@@ -288,8 +272,6 @@ namespace Engine
 				}
 			}
 		}
-
-		*/
 
         // Import function from the FBXSDK sample code
         bool Model::LoadScene(FbxManager* pManager, FbxDocument* pScene, const char* pFilename)

@@ -97,6 +97,9 @@ add_library(keiiengine
 	src/engine/resources/Texture.cpp
 	src/engine/resources/Texture.h
 
+	src/engine/resources/Material.cpp
+	src/engine/resources/Material.h
+
 	src/engine/resources/Sound.cpp
 	src/engine/resources/Sound.h
 )
