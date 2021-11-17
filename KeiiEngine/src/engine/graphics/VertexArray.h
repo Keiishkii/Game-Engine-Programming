@@ -18,7 +18,7 @@ namespace Engine
 			int _vertexCount = 0;
 			GLuint _id = 0;
 
-			std::map<std::string, std::shared_ptr<VertexBuffer>> _vertexBuffers;
+			std::map<std::string, VertexBuffer> _vertexBuffers;
 		public:
 
 
@@ -30,10 +30,8 @@ namespace Engine
 			int GetVertexCount();
 
 
-			std::shared_ptr<VertexBuffer> GetVertexBuffer(std::string key);
-
 			void SetVertexCount(int _vertexCount);
-			void SetBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content);
+			void SetBuffer(std::string _buffer, VertexBuffer& _content);
 		};
 	}
 }

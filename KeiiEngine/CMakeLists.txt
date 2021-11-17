@@ -47,8 +47,8 @@ add_library(keiiengine
 	src/engine/Enviroment.cpp
 	src/engine/Enviroment.h
 
-	src/engine/Time.cpp
-	src/engine/Time.h
+	src/engine/TimeManager.cpp
+	src/engine/TimeManager.h
 
 
 		#Graphics

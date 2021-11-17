@@ -31,6 +31,7 @@ namespace Engine
 	{
 		for (int i = 0; i < componentList.size(); i++)
 		{
+			componentList[i]->Component::Update();
 			componentList[i]->Update();
 		}
 	}

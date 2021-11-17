@@ -2,6 +2,8 @@
 #include <vector>
 #include <SDL.h>
 
+//#define ENGINE_DEBUGGING
+
 namespace Engine
 {
 	namespace ResourceManagement { struct ResourceManager; }
@@ -10,6 +12,7 @@ namespace Engine
 	struct Entity;
 	namespace Components { struct Camera; }
 
+	struct TimeManager;
 	struct Core
 	{
 		friend Components::Camera;
@@ -17,6 +20,7 @@ namespace Engine
 	private:
 		std::weak_ptr<Core> _self;
 
+		std::shared_ptr<TimeManager> _timeManager;
 		std::shared_ptr<ResourceManagement::ResourceManager> _resources;
 		std::shared_ptr<ErrorHandling::Debugger> _debugger;
 		std::shared_ptr<SDL_Window*> _window;
@@ -30,7 +34,7 @@ namespace Engine
 
 
 	private:
-		void MainLoop();
+		void MainLoop(int FPS, int fixedFPS);
 		void SDLInitialisation();
 
 		void Render();
@@ -43,8 +47,9 @@ namespace Engine
 
 		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
+		std::shared_ptr<TimeManager> TimeManager();
 
-		void Start();
+		void Start(int FPS, int fixedFPS);
 		void Stop();
 
 		std::shared_ptr<Entity> AddEntity();

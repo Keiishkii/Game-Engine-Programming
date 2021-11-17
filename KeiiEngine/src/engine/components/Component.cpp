@@ -18,8 +18,17 @@ namespace Engine
 			component->corePtr = entityPtr.lock()->corePtr;
 		}
 
-		void Component::Render(std::weak_ptr<Components::Camera>& activeCamera) { }
-		void Component::Update() { }
+		void Component::Start() { }
+		void Component::Update() 
+		{
+			if (!_startCalled) [[unlikely]]
+			{
+				_startCalled = true;
+				Start();
+			}
+		}
+
 		void Component::PhysicsUpdate() { }
+		void Component::Render(std::weak_ptr<Components::Camera>& activeCamera) { }
 	}
 }

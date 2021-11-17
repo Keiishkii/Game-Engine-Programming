@@ -20,9 +20,6 @@ namespace Engine
 
 			std::shared_ptr<VertexArray> _materialGroupVertexArray;
 		public:
-			std::shared_ptr<VertexBuffer> vertexPositionBuffer;
-			std::shared_ptr<VertexBuffer> vertexNormalBuffer;
-			//std::shared_ptr<VertexBuffer> textureUVBuffer;
 
 
 		private:

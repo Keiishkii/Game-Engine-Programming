@@ -3,7 +3,7 @@
 namespace Engine
 {
 	struct Core;
-	struct Time
+	struct TimeManager
 	{
 		friend Engine::Core;
 
@@ -15,7 +15,7 @@ namespace Engine
 		float _physicsUpdateRate = 60;
 		float _physicsDeltaTime;
 
-		std::chrono::steady_clock::time_point _timeOfPreviousFrameEnd, _timeOfPreviousPhysicsCheck;
+		std::chrono::steady_clock::time_point _timeOfProgramStart, _timeOfPreviousFrameEnd, _timeOfPreviousPhysicsCheck;
 		std::chrono::duration<float> _totalElapsedPhysicsTime;
 
 	private:
@@ -25,7 +25,9 @@ namespace Engine
 		void Sleep(float seconds);
 
 	public:
-		Time(float targetFrameRate, float physicsUpdateRate);
+		TimeManager(float targetFrameRate, float physicsUpdateRate);
+
+		float TimeSinceStartOfProgram();
 
 		void SetPhysicsUpdateRate(float);
 		void SetFrameRate(float);

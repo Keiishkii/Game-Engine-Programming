@@ -15,6 +15,8 @@ namespace Engine
 			friend Engine::Entity;
 
 		protected:
+			bool _startCalled = false;
+
 			std::weak_ptr<Component> _self;
 			std::weak_ptr<float> _deltaTimePtr;
 		public:
@@ -22,7 +24,9 @@ namespace Engine
 			std::weak_ptr<Engine::Core> corePtr;
 
 
-		private:
+		protected:
+			virtual void Start();
+
 			virtual void Update();
 			virtual void PhysicsUpdate();
 			virtual void Render(std::weak_ptr<Components::Camera>& activeCamera);

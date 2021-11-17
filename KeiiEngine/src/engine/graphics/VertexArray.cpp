@@ -27,12 +27,12 @@ namespace Engine
 				glBindVertexArray(_id);
 
 				int bufferID = 0;
-				for (std::map<std::string, std::shared_ptr<VertexBuffer>>::iterator it = _vertexBuffers.begin(); it != _vertexBuffers.end(); it++, bufferID++)
+				for (std::map<std::string, VertexBuffer>::iterator it = _vertexBuffers.begin(); it != _vertexBuffers.end(); it++, bufferID++)
 				{
-					std::shared_ptr<VertexBuffer> buffer = it->second;
+					VertexBuffer buffer = it->second;
 
-					glBindBuffer(GL_ARRAY_BUFFER, buffer->getID());
-					glVertexAttribPointer(bufferID, buffer->GetComponentSize(), GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+					glBindBuffer(GL_ARRAY_BUFFER, buffer.getID());
+					glVertexAttribPointer(bufferID, buffer.GetComponentSize(), GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
 					glEnableVertexAttribArray(bufferID);
 				}
 
@@ -46,27 +46,11 @@ namespace Engine
 			return _id;
 		}
 
-		std::shared_ptr<VertexBuffer> VertexArray::GetVertexBuffer(std::string key)
-		{
-			std::shared_ptr<VertexBuffer> buffer = NULL;
-
-			if (!_vertexBuffers.count(key))
-			{
-				throw ErrorHandling::Exception("The VertexBuffer map does not contain any buffers using the key " + key + ".");
-			}
-			else
-			{
-				buffer = _vertexBuffers[key];
-			}
-
-			return buffer;
-		}
-
-		void VertexArray::SetBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content)
+		void VertexArray::SetBuffer(std::string _buffer, VertexBuffer& _content)
 		{
 			if (!_vertexBuffers.count(_buffer))
 			{
-				_vertexBuffers.insert(std::pair<std::string, std::shared_ptr<VertexBuffer>>(_buffer, _content));
+				_vertexBuffers.insert(std::pair<std::string, VertexBuffer>(_buffer, _content));
 			}
 			else
 			{

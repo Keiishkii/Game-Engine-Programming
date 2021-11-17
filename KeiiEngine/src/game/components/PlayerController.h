@@ -1,15 +1,17 @@
 #include "engine/KeiiEngine.h"
 
-namespace game
+namespace Game
 {
 	struct PlayerController : Engine::Components::Component
 	{
 	private:
+		glm::vec3 _initialSpawnPosition;
 	public:
 
 		
 	private:
 	public:
-		void Update() override;
+		virtual void Start() override;
+		virtual void Update() override;
 	};
 }

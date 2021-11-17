@@ -20,23 +20,17 @@ namespace Engine
 			std::shared_ptr<FbxManager*> _fbxManager;
 
 			int _totalVertexCount;
-
 			std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>> _polygonMaterialGroups;
-			//std::vector<>
 		public:
 
 
 		private:
 			bool LoadScene(FbxManager* pManager, FbxDocument* pScene, const char* pFilename);
-			void ProbeNode(FbxNode* _node);
+			void ProbeNode(FbxNode* node, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer);
 
-			void AppendVertexPositionData(FbxMesh* mesh);
-			void AppendTexutreUVData(FbxMesh* mesh);
-			void AppendMaterialData(FbxMesh* mesh);
-
-			void UnpackMesh(FbxMesh* mesh);
+			void UnpackMesh(FbxMesh* mesh, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer);
 			int GetPolygonMaterial(FbxMesh* mesh, int polygonIndex);
-			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialID);
+			void AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialID, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer);
 
 		public:
 			virtual void Initialise(std::weak_ptr<ResourceManager> resourceManager) override;

@@ -7,7 +7,7 @@
 #include <glew.h>
 
 #include "Core.h"
-#include "Time.h"
+#include "TimeManager.h"
 #include "Entity.h"
 #include "components/Camera.h"
 #include "components/Transform.h"
@@ -23,6 +23,8 @@ namespace Engine
 {
 	std::shared_ptr<ResourceManager> Core::ResourceManager() { return _resources; }
 	std::shared_ptr<Debugger> Core::Debugger() { return _debugger; }
+	std::shared_ptr<TimeManager> Core::TimeManager() { return _timeManager; }
+
 
 	std::shared_ptr<Core> Core::Initialise()
 	{
@@ -79,16 +81,16 @@ namespace Engine
 		SDL_Quit();
 	}
 
-	void Core::Start()
+	void Core::Start(int FPS, int fixedFPS)
 	{
 		_running = true;
 
-		MainLoop();
+		MainLoop(FPS, fixedFPS);
 	}
 
-	void Core::MainLoop()
+	void Core::MainLoop(int FPS, int fixedFPS)
 	{
-		std::shared_ptr<Time> timeClass = std::make_shared<Time>(80, 120);
+		_timeManager = std::make_shared<Engine::TimeManager>(FPS, fixedFPS);
 
 		int i = 0;
 		std::chrono::steady_clock::time_point frameStart = std::chrono::steady_clock::now();
@@ -97,17 +99,23 @@ namespace Engine
 		{
 			Update();
 
-			int physicsCycles = timeClass->CheckForFixedUpdates();
+			int physicsCycles = _timeManager->CheckForFixedUpdates();
 			for (int i = 0; i < physicsCycles; i++)
 			{
 				PhysicsUpdate();
+
+			#ifdef ENGINE_DEBUGGING
 				_debugger->LogFixedUpdate();
+			#endif
 			}
 
 			Render();
-			timeClass->WaitForEndOfFrame();
 
+			_timeManager->WaitForEndOfFrame();
+
+		#ifdef ENGINE_DEBUGGING
 			_debugger->LogUpdate();
+		#endif
 		}
 	}
 
@@ -118,7 +126,6 @@ namespace Engine
 
 		glViewport(0, 0, width, height);
 
-		std::cout << " - Render" << std::endl;
 		for (int i = 0; i < _cameraList.size(); i++)
 		{
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
@@ -140,7 +147,6 @@ namespace Engine
 
 	void Core::Update()
 	{
-		std::cout << " - Update" << std::endl;
 		for (int i = 0; i < _entityList.size(); i++)
 		{
 			_entityList[i]->Update();
@@ -149,7 +155,6 @@ namespace Engine
 
 	void Core::PhysicsUpdate()
 	{
-		std::cout << " - Physics Update" << std::endl;
 		for (int i = 0; i < _entityList.size(); i++)
 		{
 			_entityList[i]->Update();

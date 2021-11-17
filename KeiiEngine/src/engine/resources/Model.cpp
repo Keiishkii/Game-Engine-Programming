@@ -69,8 +69,13 @@ namespace Engine
 					}
 					else
 					{
-						ProbeNode(routeNode);
+						Graphics::VertexBuffer positionBuffer;
+						Graphics::VertexBuffer normalBuffer;
+						//textureUVBuffer = std::make_shared<VertexBuffer>();
 
+						ProbeNode(routeNode, positionBuffer, normalBuffer);
+
+						int count = 0;
 						for (std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>>::iterator it = _polygonMaterialGroups.begin(); it != _polygonMaterialGroups.end(); it++)
 						{
 							std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = it->second;
@@ -80,30 +85,36 @@ namespace Engine
 
 							polygonMaterialGroup->_materialGroupVertexArray->SetVertexCount(polygonMaterialGroup->VertexCount());
 
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->vertexPositionBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", positionBuffer);
 							//polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->vertexNormalBuffer);
 							//polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
+
+
+							std::cout << "Material Group Polygon Count: " << polygonMaterialGroup->VertexCount() << std::endl;
+							count += polygonMaterialGroup->VertexCount();
 						}
+
+						std::cout << count << ", " << _totalVertexCount << std::endl;
 					}
                 }
             }
         }
 
-		void Model::ProbeNode(FbxNode* _node)
+		void Model::ProbeNode(FbxNode* node, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer)
 		{
-			if (!((*_node).GetNodeAttribute() == NULL))
+			if (!((*node).GetNodeAttribute() == NULL))
 			{
-				int attributeCount = (*_node).GetNodeAttributeCount();
+				int attributeCount = (*node).GetNodeAttributeCount();
 				for (int i = 0; i < attributeCount; i++)
 				{
 					FbxNodeAttribute::EType lAttributeType;
-					lAttributeType = ((*_node).GetNodeAttributeByIndex(i)->GetAttributeType());
+					lAttributeType = ((*node).GetNodeAttributeByIndex(i)->GetAttributeType());
 
 					switch (lAttributeType)
 					{
 						case FbxNodeAttribute::eSkeleton:
 						{
-							FbxSkeleton* skeleton = (FbxSkeleton*)_node->GetNodeAttribute();
+							FbxSkeleton* skeleton = (FbxSkeleton*)node->GetNodeAttribute();
 							if (skeleton != NULL)
 							{
 
@@ -111,35 +122,35 @@ namespace Engine
 						} break;
 						case FbxNodeAttribute::eMesh:
 						{
-							FbxMesh* mesh = (*_node).GetMesh();
+							FbxMesh* mesh = (*node).GetMesh();
 							if (mesh != NULL)
 							{
-								UnpackMesh(mesh);
+								UnpackMesh(mesh, positionBuffer, normalBuffer);
 							}
 						} break;
 					}
 				}
 			}
 
-			int children = (*_node).GetChildCount();
+			int children = (*node).GetChildCount();
 
 			if (children > 0)
 			{
 				for (int i = 0; i < children; i++)
 				{
-					ProbeNode(((*_node).GetChild(i)));
+					ProbeNode(((*node).GetChild(i)), positionBuffer, normalBuffer);
 				}
 			}
 		}
 
-		void Model::UnpackMesh(FbxMesh* mesh)
+		void Model::UnpackMesh(FbxMesh* mesh, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer)
 		{
 			int polygonCount = mesh->GetPolygonCount();
 			for (int i = 0; i < polygonCount; i++)
 			{
 				int materialIndex = GetPolygonMaterial(mesh, i);
 
-				AddToPolygonMaterialGroup(mesh, i, materialIndex);
+				AddToPolygonMaterialGroup(mesh, i, materialIndex, positionBuffer, normalBuffer);
 			}
 		}
 
@@ -157,7 +168,7 @@ namespace Engine
 			return polygonMaterialIndex;
 		}
 
-		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex)
+		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex, Graphics::VertexBuffer& positionBuffer, Graphics::VertexBuffer& normalBuffer)
 		{
 			int* vertciesArray = mesh->GetPolygonVertices();
 			for (int v = 0; v < mesh->GetPolygonSize(polygonIndex); v++)
@@ -168,10 +179,10 @@ namespace Engine
 				mesh->GetPolygonVertexNormal(polygonIndex, v, normal);
 
 				glm::vec3 vertexPosition(controlPoint.mData[0], controlPoint.mData[1], controlPoint.mData[2]);
-				polygonMaterialGroup->vertexPositionBuffer->Add(vertexPosition);
+				positionBuffer.Add(vertexPosition);
 
 				glm::vec3 vertexNormal(normal.mData[0], normal.mData[1], normal.mData[2]);
-				polygonMaterialGroup->vertexNormalBuffer->Add(vertexNormal);
+				normalBuffer.Add(vertexNormal);
 
 				_totalVertexCount++;
 				polygonMaterialGroup->_vertexCount++;

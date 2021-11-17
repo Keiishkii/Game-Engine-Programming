@@ -2,7 +2,7 @@
 #ifndef ENGINE_KEIIENGINE
 #define ENGINE_KEIIENGINE
 	#include "Core.h"
-	#include "Time.h"
+	#include "TimeManager.h"
 	#include "Enviroment.h"
 	#include "Entity.h"
 

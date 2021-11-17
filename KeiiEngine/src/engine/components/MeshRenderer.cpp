@@ -30,8 +30,6 @@ namespace Engine
 		{
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
-				std::cout << "--------------------------- ON RENDER " << std::endl;
-
 				GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
 
 				glUseProgram(programID);
@@ -44,8 +42,6 @@ namespace Engine
 
 				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
 
-				std::cout << "Vertex Array ID: " << polygonMaterialGroup->VertexArrayID() << std::endl;
-
 				glm::mat4x4 modelMatrix = Transform().lock()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
@@ -55,18 +51,10 @@ namespace Engine
 				glm::mat4x4 projectionMatrix = activeCamera.lock()->ProjectionMatrix();
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
-
-
-				std::cout << "Matrix Data: ------ " << std::endl;
-				for (int j = 0; j < viewingMatrix.length(); j++)
-					std::cout << viewingMatrix[j].x << ", " << viewingMatrix[j].y << ", " << viewingMatrix[j].z << ", " << modelMatrix[j].w << std::endl;
-
-
-
 				// Draw to the screen
-				//glEnable(GL_BLEND);
-				//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount() / 3);
+				glEnable(GL_BLEND);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount());
 			}			
 		}
 	}
