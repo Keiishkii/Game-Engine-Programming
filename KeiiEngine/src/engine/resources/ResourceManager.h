@@ -39,6 +39,7 @@ namespace Engine
 			std::shared_ptr<T> FindAsset(std::string assetPath)
 			{
 				std::shared_ptr<T> resourcePointer = std::make_shared<T>();
+				resourcePointer->Resource::Initialise(_self);
 				resourcePointer->Initialise(_self);
 
 				try

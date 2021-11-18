@@ -36,10 +36,31 @@ namespace Engine
 			return polygonMaterialGroup;
 		}
 
+		std::shared_ptr<Material> Model::GetMaterial(int materialIndex)
+		{
+			std::shared_ptr<Material> material;
+			if (_materials.count(materialIndex))
+			{
+				material = _materials[materialIndex];
+			}
+
+			return material;
+		}
+
+		void Model::SetMaterial(int materialIndex, std::shared_ptr<Material> material)
+		{
+			if (_materials.count(materialIndex))
+			{
+				_materials[materialIndex] = material;
+			}
+			else
+			{
+				_materials.insert(std::pair<int, std::shared_ptr<Material>>(materialIndex, material));
+			}
+		}
+
         void Model::Initialise(std::weak_ptr<ResourceManager> resourceManager)
         {
-            Resource::Initialise(resourceManager);
-
             _fbxManager = _resourceManager.lock()->FBXManager();
         }
 

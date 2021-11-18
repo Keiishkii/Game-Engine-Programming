@@ -14,6 +14,7 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct ResourceManager;
+		struct Material;
 
 		struct Model : Resource
 		{
@@ -22,6 +23,7 @@ namespace Engine
 
 			int _totalVertexCount;
 			std::map<int, std::shared_ptr<Graphics::PolygonMaterialGroup>> _polygonMaterialGroups;
+			std::map<int, std::shared_ptr<Material>> _materials;
 		public:
 
 
@@ -41,6 +43,8 @@ namespace Engine
 			int TotalVertexCount();
 			int TotalMaterialGroups();
 			std::shared_ptr<Graphics::PolygonMaterialGroup> GetPolygonMaterialGroup(int materialIndex);
+			std::shared_ptr<Material> GetMaterial(int materialIndex);
+			void SetMaterial(int materialIndex, std::shared_ptr<Material> material);
 		};
 	}
 }

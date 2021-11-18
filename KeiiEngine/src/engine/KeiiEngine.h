@@ -17,6 +17,7 @@
 	#include "resources/Model.h"
 	#include "resources/Sound.h"
 	#include "resources/Texture.h"
+	#include "resources/Material.h"
 
 // Components
 	#include "components/Component.h"

@@ -22,7 +22,7 @@ int main()
 	//std::shared_ptr<Entity> mapEntity = core->AddEntity();
 	{
 		//std::shared_ptr<Components::MeshRenderer> meshRenderer = mapEntity->AddComponent<Components::MeshRenderer>(core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/gaur_plains.fbx"));
-		//mapEntity->Transform().lock()->position = glm::vec3(-120, -15, 25);
+		//mapEntity->Transform().lock()->position = glm::vec3(-120, -155, 25);
 		//cameraEntity->Transform().lock()->rotation = glm::quat(glm::vec3(0.0f, -(M_PI / 2), 0.0f));
 		//mapEntity->Transform().lock()->scale = glm::vec3(0.1f, 0.1f, 0.1f);
 	}
@@ -37,14 +37,20 @@ int main()
 
 	std::shared_ptr<Entity> playerEntity = core->AddEntity();
 	{
-		std::shared_ptr<Components::MeshRenderer> meshRenderer = playerEntity->AddComponent<Components::MeshRenderer>(core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/shulk.fbx"));
+		std::shared_ptr<ResourceManagement::Model> mesh = core->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/shulk.fbx");
+		for (int i = 0; i < 16; i++)
+		{
+			mesh->SetMaterial(i, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_red.material"));
+		}
+
+		std::shared_ptr<Components::MeshRenderer> meshRenderer = playerEntity->AddComponent<Components::MeshRenderer>(mesh);
 		std::shared_ptr<Game::PlayerController> playerController = playerEntity->AddComponent<Game::PlayerController>();
-		playerEntity->Transform().lock()->position = glm::vec3(0, 0, -6);
-		playerEntity->Transform().lock()->scale = glm::vec3(0.1f, 0.1f, 0.1f);
+			playerEntity->Transform().lock()->position = glm::vec3(0, 0, -6);
+			playerEntity->Transform().lock()->scale = glm::vec3(0.1f, 0.1f, 0.1f);
 	}
 
-
-
+	core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
+	
 	core->Start(144, 50);
 
 	return 0;

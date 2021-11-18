@@ -9,6 +9,7 @@
 #include "engine/Core.h"
 #include "engine/resources/ResourceManager.h"
 #include "engine/resources/ShaderProgram.h"
+#include "engine/resources/Material.h"
 #include "engine/resources/Model.h"
 #include "engine/graphics/PolygonMaterialGroup.h"
 #include "engine/error-handling/Exception.h"
@@ -31,10 +32,25 @@ namespace Engine
 			int total = 0;
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
-				GLuint programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/simpleprogram.glsl")->GetShaderID();
+				std::shared_ptr<ResourceManagement::Material> material = _renderModel->GetMaterial(i);
+				if (!material)
+				{
+					material = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
+				}
+
+				GLuint programID = 0;
+				if (material->GetShaderProgram())
+				{
+					programID = material->GetShaderProgram()->GetShaderID();
+				}
+				else
+				{
+					programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl")->GetShaderID();
+				}
 
 				glUseProgram(programID);
 
+				GLint colourID = glGetUniformLocation(programID, "in_Colour");
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
 				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
 				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
@@ -42,6 +58,11 @@ namespace Engine
 				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = _renderModel->GetPolygonMaterialGroup(i);
 
 				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
+
+				glm::vec4 colour = material->GetColour();
+				//std::cout << "Colour: [" << colour.x << ", " << colour.y << ", " << colour.z << ", " << colour.w << "]" << std::endl;
+
+				glUniform4fv(colourID, 1, glm::value_ptr(colour));
 
 				glm::mat4x4 modelMatrix = Transform().lock()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
