@@ -23,17 +23,12 @@
 #endif
 
 #ifdef FRAGMENT_SHADER
-	uniform sampler2D in_Texture;
-
 	varying vec3 out_Normal;
 	varying vec4 out_Colour;
 	varying vec2 out_TextureUV;
 
 	void main()
 	{		
-		vec4 textureColour = texture2D(in_Texture, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
-
-		//gl_FragColor = vec4(out_TextureUV, 1, 1);
-		gl_FragColor = textureColour;
+		gl_FragColor = vec4(out_TextureUV, 1, 1);
 	}
 #endif

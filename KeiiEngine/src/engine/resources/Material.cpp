@@ -38,17 +38,25 @@ namespace Engine
 			Document document;
 			document.Parse(fileContent.c_str());
 
-			AssignShader(document);
+			GLuint shaderProgramID = 0;
+			AssignShader(document, shaderProgramID);
+			glUseProgram(shaderProgramID);
+
 			AssignColour(document);
-			AssignAlbedoTexture(document);
-			AssignNormalTexture(document);
+			AssignAlbedoTexture(document, shaderProgramID);
+			AssignNormalTexture(document, shaderProgramID);
+
+			glUseProgram(0);
 		}
 
-		void Material::AssignShader(Document& document)
+		void Material::AssignShader(Document& document, GLuint& shaderProgramID)
 		{
 			if (document.HasMember("shader_program") && document["shader_program"].IsString())
 			{
-				_shaderProgram = _resourceManager.lock()->FindAsset<ShaderProgram>(document["shader_program"].GetString());
+				std::shared_ptr<ShaderProgram> shaderProgram = _resourceManager.lock()->FindAsset<ShaderProgram>(document["shader_program"].GetString());
+				_shaderProgram = shaderProgram;
+				
+				shaderProgramID = shaderProgram->GetShaderID();
 			}
 			else
 			{
@@ -78,11 +86,40 @@ namespace Engine
 			}
 		}
 
-		void Material::AssignAlbedoTexture(Document& document)
+		void Material::AssignAlbedoTexture(Document& document, GLuint& shaderProgramID)
 		{
 			if (document.HasMember("albedo_texture_map") && document["albedo_texture_map"].IsString())
 			{
-				_albedoTexture = _resourceManager.lock()->FindAsset<Texture>(document["albedo_texture_map"].GetString());
+				std::shared_ptr<Texture> albedoTexture = _resourceManager.lock()->FindAsset<Texture>(document["albedo_texture_map"].GetString());
+				_albedoTexture = albedoTexture;
+
+				GLint textureLoc = glGetUniformLocation(shaderProgramID, "in_Texture");
+
+				GLuint textureId = 0;
+				glGenTextures(1, &textureId);
+
+				if (!textureId)
+				{
+					throw ErrorHandling::Exception("Failed to create a texture ID for the albedo texture.");
+				}
+				else
+				{
+					glBindTexture(GL_TEXTURE_2D, textureId);
+
+					// Upload the image data to the bound texture unit in the GPU
+					glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, albedoTexture->GetWidth(), albedoTexture->GetHeight(), 0, GL_RGBA,
+						GL_UNSIGNED_BYTE, albedoTexture->GetTexture());
+
+					// Free the loaded data because we now have a copy on the GPU
+					free(albedoTexture->GetTexture());
+					glGenerateMipmap(GL_TEXTURE_2D);
+					/////////////////////
+
+					glUniform1i(textureLoc, 0);
+
+					glActiveTexture(GL_TEXTURE0 + 0);
+					glBindTexture(GL_TEXTURE_2D, textureId);
+				}
 			}
 			else
 			{
@@ -90,7 +127,7 @@ namespace Engine
 			}
 		}
 
-		void Material::AssignNormalTexture(Document& document)
+		void Material::AssignNormalTexture(Document& document, GLuint& shaderProgramID)
 		{
 			if (document.HasMember("normal_texture_map") && document["normal_texture_map"].IsString())
 			{

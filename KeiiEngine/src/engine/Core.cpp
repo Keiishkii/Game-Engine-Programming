@@ -42,17 +42,19 @@ namespace Engine
 
 	void Core::SDLInitialisation()
 	{
-		_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
+		_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 400, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
 
 		try
 		{
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+
 			if (!SDL_GL_CreateContext(*_window))
 			{
 				throw Exception("Failed to create window context");
 			}
 			else
 			{
-				if (SDL_SetRelativeMouseMode(SDL_TRUE))
+				if (SDL_SetRelativeMouseMode(SDL_FALSE))
 				{
 					throw Exception("Failed to set relative mouse position");
 				}
@@ -97,6 +99,15 @@ namespace Engine
 
 		while (_running)
 		{
+			SDL_Event event = { 0 };
+			while (SDL_PollEvent(&event))
+			{
+				if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+					_running = false;
+			}
+
+
+
 			Update();
 
 			int physicsCycles = _timeManager->CheckForFixedUpdates();

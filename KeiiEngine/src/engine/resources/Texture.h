@@ -9,9 +9,7 @@ namespace Engine
 		struct Texture : Resource
 		{
 		private:
-			GLuint _textureID;
-
-			int width, height;
+			int _width, _height;
 			unsigned char* _texture;
 		public:
 
@@ -19,6 +17,10 @@ namespace Engine
 		private:
 		public:
 			virtual void Load(std::string path) override;
+
+			int GetWidth();
+			int GetHeight();
+			unsigned char* GetTexture();
 		};
 	}
 }

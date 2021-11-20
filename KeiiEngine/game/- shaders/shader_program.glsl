@@ -53,6 +53,6 @@
 		
 		vec4 texture = texture2D( in_Texture , vec2(out_TextureCoord.x, 1 - out_TextureCoord.y));
 		
-		gl_FragColor = texture * vec4(fragmentlighting, 1.0);
+		gl_FragColor = texture;
 	}
 #endif
