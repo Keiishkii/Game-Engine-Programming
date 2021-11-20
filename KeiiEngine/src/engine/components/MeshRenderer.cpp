@@ -33,22 +33,29 @@ namespace Engine
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
 				std::shared_ptr<ResourceManagement::Material> material = _renderModel->GetMaterial(i);
+
 				if (!material)
 				{
 					material = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
 				}
 
+				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = material->GetShaderProgram();
+				std::shared_ptr<ResourceManagement::Texture> albedoMap = material->GetAlbedoTexture();
+
 				GLuint programID = 0;
-				if (material->GetShaderProgram())
+				if (shaderProgram)
 				{
-					programID = material->GetShaderProgram()->GetShaderID();
+					programID = shaderProgram->GetShaderID();
 				}
 				else
 				{
-					programID = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl")->GetShaderID();
+					shaderProgram = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl");
+					programID = shaderProgram->GetShaderID();
 				}
 
 				glUseProgram(programID);
+
+				if (albedoMap) shaderProgram->UploadTextureMapToShader(albedoMap, "in_AbedoMap");
 
 				GLint colourID = glGetUniformLocation(programID, "in_Colour");
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");

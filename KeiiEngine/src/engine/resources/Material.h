@@ -23,10 +23,10 @@ namespace Engine
 
 
 		private:
-			void AssignShader(Document& document, GLuint& shaderProgramID);
+			void AssignShader(Document& document);
 			void AssignColour(Document& document);
-			void AssignAlbedoTexture(Document& document, GLuint& shaderProgramID);
-			void AssignNormalTexture(Document& document, GLuint& shaderProgramID);
+			void AssignAlbedoTexture(Document& document);
+			void AssignNormalTexture(Document& document);
 		public:
 			virtual void Load(std::string path) override;
 

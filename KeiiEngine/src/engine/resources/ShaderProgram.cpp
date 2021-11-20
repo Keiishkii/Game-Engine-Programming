@@ -4,6 +4,7 @@
 #include <sstream>
 
 #include "ShaderProgram.h"
+#include "Texture.h"
 #include "engine/error-handling/Exception.h"
 
 namespace Engine
@@ -136,6 +137,29 @@ namespace Engine
 		GLuint& ShaderProgram::GetShaderID()
 		{
 			return _shaderProgramID;
+		}
+
+		GLuint ShaderProgram::GetTextureSampleID(std::string sample)
+		{
+			GLuint sampleID = 0;
+			if (_textureMapSampleIDs.count(sample))
+			{
+				sampleID = _textureMapSampleIDs[sample];
+			}
+			else
+			{
+				sampleID = glGetUniformLocation(_shaderProgramID, "in_Texture");
+			}
+
+			return sampleID;
+		}
+
+		void ShaderProgram::UploadTextureMapToShader(std::shared_ptr<Texture> textureMap, std::string sample)
+		{
+			glUniform1i(GetTextureSampleID(sample), 0);
+
+			glActiveTexture(GL_TEXTURE0 + 0);
+			glBindTexture(GL_TEXTURE_2D, textureMap->GetTextureID());
 		}
 	}
 }

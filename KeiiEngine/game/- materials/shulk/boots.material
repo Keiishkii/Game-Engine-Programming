@@ -1,0 +1,6 @@
+{
+	"shader_program": 		"- shaders/default_shader_program.glsl",
+	"colour": 				[1, 1, 1, 1],
+	"albedo_texture_map":	"- textures/shulk/boots.png",
+	"normal_texture_map": 	"- textures/shulk/boots.png"
+}
