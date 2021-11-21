@@ -14,6 +14,8 @@
 #include "engine/graphics/PolygonMaterialGroup.h"
 #include "engine/error-handling/Exception.h"
 
+using Engine::ErrorHandling::Exception;
+
 namespace Engine
 {
 	namespace Components
@@ -23,20 +25,15 @@ namespace Engine
 			_renderModel = renderModel;
 		}
 
-		void MeshRenderer::Update() { }
-		void MeshRenderer::PhysicsUpdate() { }
-
-		//void MeshRenderer::Render(std::weak_ptr<Components::Camera>& activeCamera)
-		void MeshRenderer::Render(std::weak_ptr<Components::Camera>& activeCamera)
+		void MeshRenderer::Render(const std::shared_ptr<Camera>& activeCamera)
 		{
-			int total = 0;
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
 				std::shared_ptr<ResourceManagement::Material> material = _renderModel->GetMaterial(i);
 
 				if (!material)
 				{
-					material = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
+					material = Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
 				}
 
 				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = material->GetShaderProgram();
@@ -49,13 +46,13 @@ namespace Engine
 				}
 				else
 				{
-					shaderProgram = corePtr.lock()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl");
+					shaderProgram = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl");
 					programID = shaderProgram->GetShaderID();
 				}
 
 				glUseProgram(programID);
 
-				if (albedoMap) shaderProgram->UploadTextureMapToShader(albedoMap, "in_AbedoMap");
+				if (albedoMap) shaderProgram->UploadTextureMapToShader(albedoMap, "in_AlbedoMap");
 
 				GLint colourID = glGetUniformLocation(programID, "in_Colour");
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
@@ -66,25 +63,24 @@ namespace Engine
 
 				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
 
-				glm::vec4 colour = material->GetColour();
+				glm::vec4 colour = material->Colour();
 				//std::cout << "Colour: [" << colour.x << ", " << colour.y << ", " << colour.z << ", " << colour.w << "]" << std::endl;
 
 				glUniform4fv(colourID, 1, glm::value_ptr(colour));
 
-				glm::mat4x4 modelMatrix = Transform().lock()->TransformationMatrix();
+				glm::mat4x4 modelMatrix = Transform()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera.lock()->Transform().lock()->TransformationMatrix());
+				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera->Transform()->TransformationMatrix());
 				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
 
-				glm::mat4x4 projectionMatrix = activeCamera.lock()->ProjectionMatrix();
+				glm::mat4x4 projectionMatrix = activeCamera->ProjectionMatrix();
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 				// Draw to the screen
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount());
-				total += polygonMaterialGroup->VertexCount();
 			}			
 		}
 	}

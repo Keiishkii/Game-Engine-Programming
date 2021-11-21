@@ -9,9 +9,10 @@ namespace Engine
 
 	private:
 		float _targetFramerate = 60;
-		float _targetDeltaTime;
-		float _deltaTime;
+		float _targetDeltaTime = 1;
+		float _deltaTime = 1;
 
+		int _maxPhysicsFrames = 10;
 		float _physicsUpdateRate = 60;
 		float _physicsDeltaTime;
 

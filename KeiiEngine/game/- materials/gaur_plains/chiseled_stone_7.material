@@ -1,0 +1,5 @@
+{
+	"shader_program": 		"- shaders/default_shader_program.glsl",
+	"colour": 				[1, 1, 1, 1],
+	"albedo_texture_map":	"- textures/gaur_plains/chiseled_stone_7.png"
+}

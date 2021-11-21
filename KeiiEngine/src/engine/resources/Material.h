@@ -15,25 +15,25 @@ namespace Engine
 		struct Material : Resource
 		{
 		private:
-			std::weak_ptr<ShaderProgram> _shaderProgram;
-			std::weak_ptr<Texture> _albedoTexture, _normalTexture;
+			std::shared_ptr<ShaderProgram> _shaderProgram;
+			std::shared_ptr<Texture> _albedoTexture, _normalTexture;
 
-			glm::vec4 _colour;
+			glm::vec4 _colour = {1, 1, 1, 1};
 		public:
 
 
 		private:
-			void AssignShader(Document& document);
-			void AssignColour(Document& document);
-			void AssignAlbedoTexture(Document& document);
-			void AssignNormalTexture(Document& document);
+			void AssignShader(const Document& document);
+			void AssignColour(const Document& document);
+			void AssignAlbedoTexture(const Document& document);
+			void AssignNormalTexture(const Document& document);
 		public:
-			virtual void Load(std::string path) override;
+			virtual void Load(const std::string& path) override;
 
-			std::shared_ptr<ShaderProgram> GetShaderProgram();
-			glm::vec4 GetColour();
-			std::shared_ptr<Texture> GetAlbedoTexture();
-			std::shared_ptr<Texture> GetNormalTexture();
+			glm::vec4& Colour();
+			std::shared_ptr<ShaderProgram>& GetShaderProgram();
+			std::shared_ptr<Texture>& GetAlbedoTexture();
+			std::shared_ptr<Texture>& GetNormalTexture();
 		};
 	}
 }

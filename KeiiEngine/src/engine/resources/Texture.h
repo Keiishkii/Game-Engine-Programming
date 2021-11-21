@@ -18,7 +18,7 @@ namespace Engine
 
 		private:
 		public:
-			virtual void Load(std::string path) override;
+			virtual void Load(const std::string& path) override;
 
 			GLuint GetTextureID();
 

@@ -19,9 +19,6 @@ namespace Engine
 		_totalElapsedPhysicsTime = std::chrono::duration<float>(0);
 	}
 
-	float Engine::TimeManager::PhysicsDeltaTime() const { return _physicsDeltaTime; }
-	float Engine::TimeManager::DeltaTime() const { return _deltaTime; }
-
 	float TimeManager::TimeSinceStartOfProgram()
 	{
 		std::chrono::duration<float> duration = std::chrono::steady_clock::now() - _timeOfProgramStart;
@@ -52,6 +49,8 @@ namespace Engine
 		_totalElapsedPhysicsTime += timeElapsed;
 
 		int fixedUpdateCycles = (_totalElapsedPhysicsTime.count() / _physicsDeltaTime);
+		if (!fixedUpdateCycles > _maxPhysicsFrames) [[unlikely]]
+			fixedUpdateCycles = _maxPhysicsFrames;
 
 		_totalElapsedPhysicsTime -= std::chrono::duration<float>((float)fixedUpdateCycles * _physicsDeltaTime);
 		_timeOfPreviousPhysicsCheck = currentTime;
@@ -88,9 +87,14 @@ namespace Engine
 
 		std::chrono::steady_clock::time_point sleepFunctionStart = std::chrono::steady_clock::now();
 		std::chrono::duration<float> elapsedTime = std::chrono::steady_clock::now() - sleepFunctionStart;
+		
+		//std::cout << "Sleep Duration: " << waitDuration.count() << std::endl;
 		while (elapsedTime < waitDuration)
 		{
 			elapsedTime = std::chrono::steady_clock::now() - sleepFunctionStart;
 		}
 	}
+
+	float Engine::TimeManager::PhysicsDeltaTime() const { return _physicsDeltaTime; }
+	float Engine::TimeManager::DeltaTime() const { return _deltaTime; }
 }

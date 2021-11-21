@@ -23,12 +23,20 @@
 #endif
 
 #ifdef FRAGMENT_SHADER
+	uniform sampler2D in_AlbedoMap;
+
 	varying vec3 out_Normal;
 	varying vec4 out_Colour;
 	varying vec2 out_TextureUV;
 
 	void main()
 	{		
-		gl_FragColor = vec4(out_TextureUV, 1, 1);
+		vec4 textureColour = texture2D(in_AlbedoMap, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
+		
+		if(textureColour.a < 0.1)
+        discard;
+
+		vec4 colour = textureColour * out_Colour;
+		gl_FragColor = colour;
 	}
 #endif

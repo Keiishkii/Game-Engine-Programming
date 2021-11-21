@@ -1,9 +1,10 @@
-#pragma once
 #ifndef ENGINE_KEIIENGINE
 #define ENGINE_KEIIENGINE
+
 	#include "Core.h"
 	#include "TimeManager.h"
-	#include "Enviroment.h"
+	#include "InputManager.h"
+	#include "Inputs.h"
 	#include "Entity.h"
 
 // Error Handling
@@ -16,8 +17,9 @@
 	#include "resources/ShaderProgram.h"
 	#include "resources/Model.h"
 	#include "resources/Sound.h"
-	#include "resources/Texture.h"
 	#include "resources/Material.h"
+	#include "resources/Texture.h"
+	#include "resources/TextureCubeMap.h"
 
 // Components
 	#include "components/Component.h"

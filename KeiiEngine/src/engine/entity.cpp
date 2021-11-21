@@ -5,42 +5,46 @@
 
 namespace Engine
 {
-	std::weak_ptr<Components::Transform> Entity::Transform() { return _transform; }
-
-	std::shared_ptr<Entity> Entity::Initialise(std::weak_ptr<Core> corePtr)
+	Entity::Entity(std::string name)
 	{
-		std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-
-		entity->_self = entity;
-		entity->corePtr = corePtr;
-
-		entity->_transform = entity->AddComponent<Components::Transform>();
-
-		return entity;
+		_name = name;
 	}
 
-	void Entity::Render(std::weak_ptr<Components::Camera>& activeCamera)
+	void Entity::Initialise(std::shared_ptr<Entity> self, std::shared_ptr<Engine::Core> core)
 	{
-		for (int i = 0; i < componentList.size(); i++)
+		self->_self = self;
+		self->_core = core;
+
+		self->_transform = self->AddComponent<Components::Transform>();
+	}
+
+	void Entity::Render(const std::shared_ptr<Components::Camera>& activeCamera)
+	{
+		for (int i = 0; i < _componentList.size(); i++)
 		{
-			componentList[i]->Render(activeCamera);
+			_componentList[i]->Render(activeCamera);
 		}
 	}
 
 	void Entity::Update()
 	{
-		for (int i = 0; i < componentList.size(); i++)
+		for (int i = 0; i < _componentList.size(); i++)
 		{
-			componentList[i]->Component::Update();
-			componentList[i]->Update();
+			_componentList[i]->Component::Update();
+			_componentList[i]->Update();
 		}
 	}
 
 	void Entity::PhysicsUpdate()
 	{
-		for (int i = 0; i < componentList.size(); i++)
+		for (int i = 0; i < _componentList.size(); i++)
 		{
-			componentList[i]->PhysicsUpdate();
+			_componentList[i]->PhysicsUpdate();
 		}
 	}
+
+	std::string& Entity::Name() { return _name; }
+	std::shared_ptr<Entity> Entity::Self() { return _self.lock(); }
+	std::shared_ptr<Core> Entity::Core() { return _core.lock(); }
+	std::shared_ptr<Components::Transform> Entity::Transform() { return _transform.lock(); }
 }

@@ -15,13 +15,14 @@ namespace Engine
 		struct ResourceManager
 		{
 		private:
-			std::weak_ptr<Core> _core;
-			std::weak_ptr<ResourceManager> _self;
+			bool _resourceLocationFound = false;
+			std::string _resourceLocation;
 
 			std::shared_ptr<FbxManager*> _fbxManager;
 
-			bool _resourceLocationFound = false;
-			std::string _resourceLocation;
+			std::weak_ptr<Core> _core;
+			std::weak_ptr<ResourceManager> _self;
+
 			std::map<std::string, std::shared_ptr<Resource>> _loadedAssets;		
 		public:
 
@@ -29,18 +30,20 @@ namespace Engine
 		private:
 			bool FindResourceFolder();
 			void FBXInitialisation();
-		public:
-			void Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Core> corePtr);
-			~ResourceManager();
 
-			std::shared_ptr<FbxManager*> FBXManager();
+			std::shared_ptr<ResourceManager> Self();
+		public:
+			void Initialise(const std::shared_ptr<ResourceManager>& self, const std::shared_ptr<Engine::Core>& core);
+			~ResourceManager();
 
 			template <typename T>
 			std::shared_ptr<T> FindAsset(std::string assetPath)
 			{
 				std::shared_ptr<T> resourcePointer = std::make_shared<T>();
-				resourcePointer->Resource::Initialise(_self);
-				resourcePointer->Initialise(_self);
+				std::shared_ptr<ResourceManager> self = Self();
+
+				resourcePointer->Resource::Initialise(self);
+				resourcePointer->Initialise(self);
 
 				try
 				{
@@ -89,6 +92,8 @@ namespace Engine
 
 				return resourcePointer;
 			}
+
+			std::shared_ptr<FbxManager*>& FBXManager();
 		};
 	}
 }

@@ -1,0 +1,4 @@
+{
+	"shader_program": 		"- shaders/skybox/skybox_shader.glsl",
+	"albedo_texture_map":	"- textures/skybox/sky.png"
+}

@@ -14,10 +14,7 @@ namespace Engine
 			}
 		}
 
-		int VertexBuffer::GetComponentSize() { return _components; }
-		std::vector<GLfloat> VertexBuffer::GetData() { return _data; }
-
-		GLuint VertexBuffer::getID()
+		GLuint VertexBuffer::GetID()
 		{
 			if (_dirty)
 			{
@@ -78,5 +75,8 @@ namespace Engine
 
 			_components = 4;
 		}
+
+		int VertexBuffer::GetComponentSize() { return _components; }
+		std::vector<GLfloat>& VertexBuffer::GetData() { return _data; }
 	}
 }

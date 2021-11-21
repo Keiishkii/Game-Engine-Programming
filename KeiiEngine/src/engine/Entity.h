@@ -1,5 +1,6 @@
 #include <memory>
 #include <vector>
+#include <string>
 
 namespace Engine
 {
@@ -16,31 +17,37 @@ namespace Engine
 		friend Engine::Core;
 
 	private:
+		std::string _name;
+
 		std::weak_ptr<Entity> _self;
+		std::weak_ptr<Engine::Core> _core;
 		std::weak_ptr<Components::Transform> _transform;
 
-		std::vector<std::shared_ptr<Components::Component>> componentList;
-
+		std::vector<std::shared_ptr<Components::Component>> _componentList;
 	public:
-		std::weak_ptr<Engine::Core> corePtr;
 
 
 	private:
-		static std::shared_ptr<Entity> Initialise(std::weak_ptr<Core> corePtr);
+		void Initialise(std::shared_ptr<Entity> self, std::shared_ptr<Engine::Core> core);
 
 		void Update();
-		void Render(std::weak_ptr<Components::Camera>& activeCamera);
+		void Render(const std::shared_ptr<Components::Camera>& activeCamera);
 		void PhysicsUpdate();
+
+		std::shared_ptr<Entity> Self();
 	public:
-		std::weak_ptr<Components::Transform> Transform();
+		Entity(std::string name);
 
 		template <typename T>
 		std::shared_ptr<T> AddComponent()
 		{
 			std::shared_ptr<T> component = std::make_shared<T>();
-			component->Initialise(component, _self);
+			std::shared_ptr<Entity> self = Self();
 
-			componentList.push_back(component);
+			component->Component::Initialise(component, self);
+			component->Initialise(component, self);
+
+			_componentList.push_back(component);
 
 			return component;
 		}
@@ -49,11 +56,18 @@ namespace Engine
 		std::shared_ptr<T> AddComponent(A parameter)
 		{
 			std::shared_ptr<T> component = std::make_shared<T>(parameter);
-			component->Initialise(component, _self);
+			std::shared_ptr<Entity> self = Self();
 
-			componentList.push_back(component);
+			component->Component::Initialise(component, self);
+			component->Initialise(component, self);
+
+			_componentList.push_back(component);
 
 			return component;
 		}
+
+		std::string& Name();
+		std::shared_ptr<Core> Core();
+		std::shared_ptr<Components::Transform> Transform();
 	};
 }

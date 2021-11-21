@@ -43,13 +43,15 @@ add_library(keiiengine
 		#Core
 	src/engine/Core.cpp
 	src/engine/Core.h
-
-	src/engine/Enviroment.cpp
-	src/engine/Enviroment.h
-
+	
 	src/engine/TimeManager.cpp
 	src/engine/TimeManager.h
 
+	src/engine/InputManager.cpp
+	src/engine/InputManager.h
+	
+	src/engine/Inputs.cpp
+	src/engine/Inputs.h
 
 		#Graphics
 	src/engine/graphics/VertexBuffer.cpp
@@ -97,6 +99,9 @@ add_library(keiiengine
 	src/engine/resources/Texture.cpp
 	src/engine/resources/Texture.h
 
+	src/engine/resources/TextureCubeMap.cpp
+	src/engine/resources/TextureCubeMap.h
+
 	src/engine/resources/Material.cpp
 	src/engine/resources/Material.h
 
@@ -117,6 +122,9 @@ add_executable(game
 
 	src/game/components/PlayerController.cpp
 	src/game/components/PlayerController.h
+
+	src/game/components/CameraController.cpp
+	src/game/components/CameraController.h
 )
 
 target_link_libraries(game keiiengine)

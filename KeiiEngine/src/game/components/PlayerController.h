@@ -5,7 +5,9 @@ namespace Game
 	struct PlayerController : Engine::Components::Component
 	{
 	private:
-		glm::vec3 _initialSpawnPosition;
+		std::shared_ptr<Engine::Components::Transform> _cameraTransform;
+
+		float _movementSpeed = 5.0f;
 	public:
 
 		

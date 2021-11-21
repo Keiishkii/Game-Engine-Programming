@@ -10,6 +10,7 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct Texture;
+		struct TextureCubeMap;
 		struct ShaderProgram : Resource
 		{
 		private:
@@ -21,14 +22,15 @@ namespace Engine
 		private:
 			void GenerateVertexShader(std::string shader, GLuint& shaderID);
 			void GenerateFragmentShader(std::string shader, GLuint& shaderID);
-			void GenerateShaderAttributes(GLuint programID, std::string path);
+			void GenerateShaderAttributes(GLuint programID, const std::string& path);
 
-			GLuint GetTextureSampleID(std::string sample);
+			GLuint GetTextureSampleID(const std::string& sample);
 		public:
-			virtual void Load(std::string path) override;
+			virtual void Load(const std::string& path) override;
+			void UploadTextureMapToShader(const std::shared_ptr<Texture>& textureMap, const std::string& sample);
+			void UploadTextureMapToShader(const std::shared_ptr<TextureCubeMap>& textureMap, const std::string& sample);
 
 			GLuint& GetShaderID();
-			void UploadTextureMapToShader(std::shared_ptr<Texture> textureMap, std::string sample);
 		};
 	}
 }

@@ -1,8 +1,7 @@
 #include <memory>
 #include <vector>
+#include <string>
 #include <SDL.h>
-
-//#define ENGINE_DEBUGGING
 
 namespace Engine
 {
@@ -13,6 +12,7 @@ namespace Engine
 	namespace Components { struct Camera; }
 
 	struct TimeManager;
+	struct InputManager;
 	struct Core
 	{
 		friend Components::Camera;
@@ -21,6 +21,7 @@ namespace Engine
 		std::weak_ptr<Core> _self;
 
 		std::shared_ptr<TimeManager> _timeManager;
+		std::shared_ptr<InputManager> _inputManager;
 		std::shared_ptr<ResourceManagement::ResourceManager> _resources;
 		std::shared_ptr<ErrorHandling::Debugger> _debugger;
 		std::shared_ptr<SDL_Window*> _window;
@@ -34,24 +35,28 @@ namespace Engine
 
 
 	private:
-		void MainLoop(int FPS, int fixedFPS);
+		void MainLoop();
 		void SDLInitialisation();
 
 		void Render();
 		void Update();
 		void PhysicsUpdate();
 
+		std::shared_ptr<Core> Self();
 	public:
 		~Core();
-		static std::shared_ptr<Core> Initialise();
+		static std::shared_ptr<Core> Initialise(int FPS, int fixedFPS);
 
-		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
+		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 		std::shared_ptr<TimeManager> TimeManager();
+		std::shared_ptr<InputManager> InputManager();
 
-		void Start(int FPS, int fixedFPS);
+		void Start();
 		void Stop();
 
-		std::shared_ptr<Entity> AddEntity();
+		std::shared_ptr<Entity> AddEntity(std::string name);
+
+		std::shared_ptr<Entity> Find(std::string name);
 	};
 }

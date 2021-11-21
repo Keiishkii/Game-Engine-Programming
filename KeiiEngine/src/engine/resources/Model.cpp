@@ -12,73 +12,32 @@
 #undef  IOS_REF
 #define IOS_REF (*(pManager->GetIOSettings()))
 
+using Engine::ErrorHandling::Exception;
 
 namespace Engine
 {
     namespace ResourceManagement
     {
-		int Model::TotalVertexCount() { return _totalVertexCount; }
-		int Model::TotalMaterialGroups() { return _polygonMaterialGroups.size(); }
-
-		std::shared_ptr<Graphics::PolygonMaterialGroup> Model::GetPolygonMaterialGroup(int materialIndex)
-		{
-			std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = NULL;
-			if (_polygonMaterialGroups.count(materialIndex))
-			{
-				polygonMaterialGroup = _polygonMaterialGroups[materialIndex];
-			}
-			else
-			{
-				polygonMaterialGroup = std::make_shared<Graphics::PolygonMaterialGroup>();
-				_polygonMaterialGroups.insert(std::pair<int, std::shared_ptr<Graphics::PolygonMaterialGroup>>(materialIndex, polygonMaterialGroup));
-			}
-
-			return polygonMaterialGroup;
-		}
-
-		std::shared_ptr<Material> Model::GetMaterial(int materialIndex)
-		{
-			std::shared_ptr<Material> material;
-			if (_materials.count(materialIndex))
-			{
-				material = _materials[materialIndex];
-			}
-
-			return material;
-		}
-
-		void Model::SetMaterial(int materialIndex, std::shared_ptr<Material> material)
-		{
-			if (_materials.count(materialIndex))
-			{
-				_materials[materialIndex] = material;
-			}
-			else
-			{
-				_materials.insert(std::pair<int, std::shared_ptr<Material>>(materialIndex, material));
-			}
-		}
-
-        void Model::Initialise(std::weak_ptr<ResourceManager> resourceManager)
+        void Model::Initialise(const std::shared_ptr<ResourceManager>& resourceManager)
         {
-            _fbxManager = _resourceManager.lock()->FBXManager();
+            _fbxManager = resourceManager->FBXManager();
         }
 
-        void Model::Load(std::string path)
+        void Model::Load(const std::string& path)
         {
-            FbxScene* fbxScene = FbxScene::Create(*_fbxManager, "Import Scene");
+            FbxScene* fbxScene = FbxScene::Create(*FBXManager(), "Import Scene");
 
             if (!fbxScene)
             {
-                throw ErrorHandling::Exception("Failed to create the FBX Import scene");
+                throw Exception("Failed to create the FBX Import scene");
             }
             else
             {
                 FbxString localFilePath = FbxString(path.c_str());
 
-                if (!LoadScene(*_fbxManager, fbxScene, localFilePath.Buffer()))
+                if (!LoadScene(*FBXManager(), fbxScene, localFilePath.Buffer()))
                 {
-                    throw ErrorHandling::Exception("Failed to import the FBX model into the scene.");
+                    throw Exception("Failed to import the FBX model into the scene.");
                 }
                 else
                 {
@@ -86,7 +45,7 @@ namespace Engine
 
 					if (!routeNode)
 					{
-						throw ErrorHandling::Exception("The scene does not contain a root node.");
+						throw Exception("The scene does not contain a root node.");
 					}
 					else
 					{
@@ -100,11 +59,9 @@ namespace Engine
 
 							std::cout << "Adding Material Group: " << materialGroupID << " to its VAO" << std::endl;
 
-							polygonMaterialGroup->_materialGroupVertexArray->SetVertexCount(polygonMaterialGroup->VertexCount());
-
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->vertexPositionBuffer);
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->vertexNormalBuffer);
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->textureUVBuffer);
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->VertexPositionBuffer());
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->VertexNormalBuffer());
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->TextureUVBuffer());
 
 
 							std::cout << "Material Group Polygon Count: " << polygonMaterialGroup->VertexCount() << std::endl;
@@ -188,7 +145,7 @@ namespace Engine
 			return polygonMaterialIndex;
 		}
 
-		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex, std::vector<glm::vec2>& textureUVs)
+		void Model::AddToPolygonMaterialGroup(FbxMesh* mesh, int polygonIndex, int materialIndex, const std::vector<glm::vec2>& textureUVs)
 		{
 			int* vertciesArray = mesh->GetPolygonVertices();
 			for (int v = 0; v < mesh->GetPolygonSize(polygonIndex); v++)
@@ -201,20 +158,58 @@ namespace Engine
 				mesh->GetPolygonVertexNormal(polygonIndex, v, normal);
 
 				glm::vec3 vertexPosition(controlPoint.mData[0], controlPoint.mData[1], controlPoint.mData[2]);
-				polygonMaterialGroup->vertexPositionBuffer->Add(vertexPosition);
+				polygonMaterialGroup->VertexPositionBuffer()->Add(vertexPosition);
 
 				glm::vec3 vertexNormal(normal.mData[0], normal.mData[1], normal.mData[2]);
-				polygonMaterialGroup->vertexNormalBuffer->Add(vertexNormal);
+				polygonMaterialGroup->VertexNormalBuffer()->Add(vertexNormal);
 
-				polygonMaterialGroup->textureUVBuffer->Add(textureUVs[vertexIndex]);
+				polygonMaterialGroup->TextureUVBuffer()->Add(textureUVs[vertexIndex]);
 
 				_totalVertexCount++;
 				polygonMaterialGroup->_vertexCount++;
 			}
 		}
 
+		std::shared_ptr<Graphics::PolygonMaterialGroup> Model::GetPolygonMaterialGroup(int materialIndex)
+		{
+			std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = NULL;
+			if (_polygonMaterialGroups.count(materialIndex))
+			{
+				polygonMaterialGroup = _polygonMaterialGroups[materialIndex];
+			}
+			else
+			{
+				polygonMaterialGroup = std::make_shared<Graphics::PolygonMaterialGroup>();
+				_polygonMaterialGroups.insert(std::pair<int, std::shared_ptr<Graphics::PolygonMaterialGroup>>(materialIndex, polygonMaterialGroup));
+			}
+
+			return polygonMaterialGroup;
+		}
+
+		std::shared_ptr<Material> Model::GetMaterial(int materialIndex)
+		{
+			std::shared_ptr<Material> material;
+			if (_materials.count(materialIndex))
+			{
+				material = _materials[materialIndex];
+			}
+
+			return material;
+		}
+
+		void Model::SetMaterial(int materialIndex, const std::shared_ptr<Material>& material)
+		{
+			if (_materials.count(materialIndex))
+			{
+				_materials[materialIndex] = material;
+			}
+			else
+			{
+				_materials.insert(std::pair<int, std::shared_ptr<Material>>(materialIndex, material));
+			}
+		}
 				 
-		void Model::LoadUVInformation(FbxMesh* mesh, std::vector<glm::vec2>& textureUVs)
+		void Model::LoadUVInformation(const FbxMesh* mesh, std::vector<glm::vec2>& textureUVs)
 		{
 			//get all UV set names
 			FbxStringList lUVSetNameList;
@@ -406,5 +401,9 @@ namespace Engine
 
 			return lStatus;
 		}
+
+		int Model::TotalVertexCount() { return _totalVertexCount; }
+		int Model::TotalMaterialGroups() { return _polygonMaterialGroups.size(); }
+		std::shared_ptr<FbxManager*> Model::FBXManager() { return _fbxManager.lock(); }
     }
 }

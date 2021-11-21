@@ -1,0 +1,5 @@
+{
+	"shader_program": 		"- shaders/transparency_shader.glsl",
+	"colour": 				[1, 1, 1, 1],
+	"albedo_texture_map":	"- textures/gaur_plains/tree_2.png"
+}

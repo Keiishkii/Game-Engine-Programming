@@ -11,15 +11,7 @@ namespace Engine
 {
 	namespace ResourceManagement
 	{
-		std::shared_ptr<ShaderProgram> Material::GetShaderProgram() { return _shaderProgram.lock(); }
-		
-		glm::vec4 Material::GetColour() { return _colour; }
-
-		std::shared_ptr<Texture> Material::GetAlbedoTexture() { return _albedoTexture.lock(); }
-
-		std::shared_ptr<Texture> Material::GetNormalTexture() { return _normalTexture.lock(); }
-
-		void Material::Load(std::string path)
+		void Material::Load(const std::string& path)
 		{
 			std::string fileContent = "";
 
@@ -49,7 +41,7 @@ namespace Engine
 			glUseProgram(0);
 		}
 
-		void Material::AssignShader(Document& document)
+		void Material::AssignShader(const Document& document)
 		{
 			if (document.HasMember("shader_program") && document["shader_program"].IsString())
 			{
@@ -62,7 +54,7 @@ namespace Engine
 			}
 		}
 
-		void Material::AssignColour(Document& document)
+		void Material::AssignColour(const Document& document)
 		{
 			if (document.HasMember("colour") && document["colour"].IsArray())
 			{
@@ -84,7 +76,7 @@ namespace Engine
 			}
 		}
 
-		void Material::AssignAlbedoTexture(Document& document)
+		void Material::AssignAlbedoTexture(const Document& document)
 		{
 			if (document.HasMember("albedo_texture_map") && document["albedo_texture_map"].IsString())
 			{
@@ -96,7 +88,7 @@ namespace Engine
 			}
 		}
 
-		void Material::AssignNormalTexture(Document& document)
+		void Material::AssignNormalTexture(const Document& document)
 		{
 			if (document.HasMember("normal_texture_map") && document["normal_texture_map"].IsString())
 			{
@@ -107,5 +99,10 @@ namespace Engine
 				std::cout << " - - Material had no normal map attached" << std::endl;
 			}
 		}
+
+		glm::vec4& Material::Colour() { return _colour; }
+		std::shared_ptr<ShaderProgram>& Material::GetShaderProgram() { return _shaderProgram; }
+		std::shared_ptr<Texture>& Material::GetAlbedoTexture() { return _albedoTexture; }
+		std::shared_ptr<Texture>& Material::GetNormalTexture() { return _normalTexture; }
 	}
 }

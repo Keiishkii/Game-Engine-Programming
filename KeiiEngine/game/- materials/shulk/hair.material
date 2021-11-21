@@ -1,5 +1,5 @@
 {
-	"shader_program": 		"- shaders/default_shader_program.glsl",
+	"shader_program": 		"- shaders/transparency_shader.glsl",
 	"colour": 				[1, 1, 1, 1],
 	"albedo_texture_map":	"- textures/shulk/hair.png",
 	"normal_texture_map": 	"- textures/shulk/hair.png"

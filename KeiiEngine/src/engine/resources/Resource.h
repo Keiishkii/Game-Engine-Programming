@@ -21,8 +21,8 @@ namespace Engine
 
 		private:
 		public:
-			virtual void Initialise(std::weak_ptr<ResourceManager> resourceManager);
-			virtual void Load(std::string path);
+			virtual void Initialise(const std::shared_ptr<ResourceManager>& resourceManager);
+			virtual void Load(const std::string& path);
 		};
 	}
 }

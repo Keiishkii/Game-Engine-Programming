@@ -1,4 +1,3 @@
-#define STB_IMAGE_IMPLEMENTATION
 #include "glm/stb_image.h"
 
 #include "Texture.h"
@@ -8,15 +7,13 @@ namespace Engine
 {
 	namespace ResourceManagement
 	{
-		void Texture::Load(std::string path)
+		void Texture::Load(const std::string& path)
 		{
 			_width = 0, _height = 0;
 			_texture = stbi_load(path.c_str(), &_width, &_height, NULL, 4);
 
 			if (!_texture)
-			{
 				throw ErrorHandling::Exception("Failed to load texture");
-			}
 		}
 
 		GLuint Texture::GetTextureID()

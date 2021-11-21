@@ -19,15 +19,21 @@ namespace Engine
 			int _vertexCount = 0;
 
 			std::shared_ptr<VertexArray> _materialGroupVertexArray;
+
+			std::shared_ptr<VertexBuffer> _vertexPositionBuffer;
+			std::shared_ptr<VertexBuffer> _vertexNormalBuffer;
+			std::shared_ptr<VertexBuffer> _textureUVBuffer;
 		public:
-			std::shared_ptr<VertexBuffer> vertexPositionBuffer;
-			std::shared_ptr<VertexBuffer> vertexNormalBuffer;
-			std::shared_ptr<VertexBuffer> textureUVBuffer;
 
 
 		private:
 		public:
 			PolygonMaterialGroup();
+
+			std::shared_ptr<VertexBuffer>& VertexPositionBuffer();
+			std::shared_ptr<VertexBuffer>& VertexNormalBuffer();
+			std::shared_ptr<VertexBuffer>& TextureUVBuffer();
+
 			GLuint VertexArrayID();
 			int VertexCount();
 		};

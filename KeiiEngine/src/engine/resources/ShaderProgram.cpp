@@ -5,13 +5,14 @@
 
 #include "ShaderProgram.h"
 #include "Texture.h"
+#include "TextureCubeMap.h"
 #include "engine/error-handling/Exception.h"
 
 namespace Engine
 {
 	namespace ResourceManagement
 	{
-		void ShaderProgram::Load(std::string path)
+		void ShaderProgram::Load(const std::string& path)
 		{
 			std::string fileContent = "";
 
@@ -99,7 +100,7 @@ namespace Engine
 			}
 		}
 
-		void ShaderProgram::GenerateShaderAttributes(GLuint programID, std::string fileContent)
+		void ShaderProgram::GenerateShaderAttributes(GLuint programID, const std::string& fileContent)
 		{
 			std::string line;
 			std::vector<std::string> lines;
@@ -127,11 +128,26 @@ namespace Engine
 				std::string attribute = words[words.size() - 1];
 
 				std::string attributeName = attribute.substr(0, attribute.size() - 1);
-				std::cout << "SHADER ATTRIBUTE: " << attributeName << std::endl;
 
 				glBindAttribLocation(programID, i, attributeName.c_str());
 				//glBindAttribLocation(programID, 1, attribute.substr(0, attribute.size() - 1).c_str());
 			}
+		}
+
+		void ShaderProgram::UploadTextureMapToShader(const std::shared_ptr<Texture>& textureMap, const std::string& sample)
+		{
+			glUniform1i(GetTextureSampleID(sample), 0);
+
+			glActiveTexture(GL_TEXTURE0 + 0);
+			glBindTexture(GL_TEXTURE_2D, textureMap->GetTextureID());
+		}
+
+		void ShaderProgram::UploadTextureMapToShader(const std::shared_ptr<TextureCubeMap>& textureMap, const std::string& sample)
+		{
+			glUniform1i(GetTextureSampleID(sample), 0);
+
+			glActiveTexture(GL_TEXTURE0 + 0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, textureMap->GetCubeMapTextureID());
 		}
 
 		GLuint& ShaderProgram::GetShaderID()
@@ -139,7 +155,7 @@ namespace Engine
 			return _shaderProgramID;
 		}
 
-		GLuint ShaderProgram::GetTextureSampleID(std::string sample)
+		GLuint ShaderProgram::GetTextureSampleID(const std::string& sample)
 		{
 			GLuint sampleID = 0;
 			if (_textureMapSampleIDs.count(sample))
@@ -148,18 +164,10 @@ namespace Engine
 			}
 			else
 			{
-				sampleID = glGetUniformLocation(_shaderProgramID, "in_Texture");
+				sampleID = glGetUniformLocation(_shaderProgramID, sample.c_str());
 			}
 
 			return sampleID;
-		}
-
-		void ShaderProgram::UploadTextureMapToShader(std::shared_ptr<Texture> textureMap, std::string sample)
-		{
-			glUniform1i(GetTextureSampleID(sample), 0);
-
-			glActiveTexture(GL_TEXTURE0 + 0);
-			glBindTexture(GL_TEXTURE_2D, textureMap->GetTextureID());
 		}
 	}
 }

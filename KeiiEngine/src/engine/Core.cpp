@@ -8,6 +8,8 @@
 
 #include "Core.h"
 #include "TimeManager.h"
+#include "InputManager.h"
+#include "Inputs.h"
 #include "Entity.h"
 #include "components/Camera.h"
 #include "components/Transform.h"
@@ -15,18 +17,12 @@
 #include "error-handling/Exception.h"
 #include "resources/ResourceManager.h"
 
-	using Engine::ErrorHandling::Exception;
-	using Engine::ErrorHandling::Debugger;
-	using Engine::ResourceManagement::ResourceManager;
+using namespace Engine::ErrorHandling;
+using namespace Engine::ResourceManagement;
 
 namespace Engine
 {
-	std::shared_ptr<ResourceManager> Core::ResourceManager() { return _resources; }
-	std::shared_ptr<Debugger> Core::Debugger() { return _debugger; }
-	std::shared_ptr<TimeManager> Core::TimeManager() { return _timeManager; }
-
-
-	std::shared_ptr<Core> Core::Initialise()
+	std::shared_ptr<Core> Core::Initialise(int FPS, int fixedFPS)
 	{
 		std::shared_ptr<Core> core = std::make_shared<Core>();
 
@@ -35,6 +31,9 @@ namespace Engine
 		core->_resources = std::make_shared<ResourceManagement::ResourceManager>();
 		core->_resources->Initialise(core->_resources, core);
 
+		core->_timeManager = std::make_shared<Engine::TimeManager>(FPS, fixedFPS);
+		core->_inputManager = std::make_shared<Engine::InputManager>();
+
 		core->SDLInitialisation();
 
 		return core;
@@ -42,7 +41,7 @@ namespace Engine
 
 	void Core::SDLInitialisation()
 	{
-		_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 600, 400, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
+		_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 2000, 1200, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
 
 		try
 		{
@@ -54,7 +53,7 @@ namespace Engine
 			}
 			else
 			{
-				if (SDL_SetRelativeMouseMode(SDL_FALSE))
+				if (SDL_SetRelativeMouseMode(SDL_TRUE))
 				{
 					throw Exception("Failed to set relative mouse position");
 				}
@@ -77,36 +76,21 @@ namespace Engine
 		}
 	}
 
-	Core::~Core()
-	{
-		SDL_DestroyWindow(*_window);
-		SDL_Quit();
-	}
-
-	void Core::Start(int FPS, int fixedFPS)
+	void Core::Start()
 	{
 		_running = true;
 
-		MainLoop(FPS, fixedFPS);
+		MainLoop();
 	}
 
-	void Core::MainLoop(int FPS, int fixedFPS)
+	void Core::MainLoop()
 	{
-		_timeManager = std::make_shared<Engine::TimeManager>(FPS, fixedFPS);
-
 		int i = 0;
 		std::chrono::steady_clock::time_point frameStart = std::chrono::steady_clock::now();
 
-		while (_running)
+		while (_running) [[likely]]
 		{
-			SDL_Event event = { 0 };
-			while (SDL_PollEvent(&event))
-			{
-				if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-					_running = false;
-			}
-
-
+			_inputManager->ProcessFrameInput();
 
 			Update();
 
@@ -114,19 +98,15 @@ namespace Engine
 			for (int i = 0; i < physicsCycles; i++)
 			{
 				PhysicsUpdate();
-
-			#ifdef ENGINE_DEBUGGING
 				_debugger->LogFixedUpdate();
-			#endif
 			}
 
 			Render();
 
 			_timeManager->WaitForEndOfFrame();
-
-		#ifdef ENGINE_DEBUGGING
 			_debugger->LogUpdate();
-		#endif
+
+			if (_running)[[likely]] _running = !(_inputManager->Input()->QuitEvent());
 		}
 	}
 
@@ -139,17 +119,21 @@ namespace Engine
 
 		for (int i = 0; i < _cameraList.size(); i++)
 		{
+			std::shared_ptr<Components::Camera> activeCamera = _cameraList[i].lock();
+
 			glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glEnable(GL_DEPTH_TEST);
 			glEnable(GL_CULL_FACE);
 
-			_cameraList[i].lock()->GenerateNewProjectionMatrix(width, height);
+			activeCamera->GenerateNewProjectionMatrix(width, height, 60.0f);
 
 			for (int j = 0; j < _entityList.size(); j++)
 			{
-				_entityList[j]->Render(_cameraList[i]);
+				_entityList[j]->Render(activeCamera);
 			}
+
+			activeCamera->RenderSkybox();
 		}
 
 		glUseProgram(0);
@@ -172,16 +156,45 @@ namespace Engine
 		}
 	}
 
-	void Core::Stop()
+	std::shared_ptr<Entity> Core::AddEntity(std::string name)
 	{
-		_running = false;
-	}
+		std::shared_ptr<Entity> entity = std::make_shared<Entity>(name);
 
-	std::shared_ptr<Entity> Core::AddEntity()
-	{
-		std::shared_ptr<Entity> entity = Entity::Initialise(_self);;
+		entity->Initialise(entity, _self.lock());;
 		_entityList.push_back(entity);
 
 		return entity;
 	}
+
+	void Core::Stop()
+	{
+		_running = !_running;
+	}
+
+	Core::~Core()
+	{
+		SDL_DestroyWindow(*_window);
+		SDL_Quit();
+	}
+
+	std::shared_ptr<Entity> Core::Find(std::string name)
+	{
+		std::shared_ptr<Entity> foundObject;
+		for (int i = 0; i < _entityList.size(); i++)
+		{
+			if (_entityList[i]->Name().find(name) != std::string::npos)
+			{
+				foundObject = _entityList[i];
+				break;
+			}
+		}
+
+		return foundObject;
+	}
+
+	std::shared_ptr<Core> Core::Self() { return _self.lock(); }
+	std::shared_ptr<ResourceManager> Core::ResourceManager() { return _resources; }
+	std::shared_ptr<Debugger> Core::Debugger() { return _debugger; }
+	std::shared_ptr<TimeManager> Core::TimeManager() { return _timeManager; }
+	std::shared_ptr<InputManager> Core::InputManager() { return _inputManager; }
 }

@@ -15,9 +15,7 @@ namespace Engine
 
 
 		private:
-			virtual void Update() override;
-			virtual void PhysicsUpdate() override;
-			virtual void Render(std::weak_ptr<Components::Camera>& activeCamera) override;
+			virtual void Render(const std::shared_ptr<Components::Camera>& activeCamera) override;
 		public:
 			MeshRenderer(std::shared_ptr<ResourceManagement::Model> renderModel);
 		};

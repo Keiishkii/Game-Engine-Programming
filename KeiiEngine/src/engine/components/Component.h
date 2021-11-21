@@ -1,11 +1,14 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
-	#include <memory>
+
+#include <memory>
 
 namespace Engine
 {
 	struct Core;
 	struct Entity;
+	struct TimeManager;
+	struct Inputs;
 	namespace Components
 	{
 		struct Camera;
@@ -14,14 +17,17 @@ namespace Engine
 		{
 			friend Engine::Entity;
 
-		protected:
+		private:
 			bool _startCalled = false;
 
 			std::weak_ptr<Component> _self;
-			std::weak_ptr<float> _deltaTimePtr;
+			std::weak_ptr<Transform> _transform;
+
+			std::weak_ptr<Engine::Entity> _entity;
+			std::weak_ptr<Engine::Core> _core;
+			std::weak_ptr<Engine::TimeManager> _timeManager;
+			std::weak_ptr<Engine::Inputs> _inputs;
 		public:
-			std::weak_ptr<Engine::Entity> entityPtr;
-			std::weak_ptr<Engine::Core> corePtr;
 
 
 		protected:
@@ -29,11 +35,17 @@ namespace Engine
 
 			virtual void Update();
 			virtual void PhysicsUpdate();
-			virtual void Render(std::weak_ptr<Components::Camera>& activeCamera);
-		public:
-			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr);
+			virtual void Render(const std::shared_ptr<Components::Camera>& activeCamera);
 
-			std::weak_ptr<Transform> Transform();
+			std::shared_ptr<Component> Self();
+		public:
+			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity);
+
+			std::shared_ptr<Transform> Transform();
+			std::shared_ptr<Engine::Core> Core();
+			std::shared_ptr<Engine::Entity> Entity();
+			std::shared_ptr<Engine::TimeManager> Time();
+			std::shared_ptr<Engine::Inputs> Input();
 		};
 	}
 }

@@ -3,6 +3,8 @@
 
 #include "engine/error-handling/Exception.h"
 
+using Engine::ErrorHandling::Exception;
+
 namespace Engine
 {
 	namespace Graphics
@@ -13,11 +15,9 @@ namespace Engine
 
 			if (!_id)
 			{
-				throw ErrorHandling::Exception("Failed to generate an ID for the 'Vertex Array'.");
+				throw Exception("Failed to generate an ID for the 'Vertex Array'.");
 			}
 		}
-
-		void VertexArray::SetVertexCount(int _vertexCount) { _vertexCount = _vertexCount; }
 
 		GLuint VertexArray::GetID()
 		{
@@ -25,19 +25,18 @@ namespace Engine
 			{
 				glBindVertexArray(_id);
 
-
 				std::shared_ptr<VertexBuffer> vertexPositionBuffer = _vertexBuffers["Vertex Position Buffer"];
-				glBindBuffer(GL_ARRAY_BUFFER, vertexPositionBuffer->getID());
+				glBindBuffer(GL_ARRAY_BUFFER, vertexPositionBuffer->GetID());
 				glVertexAttribPointer(0, vertexPositionBuffer->GetComponentSize(), GL_FLOAT, GL_FALSE, vertexPositionBuffer->GetComponentSize() * sizeof(GLfloat), (void*)0);
 				glEnableVertexAttribArray(0); 
 				
 				std::shared_ptr<VertexBuffer> vertexNormalBuffer = _vertexBuffers["Vertex Normal Buffer"];
-				glBindBuffer(GL_ARRAY_BUFFER, vertexNormalBuffer->getID());
+				glBindBuffer(GL_ARRAY_BUFFER, vertexNormalBuffer->GetID());
 				glVertexAttribPointer(1, vertexNormalBuffer->GetComponentSize(), GL_FLOAT, GL_FALSE, vertexNormalBuffer->GetComponentSize() * sizeof(GLfloat), (void*)0);
 				glEnableVertexAttribArray(1);
 
 				std::shared_ptr<VertexBuffer> textureUVBuffer = _vertexBuffers["Texture UV Buffer"];
-				glBindBuffer(GL_ARRAY_BUFFER, textureUVBuffer->getID());
+				glBindBuffer(GL_ARRAY_BUFFER, textureUVBuffer->GetID());
 				glVertexAttribPointer(2, textureUVBuffer->GetComponentSize(), GL_FLOAT, GL_FALSE, textureUVBuffer->GetComponentSize() * sizeof(GLfloat), (void*)0);
 				glEnableVertexAttribArray(2);
 				
@@ -52,7 +51,7 @@ namespace Engine
 			return _id;
 		}
 
-		void VertexArray::SetBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content)
+		void VertexArray::SetBuffer(const std::string& _buffer, const std::shared_ptr<VertexBuffer>& _content)
 		{
 			if (!_vertexBuffers.count(_buffer))
 			{

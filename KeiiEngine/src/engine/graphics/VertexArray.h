@@ -24,12 +24,8 @@ namespace Engine
 		public:
 			VertexArray();
 
+			void SetBuffer(const std::string& _buffer, const std::shared_ptr<VertexBuffer>& _content);
 			GLuint GetID();
-			int GetVertexCount();
-
-
-			void SetVertexCount(int _vertexCount);
-			void SetBuffer(std::string _buffer, std::shared_ptr<VertexBuffer> _content);
 		};
 	}
 }

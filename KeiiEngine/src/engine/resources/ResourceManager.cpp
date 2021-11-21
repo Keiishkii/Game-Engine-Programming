@@ -1,3 +1,6 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include "glm/stb_image.h"
+
 #include "ResourceManager.h"
 #include "Resource.h"
 #include "ShaderProgram.h"
@@ -13,63 +16,47 @@
 
 using Engine::ErrorHandling::Exception;
 
-
-
 namespace Engine
 {
 	namespace ResourceManagement
 	{
-		ResourceManager::~ResourceManager()
+		void ResourceManager::Initialise(const std::shared_ptr<ResourceManager>& self, const std::shared_ptr<Engine::Core>& core)
 		{
-			(*_fbxManager)->Destroy();
-		}
-
-		std::shared_ptr<FbxManager*> ResourceManager::FBXManager() { return _fbxManager; }
-
-		void ResourceManager::Initialise(std::weak_ptr<ResourceManager> self, std::weak_ptr<Engine::Core> corePtr)
-		{
-			std::shared_ptr<ResourceManager> resourceManager = self.lock();
-
-			resourceManager->_self = self;
-			resourceManager->_core = corePtr;
+			self->_self = self;
+			self->_core = core;
 
 			try
 			{
 				if (!FindResourceFolder())
 				{
-					throw ErrorHandling::Exception("Could not find the 'Resource' folder location.");
+					throw Exception("Could not find the 'Resource' folder location.");
+				}
+				else
+				{
+					FBXInitialisation();
 				}
 			}
-			catch (ErrorHandling::Exception e)
+			catch (Exception e)
 			{
 				e.Print();
 			}
-
-			FBXInitialisation();
 		}
 
 		void ResourceManager::FBXInitialisation()
 		{
 			_fbxManager = std::make_shared<FbxManager*>(FbxManager::Create());
 
-			try
+			if (!_fbxManager)
 			{
-				if (!_fbxManager)
-				{
-					throw Exception("Failed to set relative mouse position");
-				}
-				else
-				{
-					FbxIOSettings* ios = FbxIOSettings::Create(*_fbxManager, IOSROOT);
-					(*_fbxManager)->SetIOSettings(ios);
-
-					FbxString lPath = FbxGetApplicationDirectory();
-					(*_fbxManager)->LoadPluginsDirectory(lPath.Buffer());
-				}
+				throw Exception("Failed to set relative mouse position");
 			}
-			catch (ErrorHandling::Exception e)
+			else
 			{
-				e.Print();
+				FbxIOSettings* ios = FbxIOSettings::Create(*_fbxManager, IOSROOT);
+				(*_fbxManager)->SetIOSettings(ios);
+
+				FbxString lPath = FbxGetApplicationDirectory();
+				(*_fbxManager)->LoadPluginsDirectory(lPath.Buffer());
 			}
 		}
 
@@ -103,5 +90,13 @@ namespace Engine
 
 			return _resourceLocationFound;
 		}
+
+		ResourceManager::~ResourceManager()
+		{
+			(*_fbxManager)->Destroy();
+		}
+
+		std::shared_ptr<FbxManager*>& ResourceManager::FBXManager() { return _fbxManager; }
+		std::shared_ptr<ResourceManager> ResourceManager::Self() { return _self.lock(); }
 	}
 }

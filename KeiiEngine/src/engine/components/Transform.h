@@ -10,20 +10,20 @@ namespace Engine
 		struct Transform : Component
 		{
 		private:
+			glm::vec3 _position;
+			glm::quat _rotation;
+			glm::vec3 _scale;
 		public:
-			glm::vec3 position;
-			glm::quat rotation;
-			glm::vec3 scale;
 
 
 		private:
-			virtual void Update() override;
-			virtual void PhysicsUpdate() override;
 		public:
 			Transform();
-			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr) override;
 
 			glm::mat4x4 TransformationMatrix();
+			glm::vec3& Position();
+			glm::quat& Rotation();
+			glm::vec3& Scale();
 		};
 	}
 }

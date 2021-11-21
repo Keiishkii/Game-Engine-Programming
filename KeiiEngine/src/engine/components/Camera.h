@@ -6,27 +6,34 @@
 
 namespace Engine
 {
+	namespace ResourceManagement
+	{
+		struct Model;
+		struct Material;
+	}
+
 	struct Core;
 	namespace Components
 	{
 		struct Camera : Component
 		{
-			friend Core;
+			friend Engine::Core;
 
 		private:
 			glm::mat4x4 _projectionMatrix;
+
+			std::shared_ptr<ResourceManagement::Model> _skyboxCube;
 		public:
 
 
 		private:
-			virtual void Update() override;
-			virtual void PhysicsUpdate() override;
-
-			void GenerateNewProjectionMatrix(float windowWidth, float windowHeight);
+			void GenerateNewProjectionMatrix(float windowWidth, float windowHeight, float fieldOfView);
+			void RenderSkybox();
 		public:
-			virtual void Initialise(std::weak_ptr<Component> self, std::weak_ptr<Entity> entityPtr) override;
+			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
+			//std::shared_ptr<ResourceManagement::Material>& SkyboxMaterial();
 
-			glm::mat4x4 ProjectionMatrix();
+			glm::mat4x4& ProjectionMatrix();
 		};
 	}
 }
