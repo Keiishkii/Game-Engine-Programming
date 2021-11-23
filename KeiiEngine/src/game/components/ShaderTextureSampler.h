@@ -2,15 +2,12 @@
 
 namespace Game
 {
-	struct PlayerController : Engine::Components::Component
+	struct ShaderTextureSampler : Engine::Components::Component
 	{
 	private:
-		std::shared_ptr<Engine::Components::Transform> _cameraTransform;
-
-		float _movementSpeed = 10.0f;
 	public:
 
-		
+
 	private:
 	public:
 		virtual void Start() override;

@@ -50,7 +50,7 @@ namespace Engine
 			}
 			else
 			{
-				std::cout << " - - Material had no shader attached" << std::endl;
+				//std::cout << " - - Material had no shader attached" << std::endl;
 			}
 		}
 
@@ -67,12 +67,10 @@ namespace Engine
 				{
 					_colour = glm::vec4(colour[0].GetFloat(), colour[1].GetFloat(), colour[2].GetFloat(), colour[3].GetFloat());
 				}
-
-				std::cout << "Colour: [" << _colour.x << ", " << _colour.y << ", " << _colour.z << ", " << _colour.w << "]" << std::endl;
 			}
 			else
 			{
-				std::cout << " - - Material had no shader colour" << std::endl;
+				//std::cout << " - - Material had no shader colour" << std::endl;
 			}
 		}
 
@@ -84,7 +82,7 @@ namespace Engine
 			}
 			else
 			{
-				std::cout << " - - Material had no albedo map attached" << std::endl;
+				//std::cout << " - - Material had no albedo map attached" << std::endl;
 			}
 		}
 
@@ -96,7 +94,7 @@ namespace Engine
 			}
 			else
 			{
-				std::cout << " - - Material had no normal map attached" << std::endl;
+				//std::cout << " - - Material had no normal map attached" << std::endl;
 			}
 		}
 

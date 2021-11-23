@@ -45,14 +45,17 @@ namespace Engine
 
 		try
 		{
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+			
 			if (!SDL_GL_CreateContext(*_window))
 			{
 				throw Exception("Failed to create window context");
 			}
 			else
 			{
+				int i = 0;
+				SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &i);
+
 				if (SDL_SetRelativeMouseMode(SDL_TRUE))
 				{
 					throw Exception("Failed to set relative mouse position");
@@ -62,10 +65,6 @@ namespace Engine
 					if (glewInit() != GLEW_OK)
 					{
 						throw Exception("Failed to initialise GLEW");
-					}
-					else
-					{
-						std::cout << "Successfuly initialised graphics libuaries" << std::endl;
 					}
 				}
 			}

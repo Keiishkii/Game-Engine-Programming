@@ -25,7 +25,7 @@ namespace Engine
 	
 		void Camera::GenerateNewProjectionMatrix(float windowWidth, float windowHeight, float fieldOfView)
 		{
-			_projectionMatrix = glm::perspective(glm::radians(fieldOfView), (float)windowWidth / (float)windowHeight, 0.25f, 10000.f);
+			_projectionMatrix = glm::perspective(glm::radians(fieldOfView), (float)windowWidth / (float)windowHeight, 0.25f, 5000.f);
 		}
 
 		void Camera::RenderSkybox()

@@ -85,6 +85,8 @@ namespace Engine
 			std::string fragmentShader = "#define FRAGMENT_SHADER\n" + shader;
 			const char* fragmentShader_cStr = fragmentShader.c_str();
 
+			std::cout << std::endl << fragmentShader << std::endl << std::endl;
+
 			shaderID = glCreateShader(GL_FRAGMENT_SHADER);
 
 			glShaderSource(shaderID, 1, &fragmentShader_cStr, NULL);

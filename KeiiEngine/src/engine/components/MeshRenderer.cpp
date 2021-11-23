@@ -64,7 +64,6 @@ namespace Engine
 				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
 
 				glm::vec4 colour = material->Colour();
-				//std::cout << "Colour: [" << colour.x << ", " << colour.y << ", " << colour.z << ", " << colour.w << "]" << std::endl;
 
 				glUniform4fv(colourID, 1, glm::value_ptr(colour));
 

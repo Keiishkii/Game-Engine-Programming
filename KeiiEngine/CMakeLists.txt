@@ -125,6 +125,9 @@ add_executable(game
 
 	src/game/components/CameraController.cpp
 	src/game/components/CameraController.h
+
+	src/game/components/ShaderTextureSampler.cpp
+	src/game/components/ShaderTextureSampler.h
 )
 
 target_link_libraries(game keiiengine)

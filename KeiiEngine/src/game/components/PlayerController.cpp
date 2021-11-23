@@ -1,10 +1,11 @@
 #include "PlayerController.h"
 
 #include <iostream>
+
 #include <math.h>
 
 namespace Game
-{
+{ 
 	void PlayerController::Start()
 	{
 		_cameraTransform = Core()->Find("Camera")->Transform();
@@ -48,6 +49,7 @@ namespace Game
 		{
 			glm::vec3 motionLookVector = glm::normalize(glm::vec3(-translation.x, 0, -translation.z));
 			glm::quat motionLookQauternion = glm::quatLookAt(motionLookVector, glm::vec3(0, 1, 0));
+
 			Transform()->Rotation() = glm::lerp(Transform()->Rotation(), motionLookQauternion, 0.025f);
 		}
 	}	

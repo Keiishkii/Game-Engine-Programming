@@ -12,7 +12,7 @@ namespace Game
 
 		float _orbitSpinSpeedMulitplier = 0.0025f;
 		float _orbitZoomSpeedMulitplier = 0.5f;
-		glm::vec3 _orbitOffset = glm::vec3(0, 1, 0);
+		glm::vec3 _orbitOffset = glm::vec3(0, 1.5f, 0);
 	public:
 
 

@@ -56,19 +56,13 @@ namespace Engine
 						{
 							std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = it->second;
 							int materialGroupID = it->first;
-
-							std::cout << "Adding Material Group: " << materialGroupID << " to its VAO" << std::endl;
-
+							
 							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->VertexPositionBuffer());
 							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->VertexNormalBuffer());
 							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->TextureUVBuffer());
-
-
-							std::cout << "Material Group Polygon Count: " << polygonMaterialGroup->VertexCount() << std::endl;
+							
 							count += polygonMaterialGroup->VertexCount();
 						}
-
-						std::cout << count << ", " << _totalVertexCount << std::endl;
 					}
                 }
             }

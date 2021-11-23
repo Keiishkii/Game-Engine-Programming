@@ -4,9 +4,11 @@
 #include "engine/KeiiEngine.h"
 #include "game/components/PlayerController.h"
 #include "game/components/CameraController.h"
+#include "game/components/ShaderTextureSampler.h"
 
 #define _USE_MATH_DEFINES
 
+std::shared_ptr<Entity> CreateDebuggingEntity(std::shared_ptr<Core> core);
 std::shared_ptr<Entity> CreateCameraEntity(std::shared_ptr<Core> core);
 std::shared_ptr<Entity> CreatePlayerEntity(std::shared_ptr<Core> core);
 std::shared_ptr<Entity> CreateMapEntity(std::shared_ptr<Core> core);
@@ -19,6 +21,8 @@ int main()
 
 	std::shared_ptr<ResourceManagement::TextureCubeMap> skybox = core->ResourceManager()->FindAsset<ResourceManagement::TextureCubeMap>("- textures/skybox/sky.png");
 
+	std::shared_ptr<Entity> debugObject = CreateDebuggingEntity(core);
+
 	std::shared_ptr<Entity> player = CreatePlayerEntity(core);
 	std::shared_ptr<Entity> camera = CreateCameraEntity(core);
 	std::shared_ptr<Entity> map = CreateMapEntity(core);
@@ -27,6 +31,16 @@ int main()
 	core->Start();
 
 	return 0;
+}
+
+std::shared_ptr<Entity> CreateDebuggingEntity(std::shared_ptr<Core> core)
+{
+	std::shared_ptr<Entity> debuggingEntity = core->AddEntity("Debugger");
+	{
+		std::shared_ptr<Game::ShaderTextureSampler> shaderTextureSampler = debuggingEntity->AddComponent<Game::ShaderTextureSampler>();
+	}
+
+	return debuggingEntity;
 }
 
 std::shared_ptr<Entity> CreateCameraEntity(std::shared_ptr<Core> core)

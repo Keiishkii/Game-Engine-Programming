@@ -1,5 +1,6 @@
 #include "CameraController.h"
 
+#include <algorithm>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
