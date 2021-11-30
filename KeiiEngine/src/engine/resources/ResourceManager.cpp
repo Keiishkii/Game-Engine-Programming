@@ -1,5 +1,8 @@
 #define STB_IMAGE_IMPLEMENTATION
+#define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "glm/stb_image.h"
+#include "glm/stb_image_write.h"
+
 
 #include "ResourceManager.h"
 #include "Resource.h"
@@ -27,7 +30,7 @@ namespace Engine
 
 			try
 			{
-				if (!FindResourceFolder())
+				if (!(_resourceLocationFound || FindResourceFolder()))
 				{
 					throw Exception("Could not find the 'Resource' folder location.");
 				}
@@ -75,10 +78,8 @@ namespace Engine
 			while (positionOfParentDirectory > 0 && !_resourceLocationFound)
 			{
 				resourceDirectory = resourceDirectory.substr(0, positionOfParentDirectory);
-				//std::cout << "The path fo the file is: \n - " << resourceDirectory << ". With pos: " << positionOfParentDirectory << std::endl;
 
 				DWORD dwAttrib = GetFileAttributes((resourceDirectory + fileName).c_str());
-				//std::cout << "Searching for directory: \n - " << resourceDirectory + fileName << std::endl;
 				if (dwAttrib != INVALID_FILE_ATTRIBUTES && (dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
 				{
 					_resourceLocationFound = true;
@@ -94,6 +95,17 @@ namespace Engine
 		ResourceManager::~ResourceManager()
 		{
 			(*_fbxManager)->Destroy();
+		}
+
+		std::string ResourceManager::GetResourceDirectory()
+		{
+			std::string directory;
+			if (_resourceLocationFound || FindResourceFolder())
+			{
+				directory = _resourceLocation;
+			}
+
+			return directory;
 		}
 
 		std::shared_ptr<FbxManager*>& ResourceManager::FBXManager() { return _fbxManager; }

@@ -1,17 +1,44 @@
 #include "ShaderTextureSampler.h"
+#include "glm/stb_image.h"
+#include "glm/stb_image_write.h"
 
 #include <iostream>
+#include <vector>
 
 namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
+		int width = 256, height = 256;
+		int channelNumber = 4;
+
+		std::vector<char> pixelList;
+
+		for (int i = 0; i < width * height; i++)
+		{
+			pixelList.push_back('a');
+			pixelList.push_back('a');
+			pixelList.push_back('a');
+			pixelList.push_back('a');
+		}
+
+		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "texture.png";
+		std::cout << "Written to directory: " << directory << std::endl;
+
+
+		char* texture;
+
+		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
+		stbi_write_png(texture, width, height, channelNumber, pixelList.data(), width * channelNumber);
+
+
+
 
 	}
 
 	void ShaderTextureSampler::Update()
 	{
-		std::cout << "Updating" << std::endl;
+
 	}
 }
 
@@ -27,7 +54,7 @@ namespace Game
 
 
 To Do:
- - Get Rid of console outs (MAKING EVERYTHING SLOW TO LOAD)
+ ----------------------- Get Rid of console outs (MAKING EVERYTHING SLOW TO LOAD)
  - Render to Texture
  - Render to CubeMaps (might just be worth doing 6 textures)
  - Auto Generate a list of manually placed CubeMaps

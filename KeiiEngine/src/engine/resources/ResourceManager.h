@@ -94,6 +94,7 @@ namespace Engine
 			}
 
 			std::shared_ptr<FbxManager*>& FBXManager();
+			std::string GetResourceDirectory();
 		};
 	}
 }

@@ -48,10 +48,6 @@ namespace Engine
 				std::shared_ptr<ShaderProgram> shaderProgram = _resourceManager.lock()->FindAsset<ShaderProgram>(document["shader_program"].GetString());
 				_shaderProgram = shaderProgram;
 			}
-			else
-			{
-				//std::cout << " - - Material had no shader attached" << std::endl;
-			}
 		}
 
 		void Material::AssignColour(const Document& document)
@@ -68,10 +64,6 @@ namespace Engine
 					_colour = glm::vec4(colour[0].GetFloat(), colour[1].GetFloat(), colour[2].GetFloat(), colour[3].GetFloat());
 				}
 			}
-			else
-			{
-				//std::cout << " - - Material had no shader colour" << std::endl;
-			}
 		}
 
 		void Material::AssignAlbedoTexture(const Document& document)
@@ -80,10 +72,6 @@ namespace Engine
 			{
 				_albedoTexture = _resourceManager.lock()->FindAsset<Texture>(document["albedo_texture_map"].GetString());
 			}
-			else
-			{
-				//std::cout << " - - Material had no albedo map attached" << std::endl;
-			}
 		}
 
 		void Material::AssignNormalTexture(const Document& document)
@@ -91,10 +79,6 @@ namespace Engine
 			if (document.HasMember("normal_texture_map") && document["normal_texture_map"].IsString())
 			{
 				_normalTexture = _resourceManager.lock()->FindAsset<Texture>(document["normal_texture_map"].GetString());
-			}
-			else
-			{
-				//std::cout << " - - Material had no normal map attached" << std::endl;
 			}
 		}
 

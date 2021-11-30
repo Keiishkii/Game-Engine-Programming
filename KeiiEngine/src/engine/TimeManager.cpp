@@ -88,7 +88,6 @@ namespace Engine
 		std::chrono::steady_clock::time_point sleepFunctionStart = std::chrono::steady_clock::now();
 		std::chrono::duration<float> elapsedTime = std::chrono::steady_clock::now() - sleepFunctionStart;
 		
-		//std::cout << "Sleep Duration: " << waitDuration.count() << std::endl;
 		while (elapsedTime < waitDuration)
 		{
 			elapsedTime = std::chrono::steady_clock::now() - sleepFunctionStart;
