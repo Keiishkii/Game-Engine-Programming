@@ -1,6 +1,8 @@
 #include "glm/stb_image.h"
+#include "glm/stb_image_write.h"
 
 #include "Texture.h"
+#include "ResourceManager.h"
 #include "engine/error-handling/Exception.h"
 
 namespace Engine
@@ -37,6 +39,16 @@ namespace Engine
 					// Free the loaded data because we now have a copy on the GPU
 					free(_texture);
 					glGenerateMipmap(GL_TEXTURE_2D);
+
+					GLubyte* texture = new GLubyte[256*256*4];
+					glBindTexture(GL_TEXTURE_2D, _textureID);
+					glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
+
+					char buffer[20];
+					std::string number = std::string(itoa((int)_textureID, buffer, 10));
+					std::string directory = _resourceManager.lock()->GetResourceDirectory() + "/loadedTextures/texture_" + number + ".png";
+					stbi_write_png(directory.c_str(), _width, _height, 4, texture, _width * 4);
+					delete texture;
 				}
 			}
 

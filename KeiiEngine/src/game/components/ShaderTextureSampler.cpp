@@ -9,8 +9,9 @@ namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
+		/*
 		int width = 256, height = 256;
-		int channelNumber = 4;
+		int channelNumber = 3;
 
 		std::vector<char> pixelList;
 
@@ -19,21 +20,17 @@ namespace Game
 			pixelList.push_back('a');
 			pixelList.push_back('a');
 			pixelList.push_back('a');
-			pixelList.push_back('a');
+			//pixelList.push_back('a');
 		}
 
-		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "texture.png";
+		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "texture_1.png";
 		std::cout << "Written to directory: " << directory << std::endl;
 
-
 		char* texture;
-
+		glBindTexture(GL_TEXTURE_2D, 1);
 		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
-		stbi_write_png(texture, width, height, channelNumber, pixelList.data(), width * channelNumber);
-
-
-
-
+		stbi_write_png(directory.c_str(), width, height, channelNumber, pixelList.data(), width * channelNumber);
+		*/
 	}
 
 	void ShaderTextureSampler::Update()
