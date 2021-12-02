@@ -78,6 +78,9 @@ add_library(keiiengine
 
 	src/engine/components/Camera.cpp
 	src/engine/components/Camera.h
+
+	src/engine/components/Light.cpp
+	src/engine/components/Light.h
 	
 	src/engine/components/MeshRenderer.cpp
 	src/engine/components/MeshRenderer.h
@@ -104,6 +107,9 @@ add_library(keiiengine
 
 	src/engine/resources/Material.cpp
 	src/engine/resources/Material.h
+
+	src/engine/resources/SkyboxMaterial.cpp
+	src/engine/resources/SkyboxMaterial.h
 
 	src/engine/resources/Sound.cpp
 	src/engine/resources/Sound.h

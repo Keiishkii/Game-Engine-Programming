@@ -19,8 +19,6 @@ int main()
 
 	std::shared_ptr<Core> core = Core::Initialise(144, 50);
 
-	std::shared_ptr<ResourceManagement::TextureCubeMap> skybox = core->ResourceManager()->FindAsset<ResourceManagement::TextureCubeMap>("- textures/skybox/sky.png");
-
 	std::shared_ptr<Entity> debugObject = CreateDebuggingEntity(core);
 
 	std::shared_ptr<Entity> player = CreatePlayerEntity(core);
@@ -49,7 +47,7 @@ std::shared_ptr<Entity> CreateCameraEntity(std::shared_ptr<Core> core)
 	{
 		std::shared_ptr<Components::Camera> camera = cameraEntity->AddComponent<Components::Camera>();
 		{
-			//camera->SkyboxMaterial() = core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/skybox/sky.material");
+			camera->SkyboxMaterial() = core->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/sky.material");
 		}
 
 		std::shared_ptr<Game::CameraController> cameraController = cameraEntity->AddComponent<Game::CameraController>();

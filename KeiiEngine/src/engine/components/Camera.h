@@ -9,7 +9,7 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct Model;
-		struct Material;
+		struct SkyboxMaterial;
 	}
 
 	struct Core;
@@ -23,6 +23,7 @@ namespace Engine
 			glm::mat4x4 _projectionMatrix;
 
 			std::shared_ptr<ResourceManagement::Model> _skyboxCube;
+			std::shared_ptr<ResourceManagement::SkyboxMaterial> _skyboxMaterial;
 		public:
 
 
@@ -31,8 +32,10 @@ namespace Engine
 			void RenderSkybox();
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
-			//std::shared_ptr<ResourceManagement::Material>& SkyboxMaterial();
 
+			void SetCameraSkybox(std::shared_ptr<ResourceManagement::SkyboxMaterial> skyboxMaterial);
+
+			std::shared_ptr<ResourceManagement::SkyboxMaterial>& SkyboxMaterial();
 			glm::mat4x4& ProjectionMatrix();
 		};
 	}

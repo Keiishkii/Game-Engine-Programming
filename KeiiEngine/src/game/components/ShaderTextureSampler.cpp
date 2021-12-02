@@ -1,3 +1,5 @@
+#include "engine/KeiiEngine.h"
+
 #include "ShaderTextureSampler.h"
 #include "glm/stb_image.h"
 #include "glm/stb_image_write.h"
@@ -9,28 +11,19 @@ namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
-		/*
-		int width = 256, height = 256;
-		int channelNumber = 3;
+		std::shared_ptr<ResourceManagement::Texture> texture = Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/shulk/eye.png");
 
-		std::vector<char> pixelList;
+		GLubyte* textureData = new GLubyte[texture->GetWidth() * texture->GetHeight() * texture->GetChannelCount()];
 
-		for (int i = 0; i < width * height; i++)
-		{
-			pixelList.push_back('a');
-			pixelList.push_back('a');
-			pixelList.push_back('a');
-			//pixelList.push_back('a');
-		}
+		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "- - RuntimeTextureGeneration\\outputTest.png";
+		//std::cout << "New: " << _texture << std::endl;
+		//std::cout << "Old: " << texture << std::endl;
 
-		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "texture_1.png";
-		std::cout << "Written to directory: " << directory << std::endl;
+		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
+		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
 
-		char* texture;
-		glBindTexture(GL_TEXTURE_2D, 1);
-		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture);
-		stbi_write_png(directory.c_str(), width, height, channelNumber, pixelList.data(), width * channelNumber);
-		*/
+		stbi_write_png(directory.c_str(), texture->GetWidth(), texture->GetHeight(), texture->GetChannelCount(), textureData, texture->GetWidth() * texture->GetChannelCount());
+		free(textureData);
 	}
 
 	void ShaderTextureSampler::Update()

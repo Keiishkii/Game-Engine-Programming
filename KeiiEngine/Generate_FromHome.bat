@@ -3,6 +3,6 @@ cmake --version
 
 mkdir build
 cd build
-cmake -A x64 ..
+cmake -A x64 -DCMAKE_GENERATOR_TOOLSET=v142 ..
 
 pause

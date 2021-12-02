@@ -9,7 +9,11 @@ namespace Engine
 	namespace ErrorHandling { struct Debugger; }
 
 	struct Entity;
-	namespace Components { struct Camera; }
+	namespace Components 
+	{ 
+		struct Camera; 
+		struct Light; 
+	}
 
 	struct TimeManager;
 	struct InputManager;
@@ -29,6 +33,7 @@ namespace Engine
 		std::vector<std::shared_ptr<Entity>> _entityList;
 
 		std::vector<std::weak_ptr<Components::Camera>> _cameraList;
+		std::vector<std::weak_ptr<Components::Light>> _lightList;
 
 		bool _running;
 	public:

@@ -18,6 +18,7 @@
 	#include "resources/Model.h"
 	#include "resources/Sound.h"
 	#include "resources/Material.h"
+	#include "resources/SkyboxMaterial.h"
 	#include "resources/Texture.h"
 	#include "resources/TextureCubeMap.h"
 
@@ -25,6 +26,7 @@
 	#include "components/Component.h"
 	#include "components/Transform.h"
 	#include "components/Camera.h"
+	#include "components/Light.h"
 	#include "components/MeshRenderer.h"
 
 // Graphics

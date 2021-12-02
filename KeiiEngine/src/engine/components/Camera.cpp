@@ -5,7 +5,7 @@
 #include "engine/Core.h"
 #include "Transform.h"
 #include "engine/entity.h"
-#include "engine/resources/Material.h"
+#include "engine/resources/SkyboxMaterial.h"
 #include "engine/resources/Model.h"
 #include "engine/resources/TextureCubeMap.h"
 #include "engine/resources/ShaderProgram.h"
@@ -30,18 +30,17 @@ namespace Engine
 
 		void Camera::RenderSkybox()
 		{
-			std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/skybox/skybox_shader.glsl");
-			std::shared_ptr<ResourceManagement::TextureCubeMap> textureCubeMap = Core()->ResourceManager()->FindAsset<ResourceManagement::TextureCubeMap>("- textures/skybox/sky_2.png");
-
-			if (shaderProgram && textureCubeMap)
+			if (_skyboxMaterial)
 			{
 				glDepthFunc(GL_LEQUAL);
 
-				GLuint programID = shaderProgram->GetShaderID();
+				std::shared_ptr<ResourceManagement::ShaderProgram> shader = _skyboxMaterial->GetShaderProgram();
+				GLuint programID = shader->GetShaderID();
 				glUseProgram(programID);
 
-				shaderProgram->UploadTextureMapToShader(textureCubeMap, "in_Skybox");
+				shader->UploadTextureMapToShader(_skyboxMaterial->GetAlbedoTextureCubeMap(), "in_Skybox");
 
+				GLint colourID = glGetUniformLocation(programID, "in_Colour");
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
 				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
 				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
@@ -49,6 +48,9 @@ namespace Engine
 				std::shared_ptr<Graphics::PolygonMaterialGroup> cubeMaterialGroup = _skyboxCube->GetPolygonMaterialGroup(0);
 
 				glBindVertexArray(cubeMaterialGroup->VertexArrayID());
+
+				glm::vec4 colour = _skyboxMaterial->Colour();
+				glUniform4fv(colourID, 1, glm::value_ptr(colour));
 
 				glm::mat4x4 modelMatrix = Transform()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
@@ -61,11 +63,16 @@ namespace Engine
 
 				glDrawArrays(GL_TRIANGLES, 0, cubeMaterialGroup->VertexCount());
 
-				glDepthFunc(GL_LESS);				
+				glDepthFunc(GL_LESS);
 			}
 		}
 
-		//std::shared_ptr<ResourceManagement::Material>& Camera::SkyboxMaterial()	{ return _skyboxMaterial; }
+		void Camera::SetCameraSkybox(std::shared_ptr<ResourceManagement::SkyboxMaterial> skyboxMaterial)	
+		{
+			_skyboxMaterial = skyboxMaterial; 
+		}
+
+		std::shared_ptr<ResourceManagement::SkyboxMaterial>& Camera::SkyboxMaterial()	{ return _skyboxMaterial; }
 		glm::mat4x4& Camera::ProjectionMatrix() { return _projectionMatrix; }
 	}
 }
