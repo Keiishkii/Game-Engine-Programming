@@ -55,11 +55,11 @@ namespace Engine
 		template <typename T, typename A>
 		std::shared_ptr<T> AddComponent(A parameter)
 		{
-			std::shared_ptr<T> component = std::make_shared<T>(parameter);
+			std::shared_ptr<T> component = std::make_shared<T>();
 			std::shared_ptr<Entity> self = Self();
 
 			component->Component::Initialise(component, self);
-			component->Initialise(component, self);
+			component->Initialise(component, self, parameter);
 
 			_componentList.push_back(component);
 

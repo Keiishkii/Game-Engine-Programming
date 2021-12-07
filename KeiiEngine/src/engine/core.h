@@ -2,11 +2,20 @@
 #include <vector>
 #include <string>
 #include <SDL.h>
+#include <glew.h>
 
 namespace Engine
 {
-	namespace ResourceManagement { struct ResourceManager; }
+	namespace ResourceManagement 
+	{ 
+		struct ResourceManager; 
+		struct ShaderProgram; 
+	}
 	namespace ErrorHandling { struct Debugger; }
+	namespace Graphics
+	{
+		struct VertexArray;
+	}
 
 	struct Entity;
 	namespace Components 
@@ -20,6 +29,7 @@ namespace Engine
 	struct Core
 	{
 		friend Components::Camera;
+		friend Components::Light;
 
 	private:
 		std::weak_ptr<Core> _self;
@@ -35,6 +45,9 @@ namespace Engine
 		std::vector<std::weak_ptr<Components::Camera>> _cameraList;
 		std::vector<std::weak_ptr<Components::Light>> _lightList;
 
+		std::shared_ptr<ResourceManagement::ShaderProgram> _frameBufferShader;
+		std::shared_ptr<Graphics::VertexArray> _frameBufferVertexArrayObject;
+
 		bool _running;
 	public:
 
@@ -42,6 +55,10 @@ namespace Engine
 	private:
 		void MainLoop();
 		void SDLInitialisation();
+		void RenderBufferInitialisation();
+
+		void SetUpFrameBuffer(GLuint& framebufferID, GLuint& framebufferColourTextureID, GLuint& frameBufferDepthTextureID, int width, int height);
+		void ClearFrameBufferAndDrawToMainBuffer(GLuint framebufferID, GLuint framebufferColourTextureID, GLuint frameBufferDepthTextureID);
 
 		void Render();
 		void Update();
@@ -60,8 +77,8 @@ namespace Engine
 		void Start();
 		void Stop();
 
+		std::vector<std::weak_ptr<Components::Light>> Lights();
 		std::shared_ptr<Entity> AddEntity(std::string name);
-
 		std::shared_ptr<Entity> Find(std::string name);
 	};
 }

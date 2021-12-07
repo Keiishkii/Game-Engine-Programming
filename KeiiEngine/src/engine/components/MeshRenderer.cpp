@@ -6,6 +6,7 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "Light.h"
 #include "engine/Core.h"
 #include "engine/resources/ResourceManager.h"
 #include "engine/resources/ShaderProgram.h"
@@ -20,7 +21,7 @@ namespace Engine
 {
 	namespace Components
 	{
-		MeshRenderer::MeshRenderer(std::shared_ptr<ResourceManagement::Model> renderModel)
+		void MeshRenderer::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity, std::shared_ptr<ResourceManagement::Model> renderModel)
 		{
 			_renderModel = renderModel;
 		}
@@ -59,6 +60,13 @@ namespace Engine
 				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
 				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
 
+				GLint lightCountID = glGetUniformLocation(programID, "in_LightCount");
+				GLint lightPositionArrayID = glGetUniformLocation(programID, "in_LightPositions");
+				GLint lightColourArrayID = glGetUniformLocation(programID, "in_LightColours");
+				GLint lightIntensityArrayID = glGetUniformLocation(programID, "in_LightIntensitys");
+
+
+
 				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = _renderModel->GetPolygonMaterialGroup(i);
 
 				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
@@ -75,6 +83,15 @@ namespace Engine
 
 				glm::mat4x4 projectionMatrix = activeCamera->ProjectionMatrix();
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+
+				
+				std::vector<std::weak_ptr<Components::Light>> lights = Core()->Lights();
+				int lightCount = lights.size();
+
+				glUniform1f(lightCountID, lightCount);
+				glUniform3fv(lightPositionArrayID, lightCount, glm::value_ptr(lights[0].lock()->Transform()->Position()));
+				glUniform3fv(lightColourArrayID, lightCount, glm::value_ptr(lights[0].lock()->Colour()));
+				glUniform1fv(lightIntensityArrayID, lightCount, &lights[0].lock()->Intensity());
 
 				// Draw to the screen
 				glEnable(GL_BLEND);

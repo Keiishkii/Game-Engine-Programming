@@ -14,11 +14,17 @@ namespace Engine
 			friend Engine::Core;
 
 		private:
+			float _intensity;
+			glm::vec3 _colour;
 		public:
 
 
 		private:
 		public:
+			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
+
+			glm::vec3& Colour();
+			float& Intensity();
 		};
 	}
 }

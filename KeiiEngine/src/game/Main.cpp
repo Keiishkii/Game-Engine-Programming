@@ -12,9 +12,16 @@ std::shared_ptr<Entity> CreateDebuggingEntity(std::shared_ptr<Core> core);
 std::shared_ptr<Entity> CreateCameraEntity(std::shared_ptr<Core> core);
 std::shared_ptr<Entity> CreatePlayerEntity(std::shared_ptr<Core> core);
 std::shared_ptr<Entity> CreateMapEntity(std::shared_ptr<Core> core);
+std::shared_ptr<Entity> CreateLightEntity(std::shared_ptr<Core> core);
 
 int main()
 {
+	#if _DEBUG
+		std::cout << "Mode = Debug" << std::endl;
+	#else
+		std::cout << "Mode = Release" << std::endl;
+	#endif
+
 	std::cout << "\033[0m" << " - [ENGINE START] - " << std::endl;
 
 	std::shared_ptr<Core> core = Core::Initialise(144, 50);
@@ -23,12 +30,29 @@ int main()
 
 	std::shared_ptr<Entity> player = CreatePlayerEntity(core);
 	std::shared_ptr<Entity> camera = CreateCameraEntity(core);
-	std::shared_ptr<Entity> map = CreateMapEntity(core);
-	
+	//std::shared_ptr<Entity> map = CreateMapEntity(core);
+	std::shared_ptr<Entity> light = CreateLightEntity(core);
+
 
 	core->Start();
 
 	return 0;
+}
+
+std::shared_ptr<Entity> CreateLightEntity(std::shared_ptr<Core> core)
+{
+	std::shared_ptr<Entity> lightEntity = core->AddEntity("Light");
+	{
+		std::shared_ptr<Components::Light> lightComponent = lightEntity->AddComponent<Components::Light>();
+		{
+			lightComponent->Colour() = glm::vec3(1, 1, 1);
+			lightComponent->Intensity() = 1.0f;
+		}
+
+		lightEntity->Transform()->Position() = glm::vec3(10, 10, 0);
+	}
+
+	return lightEntity;
 }
 
 std::shared_ptr<Entity> CreateDebuggingEntity(std::shared_ptr<Core> core)
@@ -52,7 +76,7 @@ std::shared_ptr<Entity> CreateCameraEntity(std::shared_ptr<Core> core)
 
 		std::shared_ptr<Game::CameraController> cameraController = cameraEntity->AddComponent<Game::CameraController>();
 
-		cameraEntity->Transform()->Position() = glm::vec3(0, 2, 0);
+		cameraEntity->Transform()->Position() = glm::vec3(0, 0, 0);
 		cameraEntity->Transform()->Rotation() = glm::quat(glm::vec3(-0.25f, 0.0f, 0.0f));
 	}
 
@@ -79,7 +103,7 @@ std::shared_ptr<Entity> CreatePlayerEntity(std::shared_ptr<Core> core)
 		std::shared_ptr<Components::MeshRenderer> meshRenderer = playerEntity->AddComponent<Components::MeshRenderer>(mesh);
 		std::shared_ptr<Game::PlayerController> playerController = playerEntity->AddComponent<Game::PlayerController>();
 		
-		playerEntity->Transform()->Position() = glm::vec3(0, 0, -6);
+		playerEntity->Transform()->Position() = glm::vec3(0, 0, 0);
 		playerEntity->Transform()->Scale() = glm::vec3(0.1f, 0.1f, 0.1f);
 	}
 
@@ -104,7 +128,7 @@ std::shared_ptr<Entity> CreateMapEntity(std::shared_ptr<Core> core)
 			mesh->SetMaterial(7,  core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/gaur_plains/chiseled_stone_2.material"));
 			mesh->SetMaterial(10, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/gaur_plains/chiseled_stone_6.material"));
 			mesh->SetMaterial(11, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/gaur_plains/chiseled_stone_3.material"));
-				mesh->SetMaterial(12, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/colours/red.material"));
+/*No Mat*/	mesh->SetMaterial(12, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/colours/red.material"));
 			mesh->SetMaterial(13, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/gaur_plains/rocky_4.material"));
 			mesh->SetMaterial(14, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/gaur_plains/grass.material"));
 			mesh->SetMaterial(15, core->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/gaur_plains/grass.material"));

@@ -27,6 +27,7 @@
 	#include "components/Transform.h"
 	#include "components/Camera.h"
 	#include "components/Light.h"
+	#include "components/Gizmo.h"
 	#include "components/MeshRenderer.h"
 
 // Graphics

@@ -17,7 +17,7 @@ namespace Engine
 		private:
 			virtual void Render(const std::shared_ptr<Components::Camera>& activeCamera) override;
 		public:
-			MeshRenderer(std::shared_ptr<ResourceManagement::Model> renderModel);
+			void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity, std::shared_ptr<ResourceManagement::Model> renderModel);
 		};
 	}
 }

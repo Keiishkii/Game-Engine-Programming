@@ -81,6 +81,9 @@ add_library(keiiengine
 
 	src/engine/components/Light.cpp
 	src/engine/components/Light.h
+
+	src/engine/components/Gizmo.cpp
+	src/engine/components/Gizmo.h
 	
 	src/engine/components/MeshRenderer.cpp
 	src/engine/components/MeshRenderer.h
