@@ -23,8 +23,11 @@
 	varying vec2 out_TextureUV;
 
 	void main()
-	{				
-		//gl_FragColor = texture(in_GizmoTexture, out_TextureUV);
-		gl_FragColor = vec4(0, 0, 0, 1);
+	{	
+		vec4 colour = texture(in_GizmoTexture, out_TextureUV);	
+		if(colour.a < 0.05)
+        		discard;
+		
+		gl_FragColor = colour;
 	}
 #endif

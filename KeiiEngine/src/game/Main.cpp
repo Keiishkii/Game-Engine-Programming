@@ -16,12 +16,6 @@ std::shared_ptr<Entity> CreateLightEntity(std::shared_ptr<Core> core);
 
 int main()
 {
-	#if _DEBUG
-		std::cout << "Mode = Debug" << std::endl;
-	#else
-		std::cout << "Mode = Release" << std::endl;
-	#endif
-
 	std::cout << "\033[0m" << " - [ENGINE START] - " << std::endl;
 
 	std::shared_ptr<Core> core = Core::Initialise(144, 50);
@@ -30,7 +24,7 @@ int main()
 
 	std::shared_ptr<Entity> player = CreatePlayerEntity(core);
 	std::shared_ptr<Entity> camera = CreateCameraEntity(core);
-	//std::shared_ptr<Entity> map = CreateMapEntity(core);
+	std::shared_ptr<Entity> map = CreateMapEntity(core);
 	std::shared_ptr<Entity> light = CreateLightEntity(core);
 
 

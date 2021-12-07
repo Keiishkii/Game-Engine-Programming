@@ -27,6 +27,8 @@ namespace Engine
 				_gizmoShaderProgram = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/gizmo_shader_program.glsl");
 				_gizmoVertexArrayObject = std::make_shared<Graphics::VertexArray>();
 
+				_colour = glm::vec3(1, 1, 1);
+
 				std::shared_ptr<Graphics::VertexBuffer> positionBuffer = std::make_shared<Graphics::VertexBuffer>();
 				{
 					positionBuffer->Add(glm::vec3(-1, -1, 0));
@@ -54,6 +56,10 @@ namespace Engine
 					normalBuffer->Add(glm::vec3(0, 0, 0));
 					normalBuffer->Add(glm::vec3(0, 0, 0));
 				}
+
+				_gizmoVertexArrayObject->SetBuffer("Vertex Position Buffer", positionBuffer);
+				_gizmoVertexArrayObject->SetBuffer("Texture UV Buffer", textureUVBuffer);
+				_gizmoVertexArrayObject->SetBuffer("Vertex Normal Buffer", normalBuffer);
 			#endif
 		}
 
@@ -74,10 +80,15 @@ namespace Engine
 				glBindVertexArray(_gizmoVertexArrayObject->GetID());
 
 				glUniform4fv(colourID, 1, glm::value_ptr(_colour));
+				
+				std::shared_ptr<Components::Transform> transform = Transform();
+				glm::mat4x4 scaleMatrix = glm::scale(glm::identity<glm::mat4x4>(), transform->Scale());
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quatLookAt(glm::normalize(transform->Position() - activeCamera->Transform()->Position()), glm::vec3(0, 1, 0)));
+				glm::mat4x4 translationMatrix = glm::translate(glm::identity<glm::mat4x4>(), transform->Position());
+
+				glm::mat4x4 modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 
 
-				std::cout << "Gizmo Position:		{" << Transform()->Position().x << ",	" << Transform()->Position().y << ",	" << Transform()->Position().z << "}" << std::endl;
-				glm::mat4x4 modelMatrix = Transform()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
 				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera->Transform()->TransformationMatrix());

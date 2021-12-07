@@ -68,14 +68,14 @@ namespace Engine
 	public:
 		~Core();
 		static std::shared_ptr<Core> Initialise(int FPS, int fixedFPS);
+		
+		void Start();
+		void Stop();
 
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
 		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 		std::shared_ptr<TimeManager> TimeManager();
 		std::shared_ptr<InputManager> InputManager();
-
-		void Start();
-		void Stop();
 
 		std::vector<std::weak_ptr<Components::Light>> Lights();
 		std::shared_ptr<Entity> AddEntity(std::string name);

@@ -19,6 +19,7 @@
 
 	void main()
 	{				
-		gl_FragColor = texture(in_ScreenTexture, out_TextureUV);
+		vec4 colour = texture(in_ScreenTexture, out_TextureUV);
+		gl_FragColor = colour;
 	}
 #endif
