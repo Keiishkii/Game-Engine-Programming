@@ -11,9 +11,10 @@ namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
+		/*
 		std::shared_ptr<ResourceManagement::Texture> texture = Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/shulk/eye.png");
 
-		GLubyte* textureData = new GLubyte[texture->GetWidth() * texture->GetHeight() * texture->GetChannelCount()];
+		GLubyte* textureData = new GLubyte[texture->Width() * texture->Height() * texture->ChannelCount()];
 
 		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "- - RuntimeTextureGeneration\\outputTest.png";
 		//std::cout << "New: " << _texture << std::endl;
@@ -22,13 +23,16 @@ namespace Game
 		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
 		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
 
-		stbi_write_png(directory.c_str(), texture->GetWidth(), texture->GetHeight(), texture->GetChannelCount(), textureData, texture->GetWidth() * texture->GetChannelCount());
-		free(textureData);
+		stbi_write_png(directory.c_str(), texture->Width(), texture->Height(), texture->ChannelCount(), textureData, texture->Width() * texture->ChannelCount());
+		free(textureData);*/
 	}
 
 	void ShaderTextureSampler::Update()
 	{
+		std::shared_ptr<ResourceManagement::Texture> texture = Core()->RenderTexture();
 
+		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "- - RuntimeTextureGeneration\\PNG_WrittenFile.png";
+		stbi_write_png(directory.c_str(), texture->Width(), texture->Height(), texture->ChannelCount(), texture->TextureData(), texture->Width() * texture->ChannelCount());
 	}
 }
 

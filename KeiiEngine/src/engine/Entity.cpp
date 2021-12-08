@@ -1,3 +1,5 @@
+#include "glm/glm.hpp"
+
 #include "Entity.h"
 #include "components/Component.h"
 #include "components/Transform.h"
@@ -18,11 +20,11 @@ namespace Engine
 		self->_transform = self->AddComponent<Components::Transform>();
 	}
 
-	void Entity::Render(const std::shared_ptr<Components::Camera>& activeCamera)
+	void Entity::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 	{
 		for (int i = 0; i < _componentList.size(); i++)
 		{
-			_componentList[i]->Render(activeCamera);
+			_componentList[i]->Render(transformationMatrix, projectionMatrix);
 		}
 	}
 

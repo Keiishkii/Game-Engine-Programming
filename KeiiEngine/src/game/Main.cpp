@@ -1,6 +1,8 @@
 #include <iostream>
 #include <math.h>
 
+#include "glm/stb_image_write.h"
+
 #include "engine/KeiiEngine.h"
 #include "game/components/PlayerController.h"
 #include "game/components/CameraController.h"
@@ -26,7 +28,6 @@ int main()
 	std::shared_ptr<Entity> camera = CreateCameraEntity(core);
 	std::shared_ptr<Entity> map = CreateMapEntity(core);
 	std::shared_ptr<Entity> light = CreateLightEntity(core);
-
 
 	core->Start();
 

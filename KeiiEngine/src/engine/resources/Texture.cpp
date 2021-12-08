@@ -10,14 +10,22 @@ namespace Engine
 {
 	namespace ResourceManagement
 	{
+		void Texture::CreateTexture(int width, int height, int channelCount, GLubyte* texture)
+		{
+			_width = width;	_height = height;
+			_channelCount = channelCount;
+
+			_texture = texture;
+		}
+
 		void Texture::Load(const std::string& path)
 		{
 			_path = path;
 
-			_numberOfChannels = 4;
+			_channelCount = 4;
 			_width = 0, _height = 0;
 
-			_texture = stbi_load(path.c_str(), &_width, &_height, NULL, _numberOfChannels);
+			_texture = stbi_load(path.c_str(), &_width, &_height, NULL, _channelCount);
 
 			if (!_texture)
 				throw ErrorHandling::Exception("Failed to load texture");
@@ -51,12 +59,15 @@ namespace Engine
 
 		Texture::~Texture()
 		{
+			if (_textureID)
+				glDeleteTextures(1, &_textureID);
+			
 			free(_texture);
 		}
 
-		int Texture::GetChannelCount()	{ return _numberOfChannels; }
-		int Texture::GetWidth()	{ return _width; }
-		int Texture::GetHeight() { return _height; }
-		unsigned char* Texture::GetTexture() { return _texture; }
+		int& Texture::ChannelCount()	{ return _channelCount; }
+		int& Texture::Width()	{ return _width; }
+		int& Texture::Height() { return _height; }
+		unsigned char*& Texture::TextureData() { return _texture; }
 	}
 }																	

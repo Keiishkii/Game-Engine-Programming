@@ -31,7 +31,7 @@ namespace Engine
 		void Initialise(std::shared_ptr<Entity> self, std::shared_ptr<Engine::Core> core);
 
 		void Update();
-		void Render(const std::shared_ptr<Components::Camera>& activeCamera);
+		void Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix);
 		void PhysicsUpdate();
 
 		std::shared_ptr<Entity> Self();

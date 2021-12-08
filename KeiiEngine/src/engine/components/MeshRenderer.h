@@ -15,7 +15,7 @@ namespace Engine
 
 
 		private:
-			virtual void Render(const std::shared_ptr<Components::Camera>& activeCamera) override;
+			virtual void Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix) override;
 		public:
 			void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity, std::shared_ptr<ResourceManagement::Model> renderModel);
 		};

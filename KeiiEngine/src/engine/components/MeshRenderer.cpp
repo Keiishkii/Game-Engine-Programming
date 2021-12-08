@@ -26,7 +26,7 @@ namespace Engine
 			_renderModel = renderModel;
 		}
 
-		void MeshRenderer::Render(const std::shared_ptr<Camera>& activeCamera)
+		void MeshRenderer::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 		{
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
@@ -78,10 +78,9 @@ namespace Engine
 				glm::mat4x4 modelMatrix = Transform()->TransformationMatrix();
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera->Transform()->TransformationMatrix());
+				glm::mat4x4 viewingMatrix = glm::inverse(transformationMatrix);
 				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
 
-				glm::mat4x4 projectionMatrix = activeCamera->ProjectionMatrix();
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 				

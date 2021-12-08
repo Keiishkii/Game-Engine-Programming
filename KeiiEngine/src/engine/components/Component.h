@@ -2,6 +2,7 @@
 #define COMPONENT_H
 
 #include <memory>
+#include "glm/glm.hpp"
 
 namespace Engine
 {
@@ -35,7 +36,7 @@ namespace Engine
 
 			virtual void Update();
 			virtual void PhysicsUpdate();
-			virtual void Render(const std::shared_ptr<Components::Camera>& activeCamera);
+			virtual void Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix);
 
 			std::shared_ptr<Component> Self();
 		public:

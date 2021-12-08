@@ -6,8 +6,6 @@
 #include <SDL.h>
 #include <glew.h>
 
-#include "glm/stb_image_write.h"
-
 #include "Core.h"
 #include "TimeManager.h"
 #include "InputManager.h"
@@ -23,6 +21,7 @@
 #include "resources/ResourceManager.h"
 #include "resources/ShaderProgram.h"
 #include "resources/Model.h"
+#include "resources/Texture.h"
 
 using namespace Engine::ErrorHandling;
 using namespace Engine::ResourceManagement;
@@ -54,6 +53,7 @@ namespace Engine
 		try
 		{
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 			
 			if (!SDL_GL_CreateContext(*_window))
 			{
@@ -124,7 +124,6 @@ namespace Engine
 	void Core::Start()
 	{
 		_running = true;
-
 		MainLoop();
 	}
 
@@ -137,7 +136,9 @@ namespace Engine
 		{
 			_inputManager->ProcessFrameInput();
 
+			
 			Update();
+			
 
 			int physicsCycles = _timeManager->CheckForFixedUpdates();
 			for (int i = 0; i < physicsCycles; i++)
@@ -151,7 +152,7 @@ namespace Engine
 			_timeManager->WaitForEndOfFrame();
 			_debugger->LogUpdate();
 
-			if (_running)[[likely]] _running = !(_inputManager->Input()->QuitEvent());
+			if (_inputManager->Input()->QuitEvent())[[unlikely]] _running = false;
 		}
 	}
 
@@ -165,6 +166,7 @@ namespace Engine
 		GLuint framebufferID = 0, framebufferColourTextureID = 0, frameBufferDepthTextureID = 0;
 		SetUpFrameBuffer(framebufferID, framebufferColourTextureID, frameBufferDepthTextureID, width, height);
 
+		/*
 		for (int i = 0; i < _cameraList.size(); i++)
 		{
 			std::shared_ptr<Components::Camera> activeCamera = _cameraList[i].lock();
@@ -173,27 +175,70 @@ namespace Engine
 
 			for (int j = 0; j < _entityList.size(); j++)
 			{
-				_entityList[j]->Render(activeCamera);
+				_entityList[j]->Render(activeCamera->Transform()->TransformationMatrix(), activeCamera->ProjectionMatrix());
+			}
+
+			activeCamera->RenderSkybox();
+		}
+		*/
+
+		ClearFrameBufferAndDrawToMainBuffer(framebufferID, framebufferColourTextureID, frameBufferDepthTextureID);
+
+		SDL_GL_SwapWindow(*_window);
+	}
+
+	std::shared_ptr<ResourceManagement::Texture> Core::RenderTexture()
+	{
+		std::shared_ptr<ResourceManagement::Texture> texture = std::make_shared<ResourceManagement::Texture>();
+
+		int width = 0, height = 0;
+		SDL_GetWindowSize(*_window, &width, &height);
+
+		glViewport(0, 0, width, height);
+
+		GLuint framebufferID = 0, framebufferColourTextureID = 0, frameBufferDepthTextureID = 0;
+		SetUpFrameBuffer(framebufferID, framebufferColourTextureID, frameBufferDepthTextureID, width, height);
+
+
+		int channelNumber = 4;
+		for (int i = 0; i < _cameraList.size(); i++)
+		{
+			std::shared_ptr<Components::Camera> activeCamera = _cameraList[i].lock();
+
+			activeCamera->GenerateNewProjectionMatrix(width, height, 60.0f);
+
+			for (int j = 0; j < _entityList.size(); j++)
+			{
+				_entityList[j]->Render(activeCamera->Transform()->TransformationMatrix(), activeCamera->ProjectionMatrix());
 			}
 
 			activeCamera->RenderSkybox();
 		}
 
-		ClearFrameBufferAndDrawToMainBuffer(framebufferID, framebufferColourTextureID, frameBufferDepthTextureID);
+		int dataLength = width * height * channelNumber;
+		GLubyte* textureData = new GLubyte[dataLength];
 
-		glUseProgram(0);
-		SDL_GL_SwapWindow(*_window);
-	}
+		glBindTexture(GL_TEXTURE_2D, framebufferColourTextureID);
+		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
+
+		texture->CreateTexture(width, height, channelNumber, textureData);
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0); // back to default
+		
+		glDeleteTextures(1, &framebufferColourTextureID);
+		glDeleteRenderbuffers(1, &frameBufferDepthTextureID);
+		glDeleteFramebuffers(1, &framebufferID);
+
+		return texture;
+	}	
 
 	void Core::SetUpFrameBuffer(GLuint& framebufferID, GLuint& framebufferColourTextureID, GLuint& frameBufferDepthTextureID, int width, int height)
 	{
 		glGenFramebuffers(1, &framebufferID);
-
 		glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
 
 
 		glGenTextures(1, &framebufferColourTextureID);
-
 		glBindTexture(GL_TEXTURE_2D, framebufferColourTextureID);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
@@ -205,8 +250,8 @@ namespace Engine
 
 
 		glGenRenderbuffers(1, &frameBufferDepthTextureID);
-
 		glBindRenderbuffer(GL_RENDERBUFFER, frameBufferDepthTextureID);
+
 		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
@@ -241,6 +286,8 @@ namespace Engine
 		glDeleteTextures(1, &framebufferColourTextureID);
 		glDeleteRenderbuffers(1, &frameBufferDepthTextureID);
 		glDeleteFramebuffers(1, &framebufferID);
+
+		glUseProgram(0);
 	}
 
 
@@ -256,7 +303,7 @@ namespace Engine
 	{
 		for (int i = 0; i < _entityList.size(); i++)
 		{
-			_entityList[i]->Update();
+			_entityList[i]->PhysicsUpdate();
 		}
 	}
 

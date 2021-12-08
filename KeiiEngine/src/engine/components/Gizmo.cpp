@@ -1,7 +1,9 @@
 #include "Gizmo.h"
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
+#include "glm/gtx/matrix_decompose.hpp"
 #include <iostream>
+#include <math.h>
 
 #include "Transform.h"
 #include "Camera.h"
@@ -63,7 +65,7 @@ namespace Engine
 			#endif
 		}
 
-		void Gizmo::Render(const std::shared_ptr<Components::Camera>& activeCamera)
+		void Gizmo::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 		{
 			#if _DEBUG
 				GLuint programID = _gizmoShaderProgram->GetShaderID();
@@ -81,9 +83,18 @@ namespace Engine
 
 				glUniform4fv(colourID, 1, glm::value_ptr(_colour));
 				
+
 				std::shared_ptr<Components::Transform> transform = Transform();
-				glm::mat4x4 scaleMatrix = glm::scale(glm::identity<glm::mat4x4>(), transform->Scale());
-				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quatLookAt(glm::normalize(transform->Position() - activeCamera->Transform()->Position()), glm::vec3(0, 1, 0)));
+
+				glm::vec3 translation, scale, skew;
+				glm::quat rotation;
+				glm::vec4 perspective;
+				glm::decompose(transformationMatrix, scale, rotation, translation, skew, perspective);
+				rotation = glm::conjugate(rotation);
+
+
+				glm::mat4x4 scaleMatrix = glm::scale(glm::identity<glm::mat4x4>(), scale);
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quatLookAt(glm::normalize(transform->Position() - translation), glm::vec3(0, 1, 0)) * glm::quat(glm::vec3(0, 0, M_PI)));
 				glm::mat4x4 translationMatrix = glm::translate(glm::identity<glm::mat4x4>(), transform->Position());
 
 				glm::mat4x4 modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
@@ -91,10 +102,9 @@ namespace Engine
 
 				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 
-				glm::mat4x4 viewingMatrix = glm::inverse(activeCamera->Transform()->TransformationMatrix());
+				glm::mat4x4 viewingMatrix = glm::inverse(transformationMatrix);
 				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
 
-				glm::mat4x4 projectionMatrix = activeCamera->ProjectionMatrix();
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 				// Draw to the screen

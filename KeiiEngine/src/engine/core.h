@@ -10,7 +10,9 @@ namespace Engine
 	{ 
 		struct ResourceManager; 
 		struct ShaderProgram; 
+		struct Texture;
 	}
+
 	namespace ErrorHandling { struct Debugger; }
 	namespace Graphics
 	{
@@ -71,6 +73,8 @@ namespace Engine
 		
 		void Start();
 		void Stop();
+
+		std::shared_ptr<ResourceManagement::Texture> RenderTexture();
 
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
 		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();

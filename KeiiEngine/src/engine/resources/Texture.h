@@ -12,7 +12,7 @@ namespace Engine
 		private:
 			GLuint _textureID = 0;
 
-			int _numberOfChannels;
+			int _channelCount;
 			int _width, _height;
 			GLubyte* _texture;
 			std::string _path;
@@ -21,15 +21,17 @@ namespace Engine
 
 		private:
 		public:
+			void CreateTexture(int width, int height, int channels, GLubyte* texture);
+
 			~Texture();
 			virtual void Load(const std::string& path) override;
 
 			GLuint GetTextureID();
 
-			int GetChannelCount();
-			int GetWidth();
-			int GetHeight();
-			unsigned char* GetTexture();
+			int& ChannelCount();
+			int& Width();
+			int& Height();
+			unsigned char*& TextureData();
 		};
 	}
 }

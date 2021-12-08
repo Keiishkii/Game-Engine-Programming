@@ -32,7 +32,7 @@ namespace Engine
 		}
 
 		void Component::PhysicsUpdate() { }
-		void Component::Render(const std::shared_ptr<Components::Camera>& activeCamera) { }
+		void Component::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix) { }
 
 		std::shared_ptr<Transform> Component::Transform() { return _transform.lock(); }
 		std::shared_ptr<Component> Component::Self() { return _self.lock(); }
