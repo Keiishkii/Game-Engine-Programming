@@ -11,8 +11,9 @@ namespace Engine
 {
 	namespace ResourceManagement
 	{
-		void Material::Load(const std::string& path)
+		void Material::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
+			std::string path = resourcesDirectory + subPath;
 			std::string fileContent = "";
 
 			std::fstream fileStream;

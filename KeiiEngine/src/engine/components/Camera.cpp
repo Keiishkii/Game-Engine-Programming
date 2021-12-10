@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "engine/Core.h"
+#include "engine/Scene.h"
 #include "Transform.h"
 #include "engine/entity.h"
 #include "engine/resources/SkyboxMaterial.h"
@@ -19,7 +20,7 @@ namespace Engine
 	{
 		void Camera::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
-			Core()->_cameraList.push_back(std::dynamic_pointer_cast<Camera>(self));
+			Scene()->_cameraList.push_back(std::dynamic_pointer_cast<Camera>(self));
 			_skyboxCube = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/skybox.fbx");
 		}
 	
@@ -30,15 +31,16 @@ namespace Engine
 
 		void Camera::RenderSkybox()
 		{
-			if (_skyboxMaterial)
+			std::shared_ptr<ResourceManagement::SkyboxMaterial> skybox = Scene()->Skybox();
+			if (skybox)
 			{
 				glDepthFunc(GL_LEQUAL);
 
-				std::shared_ptr<ResourceManagement::ShaderProgram> shader = _skyboxMaterial->GetShaderProgram();
+				std::shared_ptr<ResourceManagement::ShaderProgram> shader = skybox->GetShaderProgram();
 				GLuint programID = shader->GetShaderID();
 				glUseProgram(programID);
 
-				shader->UploadTextureMapToShader(_skyboxMaterial->GetAlbedoTextureCubeMap(), "in_Skybox");
+				shader->UploadTextureMapToShader(skybox->GetAlbedoTextureCubeMap(), "in_Skybox");
 
 				GLint colourID = glGetUniformLocation(programID, "in_Colour");
 				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
@@ -49,7 +51,7 @@ namespace Engine
 
 				glBindVertexArray(cubeMaterialGroup->VertexArrayID());
 
-				glm::vec4 colour = _skyboxMaterial->Colour();
+				glm::vec4 colour = skybox->Colour();
 				glUniform4fv(colourID, 1, glm::value_ptr(colour));
 
 				glm::mat4x4 modelMatrix = Transform()->TransformationMatrix();
@@ -67,12 +69,6 @@ namespace Engine
 			}
 		}
 
-		void Camera::SetCameraSkybox(std::shared_ptr<ResourceManagement::SkyboxMaterial> skyboxMaterial)	
-		{
-			_skyboxMaterial = skyboxMaterial; 
-		}
-
-		std::shared_ptr<ResourceManagement::SkyboxMaterial>& Camera::SkyboxMaterial()	{ return _skyboxMaterial; }
 		glm::mat4x4& Camera::ProjectionMatrix() { return _projectionMatrix; }
 	}
 }

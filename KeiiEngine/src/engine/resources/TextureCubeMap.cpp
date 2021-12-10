@@ -1,48 +1,114 @@
 #include "glm/stb_image.h"
+#include "glm/glm.hpp"
+#include "glm/ext.hpp"
 
 #include "TextureCubeMap.h"
+#include "Texture.h"
 #include "engine/error-handling/Exception.h"
 #include <iostream>
 #include <vector>
+
+#include "engine/Core.h"
+#include "engine/Scene.h"
+#include "ResourceManager.h"
 
 namespace Engine
 {
 	namespace ResourceManagement
 	{
-		void TextureCubeMap::Load(const std::string& path)
+		void TextureCubeMap::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
+			std::string path = resourcesDirectory + subPath;
+
 			std::string pathWithoutExtension = path.substr(0, path.size() - 4);
 			std::string pathExtension = path.substr(path.size() - 4);
+			
 
-			std::string rightFacePath = pathWithoutExtension + _faceSuffexes[5] + pathExtension;
-			_rightTexture = stbi_load(rightFacePath.c_str(), &_width, &_height, NULL, 0);
+			std::string subPathWithoutExtension = subPath.substr(0, subPath.size() - 4);
+			std::string subPathExtension = subPath.substr(subPath.size() - 4);
+
+
+
+			_rightTexture =  ResourceManager()->FindAsset<Texture>(subPathWithoutExtension + _faceSuffexes[0] + subPathExtension);
 			if (!_rightTexture)
 				throw ErrorHandling::Exception("Failed to load right texture of cube map");
 
-			std::string leftFacePath = pathWithoutExtension + _faceSuffexes[4] + pathExtension;
-			_leftTexture = stbi_load(leftFacePath.c_str(), &_width, &_height, NULL, 0);
+			_leftTexture =   ResourceManager()->FindAsset<Texture>(subPathWithoutExtension + _faceSuffexes[1] + subPathExtension);
 			if (!_leftTexture)
 				throw ErrorHandling::Exception("Failed to load left texture of cube map");
 
-			std::string topFacePath = pathWithoutExtension + _faceSuffexes[2] + pathExtension;
-			_topTexture = stbi_load(topFacePath.c_str(), &_width, &_height, NULL, 0);
+			_topTexture =	 ResourceManager()->FindAsset<Texture>(subPathWithoutExtension + _faceSuffexes[2] + subPathExtension);
 			if (!_topTexture)
 				throw ErrorHandling::Exception("Failed to load top texture of cube map");
 
-			std::string bottomFacePath = pathWithoutExtension + _faceSuffexes[3] + pathExtension;
-			_bottomTexture = stbi_load(bottomFacePath.c_str(), &_width, &_height, NULL, 0);
+			_bottomTexture = ResourceManager()->FindAsset<Texture>(subPathWithoutExtension + _faceSuffexes[3] + subPathExtension);
 			if (!_bottomTexture)
 				throw ErrorHandling::Exception("Failed to load bottom texture of cube map");
 
-			std::string frontFacePath = pathWithoutExtension + _faceSuffexes[0] + pathExtension;
-			_frontTexture = stbi_load(frontFacePath.c_str(), &_width, &_height, NULL, 0);
+			_frontTexture =  ResourceManager()->FindAsset<Texture>(subPathWithoutExtension + _faceSuffexes[4] + subPathExtension);
 			if (!_frontTexture)
 				throw ErrorHandling::Exception("Failed to load front texture of cube map");
 
-			std::string backFacePath = pathWithoutExtension + _faceSuffexes[1] + pathExtension;
-			_backTexture = stbi_load(backFacePath.c_str(), &_width, &_height, NULL, 0);
+			_backTexture =	 ResourceManager()->FindAsset<Texture>(subPathWithoutExtension + _faceSuffexes[5] + subPathExtension);
 			if (!_backTexture)
 				throw ErrorHandling::Exception("Failed to load back texture of cube map");
+		}
+
+		void TextureCubeMap::GenerateCubeMap(glm::vec3 position)
+		{
+			glm::mat4x4 projectionMatrix = glm::perspective(glm::radians(90.0f), 1.0f, 0.25f, 5000.f);
+
+			glm::mat4x4 scaleMatrix = glm::scale(glm::identity<glm::mat4x4>(), glm::vec3(1, 1, 1));
+			glm::mat4x4 translationMatrix = glm::translate(glm::identity<glm::mat4x4>(), position);
+
+			glm::mat4x4 rightTransformationMatrix;
+			{
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quat(glm::vec3(M_PI, (M_PI / 2), 0)));
+				rightTransformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+			glm::mat4x4 leftTransformationMatrix;
+			{
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quat(glm::vec3(M_PI, -(M_PI / 2), 0)));
+				leftTransformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+			glm::mat4x4 topTransformationMatrix;
+			{
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quat(glm::vec3((M_PI / 2), 0, 0)));
+				topTransformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+			glm::mat4x4 bottomTransformationMatrix;
+			{
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quat(glm::vec3(-(M_PI / 2), 0, 0)));
+				bottomTransformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+			glm::mat4x4 frontTransformationMatrix;
+			{
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quat(glm::vec3(M_PI, 0, 0)));
+				frontTransformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+			glm::mat4x4 backTransformationMatrix;
+			{
+				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quat(glm::vec3(M_PI, M_PI, 0)));
+				backTransformationMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+			}
+
+
+			std::shared_ptr<Scene> scene = Core()->ActiveScene();
+
+
+			_rightTexture = scene->RenderSceneToTexture(rightTransformationMatrix, projectionMatrix, 1024, 1024);
+			_leftTexture = scene->RenderSceneToTexture(leftTransformationMatrix, projectionMatrix, 1024, 1024);
+
+			_topTexture = scene->RenderSceneToTexture(topTransformationMatrix, projectionMatrix, 1024, 1024);
+			_bottomTexture = scene->RenderSceneToTexture(bottomTransformationMatrix, projectionMatrix, 1024, 1024);
+
+			_frontTexture = scene->RenderSceneToTexture(frontTransformationMatrix, projectionMatrix, 1024, 1024);
+			_backTexture = scene->RenderSceneToTexture(backTransformationMatrix, projectionMatrix, 1024, 1024);
 		}
 
 		GLuint TextureCubeMap::GetCubeMapTextureID()
@@ -59,23 +125,18 @@ namespace Engine
 				{
 					glBindTexture(GL_TEXTURE_CUBE_MAP, _textureID);
 
-					glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, _rightTexture);
-					free(_rightTexture);
 
-					glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, _leftTexture);
-					free(_leftTexture);
 
-					glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, _topTexture);
-					free(_topTexture);
+					glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, _rightTexture->Width(),  _rightTexture->Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,  _rightTexture->TextureData());
+					glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, _leftTexture->Width(),   _leftTexture->Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,   _leftTexture->TextureData());
 
-					glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, _bottomTexture);
-					free(_bottomTexture);
+					glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, _topTexture->Width(),    _topTexture->Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,    _topTexture->TextureData());
+					glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, _bottomTexture->Width(), _bottomTexture->Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, _bottomTexture->TextureData());
 
-					glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, _frontTexture);
-					free(_frontTexture);
+					glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, _frontTexture->Width(),  _frontTexture->Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,  _frontTexture->TextureData());
+					glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, _backTexture->Width(),   _backTexture->Height(), 0, GL_RGBA, GL_UNSIGNED_BYTE,   _backTexture->TextureData());
+					
 
-					glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGB, _width, _height, 0, GL_RGB, GL_UNSIGNED_BYTE, _backTexture);
-					free(_backTexture);
 
 					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 					glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -87,5 +148,18 @@ namespace Engine
 
 			return _textureID;
 		}
+
+		TextureCubeMap::~TextureCubeMap()
+		{
+			if (_textureID)
+				glDeleteTextures(1, &_textureID);
+		}
+
+		std::shared_ptr<Texture> TextureCubeMap::RightTexture() { return _rightTexture; }
+		std::shared_ptr<Texture> TextureCubeMap::LeftTexture() { return _leftTexture; }
+		std::shared_ptr<Texture> TextureCubeMap::TopTexture() { return _topTexture; }
+		std::shared_ptr<Texture> TextureCubeMap::BottomTexture() { return _bottomTexture; }
+		std::shared_ptr<Texture> TextureCubeMap::FrontTexture() { return _frontTexture; }
+		std::shared_ptr<Texture> TextureCubeMap::BackTexture() { return _backTexture; }
 	}
 }																	

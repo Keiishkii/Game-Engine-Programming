@@ -8,6 +8,7 @@
 #include "Transform.h"
 #include "Light.h"
 #include "engine/Core.h"
+#include "engine/Scene.h"
 #include "engine/resources/ResourceManager.h"
 #include "engine/resources/ShaderProgram.h"
 #include "engine/resources/Material.h"
@@ -84,7 +85,7 @@ namespace Engine
 				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
 
 				
-				std::vector<std::weak_ptr<Components::Light>> lights = Core()->Lights();
+				std::vector<std::weak_ptr<Components::Light>> lights = Scene()->Lights();
 				int lightCount = lights.size();
 
 				glUniform1f(lightCountID, lightCount);

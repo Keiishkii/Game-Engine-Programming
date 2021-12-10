@@ -1,6 +1,7 @@
 #include "Light.h"
 
 #include "engine/Core.h"
+#include "engine/Scene.h"
 #include "engine/Entity.h"
 #include "engine/resources/ResourceManager.h"
 #include "engine/resources/Texture.h"
@@ -13,7 +14,7 @@ namespace Engine
 	{
 		void Light::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
-			Core()->_lightList.push_back(std::dynamic_pointer_cast<Light>(self));
+			Scene()->_lightList.push_back(std::dynamic_pointer_cast<Light>(self));
 			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/point_light.png"));
 		}
 

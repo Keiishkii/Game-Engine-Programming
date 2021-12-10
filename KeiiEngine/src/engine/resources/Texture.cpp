@@ -18,8 +18,9 @@ namespace Engine
 			_texture = texture;
 		}
 
-		void Texture::Load(const std::string& path)
+		void Texture::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
+			std::string path = resourcesDirectory + subPath;
 			_path = path;
 
 			_channelCount = 4;

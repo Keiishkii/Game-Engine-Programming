@@ -54,6 +54,9 @@ add_library(keiiengine
 	src/engine/Inputs.h
 
 		#Graphics
+	src/engine/graphics/GraphicsManager.cpp
+	src/engine/graphics/GraphicsManager.h
+			
 	src/engine/graphics/VertexBuffer.cpp
 	src/engine/graphics/VertexBuffer.h
 	
@@ -67,6 +70,11 @@ add_library(keiiengine
 		#Entitys
 	src/engine/Entity.cpp
 	src/engine/Entity.h
+		
+		
+		#Scenes
+	src/engine/Scene.cpp
+	src/engine/Scene.h
 		
 		
 		#Components
@@ -129,6 +137,11 @@ target_link_libraries(keiiengine
 add_executable(game
 	src/game/Main.cpp
 
+		#Custom Scenes
+	src/game/CustomScene.cpp
+	src/game/CustomScene.h
+
+		#Components
 	src/game/components/PlayerController.cpp
 	src/game/components/PlayerController.h
 

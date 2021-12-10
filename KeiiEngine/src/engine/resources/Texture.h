@@ -24,7 +24,7 @@ namespace Engine
 			void CreateTexture(int width, int height, int channels, GLubyte* texture);
 
 			~Texture();
-			virtual void Load(const std::string& path) override;
+			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 
 			GLuint GetTextureID();
 

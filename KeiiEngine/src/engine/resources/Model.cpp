@@ -18,12 +18,12 @@ namespace Engine
 {
     namespace ResourceManagement
     {
-        void Model::Initialise(const std::shared_ptr<ResourceManager>& resourceManager)
+        void Model::Initialise(const std::shared_ptr<ResourceManagement::ResourceManager>& resourceManager)
         {
             _fbxManager = resourceManager->FBXManager();
         }
 
-        void Model::Load(const std::string& path)
+        void Model::Load(const std::string& resourcesDirectory, const std::string& subPath)
         {
             FbxScene* fbxScene = FbxScene::Create(*FBXManager(), "Import Scene");
 
@@ -33,6 +33,7 @@ namespace Engine
             }
             else
             {
+				std::string path = resourcesDirectory + subPath;
                 FbxString localFilePath = FbxString(path.c_str());
 
                 if (!LoadScene(*FBXManager(), fbxScene, localFilePath.Buffer()))

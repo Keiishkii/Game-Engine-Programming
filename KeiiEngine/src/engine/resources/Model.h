@@ -39,8 +39,8 @@ namespace Engine
 
 			std::shared_ptr<FbxManager*> FBXManager();
 		public:
-			virtual void Initialise(const std::shared_ptr<ResourceManager>& resourceManager) override;
-			virtual void Load(const std::string& path) override;
+			virtual void Initialise(const std::shared_ptr<ResourceManagement::ResourceManager>& resourceManager) override;
+			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 
 			void SetMaterial(int materialIndex, const std::shared_ptr<Material>& material);
 

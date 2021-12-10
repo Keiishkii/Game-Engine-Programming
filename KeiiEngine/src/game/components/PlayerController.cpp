@@ -8,7 +8,7 @@ namespace Game
 { 
 	void PlayerController::Start()
 	{
-		_cameraTransform = Core()->Find("Camera")->Transform();
+		_cameraTransform = Scene()->FindEntity("Camera")->Transform();
 	}
 
 	void PlayerController::Update()
@@ -17,7 +17,6 @@ namespace Game
 		glm::quat flattenedLookVector = glm::quatLookAt(glm::normalize(glm::vec3((cameraPosition.x - position.x), 0, ((cameraPosition.z - position.z)))), glm::vec3(0, 1, 0));
 		if (!(flattenedLookVector[0] != flattenedLookVector[0]))
 		{
-			std::cout << "Player Position:	{" << Transform()->Position().x << ",	" << Transform()->Position().y << ",	" << Transform()->Position().z << "}" << std::endl;
 			glm::vec3 translation = { 0, 0, 0 };
 
 			if (Input()->KeyHeld(Input()->ESCAPE))

@@ -26,7 +26,7 @@ namespace Engine
 
 			GLuint GetTextureSampleID(const std::string& sample);
 		public:
-			virtual void Load(const std::string& path) override;
+			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 			void UploadTextureMapToShader(const std::shared_ptr<Texture>& textureMap, const std::string& sample);
 			void UploadTextureMapToShader(const std::shared_ptr<TextureCubeMap>& textureMap, const std::string& sample);
 

@@ -8,7 +8,7 @@
 #include "Resource.h"
 #include "ShaderProgram.h"
 #include "engine/error-handling/Exception.h"
-#include "engine/core.h"
+#include "engine/Core.h"
 
 #include <Windows.h>
 #include <filesystem>
@@ -27,6 +27,8 @@ namespace Engine
 		{
 			self->_self = self;
 			self->_core = core;
+
+			stbi_flip_vertically_on_write(1);
 
 			try
 			{
@@ -110,5 +112,6 @@ namespace Engine
 
 		std::shared_ptr<FbxManager*>& ResourceManager::FBXManager() { return _fbxManager; }
 		std::shared_ptr<ResourceManager> ResourceManager::Self() { return _self.lock(); }
+		std::shared_ptr<Engine::Core> ResourceManager::Core() { return _core.lock(); }
 	}
 }

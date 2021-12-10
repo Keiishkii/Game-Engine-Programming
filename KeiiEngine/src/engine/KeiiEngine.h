@@ -1,10 +1,13 @@
 #ifndef ENGINE_KEIIENGINE
 #define ENGINE_KEIIENGINE
+#define _USE_MATH_DEFINES
 
 	#include "Core.h"
 	#include "TimeManager.h"
 	#include "InputManager.h"
 	#include "Inputs.h"
+
+	#include "Scene.h"
 	#include "Entity.h"
 
 // Error Handling
@@ -31,6 +34,7 @@
 	#include "components/MeshRenderer.h"
 
 // Graphics
+	#include "graphics/GraphicsManager.h"
 	#include "graphics/PolygonMaterialGroup.h"
 	#include "graphics/VertexBuffer.h"
 	#include "graphics/VertexArray.h"

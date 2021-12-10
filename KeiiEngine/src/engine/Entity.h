@@ -4,7 +4,6 @@
 
 namespace Engine
 {
-	struct Core;
 	namespace Components
 	{
 		struct Component;
@@ -12,9 +11,11 @@ namespace Engine
 		struct Transform;
 	}
 	
+	struct Core;
+	struct Scene;
 	struct Entity
 	{
-		friend Engine::Core;
+		friend Engine::Scene;
 
 	private:
 		std::string _name;

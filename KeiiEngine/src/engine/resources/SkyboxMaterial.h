@@ -27,7 +27,7 @@ namespace Engine
 			void AssignColour(const Document& document);
 			void AssignAlbedoTextureCubeMap(const Document& document);
 		public:
-			virtual void Load(const std::string& path) override;
+			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 
 			glm::vec4& Colour();
 			std::shared_ptr<ShaderProgram>& GetShaderProgram();

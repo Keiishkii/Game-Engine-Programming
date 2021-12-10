@@ -7,6 +7,7 @@
 namespace Engine
 {
 	struct Core;
+
 	namespace ErrorHandling	{ struct Exception; }
 
 	namespace ResourceManagement
@@ -20,7 +21,7 @@ namespace Engine
 
 			std::shared_ptr<FbxManager*> _fbxManager;
 
-			std::weak_ptr<Core> _core;
+			std::weak_ptr<Engine::Core> _core;
 			std::weak_ptr<ResourceManager> _self;
 
 			std::map<std::string, std::shared_ptr<Resource>> _loadedAssets;		
@@ -37,13 +38,21 @@ namespace Engine
 			~ResourceManager();
 
 			template <typename T>
-			std::shared_ptr<T> FindAsset(std::string assetPath)
+			std::shared_ptr<T> Create()
 			{
 				std::shared_ptr<T> resourcePointer = std::make_shared<T>();
 				std::shared_ptr<ResourceManager> self = Self();
 
 				resourcePointer->Resource::Initialise(self);
 				resourcePointer->Initialise(self);
+
+				return resourcePointer;
+			}
+
+			template <typename T>
+			std::shared_ptr<T> FindAsset(std::string assetPath)
+			{
+				std::shared_ptr<T> resourcePointer = Create<T>();
 
 				try
 				{
@@ -70,7 +79,7 @@ namespace Engine
 
 								std::string fileType = assetPath.substr(assetPath.find_last_of("."));
 
-								resourcePointer->Load(completeAssetPath);
+								resourcePointer->Load(_resourceLocation, assetPath);
 
 								_loadedAssets.insert(std::pair<std::string, std::shared_ptr<Resource>>(assetPath, resourcePointer));
 							}
@@ -94,6 +103,7 @@ namespace Engine
 			}
 
 			std::shared_ptr<FbxManager*>& FBXManager();
+			std::shared_ptr<Engine::Core> Core();
 			std::string GetResourceDirectory();
 		};
 	}
