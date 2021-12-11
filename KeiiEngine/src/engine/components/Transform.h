@@ -20,6 +20,8 @@ namespace Engine
 		public:
 			Transform();
 
+			void PrintPosition();
+
 			glm::mat4x4 TransformationMatrix();
 			glm::vec3& Position();
 			glm::quat& Rotation();

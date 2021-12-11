@@ -145,8 +145,12 @@ namespace Engine
 					_inputs->_spaceHeld = true;
 					break;
 				case SDLK_LSHIFT:
-					_inputs->_lshiftDown = true;
-					_inputs->_lshiftHeld = true;
+					_inputs->_lShiftDown = true;
+					_inputs->_lShiftHeld = true;
+					break;
+				case SDLK_LCTRL:
+					_inputs->_lControlDown = true;
+					_inputs->_lControlHeld = true;
 					break;
 				}
 				break;
@@ -266,8 +270,12 @@ namespace Engine
 					_inputs->_spaceHeld = false;
 					break;
 				case SDLK_LSHIFT:
-					_inputs->_lshiftReleased = true;
-					_inputs->_lshiftHeld = false;
+					_inputs->_lShiftReleased = true;
+					_inputs->_lShiftHeld = false;
+					break;
+				case SDLK_LCTRL:
+					_inputs->_lControlReleased = true;
+					_inputs->_lControlHeld = false;
 					break;
 				}
 				break;

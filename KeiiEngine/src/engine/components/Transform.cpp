@@ -23,6 +23,11 @@ namespace Engine
 			return translationMatrix * rotationMatrix * scaleMatrix;
 		}
 
+		void Transform::PrintPosition() 
+		{ 
+			std::cout << Entity()->Name() << "'s position: {" << _position.x << ", " << _position.y << ", " << _position.z << "}" << std::endl;
+		}
+
 		glm::vec3& Transform::Position() { return _position; }
 		glm::quat& Transform::Rotation() { return _rotation; }
 		glm::vec3& Transform::Scale() { return _scale;  }

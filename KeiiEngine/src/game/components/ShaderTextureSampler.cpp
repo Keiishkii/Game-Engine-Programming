@@ -6,25 +6,13 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 
 namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
-		/*
-		std::shared_ptr<ResourceManagement::Texture> texture = Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/shulk/eye.png");
-
-		GLubyte* textureData = new GLubyte[texture->Width() * texture->Height() * texture->ChannelCount()];
-
-		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "- - RuntimeTextureGeneration\\outputTest.png";
-		//std::cout << "New: " << _texture << std::endl;
-		//std::cout << "Old: " << texture << std::endl;
-
-		glBindTexture(GL_TEXTURE_2D, texture->GetTextureID());
-		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
-
-		stbi_write_png(directory.c_str(), texture->Width(), texture->Height(), texture->ChannelCount(), textureData, texture->Width() * texture->ChannelCount());
-		free(textureData);*/
+		_material = Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/shulk/monado.material");
 	}
 
 	void ShaderTextureSampler::Update()
@@ -34,7 +22,7 @@ namespace Game
 			std::shared_ptr<ResourceManagement::TextureCubeMap> cubeMap = Core()->ResourceManager()->Create<ResourceManagement::TextureCubeMap>();
 			cubeMap->GenerateCubeMap(glm::vec3(0, 0, 2));
 
-			Scene()->Skybox()->GetAlbedoTextureCubeMap() = cubeMap;
+			//Scene()->Skybox()->GetAlbedoTextureCubeMap() = cubeMap;
 
 			/*
 			std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "- - RuntimeTextureGeneration\\PNG_WrittenFile";
@@ -48,12 +36,34 @@ namespace Game
 			stbi_write_png((directory + "_Back" + extension).c_str()  , cubeMap->BackTexture()->Width(), cubeMap->BackTexture()->Height(), cubeMap->BackTexture()->ChannelCount(), cubeMap->BackTexture()->TextureData(), cubeMap->BackTexture()->Width() * cubeMap->BackTexture()->ChannelCount());
 			*/
 		}
-		/*
-		std::shared_ptr<ResourceManagement::Texture> texture = Core()->RenderTexture();
 
-		std::string directory = Core()->ResourceManager()->GetResourceDirectory() + "- - RuntimeTextureGeneration\\PNG_WrittenFile.png";
-		stbi_write_png(directory.c_str(), texture->Width(), texture->Height(), texture->ChannelCount(), texture->TextureData(), texture->Width() * texture->ChannelCount());
-		*/
+		if (Input()->KeyHeld(Input()->E))
+		{
+			if (_material)
+			{
+				if (Input()->KeyHeld(Input()->LCNTRL))
+					_material->Roughness() = std::max(0.0f, _material->Roughness() - 0.01f);
+				else
+					_material->Roughness() = std::min(1.0f, _material->Roughness() + 0.01f);
+
+				std::cout << "Roughness: " << _material->Roughness() << std::endl;
+				std::cout << "Metallic:  " << _material->Metallic() << std::endl;
+			}
+		}
+
+		if (Input()->KeyHeld(Input()->R))
+		{
+			if (_material)
+			{
+				if (Input()->KeyHeld(Input()->LCNTRL))
+					_material->Metallic() = std::max(0.0f, _material->Metallic() - 0.01f);
+				else
+					_material->Metallic() = std::min(1.0f, _material->Metallic() + 0.01f);
+
+				std::cout << "Roughness: " << _material->Roughness() << std::endl;
+				std::cout << "Metallic:  " << _material->Metallic() << std::endl;
+			}
+		}
 	}
 }
 
@@ -65,7 +75,7 @@ namespace Game
 To Do:
  ----------------------- Get Rid of console outs (MAKING EVERYTHING SLOW TO LOAD)
  ---------- Render to Texture
- - Render to CubeMaps (might just be worth doing 6 textures)
+ ---------- Render to CubeMaps (might just be worth doing 6 textures)
  - Auto Generate a list of manually placed CubeMaps
  - Send all textures to the graphics card.
  - Look into interpelation between them.

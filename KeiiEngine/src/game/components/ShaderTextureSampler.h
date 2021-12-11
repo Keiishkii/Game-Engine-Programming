@@ -5,6 +5,7 @@ namespace Game
 	struct ShaderTextureSampler : Engine::Components::Component
 	{
 	private:
+		std::shared_ptr<ResourceManagement::Material> _material;
 	public:
 
 

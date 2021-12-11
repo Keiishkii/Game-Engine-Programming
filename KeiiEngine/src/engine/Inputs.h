@@ -11,7 +11,7 @@ namespace Engine
 		enum Keys 
 		{ 
 			A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, 
-			SPACE, LSHIFT, ESCAPE 
+			SPACE, LSHIFT, LCNTRL, ESCAPE 
 		};
 
 	private:
@@ -53,7 +53,8 @@ namespace Engine
 
 		bool _escapeDown, _escapeHeld, _escapeReleased;
 		bool _spaceDown, _spaceHeld, _spaceReleased;
-		bool _lshiftDown, _lshiftHeld, _lshiftReleased;
+		bool _lShiftDown, _lShiftHeld, _lShiftReleased;
+		bool _lControlDown, _lControlHeld, _lControlReleased;
 	public:
 
 

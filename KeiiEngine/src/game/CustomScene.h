@@ -9,11 +9,15 @@ namespace Game
 
 		
 	private:
-		std::shared_ptr<Entity> CreateDebuggingEntity();
-		std::shared_ptr<Entity> CreateCameraEntity();
-		std::shared_ptr<Entity> CreatePlayerEntity();
-		std::shared_ptr<Entity> CreateMapEntity();
-		std::shared_ptr<Entity> CreateLightEntity();
+		void CreateMapEntity();
+
+		void CreateCameraEntity();
+		void CreatePlayerEntity();
+
+		void CreateLights();
+		void CreateReflectionProbes();
+
+		void CreateDebuggingEntity();
 	public:
 		virtual void LoadScene() override;
 	};

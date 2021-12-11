@@ -13,6 +13,7 @@ namespace Engine
 	{
 		void Material::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
+			std::cout << subPath << std::endl;
 			std::string path = resourcesDirectory + subPath;
 			std::string fileContent = "";
 
@@ -36,6 +37,9 @@ namespace Engine
 			glUseProgram(shaderProgramID);
 
 			AssignColour(document);
+			AssignRoughness(document);
+			AssignMetallic(document);
+
 			AssignAlbedoTexture(document);
 			AssignNormalTexture(document);
 
@@ -67,6 +71,22 @@ namespace Engine
 			}
 		}
 
+		void Material::AssignRoughness(const Document& document)
+		{
+			if (document.HasMember("roughness") && (document["roughness"].IsFloat() || document["roughness"].IsInt()))
+			{
+				_roughness = document["roughness"].GetFloat();
+			}
+		}
+
+		void Material::AssignMetallic(const Document& document)
+		{
+			if (document.HasMember("metallic") && (document["metallic"].IsFloat() || document["metallic"].IsInt()))
+			{
+				_metallic = document["metallic"].GetFloat();
+			}
+		}
+
 		void Material::AssignAlbedoTexture(const Document& document)
 		{
 			if (document.HasMember("albedo_texture_map") && document["albedo_texture_map"].IsString())
@@ -84,6 +104,8 @@ namespace Engine
 		}
 
 		glm::vec4& Material::Colour() { return _colour; }
+		float& Material::Roughness() { return _roughness; }
+		float& Material::Metallic() { return _metallic; }
 		std::shared_ptr<ShaderProgram>& Material::GetShaderProgram() { return _shaderProgram; }
 		std::shared_ptr<Texture>& Material::GetAlbedoTexture() { return _albedoTexture; }
 		std::shared_ptr<Texture>& Material::GetNormalTexture() { return _normalTexture; }

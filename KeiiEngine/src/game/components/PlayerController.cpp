@@ -46,5 +46,7 @@ namespace Game
 			translation *= Time()->DeltaTime();
 			Transform()->Position() += translation;
 		}
+
+		//Transform()->PrintPosition();
 	}	
 }

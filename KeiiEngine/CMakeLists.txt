@@ -84,6 +84,9 @@ add_library(keiiengine
 	src/engine/components/Transform.cpp
 	src/engine/components/Transform.h
 
+	src/engine/components/ReflectionProbe.cpp
+	src/engine/components/ReflectionProbe.h
+	
 	src/engine/components/Camera.cpp
 	src/engine/components/Camera.h
 

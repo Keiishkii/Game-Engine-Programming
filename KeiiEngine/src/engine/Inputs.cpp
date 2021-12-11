@@ -42,7 +42,8 @@ namespace Engine
 		_zDown = false, _zReleased = false;
 		_escapeDown = false, _escapeReleased = false;
 		_spaceDown = false, _spaceReleased = false;
-		_lshiftDown = false, _lshiftReleased = false;	
+		_lShiftDown = false, _lShiftReleased = false;	
+		_lControlDown = false, _lControlReleased = false;
 	}
 
 	bool Inputs::KeyDown(Keys key)
@@ -164,7 +165,11 @@ namespace Engine
 			} break;
 			case LSHIFT:
 			{
-				result = _lshiftDown;
+				result = _lShiftDown;
+			} break;
+			case LCNTRL:
+			{
+				result = _lControlDown;
 			} break;
 		}
 
@@ -290,7 +295,11 @@ namespace Engine
 			} break;
 			case LSHIFT:
 			{
-				result = _lshiftHeld;
+				result = _lShiftHeld;
+			} break;
+			case LCNTRL:
+			{
+				result = _lControlHeld;
 			} break;
 		}
 
@@ -416,7 +425,11 @@ namespace Engine
 			} break;
 			case LSHIFT:
 			{
-				result = _lshiftReleased;
+				result = _lShiftReleased;
+			} break;
+			case LCNTRL:
+			{
+				result = _lControlReleased;
 			} break;
 		}
 

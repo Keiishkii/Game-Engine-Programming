@@ -11,43 +11,94 @@ namespace Game
 		Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/sky.material");
 
 
-		std::shared_ptr<Entity> debugObject = CreateDebuggingEntity();
+		CreateMapEntity();
 
-		std::shared_ptr<Entity> player = CreatePlayerEntity();
-		std::shared_ptr<Entity> camera = CreateCameraEntity();
+		CreatePlayerEntity();
+		CreateCameraEntity();
 
-		std::shared_ptr<Entity> map = CreateMapEntity();
+		CreateLights();
+		CreateReflectionProbes();
 
-		std::shared_ptr<Entity> light = CreateLightEntity();
+		CreateDebuggingEntity();
 	}
 
-	std::shared_ptr<Entity> CustomScene::CreateLightEntity()
+	void CustomScene::CreateReflectionProbes()
 	{
-		std::shared_ptr<Entity> lightEntity = AddEntity("Light");
+		std::vector<glm::vec3> reflectionProbeLocations = 
 		{
-			std::shared_ptr<Components::Light> lightComponent = lightEntity->AddComponent<Components::Light>();
+			glm::vec3(-10, -20, 31),
+			glm::vec3(-10, -15, -12),
+			glm::vec3(30, -10, -44),
+			glm::vec3(32, 0, -130),
+			glm::vec3(32, 0, -130),
+			glm::vec3(-74, 7, -152),
+			glm::vec3(-53, 28, -243),
+			glm::vec3(111, 30, -236),
+			glm::vec3(240, 16, -165),
+			glm::vec3(118, -3, -81)
+		};
+
+		for (int i = 0; i < reflectionProbeLocations.size(); i++)
+		{
+			std::shared_ptr<Entity> reflectionProbe = AddEntity("Reflection Probe: " + i);
+			{
+				std::shared_ptr<Components::ReflectionProbe> reflectionProbeComponent = reflectionProbe->AddComponent<Components::ReflectionProbe>();
+				reflectionProbe->Transform()->Position() = reflectionProbeLocations[i];
+			}
+		}
+	}
+
+	void CustomScene::CreateLights()
+	{
+		///*
+		std::shared_ptr<Entity> light_1 = AddEntity("Light_1");
+		{
+			std::shared_ptr<Components::Light> lightComponent = light_1->AddComponent<Components::Light>();
 			{
 				lightComponent->Colour() = glm::vec3(1, 1, 1);
+				lightComponent->Intensity() = 12000000.0f;
+			}
+
+			light_1->Transform()->Position() = glm::vec3(-1000, 1000, 1000);
+		}
+		//*/
+
+		///*
+		std::shared_ptr<Entity> light_2 = AddEntity("Light_2");
+		{
+			std::shared_ptr<Components::Light> lightComponent = light_2->AddComponent<Components::Light>();
+			{
+				lightComponent->Colour() = glm::vec3(1, 1, 1);
+				lightComponent->Intensity() = 25.0f;
+			}
+
+			light_2->Transform()->Position() = glm::vec3(-10, -10, -10);
+		}
+		//*/
+
+		/*
+		std::shared_ptr<Entity> light_3 = AddEntity("Light_3");
+		{
+			std::shared_ptr<Components::Light> lightComponent = light_3->AddComponent<Components::Light>();
+			{
+				lightComponent->Colour() = glm::vec3(10, 10, 10);
 				lightComponent->Intensity() = 1.0f;
 			}
 
-			lightEntity->Transform()->Position() = glm::vec3(10, 10, 0);
+			light_3->Transform()->Position() = glm::vec3(30, 10, -35);
 		}
-
-		return lightEntity;
+		//*/
 	}
 
-	std::shared_ptr<Entity> CustomScene::CreateDebuggingEntity()
+	void CustomScene::CreateDebuggingEntity()
 	{
 		std::shared_ptr<Entity> debuggingEntity = AddEntity("Debugger");
 		{
 			std::shared_ptr<Game::ShaderTextureSampler> shaderTextureSampler = debuggingEntity->AddComponent<Game::ShaderTextureSampler>();
 		}
-
-		return debuggingEntity;
 	}
 
-	std::shared_ptr<Entity> CustomScene::CreateCameraEntity()
+	void CustomScene::CreateCameraEntity()
 	{
 		std::shared_ptr<Entity> cameraEntity = AddEntity("Camera");
 		{
@@ -57,11 +108,9 @@ namespace Game
 			cameraEntity->Transform()->Position() = glm::vec3(0, 0, 0);
 			cameraEntity->Transform()->Rotation() = glm::quat(glm::vec3(-0.25f, 0.0f, 0.0f));
 		}
-
-		return cameraEntity;
 	}
 
-	std::shared_ptr<Entity> CustomScene::CreatePlayerEntity()
+	void CustomScene::CreatePlayerEntity()
 	{
 		std::shared_ptr<Entity> playerEntity = AddEntity("Player");
 		{
@@ -84,11 +133,9 @@ namespace Game
 			playerEntity->Transform()->Position() = glm::vec3(0, 0, 0);
 			playerEntity->Transform()->Scale() = glm::vec3(0.1f, 0.1f, 0.1f);
 		}
-
-		return playerEntity;
 	}
 
-	std::shared_ptr<Entity> CustomScene::CreateMapEntity()
+	void CustomScene::CreateMapEntity()
 	{
 		std::shared_ptr<Entity> mapEntity = AddEntity("Level Geometry");
 		{
@@ -158,7 +205,5 @@ namespace Game
 			mapEntity->Transform()->Rotation() = glm::quat(glm::vec3(0.0f, (M_PI / 2), 0.0f));
 			mapEntity->Transform()->Scale() = glm::vec3(0.5f, 0.5f, 0.5f);
 		}
-
-		return mapEntity;
 	}
 }

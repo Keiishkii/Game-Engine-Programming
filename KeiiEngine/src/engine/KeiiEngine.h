@@ -29,6 +29,7 @@
 	#include "components/Component.h"
 	#include "components/Transform.h"
 	#include "components/Camera.h"
+	#include "components/ReflectionProbe.h"
 	#include "components/Light.h"
 	#include "components/Gizmo.h"
 	#include "components/MeshRenderer.h"

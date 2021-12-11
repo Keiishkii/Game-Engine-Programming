@@ -2,12 +2,14 @@
 #include <glew.h>
 
 #include "Camera.h"
+#include "Gizmo.h"
 #include "engine/Core.h"
 #include "engine/Scene.h"
 #include "Transform.h"
 #include "engine/entity.h"
 #include "engine/resources/SkyboxMaterial.h"
 #include "engine/resources/Model.h"
+#include "engine/resources/Texture.h"
 #include "engine/resources/TextureCubeMap.h"
 #include "engine/resources/ShaderProgram.h"
 #include "engine/resources/ResourceManager.h"
@@ -21,7 +23,7 @@ namespace Engine
 		void Camera::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
 			Scene()->_cameraList.push_back(std::dynamic_pointer_cast<Camera>(self));
-			_skyboxCube = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/skybox.fbx");
+			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/camera.png"));
 		}
 	
 		void Camera::GenerateNewProjectionMatrix(float windowWidth, float windowHeight, float fieldOfView)

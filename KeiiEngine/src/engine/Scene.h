@@ -16,6 +16,7 @@ namespace Engine
 	{
 		struct Light;
 		struct Camera;
+		struct ReflectionProbe;
 	}
 
 	struct Entity;
@@ -25,6 +26,7 @@ namespace Engine
 		friend Core;
 		friend Components::Camera;
 		friend Components::Light;
+		friend Components::ReflectionProbe;
 
 	private:
 		std::vector<std::shared_ptr<Entity>> _entityList;
@@ -33,6 +35,7 @@ namespace Engine
 
 		std::vector<std::weak_ptr<Components::Camera>> _cameraList;
 		std::vector<std::weak_ptr<Components::Light>> _lightList;
+		std::vector<std::weak_ptr<Components::ReflectionProbe>> _reflectionProbeList;
 
 		std::weak_ptr<Engine::Core> _core;
 	public:
