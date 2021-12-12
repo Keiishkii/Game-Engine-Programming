@@ -31,46 +31,6 @@ namespace Engine
 			_projectionMatrix = glm::perspective(glm::radians(fieldOfView), (float)windowWidth / (float)windowHeight, 0.25f, 5000.f);
 		}
 
-		void Camera::RenderSkybox()
-		{
-			std::shared_ptr<ResourceManagement::SkyboxMaterial> skybox = Scene()->Skybox();
-			if (skybox)
-			{
-				glDepthFunc(GL_LEQUAL);
-
-				std::shared_ptr<ResourceManagement::ShaderProgram> shader = skybox->GetShaderProgram();
-				GLuint programID = shader->GetShaderID();
-				glUseProgram(programID);
-
-				shader->UploadTextureMapToShader(skybox->GetAlbedoTextureCubeMap(), "in_Skybox");
-
-				GLint colourID = glGetUniformLocation(programID, "in_Colour");
-				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
-				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
-				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
-
-				std::shared_ptr<Graphics::PolygonMaterialGroup> cubeMaterialGroup = _skyboxCube->GetPolygonMaterialGroup(0);
-
-				glBindVertexArray(cubeMaterialGroup->VertexArrayID());
-
-				glm::vec4 colour = skybox->Colour();
-				glUniform4fv(colourID, 1, glm::value_ptr(colour));
-
-				glm::mat4x4 modelMatrix = Transform()->TransformationMatrix();
-				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-
-				glm::mat4x4 viewingMatrix = glm::mat4x4(glm::mat3x3(glm::inverse(Transform()->TransformationMatrix())));
-				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
-
-				glm::mat4x4 projectionMatrix = ProjectionMatrix();
-				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-				glDrawArrays(GL_TRIANGLES, 0, cubeMaterialGroup->VertexCount());
-
-				glDepthFunc(GL_LESS);
-			}
-		}
-
 		glm::mat4x4& Camera::ProjectionMatrix() { return _projectionMatrix; }
 	}
 }

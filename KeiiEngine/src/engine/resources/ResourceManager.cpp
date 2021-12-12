@@ -28,8 +28,6 @@ namespace Engine
 			self->_self = self;
 			self->_core = core;
 
-			//stbi_flip_vertically_on_write(1);
-
 			try
 			{
 				if (!(_resourceLocationFound || FindResourceFolder()))

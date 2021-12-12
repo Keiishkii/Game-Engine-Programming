@@ -1,5 +1,7 @@
 {
-	"shader_program": 		"- shaders/transparency_shader.glsl",
+	"shader_program": 		"- shaders/- PBR/shader_program_PBR-Transparency.glsl",
 	"colour": 				[1, 1, 1, 1],
+	"roughness":			1,
+	"metallic":				0,
 	"albedo_texture_map":	"- textures/gaur_plains/tree_2.png"
 }

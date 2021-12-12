@@ -10,6 +10,7 @@
 
 #include "engine/Core.h"
 #include "engine/Scene.h"
+#include "ShaderProgram.h"
 #include "ResourceManager.h"
 
 namespace Engine
@@ -111,6 +112,74 @@ namespace Engine
 			_backTexture = scene->RenderSceneToTexture(backTransformationMatrix, projectionMatrix, 1024, 1024);
 		}
 
+		void TextureCubeMap::GenerateCubeMapConvolution()
+		{
+			/*
+			if (!_textureConvolutionID)
+			{
+				glGenTextures(1, &_textureConvolutionID);
+			}
+
+			glBindTexture(GL_TEXTURE_CUBE_MAP, _textureConvolutionID);
+
+			int width = 1024, height = 1024;
+			for (unsigned int i = 0; i < 6; ++i)
+			{
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+			}
+
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+
+
+			GLuint framebufferID;
+			glGenFramebuffers(1, &framebufferID);
+
+			glBindFramebuffer(GL_FRAMEBUFFER, framebufferID);
+			glBindRenderbuffer(GL_RENDERBUFFER, framebufferID);
+			glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+
+			std::shared_ptr<ResourceManagement::ShaderProgram> convolutionShader = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_CubeMapConvolution.glsl");
+
+			convolutionShader->UseShader();
+
+			irradianceShader.setInt("environmentMap", 0);
+			GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, envCubemap);
+
+			glViewport(0, 0, 32, 32); // don't forget to configure the viewport to the capture dimensions.
+			glBindFramebuffer(GL_FRAMEBUFFER, captureFBO);
+			for (unsigned int i = 0; i < 6; ++i)
+			{
+				irradianceShader.setMat4("view", captureViews[i]);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,
+					GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, irradianceMap, 0);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+				renderCube();
+			}
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+
+
+			glDeleteFramebuffers(1, &framebufferID);*/
+		}
+
+		GLuint TextureCubeMap::GetCubeMapConvolutionTextureID()
+		{
+			if (!_textureConvolutionID)
+			{
+				GenerateCubeMapConvolution();
+			}
+
+			return _textureConvolutionID;
+		}
+
 		GLuint TextureCubeMap::GetCubeMapTextureID()
 		{
 			if (!_textureID)
@@ -155,11 +224,11 @@ namespace Engine
 				glDeleteTextures(1, &_textureID);
 		}
 
-		std::shared_ptr<Texture> TextureCubeMap::RightTexture() { return _rightTexture; }
-		std::shared_ptr<Texture> TextureCubeMap::LeftTexture() { return _leftTexture; }
-		std::shared_ptr<Texture> TextureCubeMap::TopTexture() { return _topTexture; }
-		std::shared_ptr<Texture> TextureCubeMap::BottomTexture() { return _bottomTexture; }
-		std::shared_ptr<Texture> TextureCubeMap::FrontTexture() { return _frontTexture; }
-		std::shared_ptr<Texture> TextureCubeMap::BackTexture() { return _backTexture; }
+		std::shared_ptr<Texture>& TextureCubeMap::RightTexture() { return _rightTexture; }
+		std::shared_ptr<Texture>& TextureCubeMap::LeftTexture() { return _leftTexture; }
+		std::shared_ptr<Texture>& TextureCubeMap::TopTexture() { return _topTexture; }
+		std::shared_ptr<Texture>& TextureCubeMap::BottomTexture() { return _bottomTexture; }
+		std::shared_ptr<Texture>& TextureCubeMap::FrontTexture() { return _frontTexture; }
+		std::shared_ptr<Texture>& TextureCubeMap::BackTexture() { return _backTexture; }
 	}
 }																	

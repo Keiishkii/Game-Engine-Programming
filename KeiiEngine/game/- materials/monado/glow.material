@@ -1,0 +1,8 @@
+{
+	"shader_program": 		"- shaders/- Unlit/shader_program_Unlit.glsl",
+	"colour": 				[0, 1, 1, 1],
+	"roughness": 			0.2,
+	"metallic": 			1,
+	"albedo_texture_map":	"- textures/default.png",
+	"normal_texture_map": 	"- textures/default.png"
+}

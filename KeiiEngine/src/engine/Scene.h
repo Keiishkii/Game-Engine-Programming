@@ -54,8 +54,8 @@ namespace Engine
 		std::shared_ptr<Entity> AddEntity(std::string name);
 		std::shared_ptr<Entity> FindEntity(std::string name);
 
-		std::shared_ptr<ResourceManagement::Texture> Scene::RenderSceneToTexture(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix, int width, int height);
-		GLuint Scene::RenderSceneToTextureBuffer(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix, int width, int height);
+		std::shared_ptr<ResourceManagement::Texture> RenderSceneToTexture(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix, int width, int height);
+		GLuint RenderSceneToTextureBuffer(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix, int width, int height);
 
 		std::vector<std::weak_ptr<Components::Light>> Lights();
 		std::shared_ptr<Components::Camera> MainCamera();

@@ -47,46 +47,7 @@ namespace Engine
 		core->_timeManager = std::make_shared<Engine::TimeManager>(FPS, fixedFPS);
 		core->_inputManager = std::make_shared<Engine::InputManager>();
 
-		core->SDLInitialisation();
-
 		return core;
-	}
-
-	void Core::SDLInitialisation()
-	{
-		_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 2000, 1200, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
-
-		try
-		{
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-			
-			if (!SDL_GL_CreateContext(*_window))
-			{
-				throw Exception("Failed to create window context");
-			}
-			else
-			{
-				int i = 0;
-				SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &i);
-
-				if (SDL_SetRelativeMouseMode(SDL_TRUE))
-				{
-					throw Exception("Failed to set relative mouse position");
-				}
-				else
-				{
-					if (glewInit() != GLEW_OK)
-					{
-						throw Exception("Failed to initialise GLEW");
-					}
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			e.Print();
-		}
 	}
 
 	void Core::MainLoop()
@@ -109,48 +70,13 @@ namespace Engine
 				_debugger->LogFixedUpdate();
 			}
 
-			Render();
+			GraphicsManager()->RenderFrame(ActiveScene());
 
 			_timeManager->WaitForEndOfFrame();
 			_debugger->LogUpdate();
 
 			if (_inputManager->Input()->QuitEvent()) [[unlikely]] _running = false;
 		}
-	}
-
-	void Core::Render()
-	{
-		int width = 0, height = 0;
-		SDL_GetWindowSize(*_window, &width, &height);
-
-		glViewport(0, 0, width, height);
-
-
-		// - - Render the scene to a GLTexture
-		GLuint renderTexture = 0;
-
-		std::shared_ptr<Components::Camera> mainCamera = ActiveScene()->MainCamera();
-		if (mainCamera)
-		{
-			mainCamera->GenerateNewProjectionMatrix(width, height, 45);
-			renderTexture = ActiveScene()->RenderSceneToTextureBuffer(mainCamera->Transform()->TransformationMatrix(), mainCamera->ProjectionMatrix(), width, height);
-		
-
-			// - - Draw GLTexture to the screen Quad
-			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
-			glDisable(GL_DEPTH_TEST);
-
-			glUseProgram(GraphicsManager()->GetPostProcessingShader()->GetShaderID());
-			glBindVertexArray(GraphicsManager()->Quad()->GetID());
-
-			glBindTexture(GL_TEXTURE_2D, renderTexture);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-
-			glDeleteTextures(1, &renderTexture);
-		}
-
-		SDL_GL_SwapWindow(*_window);
 	}
 
 	void Core::Update()
@@ -166,12 +92,6 @@ namespace Engine
 	void Core::Stop()
 	{
 		_running = !_running;
-	}
-
-	Core::~Core()
-	{
-		SDL_DestroyWindow(*_window);
-		SDL_Quit();
 	}
 
 	std::shared_ptr<Core> Core::Self() { return _self.lock(); }

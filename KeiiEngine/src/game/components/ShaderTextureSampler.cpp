@@ -12,7 +12,7 @@ namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
-		_material = Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/shulk/monado.material");
+		_material = Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/shulk/clothing.material");
 	}
 
 	void ShaderTextureSampler::Update()

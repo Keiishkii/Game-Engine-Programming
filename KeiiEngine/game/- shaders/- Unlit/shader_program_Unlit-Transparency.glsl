@@ -34,11 +34,12 @@
 	void main()
 	{
 		vec4 textureColour = texture2D(in_AlbedoMap, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
+		vec4 finalColour = textureColour * out_Colour;
 		
 		// Discard fragment if sample is transparent
-		if (textureColour.a < 0.1)
+		if (finalColour.a < 0.1)
 			discard;
 
-		gl_FragColor = textureColour;
+		gl_FragColor = finalColour;
 	}
 #endif

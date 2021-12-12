@@ -21,6 +21,8 @@
 	uniform vec3 in_LightColours[MAX_LIGHTS];
 	uniform float in_LightIntensitys[MAX_LIGHTS];
 	
+
+
 	varying vec4 out_Colour;
 	varying float out_Roughness;
 	varying float out_Metallic;
@@ -35,7 +37,7 @@
 	varying vec3 out_LightPositions[MAX_LIGHTS];
 	varying vec3 out_LightColours[MAX_LIGHTS];
 	varying float out_LightIntensitys[MAX_LIGHTS];
-
+	
 
 
 	void main()
@@ -44,7 +46,7 @@
 		out_Roughness = in_Roughness;
 		out_Metallic = in_Metallic;
 
-		out_Normal = in_Normal;
+		out_Normal = normalize(mat3(transpose(inverse(in_Model))) * in_Normal);  
 		out_TextureUV = in_TextureUV;
 
 		out_FragmentPosition = vec3(in_Model * vec4(in_Position, 1.0));
@@ -62,6 +64,8 @@
 #ifdef FRAGMENT_SHADER
 	uniform sampler2D in_AlbedoMap;
 	
+
+
 	varying vec4 out_Colour;
 	varying float out_Roughness;
 	varying float out_Metallic;
@@ -80,32 +84,34 @@
 
 
 	vec3 LightRadiance(int lightIndex);
-	vec3 BRDF(vec3 colour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
+	vec3 BRDF(vec3 colour, vec3 baseReflectivity, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
 	
 	vec3 DiffuseLambert(vec3 colour);
-	vec3 SpecularLambert(vec3 colour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
+	vec3 SpecularLambert(vec3 fresnelColour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
 	
 	float Distribution(float dot_MidNormal);
 	float Geomertry(float dot_LightNormal, float dot_ViewNormal);
 	float SubGeomertry(float dotValue, float kValue);
-	vec3 FresnelSchlick(vec3 colour, float dot_MidView);
+	vec3 FresnelSchlick(vec3 baseReflectivity, float dot_MidView);
 
 	float ReflectionWeight(float dot_LightNormal);
+
 
 
 	void main()
 	{
 		vec4 textureColour = texture2D(in_AlbedoMap, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
+		vec4 colour = textureColour * out_Colour;
 		
 		// Discard fragment if sample is transparent
 		if(textureColour.a < 0.1)
 			discard;
 
-
-		vec3 colour = out_Colour.rgb * textureColour.rgb;
-
 		vec3 viewDirection = normalize(out_ViewPosition - out_FragmentPosition);
 		float dot_ViewNormal = max(dot(out_Normal, viewDirection), 0.0);	
+
+		
+		vec3 baseReflectivity = mix(vec3(0.04), colour.rgb, out_Metallic);
 
 		vec3 viewRadiance = vec3(0.0);
 		for (int lightIndex = 0; lightIndex < out_LightCount; lightIndex++)
@@ -116,15 +122,19 @@
 			float dot_MidNormal = max(dot(out_Normal, midDirection), 0.0);	
 			float dot_MidView = max(dot(midDirection, viewDirection), 0.0);	
 
-			vec3 BRDF = BRDF(colour, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView);
+			vec3 BRDF = BRDF(colour.rgb, baseReflectivity, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView);
 
-			viewRadiance += BRDF * LightRadiance(lightIndex) * dot_LightNormal;
+			viewRadiance += BRDF * LightRadiance(lightIndex) * dot_LightNormal; // dw?
 		}
 
 		
-		// Learn OpenGL's ambient lighting code.
-		vec3 ambientLighting = vec3(0.125) * colour;
+		// - Learn OpenGL's ambient lighting code.
+		vec3 ambientLighting = vec3(0.03) * colour.rgb;
 		vec3 finalColor = ambientLighting + viewRadiance;
+
+		// - No idea why gamma correction is needed considering it looks awful
+		//finalColor = finalColor / (finalColor + vec3(1.0));
+		//finalColor = pow(finalColor, vec3(1.0/2.2));
 
 		finalColor = clamp(finalColor, vec3(0.0), vec3(1.0));
 		gl_FragColor = vec4(finalColor, 1);
@@ -145,13 +155,13 @@
 
 	
 	// Applies colour based on the material properties of the fragment.
-	vec3 BRDF(vec3 colour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
+	vec3 BRDF(vec3 colour, vec3 baseReflectivity, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
 	{
-		vec3 specularWeight = FresnelSchlick(colour, dot_MidView);
-		vec3 diffuseWeight = 1.0 - specularWeight;
+		vec3 fresnelColour = FresnelSchlick(baseReflectivity, dot_MidView);
+		vec3 diffuseWeight = 1.0 - fresnelColour;
 		diffuseWeight *= 1.0 - out_Metallic;
 
-		return (diffuseWeight * DiffuseLambert(colour)) + (SpecularLambert(colour, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView));
+		return (diffuseWeight * DiffuseLambert(colour)) + (SpecularLambert(fresnelColour, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView));
 	}
 	
 
@@ -163,9 +173,9 @@
 		return colour / PI;
 	}
 	
-	vec3 SpecularLambert(vec3 colour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
+	vec3 SpecularLambert(vec3 fresnelColour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
 	{
-		vec3 numerator = Distribution(dot_MidNormal) * Geomertry(dot_LightNormal, dot_ViewNormal) * FresnelSchlick(colour, dot_MidView);
+		vec3 numerator = Distribution(dot_MidNormal) * Geomertry(dot_LightNormal, dot_ViewNormal) * fresnelColour;
 		float denominator = 4 * dot_ViewNormal * dot_LightNormal + 0.0001;
 
 		return numerator / denominator;
@@ -198,10 +208,8 @@
 		return numerator / denominator;
 	}
 
-	vec3 FresnelSchlick(vec3 colour, float dot_MidView)
+	vec3 FresnelSchlick(vec3 baseReflectivity, float dot_MidView)
 	{
-		vec3 baseReflectivity = mix(vec3(0.04), colour, out_Metallic);
-
 		return baseReflectivity + (1 - baseReflectivity) * pow(1 - dot_MidView, 5);
 	}
 #endif

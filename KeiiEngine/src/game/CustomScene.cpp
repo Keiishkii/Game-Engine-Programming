@@ -2,24 +2,83 @@
 
 #include "game/components/PlayerController.h"
 #include "game/components/CameraController.h"
+#include "game/components/Rotator.h"
 #include "game/components/ShaderTextureSampler.h"
 
 namespace Game
 {
 	void CustomScene::LoadScene()
 	{
-		Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/sky.material");
+		Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/clear_sky.material");
+		//Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/cloudy_sky.material");
+		//Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/night_sky.material");
+
+		std::shared_ptr<ResourceManagement::ShaderProgram> shader = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_CubeMapConvolution.glsl");
 
 
 		CreateMapEntity();
+		CreateMonadoEntity();
 
 		CreatePlayerEntity();
 		CreateCameraEntity();
 
 		CreateLights();
-		CreateReflectionProbes();
+		//CreateReflectionProbes();
 
 		CreateDebuggingEntity();
+	}
+
+	void CustomScene::CreateMonadoEntity()
+	{
+		std::shared_ptr<Entity> monado_1 = AddEntity("Monado");
+		{
+			std::shared_ptr<ResourceManagement::Model> mesh = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/monado.fbx");
+			{
+				mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/glow.material"));
+				mesh->SetMaterial(1, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/red_metal.material"));
+				mesh->SetMaterial(2, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/red_metal_core.material"));
+				mesh->SetMaterial(3, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/gold.material"));
+				mesh->SetMaterial(4, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/dark_gold.material"));
+
+				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
+			}
+
+			std::shared_ptr<Components::MeshRenderer> meshRenderer = monado_1->AddComponent<Components::MeshRenderer>(mesh);
+			std::shared_ptr<Rotator> rotationComponent = monado_1->AddComponent<Rotator>();
+			{
+				rotationComponent->EulerRotation() = glm::vec3(0, 1, 0);
+			}
+
+			monado_1->Transform()->Position() = glm::vec3(0, 50, -150);
+			monado_1->Transform()->Rotation() = glm::quat(glm::vec3(-M_PI / 2, M_PI / 16, M_PI / 8));
+			monado_1->Transform()->Scale() = glm::vec3(10, 10, 10);
+		}
+
+		std::shared_ptr<Entity> monado_2 = AddEntity("Monado");
+		{
+			std::shared_ptr<ResourceManagement::Model> mesh = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/monado.fbx");
+			{
+				mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/glow.material"));
+				mesh->SetMaterial(1, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal.material"));
+				mesh->SetMaterial(2, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal_core.material"));
+				mesh->SetMaterial(3, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/gold.material"));
+				mesh->SetMaterial(4, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/dark_gold.material"));
+
+				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
+				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
+				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
+			}
+
+			std::shared_ptr<Components::MeshRenderer> meshRenderer = monado_2->AddComponent<Components::MeshRenderer>(mesh);
+			std::shared_ptr<Rotator> rotationComponent = monado_2->AddComponent<Rotator>();
+			{
+				rotationComponent->EulerRotation() = glm::vec3(0, 1, 0);
+			}
+
+			monado_2->Transform()->Position() = glm::vec3(60, 50, -130);
+			monado_2->Transform()->Rotation() = glm::quat(glm::vec3(-M_PI / 2, M_PI / 16, M_PI / 8));
+			monado_2->Transform()->Scale() = glm::vec3(10, 10, 10);
+		}
 	}
 
 	void CustomScene::CreateReflectionProbes()
@@ -50,7 +109,6 @@ namespace Game
 
 	void CustomScene::CreateLights()
 	{
-		///*
 		std::shared_ptr<Entity> light_1 = AddEntity("Light_1");
 		{
 			std::shared_ptr<Components::Light> lightComponent = light_1->AddComponent<Components::Light>();
@@ -61,33 +119,6 @@ namespace Game
 
 			light_1->Transform()->Position() = glm::vec3(-1000, 1000, 1000);
 		}
-		//*/
-
-		///*
-		std::shared_ptr<Entity> light_2 = AddEntity("Light_2");
-		{
-			std::shared_ptr<Components::Light> lightComponent = light_2->AddComponent<Components::Light>();
-			{
-				lightComponent->Colour() = glm::vec3(1, 1, 1);
-				lightComponent->Intensity() = 25.0f;
-			}
-
-			light_2->Transform()->Position() = glm::vec3(-10, -10, -10);
-		}
-		//*/
-
-		/*
-		std::shared_ptr<Entity> light_3 = AddEntity("Light_3");
-		{
-			std::shared_ptr<Components::Light> lightComponent = light_3->AddComponent<Components::Light>();
-			{
-				lightComponent->Colour() = glm::vec3(10, 10, 10);
-				lightComponent->Intensity() = 1.0f;
-			}
-
-			light_3->Transform()->Position() = glm::vec3(30, 10, -35);
-		}
-		//*/
 	}
 
 	void CustomScene::CreateDebuggingEntity()
@@ -130,7 +161,7 @@ namespace Game
 			std::shared_ptr<Components::MeshRenderer> meshRenderer = playerEntity->AddComponent<Components::MeshRenderer>(mesh);
 			std::shared_ptr<Game::PlayerController> playerController = playerEntity->AddComponent<Game::PlayerController>();
 
-			playerEntity->Transform()->Position() = glm::vec3(0, 0, 0);
+			playerEntity->Transform()->Position() = glm::vec3(5, 30, -60);
 			playerEntity->Transform()->Scale() = glm::vec3(0.1f, 0.1f, 0.1f);
 		}
 	}

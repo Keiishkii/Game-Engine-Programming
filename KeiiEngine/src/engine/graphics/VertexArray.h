@@ -7,25 +7,23 @@
 
 namespace Engine
 {
+	namespace ResourceManagement { struct ShaderProgram; }
 	namespace Graphics
 	{
 		struct VertexBuffer;
 		struct VertexArray
 		{
 		private:
-			bool _dirty = false;
-			GLuint _id = 0;
-
+			std::map<GLuint, GLuint> _vaoIDs;
+			std::map<GLuint, bool> _shaderDirtyStates;
 			std::map<std::string, std::shared_ptr<VertexBuffer>> _vertexBuffers;
 		public:
 
 
 		private:
 		public:
-			VertexArray();
-
 			void SetBuffer(const std::string& _buffer, const std::shared_ptr<VertexBuffer>& _content);
-			GLuint GetID();
+			GLuint GetID(std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram);
 		};
 	}
 }

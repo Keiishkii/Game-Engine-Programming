@@ -23,7 +23,7 @@ namespace Engine
 			VertexBuffer();
 
 			GLuint GetID();
-			int VertexBuffer::GetComponentSize();
+			int GetComponentSize();
 			std::vector<GLfloat>& GetData();
 
 			void Add(const glm::vec2& value);

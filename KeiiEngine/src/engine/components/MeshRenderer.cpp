@@ -53,76 +53,38 @@ namespace Engine
 			for (int i = 0; i < _renderModel->TotalMaterialGroups(); i++)
 			{
 				std::shared_ptr<ResourceManagement::Material> material = _renderModel->GetMaterial(i);
-
-				if (!material)
-				{
-					material = Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
-				}
-
-				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = material->GetShaderProgram();
-				std::shared_ptr<ResourceManagement::Texture> albedoMap = material->GetAlbedoTexture();
-
-				GLuint programID = 0;
-				if (shaderProgram)
-				{
-					programID = shaderProgram->GetShaderID();
-				}
-				else
-				{
-					shaderProgram = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl");
-					programID = shaderProgram->GetShaderID();
-				}
-
-				glUseProgram(programID);
-
-				if (albedoMap) shaderProgram->UploadTextureMapToShader(albedoMap, "in_AlbedoMap");
-
-
-				GLint colourID = glGetUniformLocation(programID, "in_Colour");
-				GLint roughnessID = glGetUniformLocation(programID, "in_Roughness");
-				GLint metallicID = glGetUniformLocation(programID, "in_Metallic");
-
-				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
-				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
-				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
-
-
-				GLint viewPositionID = glGetUniformLocation(programID, "in_ViewPosition");
-
-
-				GLint lightCountID = glGetUniformLocation(programID, "in_LightCount");
-				GLint lightPositionArrayID = glGetUniformLocation(programID, "in_LightPositions");
-				GLint lightColourArrayID = glGetUniformLocation(programID, "in_LightColours");
-				GLint lightIntensityArrayID = glGetUniformLocation(programID, "in_LightIntensitys");
-
-
-
 				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = _renderModel->GetPolygonMaterialGroup(i);
 
-				glBindVertexArray(polygonMaterialGroup->VertexArrayID());
+				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = material->GetShaderProgram();		
+
+				shaderProgram->UseShader();
 
 
-				glUniform4fv(colourID, 1, glm::value_ptr(material->Colour()));
-				glUniform1fv(roughnessID, 1, &material->Roughness());
-				glUniform1fv(metallicID, 1, &material->Metallic());
+				shaderProgram->SetUniform("in_AlbedoMap", material->GetAlbedoTexture());
 
-				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(Transform()->TransformationMatrix()));
-				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(glm::inverse(transformationMatrix)));
-				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+				shaderProgram->SetUniform("in_Colour", material->Colour());
+				shaderProgram->SetUniform("in_Roughness", material->Roughness());
+				shaderProgram->SetUniform("in_Metallic", material->Metallic());
+
+				shaderProgram->SetUniform("in_Model", Transform()->TransformationMatrix());
+				shaderProgram->SetUniform("in_Veiwing", glm::inverse(transformationMatrix));
+				shaderProgram->SetUniform("in_Projection", projectionMatrix);
+
+				shaderProgram->SetUniform("in_ViewPosition", translation);
+
+				shaderProgram->SetUniform("in_LightCount", lightCount);
+				shaderProgram->SetUniform("in_LightPositions", &positions[0], lightCount);
+				shaderProgram->SetUniform("in_LightColours", &colours[0], lightCount);
+				shaderProgram->SetUniform("in_LightIntensitys", &intensitys[0], lightCount);
 
 
-				glUniform3fv(viewPositionID, 1, glm::value_ptr(translation));
-
-
-				glUniform1f(lightCountID, lightCount);
-				glUniform3fv(lightPositionArrayID, lightCount, glm::value_ptr(positions[0]));
-				glUniform3fv(lightColourArrayID, lightCount, glm::value_ptr(colours[0]));
-				glUniform1fv(lightIntensityArrayID, lightCount, &intensitys[0]);
-
-				// Draw to the screen
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glDrawArrays(GL_TRIANGLES, 0, polygonMaterialGroup->VertexCount());
+
+				shaderProgram->DrawTriangles(polygonMaterialGroup, shaderProgram);
+
+
+				shaderProgram->StopUsingShader();
 			}			
 
 			delete[lightCount] positions;

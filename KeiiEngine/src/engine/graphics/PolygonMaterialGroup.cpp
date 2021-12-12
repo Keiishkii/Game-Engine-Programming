@@ -1,6 +1,7 @@
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 #include "PolygonMaterialGroup.h"
+#include "engine/resources/ShaderProgram.h"
 
 namespace Engine
 {
@@ -20,6 +21,6 @@ namespace Engine
 		std::shared_ptr<VertexBuffer>& PolygonMaterialGroup::VertexPositionBuffer() { return _vertexPositionBuffer; }
 		std::shared_ptr<VertexBuffer>& PolygonMaterialGroup::VertexNormalBuffer() { return _vertexNormalBuffer; }
 		std::shared_ptr<VertexBuffer>& PolygonMaterialGroup::TextureUVBuffer() { return _textureUVBuffer; }
-		GLuint PolygonMaterialGroup::VertexArrayID() { return _materialGroupVertexArray->GetID(); }
+		GLuint PolygonMaterialGroup::VertexArrayID(std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram) { return _materialGroupVertexArray->GetID(shaderProgram); }
 	}
 }

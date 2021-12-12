@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 project(KEIIENGINE)
 
+set(CMAKE_CXX_STANDARD 20)
 
 
 include_directories(
@@ -147,6 +148,9 @@ add_executable(game
 		#Components
 	src/game/components/PlayerController.cpp
 	src/game/components/PlayerController.h
+	
+	src/game/components/Rotator.cpp
+	src/game/components/Rotator.h
 
 	src/game/components/CameraController.cpp
 	src/game/components/CameraController.h

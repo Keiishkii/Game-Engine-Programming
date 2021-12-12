@@ -1,5 +1,5 @@
 {
-	"shader_program": 		"- shaders/- Unlit/shader_program_Unlit.glsl",
+	"shader_program": 		"- shaders/- PBR/shader_program_PBR.glsl",
 	"colour": 				[1, 1, 1, 1],
 	"roughness": 			1,
 	"metallic": 			0.25,

@@ -1,6 +1,5 @@
 #ifdef VERTEX_SHADER
 	attribute vec3 in_Position;
-	attribute vec2 in_Normal;
 	attribute vec2 in_TextureUV;
 	
 	varying vec2 out_TextureUV;

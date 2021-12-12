@@ -4,6 +4,7 @@
 #include "Model.h"
 #include "engine/graphics/VertexArray.h"
 #include "ResourceManager.h"
+#include "Material.h"
 #include "engine/graphics/PolygonMaterialGroup.h"
 #include "engine/graphics/VertexBuffer.h"
 #include "engine/error-handling/Exception.h"
@@ -58,9 +59,9 @@ namespace Engine
 							std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = it->second;
 							int materialGroupID = it->first;
 							
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Position Buffer", polygonMaterialGroup->VertexPositionBuffer());
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Vertex Normal Buffer", polygonMaterialGroup->VertexNormalBuffer());
-							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("Texture UV Buffer", polygonMaterialGroup->TextureUVBuffer());
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("in_Position",	polygonMaterialGroup->VertexPositionBuffer());
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("in_Normal",		polygonMaterialGroup->VertexNormalBuffer());
+							polygonMaterialGroup->_materialGroupVertexArray->SetBuffer("in_TextureUV",	polygonMaterialGroup->TextureUVBuffer());
 							
 							count += polygonMaterialGroup->VertexCount();
 						}
@@ -184,9 +185,19 @@ namespace Engine
 		std::shared_ptr<Material> Model::GetMaterial(int materialIndex)
 		{
 			std::shared_ptr<Material> material;
-			if (_materials.count(materialIndex))
+
+			bool materialExisits = _materials.count(materialIndex);
+			if (materialExisits) [[likely]]
 			{
 				material = _materials[materialIndex];
+				if (!material) [[unlikely]]
+				{
+					material = ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
+				}
+			}
+			else [[unlikely]]
+			{
+				material = ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/default_material.material");
 			}
 
 			return material;

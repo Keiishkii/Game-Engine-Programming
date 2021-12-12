@@ -13,6 +13,7 @@ namespace Game
 
 		void CreateCameraEntity();
 		void CreatePlayerEntity();
+		void CreateMonadoEntity();
 
 		void CreateLights();
 		void CreateReflectionProbes();

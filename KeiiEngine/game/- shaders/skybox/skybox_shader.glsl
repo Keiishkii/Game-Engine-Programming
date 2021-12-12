@@ -5,31 +5,31 @@
 
 	uniform mat4 in_Veiwing; 
 	uniform mat4 in_Projection;
-	uniform mat4 in_Model;
 	
 	varying vec4 out_Colour;
-	varying vec3 out_TextureCoordinate;
+	varying vec3 out_TextureDirection;
 
 	void main()
 	{
 		out_Colour = in_Colour;
-		out_TextureCoordinate = vec3(in_Model * vec4(in_Position, 1.0));
+		out_TextureDirection = in_Position;
 
-		vec4 position = in_Projection * in_Veiwing * in_Model * vec4(in_Position, 1.0);
+		mat4 viewingRotationMatrix = mat4(mat3(in_Veiwing));
+		vec4 position = in_Projection * viewingRotationMatrix * vec4(in_Position, 1.0);
 		gl_Position = position.xyww;
 	}
 #endif
 
 #ifdef FRAGMENT_SHADER
-	uniform samplerCube in_Skybox;
+	uniform samplerCube in_Albedo;
 	
 	varying vec4 out_Colour;
-	varying vec3 out_TextureCoordinate;
+	varying vec3 out_TextureDirection;
 
 	void main()
 	{		
-		vec4 colour = out_Colour * texture(in_Skybox, out_TextureCoordinate);
+		vec3 colour = (out_Colour * texture(in_Albedo, out_TextureDirection)).rgb;
 
-		gl_FragColor = colour;
+		gl_FragColor = vec4(colour, 1);
 	}
 #endif

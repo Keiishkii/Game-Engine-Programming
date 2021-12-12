@@ -5,6 +5,7 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct Model;
+		struct ShaderProgram;
 	}
 
 	namespace Graphics
@@ -34,7 +35,7 @@ namespace Engine
 			std::shared_ptr<VertexBuffer>& VertexNormalBuffer();
 			std::shared_ptr<VertexBuffer>& TextureUVBuffer();
 
-			GLuint VertexArrayID();
+			GLuint VertexArrayID(std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram);
 			int VertexCount();
 		};
 	}

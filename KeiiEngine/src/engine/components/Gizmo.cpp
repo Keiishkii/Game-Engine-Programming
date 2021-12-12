@@ -59,58 +59,44 @@ namespace Engine
 					normalBuffer->Add(glm::vec3(0, 0, 0));
 				}
 
-				_gizmoVertexArrayObject->SetBuffer("Vertex Position Buffer", positionBuffer);
-				_gizmoVertexArrayObject->SetBuffer("Texture UV Buffer", textureUVBuffer);
-				_gizmoVertexArrayObject->SetBuffer("Vertex Normal Buffer", normalBuffer);
+				_gizmoVertexArrayObject->SetBuffer("in_Position",	positionBuffer);
+				_gizmoVertexArrayObject->SetBuffer("in_Normal",		normalBuffer);
+				_gizmoVertexArrayObject->SetBuffer("in_TextureUV",	textureUVBuffer);
 			#endif
 		}
 
 		void Gizmo::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 		{
 			#if _DEBUG
-				GLuint programID = _gizmoShaderProgram->GetShaderID();
-				glUseProgram(programID);
-
-				if (_gizmoTexture) _gizmoShaderProgram->UploadTextureMapToShader(_gizmoTexture, "in_GizmoTexture");
-
-				GLint colourID = glGetUniformLocation(programID, "in_Colour");
-				GLint modelMatrixID = glGetUniformLocation(programID, "in_Model");
-				GLint viewingMatrixID = glGetUniformLocation(programID, "in_Veiwing");
-				GLint projectionMatrixID = glGetUniformLocation(programID, "in_Projection");
+				_gizmoShaderProgram->UseShader();
 
 
-				glBindVertexArray(_gizmoVertexArrayObject->GetID());
-
-				glUniform4fv(colourID, 1, glm::value_ptr(_colour));
-				
-
-				std::shared_ptr<Components::Transform> transform = Transform();
-
-				glm::vec3 translation, scale, skew;
-				glm::quat rotation;
-				glm::vec4 perspective;
+				glm::vec3 translation, scale, skew;	glm::quat rotation;	glm::vec4 perspective;
 				glm::decompose(transformationMatrix, scale, rotation, translation, skew, perspective);
+
 				rotation = glm::conjugate(rotation);
 
+				std::shared_ptr<Components::Transform> transform = Transform();
+				glm::mat4x4 modelMatrix = 
+					glm::translate(glm::identity<glm::mat4x4>(), transform->Position()) *
+					glm::mat4_cast(glm::quatLookAt(glm::normalize(transform->Position() - translation), glm::vec3(0, 1, 0)) * glm::quat(glm::vec3(0, 0, M_PI))) *
+					glm::scale(glm::identity<glm::mat4x4>(), scale);
 
-				glm::mat4x4 scaleMatrix = glm::scale(glm::identity<glm::mat4x4>(), scale);
-				glm::mat4x4 rotationMatrix = glm::mat4_cast(glm::quatLookAt(glm::normalize(transform->Position() - translation), glm::vec3(0, 1, 0)) * glm::quat(glm::vec3(0, 0, M_PI)));
-				glm::mat4x4 translationMatrix = glm::translate(glm::identity<glm::mat4x4>(), transform->Position());
 
-				glm::mat4x4 modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+				_gizmoShaderProgram->SetUniform("in_GizmoTexture", _gizmoTexture);
+				_gizmoShaderProgram->SetUniform("in_Colour", _colour);
 
+				_gizmoShaderProgram->SetUniform("in_Model", modelMatrix);
+				_gizmoShaderProgram->SetUniform("in_Veiwing", glm::inverse(transformationMatrix));
+				_gizmoShaderProgram->SetUniform("in_Projection", projectionMatrix);
 
-				glUniformMatrix4fv(modelMatrixID, 1, GL_FALSE, glm::value_ptr(modelMatrix));
-
-				glm::mat4x4 viewingMatrix = glm::inverse(transformationMatrix);
-				glUniformMatrix4fv(viewingMatrixID, 1, GL_FALSE, glm::value_ptr(viewingMatrix));
-
-				glUniformMatrix4fv(projectionMatrixID, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
-
-				// Draw to the screen
 				glEnable(GL_BLEND);
 				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-				glDrawArrays(GL_TRIANGLES, 0, 6);
+
+				_gizmoShaderProgram->DrawTriangles(_gizmoVertexArrayObject->GetID(_gizmoShaderProgram), 6);
+
+
+				_gizmoShaderProgram->StopUsingShader();
 			#endif
 		}
 	}

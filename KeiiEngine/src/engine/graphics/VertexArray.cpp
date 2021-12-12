@@ -1,6 +1,7 @@
 #include "VertexArray.h"
 #include "VertexBuffer.h"
 
+#include "engine/resources/ShaderProgram.h"
 #include "engine/error-handling/Exception.h"
 
 using Engine::ErrorHandling::Exception;
@@ -9,46 +10,51 @@ namespace Engine
 {
 	namespace Graphics
 	{
-		VertexArray::VertexArray()
+		GLuint VertexArray::GetID(std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram)
 		{
-			glGenVertexArrays(1, &_id);
-
-			if (!_id)
+			GLuint shaderID = shaderProgram->GetShaderID();
+			if (!_shaderDirtyStates.count(shaderID) || _shaderDirtyStates[shaderID]) [[unlikely]]
 			{
-				throw Exception("Failed to generate an ID for the 'Vertex Array'.");
-			}
-		}
+				if (!_vaoIDs.count(shaderID)) [[unlikely]]
+				{
+					GLuint vaoID;
+					glGenVertexArrays(1, &vaoID);
 
-		GLuint VertexArray::GetID()
-		{
-			if (_dirty)
-			{
-				glBindVertexArray(_id);
+					if (!vaoID)
+					{
+						throw Exception("Failed to generate an ID for the 'Vertex Array'.");
+					}
+					else
+					{
+						_vaoIDs.insert(std::pair<GLuint, GLuint>(shaderID, vaoID));
+					}
+				}
 
-				std::shared_ptr<VertexBuffer> vertexPositionBuffer = _vertexBuffers["Vertex Position Buffer"];
-				glBindBuffer(GL_ARRAY_BUFFER, vertexPositionBuffer->GetID());
-				glVertexAttribPointer(0, vertexPositionBuffer->GetComponentSize(), GL_FLOAT, GL_FALSE, vertexPositionBuffer->GetComponentSize() * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(0); 
-				
-				std::shared_ptr<VertexBuffer> vertexNormalBuffer = _vertexBuffers["Vertex Normal Buffer"];
-				glBindBuffer(GL_ARRAY_BUFFER, vertexNormalBuffer->GetID());
-				glVertexAttribPointer(1, vertexNormalBuffer->GetComponentSize(), GL_FLOAT, GL_FALSE, vertexNormalBuffer->GetComponentSize() * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(1);
+				glBindVertexArray(_vaoIDs[shaderID]);
 
-				std::shared_ptr<VertexBuffer> textureUVBuffer = _vertexBuffers["Texture UV Buffer"];
-				glBindBuffer(GL_ARRAY_BUFFER, textureUVBuffer->GetID());
-				glVertexAttribPointer(2, textureUVBuffer->GetComponentSize(), GL_FLOAT, GL_FALSE, textureUVBuffer->GetComponentSize() * sizeof(GLfloat), (void*)0);
-				glEnableVertexAttribArray(2);
-				
+
+
+				std::map<std::string, std::shared_ptr<VertexBuffer>>::iterator iterator;
+				for (iterator = _vertexBuffers.begin(); iterator != _vertexBuffers.end(); iterator++)
+				{
+					GLint attributePositionID = shaderProgram->GetAttributeID(iterator->first);
+					if (attributePositionID >= 0)
+					{
+						glBindBuffer(GL_ARRAY_BUFFER, iterator->second->GetID());
+
+						glVertexAttribPointer(attributePositionID, iterator->second->GetComponentSize(), GL_FLOAT, GL_FALSE, iterator->second->GetComponentSize() * sizeof(GLfloat), (void*)0);
+						glEnableVertexAttribArray(attributePositionID);
+					}
+				}
 
 				// Reset the state
 				glBindBuffer(GL_ARRAY_BUFFER, 0);
 				glBindVertexArray(0);
 
-				_dirty = false;
+				_shaderDirtyStates[shaderID] = false;
 			}
 
-			return _id;
+			return _vaoIDs[shaderID];
 		}
 
 		void VertexArray::SetBuffer(const std::string& _buffer, const std::shared_ptr<VertexBuffer>& _content)
@@ -62,7 +68,11 @@ namespace Engine
 				_vertexBuffers[_buffer] = _content;
 			}
 
-			_dirty = true;
+			std::map<GLuint, bool>::iterator iterator;
+			for (iterator = _shaderDirtyStates.begin(); iterator != _shaderDirtyStates.end(); iterator++)
+			{
+				iterator->second = true;
+			}
 		}
 	}
 }

@@ -1,0 +1,10 @@
+{
+	"shader_program": 		"- shaders/skybox/skybox_shader.glsl",
+	"colour": 				[1, 1, 1, 1],
+	"albedo_right":			"- textures/skybox/cloudy_sky/right.png",
+	"albedo_left":			"- textures/skybox/cloudy_sky/left.png",
+	"albedo_top":			"- textures/skybox/cloudy_sky/top.png",
+	"albedo_bottom":		"- textures/skybox/cloudy_sky/bottom.png",
+	"albedo_front":			"- textures/skybox/cloudy_sky/front.png",
+	"albedo_back":			"- textures/skybox/cloudy_sky/back.png"
+}

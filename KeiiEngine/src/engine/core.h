@@ -45,7 +45,6 @@ namespace Engine
 		std::shared_ptr<ResourceManagement::ResourceManager> _resourceManager;
 		std::shared_ptr<Graphics::GraphicsManager> _graphicsManager;
 		std::shared_ptr<ErrorHandling::Debugger> _debugger;
-		std::shared_ptr<SDL_Window*> _window;
 
 		bool _running;
 	public:
@@ -53,15 +52,12 @@ namespace Engine
 
 	private:
 		void MainLoop();
-		void SDLInitialisation();
 
-		void Render();
 		void Update();
 		void PhysicsUpdate();
 
 		std::shared_ptr<Core> Self();
 	public:
-		~Core();
 		static std::shared_ptr<Core> Initialise(int FPS, int fixedFPS);
 
 		template <typename T>

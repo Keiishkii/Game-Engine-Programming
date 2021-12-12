@@ -4,6 +4,7 @@
 #include "SkyboxMaterial.h"
 #include "ShaderProgram.h"
 #include "TextureCubeMap.h"
+#include "Texture.h"
 #include "engine/error-handling/Exception.h"
 #include "ResourceManager.h"
 
@@ -68,9 +69,42 @@ namespace Engine
 
 		void SkyboxMaterial::AssignAlbedoTextureCubeMap(const Document& document)
 		{
-			if (document.HasMember("albedo_texture_cube_map") && document["albedo_texture_cube_map"].IsString())
+			_albedoTextureCubeMap = ResourceManager()->Create<ResourceManagement::TextureCubeMap>();
+
+			if (document.HasMember("albedo_right") && document["albedo_right"].IsString())
 			{
-				_albedoTextureCubeMap = _resourceManager.lock()->FindAsset<TextureCubeMap>(document["albedo_texture_cube_map"].GetString());
+				std::string folderDirectory = document["albedo_right"].GetString();
+				_albedoTextureCubeMap->RightTexture() = _resourceManager.lock()->FindAsset<Texture>(document["albedo_right"].GetString());
+			}
+
+			if (document.HasMember("albedo_left") && document["albedo_left"].IsString())
+			{
+				std::string folderDirectory = document["albedo_left"].GetString();
+				_albedoTextureCubeMap->LeftTexture() = _resourceManager.lock()->FindAsset<Texture>(document["albedo_left"].GetString());
+			}
+
+			if (document.HasMember("albedo_top") && document["albedo_top"].IsString())
+			{
+				std::string folderDirectory = document["albedo_top"].GetString();
+				_albedoTextureCubeMap->TopTexture() = _resourceManager.lock()->FindAsset<Texture>(document["albedo_top"].GetString());
+			}
+
+			if (document.HasMember("albedo_bottom") && document["albedo_bottom"].IsString())
+			{
+				std::string folderDirectory = document["albedo_bottom"].GetString();
+				_albedoTextureCubeMap->BottomTexture() = _resourceManager.lock()->FindAsset<Texture>(document["albedo_bottom"].GetString());
+			}
+
+			if (document.HasMember("albedo_front") && document["albedo_front"].IsString())
+			{
+				std::string folderDirectory = document["albedo_front"].GetString();
+				_albedoTextureCubeMap->FrontTexture() = _resourceManager.lock()->FindAsset<Texture>(document["albedo_front"].GetString());
+			}
+
+			if (document.HasMember("albedo_back") && document["albedo_back"].IsString())
+			{
+				std::string folderDirectory = document["albedo_back"].GetString();
+				_albedoTextureCubeMap->BackTexture() = _resourceManager.lock()->FindAsset<Texture>(document["albedo_back"].GetString());
 			}
 		}
 

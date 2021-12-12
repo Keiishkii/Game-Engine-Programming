@@ -1,5 +1,5 @@
 {
-	"shader_program": 		"- shaders/default_shader_program.glsl",
+	"shader_program": 		"- shaders/- PBR/shader_program_PBR.glsl",
 	"colour": 				[1, 1, 1, 1],
 	"roughness": 			0.15,
 	"metallic": 			1.0,

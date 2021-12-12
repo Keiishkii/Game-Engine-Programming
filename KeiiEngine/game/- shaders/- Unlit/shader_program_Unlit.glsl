@@ -34,7 +34,8 @@
 	void main()
 	{
 		vec4 textureColour = texture2D(in_AlbedoMap, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
+		vec4 finalColour = textureColour * out_Colour;
 
-		gl_FragColor = textureColour;
+		gl_FragColor = finalColour;
 	}
 #endif

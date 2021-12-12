@@ -43,8 +43,8 @@
 		out_Colour = in_Colour;
 		out_Roughness = in_Roughness;
 		out_Metallic = in_Metallic;
-
-		out_Normal = in_Normal;
+		
+		out_Normal = normalize(mat3(transpose(inverse(in_Model))) * in_Normal);  
 		out_TextureUV = in_TextureUV;
 
 		out_FragmentPosition = vec3(in_Model * vec4(in_Position, 1.0));

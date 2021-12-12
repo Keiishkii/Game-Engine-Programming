@@ -13,7 +13,8 @@ namespace Engine
 		{
 		private:
 			GLuint _textureID = 0;
-			std::vector<std::string> _faceSuffexes = {"_right", "_left", "_top", "_bottom", "_front", "_back"};
+			GLuint _textureConvolutionID = 0;
+			std::vector<std::string> _faceSuffexes = {"right", "left", "top", "bottom", "front", "back"};
 						
 			std::shared_ptr<Texture> _rightTexture;
 			std::shared_ptr<Texture> _leftTexture;
@@ -28,17 +29,19 @@ namespace Engine
 		public:
 			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 			void GenerateCubeMap(glm::vec3 position);
+			void GenerateCubeMapConvolution();
 
 			~TextureCubeMap();
 
 			GLuint GetCubeMapTextureID();
+			GLuint GetCubeMapConvolutionTextureID();
 
-			std::shared_ptr<Texture> RightTexture();
-			std::shared_ptr<Texture> LeftTexture();
-			std::shared_ptr<Texture> TopTexture();
-			std::shared_ptr<Texture> BottomTexture();
-			std::shared_ptr<Texture> FrontTexture();
-			std::shared_ptr<Texture> BackTexture();
+			std::shared_ptr<Texture>& RightTexture();
+			std::shared_ptr<Texture>& LeftTexture();
+			std::shared_ptr<Texture>& TopTexture();
+			std::shared_ptr<Texture>& BottomTexture();
+			std::shared_ptr<Texture>& FrontTexture();
+			std::shared_ptr<Texture>& BackTexture();
 		};
 	}
 }

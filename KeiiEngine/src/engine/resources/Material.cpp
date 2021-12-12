@@ -13,7 +13,6 @@ namespace Engine
 	{
 		void Material::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
-			std::cout << subPath << std::endl;
 			std::string path = resourcesDirectory + subPath;
 			std::string fileContent = "";
 
@@ -106,7 +105,15 @@ namespace Engine
 		glm::vec4& Material::Colour() { return _colour; }
 		float& Material::Roughness() { return _roughness; }
 		float& Material::Metallic() { return _metallic; }
-		std::shared_ptr<ShaderProgram>& Material::GetShaderProgram() { return _shaderProgram; }
+		std::shared_ptr<ShaderProgram>& Material::GetShaderProgram() 
+		{ 
+			if (!_shaderProgram) [[unlikely]]
+			{
+				_shaderProgram = ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl");
+			}
+
+			return _shaderProgram; 
+		}
 		std::shared_ptr<Texture>& Material::GetAlbedoTexture() { return _albedoTexture; }
 		std::shared_ptr<Texture>& Material::GetNormalTexture() { return _normalTexture; }
 	}
