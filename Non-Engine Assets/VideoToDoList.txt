@@ -1,0 +1,19 @@
+Intro
+ - Intro to topic
+ - What I will cover
+Theory
+ - Irradiance 	(the intergral)
+  - Cubemap convolution
+Design
+ - LearnOpenGL Model
+ - Torrance-Sparrow Model
+ - Material -> Shader code
+ - Cubemap generation
+Demo
+ - 
+Analysis
+ - Quantitative (the performance)
+  - Show excel graphs for performance against lights -> models in scene.
+  - 
+ - Qualitative 	(the visual quality)
+  - Show examples from in game and IRL

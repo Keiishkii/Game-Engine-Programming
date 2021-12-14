@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <algorithm>
 
 namespace Game
 {
@@ -14,13 +15,13 @@ namespace Game
 	{
 		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_PBR-Torranec-Sparrow-Model.glsl"));
 		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_PBR.glsl"));
+		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/shader_program_Phong.glsl"));
 
 		activeShader = 0;
 		std::cout << "Shader Selected: [" << _shaders[activeShader]->GetName() << "]" << std::endl;
 
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal.material"));
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal_core.material"));
-		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/glow.material"));
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/gold.material"));
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/dark_gold.material"));
 

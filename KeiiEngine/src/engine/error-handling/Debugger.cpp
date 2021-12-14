@@ -2,6 +2,10 @@
 #include "Debugger.h"
 
 //#define ENGINE_DEBUGGING
+#ifdef ENGINE_DEBUGGING
+	#define ENGINE_DEBUGGING_UPDATE
+	//#define ENGINE_DEBUGGING_FIXED-UPDATE
+#endif
 
 namespace Engine
 {
@@ -9,7 +13,7 @@ namespace Engine
 	{
 		void Debugger::LogUpdate()
 		{
-		#ifdef ENGINE_DEBUGGING
+		#ifdef ENGINE_DEBUGGING_UPDATE
 			std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
 
 			if (updates > 0)
@@ -25,7 +29,7 @@ namespace Engine
 
 		void Debugger::LogFixedUpdate()
 		{
-		#ifdef ENGINE_DEBUGGING
+		#ifdef ENGINE_DEBUGGING_FIXED-UPDATE
 			std::chrono::steady_clock::time_point currentTime = std::chrono::steady_clock::now();
 
 			if (fixedUpdates > 0)
