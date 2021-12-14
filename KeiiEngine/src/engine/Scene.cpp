@@ -36,13 +36,11 @@ namespace Engine
 
 	std::shared_ptr<ResourceManagement::Texture> Scene::RenderSceneToTexture(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix, int width, int height)
 	{
-		std::shared_ptr<ResourceManagement::Texture> texture = Core()->ResourceManager()->Create<ResourceManagement::Texture>();
-
 		glViewport(0, 0, width, height);
+		std::shared_ptr<ResourceManagement::Texture> texture = Core()->ResourceManager()->Create<ResourceManagement::Texture>();
 
 		GLuint framebufferID = 0, framebufferColourTextureID = 0, frameBufferDepthTextureID = 0;
 		Core()->GraphicsManager()->CreateRenderBuffer(framebufferID, framebufferColourTextureID, frameBufferDepthTextureID, width, height);
-
 
 		// - - Renders scene to current buffer.
 		RenderScene(transformationMatrix, projectionMatrix);
@@ -67,8 +65,6 @@ namespace Engine
 
 	GLuint Scene::RenderSceneToTextureBuffer(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix, int width, int height)
 	{
-		std::shared_ptr<ResourceManagement::Texture> texture = Core()->ResourceManager()->Create<ResourceManagement::Texture>();
-
 		glViewport(0, 0, width, height);
 
 		GLuint framebufferID = 0, framebufferColourTextureID = 0, frameBufferDepthTextureID = 0;

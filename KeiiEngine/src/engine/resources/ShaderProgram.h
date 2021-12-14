@@ -13,6 +13,7 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct Texture;
+		struct Material;
 		struct TextureCubeMap;
 		struct ShaderProgram : Resource
 		{
@@ -27,13 +28,15 @@ namespace Engine
 
 
 		private:
-			void GenerateVertexShader(std::string shader, GLuint& shaderID);
-			void GenerateFragmentShader(std::string shader, GLuint& shaderID);
+			void GenerateVertexShader(const std::string& subPath, const std::string& shader, GLuint& shaderID);
+			void GenerateFragmentShader(const std::string& subPath, const std::string& shader, GLuint& shaderID);
 		public:
 			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 
 			void UseShader();
 			void StopUsingShader();
+
+			void SetMaterialUniforms(std::shared_ptr<Material> material);
 
 			#pragma region Set Uniforms
 			void SetUniform(std::string unifromLocation, float data);

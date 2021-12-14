@@ -1,8 +1,9 @@
 {
-	"shader_program": 		"- shaders/- Unlit/shader_program_Unlit.glsl",
-	"colour": 				[0.4, 0.2, 0.05, 1],
-	"roughness": 			0.15,
-	"metallic": 			0.9,
-	"albedo_texture_map":	"- textures/default.png",
-	"normal_texture_map": 	"- textures/default.png"
+	"shader_program": 		"- shaders/shader_program_Phong.glsl",
+	
+	"in_Albedo":	"- textures/default.png",
+	
+	"in_Colour": 			[0.4, 0.2, 0.05, 1],
+	"in_SpecularStrength": 	0.5,
+	"in_Shininess": 		32
 }

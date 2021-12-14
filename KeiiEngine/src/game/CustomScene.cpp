@@ -13,7 +13,10 @@ namespace Game
 		//Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/cloudy_sky.material");
 		//Skybox() = Core()->ResourceManager()->FindAsset<ResourceManagement::SkyboxMaterial>("- materials/skybox/night_sky.material");
 
-		std::shared_ptr<ResourceManagement::ShaderProgram> shader = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_CubeMapConvolution.glsl");
+		std::shared_ptr<ResourceManagement::ShaderProgram> shader = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/shader_program_Phong.glsl");
+		
+
+
 
 
 		CreateMapEntity();
@@ -34,13 +37,22 @@ namespace Game
 		{
 			std::shared_ptr<ResourceManagement::Model> mesh = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/monado.fbx");
 			{
-				mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/glow.material"));
-				mesh->SetMaterial(1, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/red_metal.material"));
-				mesh->SetMaterial(2, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/red_metal_core.material"));
-				mesh->SetMaterial(3, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/gold.material"));
-				mesh->SetMaterial(4, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/dark_gold.material"));
-
-				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
+				if (false)
+				{
+					mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/glow.material"));
+					mesh->SetMaterial(1, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/red_metal.material"));
+					mesh->SetMaterial(2, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/red_metal_core.material"));
+					mesh->SetMaterial(3, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/gold.material"));
+					mesh->SetMaterial(4, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/unused/dark_gold.material"));
+				}
+				else
+				{
+					mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/glow.material"));
+					mesh->SetMaterial(1, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal.material"));
+					mesh->SetMaterial(2, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal_core.material"));
+					mesh->SetMaterial(3, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/gold.material"));
+					mesh->SetMaterial(4, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/dark_gold.material"));
+				}
 			}
 
 			std::shared_ptr<Components::MeshRenderer> meshRenderer = monado_1->AddComponent<Components::MeshRenderer>(mesh);
@@ -58,15 +70,7 @@ namespace Game
 		{
 			std::shared_ptr<ResourceManagement::Model> mesh = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/monado.fbx");
 			{
-				mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/glow.material"));
-				mesh->SetMaterial(1, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal.material"));
-				mesh->SetMaterial(2, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal_core.material"));
-				mesh->SetMaterial(3, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/gold.material"));
-				mesh->SetMaterial(4, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/dark_gold.material"));
 
-				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
-				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
-				mesh->GetPolygonMaterialGroup(1)->VertexArrayID(mesh->GetMaterial(1)->GetShaderProgram());
 			}
 
 			std::shared_ptr<Components::MeshRenderer> meshRenderer = monado_2->AddComponent<Components::MeshRenderer>(mesh);

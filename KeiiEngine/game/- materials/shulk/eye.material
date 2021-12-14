@@ -1,8 +1,9 @@
 {
 	"shader_program": 		"- shaders/- PBR/shader_program_PBR.glsl",
-	"colour": 				[1, 1, 1, 1],
-	"roughness": 			0,
-	"metallic": 			0,
-	"albedo_texture_map":	"- textures/shulk/eye.png",
-	"normal_texture_map": 	"- textures/shulk/eye.png"
+	
+	"in_Albedo":			"- textures/shulk/eye.png",
+	
+	"in_Colour": 			[1, 1, 1, 1],
+	"in_Roughness": 		0,
+	"in_Metallic": 			0
 }

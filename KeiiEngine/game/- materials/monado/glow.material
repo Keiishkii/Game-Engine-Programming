@@ -1,8 +1,9 @@
 {
-	"shader_program": 		"- shaders/- Unlit/shader_program_Unlit.glsl",
-	"colour": 				[0, 1, 1, 1],
-	"roughness": 			0.2,
-	"metallic": 			1,
-	"albedo_texture_map":	"- textures/default.png",
-	"normal_texture_map": 	"- textures/default.png"
+	"shader_program": 		"- shaders/- PBR/shader_program_PBR-Torranec-Sparrow-Model.glsl",
+	
+	"in_Albedo":			"- textures/default.png",
+	
+	"in_Colour": 			[0, 1, 1, 1],
+	"in_Roughness": 		0.2,
+	"in_Metallic": 			1
 }

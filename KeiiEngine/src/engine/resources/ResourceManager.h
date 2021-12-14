@@ -1,15 +1,14 @@
 #include <memory>
 #include <string>
-#include <fstream>
 #include <map>
 #include <fbxsdk.h>
+#include "rapidjson/document.h"
 
 namespace Engine
 {
 	struct Core;
 
 	namespace ErrorHandling	{ struct Exception; }
-
 	namespace ResourceManagement
 	{
 		struct Resource;
@@ -34,6 +33,10 @@ namespace Engine
 
 			std::shared_ptr<ResourceManager> Self();
 		public:
+			static bool FileExists(std::string path);
+			static std::string ReadText(std::string path);
+			static rapidjson::Document ToJSON(std::string content);
+
 			void Initialise(const std::shared_ptr<ResourceManager>& self, const std::shared_ptr<Engine::Core>& core);
 			~ResourceManager();
 
@@ -59,7 +62,6 @@ namespace Engine
 					if (_loadedAssets.count(assetPath))
 					{
 						resourcePointer = std::dynamic_pointer_cast<T>(_loadedAssets[assetPath]);
-
 						if (!resourcePointer)
 						{
 							throw ErrorHandling::Exception("Dynamic cast failed.");
@@ -69,16 +71,9 @@ namespace Engine
 					{
 						if (_resourceLocationFound)
 						{
-							std::string completeAssetPath = _resourceLocation + assetPath;
-
-							std::fstream fileStream;
-							fileStream.open(completeAssetPath);
-							if (fileStream.is_open())
+							if (FileExists(_resourceLocation + assetPath))
 							{
-								fileStream.close();
-
-								std::string fileType = assetPath.substr(assetPath.find_last_of("."));
-
+								resourcePointer->Resource::Load(_resourceLocation, assetPath);
 								resourcePointer->Load(_resourceLocation, assetPath);
 
 								_loadedAssets.insert(std::pair<std::string, std::shared_ptr<Resource>>(assetPath, resourcePointer));

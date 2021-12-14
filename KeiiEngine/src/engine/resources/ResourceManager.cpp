@@ -18,11 +18,56 @@
 #include <fbxsdk.h>
 
 using Engine::ErrorHandling::Exception;
+using rapidjson::Document;
 
 namespace Engine
 {
 	namespace ResourceManagement
 	{
+		#pragma region Static Functions
+
+		bool ResourceManager::FileExists(std::string path)
+		{
+			std::fstream fileStream;
+			fileStream.open(path);
+
+			bool fileExists = fileStream.is_open();
+			fileStream.close();
+
+			return fileExists;
+		}
+
+		std::string ResourceManager::ReadText(std::string path)
+		{
+			std::string fileContent = "";
+
+			std::fstream fileStream;
+			fileStream.open(path);
+
+			if (fileStream.is_open())
+			{
+				std::string fileLine = "";
+				while (std::getline(fileStream, fileLine))
+				{
+					fileContent += fileLine + "\n";
+				}
+			}
+
+			return fileContent;
+		}
+
+		Document ResourceManager::ToJSON(std::string jsonString)
+		{
+			Document document;
+			document.Parse(jsonString.c_str());
+
+			return document;
+		}
+
+		#pragma endregion
+
+
+
 		void ResourceManager::Initialise(const std::shared_ptr<ResourceManager>& self, const std::shared_ptr<Engine::Core>& core)
 		{
 			self->_self = self;

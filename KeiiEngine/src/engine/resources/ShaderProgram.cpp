@@ -1,10 +1,11 @@
-#include <fstream>
 #include <iostream>
 #include <vector>
 #include <sstream>
 
+#include "ResourceManager.h"
 #include "ShaderProgram.h"
 #include "Texture.h"
+#include "Material.h"
 #include "TextureCubeMap.h"
 #include "engine/graphics/PolygonMaterialGroup.h"
 #include "engine/error-handling/Exception.h"
@@ -23,6 +24,38 @@ namespace Engine
 			glUseProgram(0);
 		}
 
+		void ShaderProgram::SetMaterialUniforms(std::shared_ptr<Material> material)
+		{
+			std::map<std::string, std::shared_ptr<ResourceManagement::Texture>>::iterator textureProperyIterator;
+			for (textureProperyIterator = material->Properties_Texture.begin(); textureProperyIterator != material->Properties_Texture.end(); textureProperyIterator++)
+			{
+				SetUniform(textureProperyIterator->first, textureProperyIterator->second);
+			}
+
+			std::map<std::string, float>::iterator floatProperyIterator;
+			for (floatProperyIterator = material->Properties_Float.begin(); floatProperyIterator != material->Properties_Float.end(); floatProperyIterator++)
+			{
+				SetUniform(floatProperyIterator->first, floatProperyIterator->second);
+			}
+
+			std::map<std::string, glm::vec2>::iterator vec2ProperyIterator;
+			for (vec2ProperyIterator = material->Properties_Vec2.begin(); vec2ProperyIterator != material->Properties_Vec2.end(); vec2ProperyIterator++)
+			{
+				SetUniform(vec2ProperyIterator->first, vec2ProperyIterator->second);
+			}
+
+			std::map<std::string, glm::vec3>::iterator vec3ProperyIterator;
+			for (vec3ProperyIterator = material->Properties_Vec3.begin(); vec3ProperyIterator != material->Properties_Vec3.end(); vec3ProperyIterator++)
+			{
+				SetUniform(vec3ProperyIterator->first, vec3ProperyIterator->second);
+			}
+
+			std::map<std::string, glm::vec4>::iterator vec4ProperyIterator;
+			for (vec4ProperyIterator = material->Properties_Vec4.begin(); vec4ProperyIterator != material->Properties_Vec4.end(); vec4ProperyIterator++)
+			{
+				SetUniform(vec4ProperyIterator->first, vec4ProperyIterator->second);
+			}
+		}
 
 
 		#pragma region Set Uniforms
@@ -171,31 +204,17 @@ namespace Engine
 
 		void ShaderProgram::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
-			_name = subPath;
+			std::string shaderProgramString = ResourceManager::ReadText(resourcesDirectory + subPath);
 
-			std::string path = resourcesDirectory + subPath;
-			std::string fileContent = "";
-
-			std::fstream fileStream;
-			fileStream.open(path);
-
-			if (fileStream.is_open())
-			{
-				std::string fileLine = "";
-				while (std::getline(fileStream, fileLine))
-				{
-					fileContent += fileLine + "\n";
-				}
-			}
 
 			GLuint vertexShaderID = 0;
-			GenerateVertexShader(fileContent, vertexShaderID);
+			GenerateVertexShader(subPath, shaderProgramString, vertexShaderID);
 
 			GLuint fragmentShaderID = 0;
-			GenerateFragmentShader(fileContent, fragmentShaderID);
+			GenerateFragmentShader(subPath, shaderProgramString, fragmentShaderID);
+
 
 			GLuint programId = glCreateProgram();
-
 			glAttachShader(programId, vertexShaderID);
 			glAttachShader(programId, fragmentShaderID);
 
@@ -209,7 +228,7 @@ namespace Engine
 			}
 			else
 			{
-				throw ErrorHandling::Exception("Failed to create the shader program.");
+				throw ErrorHandling::Exception("Failed to create the shader program: " + subPath);
 			}
 
 			glDetachShader(programId, vertexShaderID);
@@ -218,7 +237,7 @@ namespace Engine
 			glDeleteShader(fragmentShaderID);
 		}
 
-		void ShaderProgram::GenerateVertexShader(std::string shader, GLuint& shaderID)
+		void ShaderProgram::GenerateVertexShader(const std::string& subPath, const std::string& shader, GLuint& shaderID)
 		{
 			std::string vertexShader = "#define VERTEX_SHADER\n" + shader;
 			const char* vertexShader_cStr = vertexShader.c_str();
@@ -234,11 +253,11 @@ namespace Engine
 
 			if (!success)
 			{
-				throw ErrorHandling::Exception("Failed to compile vertex shader.");
+				throw ErrorHandling::Exception("Vertex Shader - FAILED: " + subPath);
 			}
 		}
 
-		void ShaderProgram::GenerateFragmentShader(std::string shader, GLuint& shaderID)
+		void ShaderProgram::GenerateFragmentShader(const std::string& subPath, const std::string& shader, GLuint& shaderID)
 		{
 			std::string fragmentShader = "#define FRAGMENT_SHADER\n" + shader;
 			const char* fragmentShader_cStr = fragmentShader.c_str();
@@ -254,7 +273,7 @@ namespace Engine
 
 			if (!success)
 			{
-				throw ErrorHandling::Exception("Failed to compile fragment shader.");
+				throw ErrorHandling::Exception("Fragment Shader - FAILED: " + subPath);
 			}
 		}
 	}

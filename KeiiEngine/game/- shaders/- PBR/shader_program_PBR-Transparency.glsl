@@ -62,7 +62,7 @@
 #endif
 
 #ifdef FRAGMENT_SHADER
-	uniform sampler2D in_AlbedoMap;
+	uniform sampler2D in_Albedo;
 	
 
 
@@ -100,7 +100,7 @@
 
 	void main()
 	{
-		vec4 textureColour = texture2D(in_AlbedoMap, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
+		vec4 textureColour = texture2D(in_Albedo, vec2(out_TextureUV.x, 1 - out_TextureUV.y));
 		vec4 colour = textureColour * out_Colour;
 		
 		// Discard fragment if sample is transparent

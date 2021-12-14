@@ -55,16 +55,12 @@ namespace Engine
 				std::shared_ptr<ResourceManagement::Material> material = _renderModel->GetMaterial(i);
 				std::shared_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup = _renderModel->GetPolygonMaterialGroup(i);
 
-				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = material->GetShaderProgram();		
+				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = material->MaterialShader;		
 
 				shaderProgram->UseShader();
 
 
-				shaderProgram->SetUniform("in_AlbedoMap", material->GetAlbedoTexture());
-
-				shaderProgram->SetUniform("in_Colour", material->Colour());
-				shaderProgram->SetUniform("in_Roughness", material->Roughness());
-				shaderProgram->SetUniform("in_Metallic", material->Metallic());
+				shaderProgram->SetMaterialUniforms(material);
 
 				shaderProgram->SetUniform("in_Model", Transform()->TransformationMatrix());
 				shaderProgram->SetUniform("in_Veiwing", glm::inverse(transformationMatrix));

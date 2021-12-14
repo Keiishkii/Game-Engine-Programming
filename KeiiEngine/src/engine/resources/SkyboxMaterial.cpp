@@ -1,4 +1,3 @@
-#include <fstream>
 #include <iostream>
 
 #include "SkyboxMaterial.h"
@@ -14,32 +13,13 @@ namespace Engine
 	{
 		void SkyboxMaterial::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
-			std::string path = resourcesDirectory + subPath;
-			std::string fileContent = "";
+			std::string jsonString = ResourceManager::ReadText(resourcesDirectory + subPath);
+			Document document = ResourceManager::ToJSON(jsonString);
 
-			std::fstream fileStream;
-			fileStream.open(path);
-
-			if (fileStream.is_open())
-			{
-				std::string fileLine = "";
-				while (std::getline(fileStream, fileLine))
-				{
-					fileContent += fileLine + "\n";
-				}
-			}
-
-			Document document;
-			document.Parse(fileContent.c_str());
-
-			GLuint shaderProgramID = 0;
 			AssignShader(document);
-			glUseProgram(shaderProgramID);
 
 			AssignColour(document);
 			AssignAlbedoTextureCubeMap(document);
-
-			glUseProgram(0);
 		}
 
 		void SkyboxMaterial::AssignShader(const Document& document)

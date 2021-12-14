@@ -17,6 +17,7 @@ namespace Engine
 			std::weak_ptr<ResourceManager> _resourceManager;
 			std::weak_ptr<Engine::Core> _core;
 		private:
+			std::string _name;
 		public:
 
 
@@ -27,6 +28,7 @@ namespace Engine
 
 			std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 			std::shared_ptr<Engine::Core> Core();
+			virtual std::string GetName();
 		};
 	}
 }

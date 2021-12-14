@@ -13,8 +13,9 @@ namespace Engine
 			_core = resourceManager->Core();
 		}
 
-		void Resource::Load(const std::string& resourcesDirectory, const std::string& subPath) { }
+		void Resource::Load(const std::string& resourcesDirectory, const std::string& subPath) { _name = subPath; }
 
+		std::string Resource::GetName() { return _name; }
 		std::shared_ptr<Engine::Core> Resource::Core() { return _core.lock(); }
 		std::shared_ptr<ResourceManagement::ResourceManager> Resource::ResourceManager() { return _resourceManager.lock(); }
 	}

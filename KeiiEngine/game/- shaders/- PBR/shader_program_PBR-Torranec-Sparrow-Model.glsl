@@ -84,14 +84,13 @@
 
 
 	vec3 LightRadiance(int lightIndex);
-	vec3 BRDF(vec3 colour, vec3 baseReflectivity, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
+	vec3 BRDF(vec3 colour, vec3 lightColour, vec3 baseReflectivity, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
 	
-	vec3 DiffuseLambert(vec3 colour);
+	vec3 DiffuseLambert(vec3 colour, vec3 lightColour, float dot_LightNormal);
 	vec3 SpecularLambert(vec3 fresnelColour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView);
 	
 	float Distribution(float dot_MidNormal);
-	float Geomertry(float dot_LightNormal, float dot_ViewNormal);
-	float SubGeomertry(float dotValue, float kValue);
+	float Geomertry(float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal);
 	vec3 FresnelSchlick(vec3 baseReflectivity, float dot_MidView);
 
 	float ReflectionWeight(float dot_LightNormal);
@@ -118,9 +117,10 @@
 			float dot_MidNormal = max(dot(out_Normal, midDirection), 0.0);	
 			float dot_MidView = max(dot(midDirection, viewDirection), 0.0);	
 
-			vec3 BRDF = BRDF(colour.rgb, baseReflectivity, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView);
-
-			viewRadiance += BRDF * LightRadiance(lightIndex) * dot_LightNormal; // dw?
+			viewRadiance += 
+				BRDF(colour.rgb, LightRadiance(lightIndex), baseReflectivity, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView) * 
+				LightRadiance(lightIndex) * 
+				dot_LightNormal; // dw?
 		}
 
 		
@@ -151,57 +151,55 @@
 
 	
 	// Applies colour based on the material properties of the fragment.
-	vec3 BRDF(vec3 colour, vec3 baseReflectivity, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
+	vec3 BRDF(vec3 colour, vec3 lightColour, vec3 baseReflectivity, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
 	{
 		vec3 fresnelColour = FresnelSchlick(baseReflectivity, dot_MidView);
 		vec3 diffuseWeight = 1.0 - fresnelColour;
 		diffuseWeight *= 1.0 - out_Metallic;
 
-		return (diffuseWeight * DiffuseLambert(colour)) + (SpecularLambert(fresnelColour, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView));
+		return (diffuseWeight * DiffuseLambert(colour, lightColour, dot_LightNormal)) + (SpecularLambert(fresnelColour, dot_LightNormal, dot_ViewNormal, dot_MidNormal, dot_MidView));
 	}
 	
 
 
 
-
-	vec3 DiffuseLambert(vec3 colour)
+	//Oren Nayar Model:
+	vec3 DiffuseLambert(vec3 colour, vec3 lightColour, float dot_LightNormal)
 	{
-		return colour / PI;
+		return (colour / PI) * dot_LightNormal * lightColour;
 	}
 	
+
+	
+	//Torrance-Sparrow: Specular Reflectance Model
 	vec3 SpecularLambert(vec3 fresnelColour, float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal, float dot_MidView)
 	{
-		vec3 numerator = Distribution(dot_MidNormal) * Geomertry(dot_LightNormal, dot_ViewNormal) * fresnelColour;
+		vec3 numerator = 
+			Distribution(dot_MidNormal) * 
+			Geomertry(dot_LightNormal, dot_ViewNormal, dot_MidNormal) * 
+			fresnelColour;
+
 		float denominator = 4 * dot_ViewNormal * dot_LightNormal + 0.0001;
 
 		return numerator / denominator;
 	}
 
-
-
-
-
+	//Torrance-Sparrow: Distribution
 	float Distribution(float dot_MidNormal)
 	{
-		float numerator = pow(out_Roughness, 2);
-		float denominator = PI * pow((pow(dot_MidNormal, 2) * (pow(out_Roughness, 2) - 1) + 1), 2);
-
-		return numerator / denominator;
+		return exp(-pow((acos(dot_MidNormal) / out_Roughness), 2));
 	}
-
-	float Geomertry(float dot_LightNormal, float dot_ViewNormal)
+	
+	//Torrance-Sparrow: Geomerty Attenuation Factor
+	float Geomertry(float dot_LightNormal, float dot_ViewNormal, float dot_MidNormal)
 	{
-		float kValue = pow((out_Roughness + 1), 2) / 8;
+		float termA = (2 * cos(dot_LightNormal) * cos(dot_MidNormal)) / 
+			(dot_LightNormal * dot_MidNormal + sin(acos(dot_LightNormal)) * sin(acos(dot_MidNormal)) * cos(acos(dot_LightNormal) - acos(dot_MidNormal)));
+						
+		float termB = (2 * cos(dot_ViewNormal) * cos(dot_MidNormal)) / 
+			(dot_ViewNormal * dot_MidNormal + sin(acos(dot_ViewNormal)) * sin(acos(dot_MidNormal)) * cos(acos(dot_ViewNormal) - acos(dot_MidNormal)));
 
-		return SubGeomertry(dot_LightNormal, kValue) * SubGeomertry(dot_ViewNormal, kValue);
-	}
-
-	float SubGeomertry(float dotValue, float kValue)
-	{
-		float numerator = dotValue;
-		float denominator = dotValue * (1 - kValue) + kValue;
-
-		return numerator / denominator;
+		return max(0, min(1, 1));
 	}
 
 	vec3 FresnelSchlick(vec3 baseReflectivity, float dot_MidView)

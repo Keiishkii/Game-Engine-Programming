@@ -1,4 +1,3 @@
-#include <fstream>
 #include <iostream>
 
 #include "Material.h"
@@ -13,108 +12,120 @@ namespace Engine
 	{
 		void Material::Load(const std::string& resourcesDirectory, const std::string& subPath)
 		{
-			std::string path = resourcesDirectory + subPath;
-			std::string fileContent = "";
+			std::string jsonString = ResourceManager::ReadText(resourcesDirectory + subPath);
+			Document document = ResourceManager::ToJSON(jsonString);
 
-			std::fstream fileStream;
-			fileStream.open(path);
-
-			if (fileStream.is_open())
+			for (auto& materialProperty : document.GetObject())
 			{
-				std::string fileLine = "";
-				while (std::getline(fileStream, fileLine))
+				std::string propertyName = materialProperty.name.GetString();
+
+				if (document[propertyName.c_str()].IsFloat() || document[propertyName.c_str()].IsInt())
 				{
-					fileContent += fileLine + "\n";
+					AssignProperty_Float(propertyName, document[propertyName.c_str()].GetFloat());
 				}
-			}
-
-			Document document;
-			document.Parse(fileContent.c_str());
-
-			GLuint shaderProgramID = 0;
-			AssignShader(document);
-			glUseProgram(shaderProgramID);
-
-			AssignColour(document);
-			AssignRoughness(document);
-			AssignMetallic(document);
-
-			AssignAlbedoTexture(document);
-			AssignNormalTexture(document);
-
-			glUseProgram(0);
-		}
-
-		void Material::AssignShader(const Document& document)
-		{
-			if (document.HasMember("shader_program") && document["shader_program"].IsString())
-			{
-				std::shared_ptr<ShaderProgram> shaderProgram = _resourceManager.lock()->FindAsset<ShaderProgram>(document["shader_program"].GetString());
-				_shaderProgram = shaderProgram;
-			}
-		}
-
-		void Material::AssignColour(const Document& document)
-		{
-			if (document.HasMember("colour") && document["colour"].IsArray())
-			{
-				const Value& colour = document["colour"];
-				if (colour.Size() == 3)
+				else if (document[propertyName.c_str()].IsArray())
 				{
-					_colour = glm::vec4(colour[0].GetFloat(), colour[1].GetFloat(), colour[2].GetFloat(), 1);
+					const Value& array = document[propertyName.c_str()];
+					if (array.Size() > 0)
+					{
+						if ((array[0].IsFloat() || array[0].IsInt()))
+						{
+							switch (array.Size())
+							{
+								case 2:
+								{
+									AssignProperty_Vec2(propertyName, glm::vec2(array[0].GetFloat(), array[1].GetFloat()));
+								}break;
+								case 3:
+								{
+									AssignProperty_Vec3(propertyName, glm::vec3(array[0].GetFloat(), array[1].GetFloat(), array[2].GetFloat()));
+								}break;
+								case 4:
+								{
+									AssignProperty_Vec4(propertyName, glm::vec4(array[0].GetFloat(), array[1].GetFloat(), array[2].GetFloat(), array[3].GetFloat()));
+								}break;
+							}
+						}
+					}
 				}
-				else if (colour.Size() == 4)
+				else if (document[propertyName.c_str()].IsString())
 				{
-					_colour = glm::vec4(colour[0].GetFloat(), colour[1].GetFloat(), colour[2].GetFloat(), colour[3].GetFloat());
+					std::string propertyContent = document[propertyName.c_str()].GetString();
+					if (propertyContent.find(".glsl") != std::string::npos)
+					{
+						AssignProperty_ShaderProgram(propertyContent);
+					}
+					else if (propertyContent.find(".png") != std::string::npos)
+					{
+						AssignProperty_Texture(propertyName, propertyContent);
+					}
 				}
 			}
 		}
 
-		void Material::AssignRoughness(const Document& document)
+		void Material::AssignProperty_ShaderProgram(const std::string& resourcePath)
 		{
-			if (document.HasMember("roughness") && (document["roughness"].IsFloat() || document["roughness"].IsInt()))
-			{
-				_roughness = document["roughness"].GetFloat();
-			}
+			MaterialShader = _resourceManager.lock()->FindAsset<ShaderProgram>(resourcePath);
 		}
 
-		void Material::AssignMetallic(const Document& document)
+		void Material::AssignProperty_Texture(const std::string& propertyKey, const std::string& resourcePath)
 		{
-			if (document.HasMember("metallic") && (document["metallic"].IsFloat() || document["metallic"].IsInt()))
+			if (!Properties_Texture.count(propertyKey))
 			{
-				_metallic = document["metallic"].GetFloat();
+				Properties_Texture.insert(std::pair < std::string, std::shared_ptr<Texture> > (propertyKey, _resourceManager.lock()->FindAsset<Texture>(resourcePath)));
+			}
+			else
+			{
+				Properties_Texture[propertyKey] = _resourceManager.lock()->FindAsset<Texture>(resourcePath);
 			}
 		}
 
-		void Material::AssignAlbedoTexture(const Document& document)
+		void Material::AssignProperty_Float(const std::string& propertyKey, float materialProperty)
 		{
-			if (document.HasMember("albedo_texture_map") && document["albedo_texture_map"].IsString())
+			if (!Properties_Float.count(propertyKey))
 			{
-				_albedoTexture = _resourceManager.lock()->FindAsset<Texture>(document["albedo_texture_map"].GetString());
+				Properties_Float.insert(std::pair<std::string, float>(propertyKey, materialProperty));
+			}
+			else
+			{
+				Properties_Float[propertyKey] = materialProperty;
 			}
 		}
 
-		void Material::AssignNormalTexture(const Document& document)
+		void Material::AssignProperty_Vec2(const std::string& propertyKey, glm::vec2 materialProperty)
 		{
-			if (document.HasMember("normal_texture_map") && document["normal_texture_map"].IsString())
+			if (!Properties_Vec2.count(propertyKey))
 			{
-				_normalTexture = _resourceManager.lock()->FindAsset<Texture>(document["normal_texture_map"].GetString());
+				Properties_Vec2.insert(std::pair<std::string, glm::vec2>(propertyKey, materialProperty));
+			}
+			else
+			{
+				Properties_Vec2[propertyKey] = materialProperty;
 			}
 		}
 
-		glm::vec4& Material::Colour() { return _colour; }
-		float& Material::Roughness() { return _roughness; }
-		float& Material::Metallic() { return _metallic; }
-		std::shared_ptr<ShaderProgram>& Material::GetShaderProgram() 
-		{ 
-			if (!_shaderProgram) [[unlikely]]
+		void Material::AssignProperty_Vec3(const std::string& propertyKey, glm::vec3 materialProperty)
+		{
+			if (!Properties_Vec3.count(propertyKey))
 			{
-				_shaderProgram = ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/default_shader_program.glsl");
+				Properties_Vec3.insert(std::pair<std::string, glm::vec3>(propertyKey, materialProperty));
 			}
-
-			return _shaderProgram; 
+			else
+			{
+				Properties_Vec3[propertyKey] = materialProperty;
+			}
 		}
-		std::shared_ptr<Texture>& Material::GetAlbedoTexture() { return _albedoTexture; }
-		std::shared_ptr<Texture>& Material::GetNormalTexture() { return _normalTexture; }
+
+		void Material::AssignProperty_Vec4(const std::string& propertyKey, glm::vec4 materialProperty)
+		{
+			if (!Properties_Vec4.count(propertyKey))
+			{
+				Properties_Vec4.insert(std::pair<std::string, glm::vec4>(propertyKey, materialProperty));
+			}
+			else
+			{
+				Properties_Vec4[propertyKey] = materialProperty;
+			}
+		}
 	}
 }
