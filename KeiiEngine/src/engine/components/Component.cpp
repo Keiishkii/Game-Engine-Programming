@@ -4,9 +4,9 @@
 #include "engine/Core.h"
 #include "engine/Scene.h"
 #include "engine/Entity.h"
-#include "engine/TimeManager.h"
-#include "engine/InputManager.h"
-#include "engine/Inputs.h"
+#include "engine/time/TimeManager.h"
+#include "engine/input/InputManager.h"
+#include "engine/input/Inputs.h"
 
 namespace Engine
 {

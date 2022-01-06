@@ -1,8 +1,8 @@
 #include "engine/KeiiEngine.h"
 
 #include "ShaderTextureSampler.h"
-#include "glm/stb_image.h"
-#include "glm/stb_image_write.h"
+#include "stb/stb_image.h"
+#include "stb/stb_image_write.h"
 
 #include <iostream>
 #include <vector>

@@ -1,4 +1,8 @@
 #include "VertexBuffer.h"
+#include "engine/error-handling/Exception.h"
+
+
+using Engine::ErrorHandling::Exception;
 
 namespace Engine
 {
@@ -8,15 +12,15 @@ namespace Engine
 		{
 			glGenBuffers(1, &_ID);
 
-			if (!_ID)
+			if (!_ID) [[unlikely]]
 			{
-				throw std::exception();
+				throw Exception("Failed to generate 'Vertex Buffer' ID");
 			}
 		}
 
 		GLuint VertexBuffer::GetID()
 		{
-			if (_dirty)
+			if (_dirty) [[unlikely]]
 			{
 				glBindBuffer(GL_ARRAY_BUFFER, _ID);
 				glBufferData(GL_ARRAY_BUFFER, sizeof(_data.at(0)) * _data.size(), &_data.at(0), GL_STATIC_DRAW);
@@ -32,7 +36,7 @@ namespace Engine
 		{
 			if (_components != 0 && _components != 2)
 			{
-				throw std::exception();
+				throw Exception("Failed to add value to vertex list due to it being of size 2 and not " + _components);
 			}
 
 			_data.push_back(_value.x);
@@ -47,7 +51,7 @@ namespace Engine
 		{
 			if (_components != 0 && _components != 3)
 			{
-				throw std::exception();
+				throw Exception("Failed to add value to vertex list due to it being of size 3 and not " + _components);
 			}
 
 			_data.push_back(_value.x);
@@ -63,7 +67,7 @@ namespace Engine
 		{
 			if (_components != 0 && _components != 4)
 			{
-				throw std::exception();
+				throw Exception("Failed to add value to vertex list due to it being of size 4 and not " + _components);
 			}
 
 			_data.push_back(_value.x);

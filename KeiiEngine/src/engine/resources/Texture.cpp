@@ -1,10 +1,13 @@
-#include "glm/stb_image.h"
-#include "glm/stb_image_write.h"
+#include "stb/stb_image.h"
+#include "stb/stb_image_write.h"
 #include <iostream>
 
 #include "Texture.h"
 #include "ResourceManager.h"
 #include "engine/error-handling/Exception.h"
+
+
+using Engine::ErrorHandling::Exception;
 
 namespace Engine
 {
@@ -29,7 +32,7 @@ namespace Engine
 			_texture = stbi_load(path.c_str(), &_width, &_height, NULL, _channelCount);
 
 			if (!_texture)
-				throw ErrorHandling::Exception("Failed to load texture");
+				throw Exception("Failed to load texture: " + subPath);
 		}
 
 		GLuint Texture::GetTextureID()
@@ -40,7 +43,7 @@ namespace Engine
 
 				if (!_textureID)
 				{
-					throw ErrorHandling::Exception("Failed to create a texture ID for the albedo texture.");
+					throw Exception("Failed to create a texture ID for the albedo texture.");
 				}
 				else
 				{

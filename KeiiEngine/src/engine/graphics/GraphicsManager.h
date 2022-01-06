@@ -29,8 +29,8 @@ namespace Engine
 		
 		
 		private:
-			void Initialise(std::shared_ptr<Engine::Core> core);
-			void SDLInitialisation();
+			void Initialise(std::shared_ptr<Engine::Core> core, int windowWidth, int windowHeight);
+			void SDLInitialisation(int windowWidth, int windowHeight);
 
 			void RenderFrame(std::shared_ptr<Scene> activeScene);
 			void RenderSkybox(std::shared_ptr<ResourceManagement::SkyboxMaterial> skybox, const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix);

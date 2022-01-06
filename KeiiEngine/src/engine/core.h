@@ -14,6 +14,7 @@ namespace Engine
 		struct Texture;
 	}
 
+	namespace Audio { struct AudioManager; }
 	namespace ErrorHandling { struct Debugger; }
 	namespace Graphics
 	{
@@ -44,9 +45,11 @@ namespace Engine
 		std::shared_ptr<InputManager> _inputManager;
 		std::shared_ptr<ResourceManagement::ResourceManager> _resourceManager;
 		std::shared_ptr<Graphics::GraphicsManager> _graphicsManager;
+		std::shared_ptr<Audio::AudioManager> _audioManager;
 		std::shared_ptr<ErrorHandling::Debugger> _debugger;
 
-		bool _running;
+		bool _completedCoreInitialisation = false;
+		bool _running = false;
 	public:
 
 
@@ -58,18 +61,21 @@ namespace Engine
 
 		std::shared_ptr<Core> Self();
 	public:
-		static std::shared_ptr<Core> Initialise(int FPS, int fixedFPS);
+		static std::shared_ptr<Core> Initialise();
+		static std::shared_ptr<Core> Initialise(int windowWidth, int windowHeight, int FPS, int fixedFPS);
 
 		template <typename T>
 		void Start(std::shared_ptr<T> defaultScene)
 		{
-			_activeScene = defaultScene;
+			if (_completedCoreInitialisation)
+			{
+				_activeScene = defaultScene;
 
-			defaultScene->Scene::Initialise(Self());
-			defaultScene->LoadScene();
+				defaultScene->Scene::Initialise(Self());
+				defaultScene->LoadScene();
 
-			_running = true;
-			MainLoop();
+				MainLoop();
+			}
 		}
 
 		void Stop();

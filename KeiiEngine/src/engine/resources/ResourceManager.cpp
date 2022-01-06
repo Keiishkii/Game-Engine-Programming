@@ -1,7 +1,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "glm/stb_image.h"
-#include "glm/stb_image_write.h"
+#include "stb/stb_image.h"
+#include "stb/stb_image_write.h"
 
 
 #include "ResourceManager.h"
@@ -72,21 +72,14 @@ namespace Engine
 		{
 			self->_self = self;
 			self->_core = core;
-
-			try
+			
+			if (!(_resourceLocationFound || FindResourceFolder()))
 			{
-				if (!(_resourceLocationFound || FindResourceFolder()))
-				{
-					throw Exception("Could not find the 'Resource' folder location.");
-				}
-				else
-				{
-					FBXInitialisation();
-				}
+				throw Exception("Could not find the 'Resource' folder location.");
 			}
-			catch (Exception e)
+			else
 			{
-				e.Print();
+				FBXInitialisation();
 			}
 		}
 

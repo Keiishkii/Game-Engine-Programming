@@ -14,11 +14,13 @@ if(MSVC)
  		contrib/SDL2/include/SDL2 	#For SDL.h
  		contrib/glew/include/GL 	#For glew.h
 		contrib/FBXSDK/include 		#For fbxsdk.h
+		contrib/OpenAL/include 		#For fbxsdk.h
 	)
 	link_directories(
  		${CMAKE_SOURCE_DIR}/contrib/SDL2/lib/x64
  		${CMAKE_SOURCE_DIR}/contrib/glew/lib/Release/x64
  		${CMAKE_SOURCE_DIR}/contrib/FBXSDK/lib/vs2017/x64/release
+ 		${CMAKE_SOURCE_DIR}/contrib/OpenAL/libs/Win64
 	)
 else()
  	#Linux, Emscripten, macOS equivalents
@@ -45,15 +47,28 @@ add_library(keiiengine
 	src/engine/Core.cpp
 	src/engine/Core.h
 	
-	src/engine/TimeManager.cpp
-	src/engine/TimeManager.h
-
-	src/engine/InputManager.cpp
-	src/engine/InputManager.h
 	
-	src/engine/Inputs.cpp
-	src/engine/Inputs.h
+		#Time
+	src/engine/time/TimeManager.cpp
+	src/engine/time/TimeManager.h
 
+
+		#Inputs
+	src/engine/input/InputManager.cpp
+	src/engine/input/InputManager.h
+	
+	src/engine/input/Inputs.cpp
+	src/engine/input/Inputs.h
+
+
+		#Audio
+	src/engine/audio/AudioManager.cpp
+	src/engine/audio/AudioManager.h
+	
+	src/engine/audio/AudioBuffer.cpp
+	src/engine/audio/AudioBuffer.h
+	
+	
 		#Graphics
 	src/engine/graphics/GraphicsManager.cpp
 	src/engine/graphics/GraphicsManager.h
@@ -81,6 +96,9 @@ add_library(keiiengine
 		#Components
 	src/engine/components/Component.cpp
 	src/engine/components/Component.h
+	
+	src/engine/components/AudioSource.cpp
+	src/engine/components/AudioSource.h
 
 	src/engine/components/Transform.cpp
 	src/engine/components/Transform.h
@@ -126,8 +144,8 @@ add_library(keiiengine
 	src/engine/resources/SkyboxMaterial.cpp
 	src/engine/resources/SkyboxMaterial.h
 
-	src/engine/resources/Sound.cpp
-	src/engine/resources/Sound.h
+	src/engine/resources/AudioClip.cpp
+	src/engine/resources/AudioClip.h
 )
 
 
@@ -136,6 +154,7 @@ target_link_libraries(keiiengine
 	glew32
 	openGL32
 	libfbxsdk
+	OpenAL32
 )
 
 add_executable(game

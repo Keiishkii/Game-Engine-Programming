@@ -1,4 +1,4 @@
-#include "glm/stb_image.h"
+#include "stb/stb_image.h"
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
 

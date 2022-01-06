@@ -2,7 +2,7 @@
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
 
-#include "glm/stb_image_write.h"
+#include "stb/stb_image_write.h"
 
 #include "engine/core.h"
 #include "engine/Scene.h"
@@ -22,48 +22,41 @@ namespace Engine
 {
 	namespace Graphics
 	{
-		void GraphicsManager::Initialise(std::shared_ptr<Engine::Core> core)
+		void GraphicsManager::Initialise(std::shared_ptr<Engine::Core> core, int windowWidth, int windowHeight)
 		{
 			_core = core;
 
-			SDLInitialisation();
+			SDLInitialisation(windowWidth, windowHeight);
 			SetPostProcessingShader(core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/buffer_shader_shader.glsl"));
 		}
 
-		void GraphicsManager::SDLInitialisation()
+		void GraphicsManager::SDLInitialisation(int windowWidth, int windowHeight)
 		{
-			_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 2000, 1200, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
+			_window = std::make_shared<SDL_Window*>(SDL_CreateWindow("Keii Engine", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL));
+			
+			//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+			//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
-			try
+			if (!SDL_GL_CreateContext(*_window))
 			{
-				//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-				//SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+				throw Exception("Failed to create window context");
+			}
+			else
+			{
+				int i = 0;
+				SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &i);
 
-				if (!SDL_GL_CreateContext(*_window))
+				if (SDL_SetRelativeMouseMode(SDL_TRUE))
 				{
-					throw Exception("Failed to create window context");
+					throw Exception("Failed to set relative mouse position");
 				}
 				else
 				{
-					int i = 0;
-					SDL_GL_GetAttribute(SDL_GL_DEPTH_SIZE, &i);
-
-					if (SDL_SetRelativeMouseMode(SDL_TRUE))
+					if (glewInit() != GLEW_OK)
 					{
-						throw Exception("Failed to set relative mouse position");
-					}
-					else
-					{
-						if (glewInit() != GLEW_OK)
-						{
-							throw Exception("Failed to initialise GLEW");
-						}
+						throw Exception("Failed to initialise GLEW");
 					}
 				}
-			}
-			catch (Exception e)
-			{
-				e.Print();
 			}
 		}
 
