@@ -10,6 +10,7 @@
 #include "glm/ext.hpp"
 
 #include "Core.h"
+#include "SystemIndexer.h"
 #include "time/TimeManager.h"
 #include "input/InputManager.h"
 #include "input/Inputs.h"
@@ -45,7 +46,10 @@ namespace Engine
 		core->_self = core;
 
 		try
-		{		// Error Handling
+		{		// System Indexer
+			core->_systemIndexer = std::make_shared<Engine::SystemIndexer>();
+
+				// Error Handling
 			core->_debugger = std::make_shared<ErrorHandling::Debugger>();
 
 				// Resource Manager
@@ -75,6 +79,20 @@ namespace Engine
 
 		return core;
 	}
+
+	Core::~Core()
+	{
+		_activeScene.reset();
+		_resourceManager.reset();
+		_graphicsManager.reset();
+		_audioManager.reset();
+		_timeManager.reset();
+		_inputManager.reset();
+		_systemIndexer.reset();
+		_debugger.reset();
+	}
+
+
 
 	void Core::MainLoop()
 	{
@@ -126,5 +144,6 @@ namespace Engine
 	std::shared_ptr<Audio::AudioManager> Core::AudioManager() { return _audioManager; }
 	std::shared_ptr<ResourceManager> Core::ResourceManager() { return _resourceManager; }
 	std::shared_ptr<TimeManager> Core::TimeManager() { return _timeManager; }
+	std::shared_ptr<SystemIndexer> Core::SystemIndexer() { return _systemIndexer; }
 	std::shared_ptr<InputManager> Core::InputManager() { return _inputManager; }
 }

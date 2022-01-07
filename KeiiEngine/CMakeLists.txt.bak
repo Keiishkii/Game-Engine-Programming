@@ -96,6 +96,12 @@ add_library(keiiengine
 		#Components
 	src/engine/components/Component.cpp
 	src/engine/components/Component.h
+	
+	src/engine/components/AudioSource.cpp
+	src/engine/components/AudioSource.h
+	
+	src/engine/components/AudioListener.cpp
+	src/engine/components/AudioListener.h
 
 	src/engine/components/Transform.cpp
 	src/engine/components/Transform.h

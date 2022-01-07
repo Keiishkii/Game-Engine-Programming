@@ -44,6 +44,9 @@ add_library(keiiengine
 
 
 		#Core
+	src/engine/SystemIndexer.cpp
+	src/engine/SystemIndexer.h
+	
 	src/engine/Core.cpp
 	src/engine/Core.h
 	
@@ -99,6 +102,9 @@ add_library(keiiengine
 	
 	src/engine/components/AudioSource.cpp
 	src/engine/components/AudioSource.h
+	
+	src/engine/components/AudioListener.cpp
+	src/engine/components/AudioListener.h
 
 	src/engine/components/Transform.cpp
 	src/engine/components/Transform.h

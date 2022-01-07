@@ -10,6 +10,7 @@ namespace Engine
 	struct Scene;
 	struct Entity;
 	struct TimeManager;
+	struct SystemIndexer;
 	struct Inputs;
 	namespace Components
 	{
@@ -19,6 +20,8 @@ namespace Engine
 		{
 			friend Engine::Entity;
 
+		protected:
+			unsigned int _systemIndex = 0;
 		private:
 			bool _startCalled = false;
 
@@ -26,6 +29,7 @@ namespace Engine
 			std::weak_ptr<Transform> _transform;
 
 			std::weak_ptr<Engine::Core> _core;
+			std::weak_ptr<Engine::SystemIndexer> _systemIndexer;
 			std::weak_ptr<Engine::Scene> _scene;
 			std::weak_ptr<Engine::Entity> _entity;
 			std::weak_ptr<Engine::TimeManager> _timeManager;
@@ -43,9 +47,11 @@ namespace Engine
 			std::shared_ptr<Component> Self();
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity);
+			~Component();
 
 			std::shared_ptr<Transform> Transform();
 			std::shared_ptr<Engine::Core> Core();
+			std::shared_ptr<Engine::SystemIndexer> SystemIndexer();
 			std::shared_ptr<Engine::Scene> Scene();
 			std::shared_ptr<Engine::Entity> Entity();
 			std::shared_ptr<Engine::TimeManager> Time();

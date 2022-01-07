@@ -11,6 +11,21 @@ namespace Engine
 {
 	namespace ErrorHandling
 	{
+		void Debugger::Print(std::string content)
+		{
+			std::cout << "Log: " << content << std::endl;
+		}
+
+		void Debugger::PrintWarning(std::string content)
+		{
+			std::cout << "\x1B[33m" << "Warning: " << "\033[0m" << content << std::endl;
+		}
+
+		void Debugger::PrintError(std::string content)
+		{
+			std::cout << "\x1B[31m" << "Error: " << "\033[0m" << content << std::endl;
+		}
+
 		void Debugger::LogUpdate()
 		{
 		#ifdef ENGINE_DEBUGGING_UPDATE

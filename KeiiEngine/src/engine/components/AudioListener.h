@@ -1,31 +1,24 @@
-#include <glm/vec3.hpp>
-#include <glm/vec4.hpp>
-#include <glm/mat4x4.hpp>
+#include <memory>
+#include <al.h>
+#include <alc.h>
 
 #include "Component.h"
 
 namespace Engine
 {
-	struct Core;
 	namespace Components
 	{
-		struct Light : Component
+		struct AudioListener : Component
 		{
-			friend Engine::Core;
-
 		private:
-			float _intensity;
-			glm::vec3 _colour;
 		public:
 
 
 		private:
+			virtual void Update() override;
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
-			~Light();
-
-			glm::vec3& Colour();
-			float& Intensity();
+			~AudioListener();
 		};
 	}
 }

@@ -15,6 +15,7 @@ namespace Engine
 		private:
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
+			~ReflectionProbe();
 
 			void ReGenerateReflectionCubeMap();
 			std::shared_ptr<ResourceManagement::TextureCubeMap> ReflectionCubeMap();

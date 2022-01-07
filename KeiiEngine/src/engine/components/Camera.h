@@ -32,7 +32,8 @@ namespace Engine
 			void GenerateNewProjectionMatrix(float windowWidth, float windowHeight, float fieldOfView);
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
-			
+			~Camera();
+
 			glm::mat4x4& ProjectionMatrix();
 		};
 	}

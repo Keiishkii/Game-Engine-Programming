@@ -31,6 +31,7 @@
 
 // Components
 	#include "components/Component.h"
+	#include "components/AudioListener.h"
 	#include "components/AudioSource.h"
 	#include "components/Transform.h"
 	#include "components/Camera.h"

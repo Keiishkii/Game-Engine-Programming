@@ -1,11 +1,17 @@
 #include "Scene.h"
 
+#include <string>
+
 #include "Core.h"
 #include "Entity.h"
+#include "error-handling/Debugger.h"
 #include "graphics/GraphicsManager.h"
 #include "resources/ResourceManager.h"
 #include "resources/SkyboxMaterial.h"
 #include "resources/Texture.h"
+
+
+using Engine::ErrorHandling::Debugger;
 
 namespace Engine
 {
@@ -14,23 +20,34 @@ namespace Engine
 		_core = core;
 	}
 
-	void Scene::LoadScene() 
-	{ 
+	Scene::~Scene()
+	{
+		_entitys.clear();
+		_entityList.clear();
 	}
+
+	void Scene::LoadScene() { }
 
 	void Scene::Update()
 	{
-		for (int i = 0; i < _entityList.size(); i++)
+		if (_audioListeners.size() != 1)
 		{
-			_entityList[i]->Update();
+			Debugger::PrintWarning((_audioListeners.size() > 1) ?
+				("There is more then one 'AudioListener' in the scene, remove " + std::to_string(_audioListeners.size() - 1) + " from the scene.") :
+				("There is no 'AudioListner' in the scene."));
+		}
+
+		for (int i = 0; i < Entitys().size(); i++)
+		{
+			Entitys()[i]->Update();
 		}
 	}
 
 	void Scene::PhysicsUpdate()
 	{
-		for (int i = 0; i < _entityList.size(); i++)
+		for (int i = 0; i < Entitys().size(); i++)
 		{
-			_entityList[i]->PhysicsUpdate();
+			Entitys()[i]->PhysicsUpdate();
 		}
 	}
 
@@ -86,9 +103,9 @@ namespace Engine
 	void Scene::RenderScene(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 	{
 		int channelNumber = 4;
-		for (int j = 0; j < _entityList.size(); j++)
+		for (int j = 0; j < Entitys().size(); j++)
 		{
-			_entityList[j]->Render(transformationMatrix, projectionMatrix);
+			Entitys()[j]->Render(transformationMatrix, projectionMatrix);
 		}
 
 		Core()->GraphicsManager()->RenderSkybox(Skybox(), transformationMatrix, projectionMatrix);
@@ -102,19 +119,27 @@ namespace Engine
 		std::shared_ptr<Entity> entity = std::make_shared<Entity>(name);
 
 		entity->Initialise(entity, Core());;
-		_entityList.push_back(entity);
+
+		_entitys[entity->_systemIndex] = entity;
+		_entityListDirty = true;
 
 		return entity;
+	}
+
+	void Scene::RemoveEntity(std::shared_ptr<Entity> entity)
+	{
+		_entitys.erase(_entitys.find(entity->_systemIndex));
+		_entityListDirty = true;
 	}
 
 	std::shared_ptr<Entity> Scene::FindEntity(std::string name)
 	{
 		std::shared_ptr<Entity> foundObject;
-		for (int i = 0; i < _entityList.size(); i++)
+		for (int i = 0; i < Entitys().size(); i++)
 		{
-			if (_entityList[i]->Name().find(name) != std::string::npos)
+			if (Entitys()[i]->Name().find(name) != std::string::npos)
 			{
-				foundObject = _entityList[i];
+				foundObject = Entitys()[i];
 				break;
 			}
 		}
@@ -122,17 +147,68 @@ namespace Engine
 		return foundObject;
 	}
 
+	std::vector<std::shared_ptr<Entity>> Scene::Entitys()
+	{
+		if (_entityListDirty)
+		{
+			_entityList.clear();
+			for (const std::pair<unsigned int, std::shared_ptr<Entity>>& entity : _entitys)
+			{
+				_entityList.push_back(entity.second);
+			}
+
+			_entityListDirty = false;
+		}
+
+		return _entityList;
+	}
+
+
+
 	std::shared_ptr<Components::Camera> Scene::MainCamera()
 	{
-		std::shared_ptr<Components::Camera> mainCamera = NULL;
-		
-		if (_cameraList.size() > 0)
-			mainCamera = _cameraList[0].lock();
+		std::shared_ptr<Components::Camera> mainCamera = _mainCamera.lock();
+		if (!mainCamera)
+		{
+			std::vector<std::weak_ptr<Components::Camera>> cameras = Cameras();
+			
+			if (cameras.size() > 0)
+			{
+				_mainCamera = cameras[0];
+				mainCamera = _mainCamera.lock();
+			}
+			else
+			{
+				Debugger::PrintWarning("There is no 'Camera' component in the scene.");
+			}
+		}
 
 		return mainCamera;
 	}
 
-	std::vector<std::weak_ptr<Components::Light>> Scene::Lights() { return _lightList; }
+	std::vector<std::weak_ptr<Components::Camera>> Scene::Cameras()
+	{
+		std::vector<std::weak_ptr<Components::Camera>> cameras;
+		for (const std::pair<unsigned int, std::weak_ptr<Components::Camera>>& camera : _cameras)
+		{
+			cameras.push_back(camera.second);
+		}
+
+		return cameras;
+	}
+
+	std::vector<std::weak_ptr<Components::Light>> Scene::Lights() 
+	{
+		std::vector<std::weak_ptr<Components::Light>> lights;
+		for (const std::pair<unsigned int, std::weak_ptr<Components::Light>>& light : _lights)
+		{
+			lights.push_back(light.second);
+		}
+
+		return lights;
+	}
+
+
 	std::shared_ptr<Engine::Core> Scene::Core() { return _core.lock(); }
 	std::shared_ptr<ResourceManagement::SkyboxMaterial>& Scene::Skybox() { return _skyboxMaterial; }
 }

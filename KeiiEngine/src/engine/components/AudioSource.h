@@ -22,6 +22,7 @@ namespace Engine
 
 		private:
 			virtual void Start() override;
+			virtual void Update() override;
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity) override;
 			~AudioSource();

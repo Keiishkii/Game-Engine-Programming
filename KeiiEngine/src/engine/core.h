@@ -32,12 +32,14 @@ namespace Engine
 	struct TimeManager;
 	struct InputManager;
 	struct Scene;
+	struct SystemIndexer;
 	struct Core
 	{
 		friend Scene;
 
 	private:
 		std::weak_ptr<Core> _self;
+		std::shared_ptr<SystemIndexer> _systemIndexer;
 
 		std::shared_ptr<Scene> _activeScene;
 
@@ -64,6 +66,8 @@ namespace Engine
 		static std::shared_ptr<Core> Initialise();
 		static std::shared_ptr<Core> Initialise(int windowWidth, int windowHeight, int FPS, int fixedFPS);
 
+		~Core();
+
 		template <typename T>
 		void Start(std::shared_ptr<T> defaultScene)
 		{
@@ -84,6 +88,7 @@ namespace Engine
 		std::shared_ptr<Graphics::GraphicsManager> GraphicsManager();
 		std::shared_ptr<Audio::AudioManager> AudioManager();
 		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
+		std::shared_ptr<SystemIndexer> SystemIndexer();
 		std::shared_ptr<TimeManager> TimeManager();
 		std::shared_ptr<InputManager> InputManager();
 		std::shared_ptr<Scene> ActiveScene();

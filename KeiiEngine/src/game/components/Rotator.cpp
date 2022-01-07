@@ -9,6 +9,11 @@ namespace Game
 
 	void Rotator::Update()
 	{
+		if (test-- < 0)
+		{
+			Scene()->RemoveEntity(Entity());
+		}
+
 		Transform()->Rotation() = (glm::quat(_eulerRotationSpeed * Time()->TimeSinceStartOfProgram())) * _startingRotation;
 	}
 

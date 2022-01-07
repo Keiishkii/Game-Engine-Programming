@@ -1,6 +1,7 @@
 #include "Component.h"
 #include "Camera.h"
 #include "Transform.h"
+#include "engine/SystemIndexer.h"
 #include "engine/Core.h"
 #include "engine/Scene.h"
 #include "engine/Entity.h"
@@ -15,12 +16,24 @@ namespace Engine
 		void Component::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
 			self->_self = self;
-			self->_entity = entity;
-			self->_transform = entity->Transform();
-			self->_core = entity->Core();
-			self->_scene = entity->Core()->ActiveScene();
-			self->_timeManager = entity->Core()->TimeManager();
-			self->_inputs = entity->Core()->InputManager()->Input();
+
+			_entity = entity;
+			_transform = entity->Transform();
+			_core = entity->Core();
+			_systemIndexer = Core()->SystemIndexer();
+			_scene = Core()->ActiveScene();
+			_timeManager = Core()->TimeManager();
+			_inputs = Core()->InputManager()->Input();
+
+			_systemIndex = SystemIndexer()->GetIndex();
+		}
+
+		Component::~Component()
+		{
+			if (SystemIndexer())
+			{
+				SystemIndexer()->ReturnIndex(_systemIndex);
+			}
 		}
 
 		void Component::Start() { }
@@ -39,6 +52,7 @@ namespace Engine
 		std::shared_ptr<Transform> Component::Transform() { return _transform.lock(); }
 		std::shared_ptr<Component> Component::Self() { return _self.lock(); }
 		std::shared_ptr<Engine::Core> Component::Core() { return _core.lock(); }
+		std::shared_ptr<SystemIndexer> Component::SystemIndexer() { return _systemIndexer.lock(); }
 		std::shared_ptr<Engine::Scene> Component::Scene() { return _scene.lock(); }
 		std::shared_ptr<Engine::Entity> Component::Entity() { return _entity.lock(); }
 		std::shared_ptr<Engine::TimeManager> Component::Time() { return _timeManager.lock(); }

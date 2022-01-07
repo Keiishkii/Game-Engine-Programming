@@ -130,7 +130,7 @@ namespace Game
 		std::shared_ptr<Entity> debuggingEntity = AddEntity("Debugger");
 		{
 			std::shared_ptr<Components::AudioSource> audioSource2 = debuggingEntity->AddComponent<Components::AudioSource>();
-			audioSource2->SetAudioClip(Core()->ResourceManager()->FindAsset<ResourceManagement::AudioClip>("- audio/music.ogg"));
+			audioSource2->SetAudioClip(Core()->ResourceManager()->FindAsset<ResourceManagement::AudioClip>("- audio/forest.ogg"));
 			audioSource2->PlayAudioClip();
 
 			//std::shared_ptr<Game::ShaderTextureSampler> shaderTextureSampler = debuggingEntity->AddComponent<Game::ShaderTextureSampler>();
@@ -153,6 +153,8 @@ namespace Game
 	{
 		std::shared_ptr<Entity> playerEntity = AddEntity("Player");
 		{
+			std::shared_ptr<Components::AudioListener> audioListener = playerEntity->AddComponent<Components::AudioListener>();
+
 			std::shared_ptr<ResourceManagement::Model> mesh = Core()->ResourceManager()->FindAsset<ResourceManagement::Model>("- models/shulk.fbx");
 			{
 				mesh->SetMaterial(0, Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/shulk/eye.material"));

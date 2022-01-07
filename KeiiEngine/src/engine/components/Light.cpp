@@ -14,8 +14,16 @@ namespace Engine
 	{
 		void Light::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
-			Scene()->_lightList.push_back(std::dynamic_pointer_cast<Light>(self));
+			Scene()->_lights[_systemIndex] = std::dynamic_pointer_cast<Light>(self);
 			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/point_light.png"));
+		}
+
+		Light::~Light()
+		{
+			if (Scene())
+			{
+				Scene()->_lights.erase(Scene()->_lights.find(_systemIndex));
+			}
 		}
 
 		glm::vec3& Light::Colour() { return _colour; };

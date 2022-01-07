@@ -5,6 +5,8 @@ namespace Game
 	struct Rotator : Engine::Components::Component
 	{
 	private:
+		int test = 500;
+
 		glm::quat _startingRotation;
 		glm::vec3 _eulerRotationSpeed;
 	public:

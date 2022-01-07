@@ -1,9 +1,15 @@
 #include <iostream>
 
 #include "AudioSource.h"
+#include "Transform.h"
+#include "Gizmo.h"
 #include "engine/audio/AudioManager.h"
 #include "engine/error-handling/Exception.h"
+#include "engine/resources/ResourceManager.h"
 #include "engine/resources/AudioClip.h"
+#include "engine/resources/Texture.h"
+#include "engine/Core.h"
+#include "engine/Entity.h"
 
 
 using Engine::ErrorHandling::Exception;
@@ -20,6 +26,8 @@ namespace Engine
 			{
 				throw Exception("Failed to generate 'Audio Source' ID");
 			}
+
+			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/audio_source.png"));
 		}
 
 		void AudioSource::Start()
@@ -30,20 +38,18 @@ namespace Engine
 			}
 		}
 
+		void AudioSource::Update()
+		{
+			glm::vec3 position = Transform()->Position();
+			alSource3f(_sourceID, AL_POSITION, position.x, position.y, position.z);
+		}
 
 
 		void AudioSource::PlayAudioClip()
 		{
-			std::cout << "Play Audio Clip" << std::endl;
-
 			if (_audioClip && !Audio::AudioManager::AudioErrorEncountered()) [[likely]]
 			{
-				alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
-				alSource3f(_sourceID, AL_POSITION, 0.0f, 0.0f, 0.0f);
-
 				alSourcei(_sourceID, AL_BUFFER, _audioClip->GetBufferID());
-				//alSourcef(_sourceID, AL_PITCH, variance);
-				//alSourcef(_sourceID, AL_GAIN, 1);
 
 				alSourcePlay(_sourceID);
 			}

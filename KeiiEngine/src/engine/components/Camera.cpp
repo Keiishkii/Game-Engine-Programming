@@ -22,8 +22,16 @@ namespace Engine
 	{
 		void Camera::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
-			Scene()->_cameraList.push_back(std::dynamic_pointer_cast<Camera>(self));
+			Scene()->_cameras[_systemIndex] = std::dynamic_pointer_cast<Camera>(self);
 			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/camera.png"));
+		}
+
+		Camera::~Camera()
+		{
+			if (Scene())
+			{
+				Scene()->_cameras.erase(Scene()->_cameras.find(_systemIndex));
+			}
 		}
 	
 		void Camera::GenerateNewProjectionMatrix(float windowWidth, float windowHeight, float fieldOfView)
