@@ -36,6 +36,11 @@ namespace Game
 
 	void ShaderTextureSampler::Update()
 	{
+		if (Input()->KeyDown(Input()->P))
+		{
+			Core()->AudioManager()->PlayAudioClip(Core()->ResourceManager()->FindAsset<ResourceManagement::AudioClip>("- audio/music.ogg"));
+		}
+
 		if (Input()->KeyDown(Input()->F))
 		{
 			activeProperty++;

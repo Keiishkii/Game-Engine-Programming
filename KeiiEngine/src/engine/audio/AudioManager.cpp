@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "AudioManager.h"
+#include "engine/resources/AudioClip.h"
 #include "engine/error-handling/Exception.h"
 
 using Engine::ErrorHandling::Exception;
@@ -63,10 +64,46 @@ namespace Engine
 
 				if (!_context || !*_context)
 				{
+					alcCloseDevice(*_device);
+
 					throw Exception("'Audio Context' not found.");
+				}
+				else
+				{
+					if (!alcMakeContextCurrent(*_context))
+					{
+						alcDestroyContext(*_context);
+						alcCloseDevice(*_device);
+
+						throw Exception("'Could not make context current.");
+					}
 				}
 			}
 		}
+
+
+
+		void AudioManager::PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip)
+		{
+			if (audioClip && !Audio::AudioManager::AudioErrorEncountered()) [[likely]]
+			{
+				ALuint sourceID;
+				alGenSources(1, &sourceID);
+
+
+				alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
+				alSource3f(sourceID, AL_POSITION, 0.0f, 0.0f, 0.0f);
+
+				alSourcei(sourceID, AL_BUFFER, audioClip->GetBufferID());
+
+				alSourcePlay(sourceID);
+
+
+				alDeleteSources(1, &sourceID);
+			}
+		}
+
+
 
 		AudioManager::~AudioManager()
 		{

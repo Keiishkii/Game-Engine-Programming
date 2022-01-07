@@ -82,6 +82,7 @@ namespace Engine
 
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
 		std::shared_ptr<Graphics::GraphicsManager> GraphicsManager();
+		std::shared_ptr<Audio::AudioManager> AudioManager();
 		std::shared_ptr<ResourceManagement::ResourceManager> ResourceManager();
 		std::shared_ptr<TimeManager> TimeManager();
 		std::shared_ptr<InputManager> InputManager();

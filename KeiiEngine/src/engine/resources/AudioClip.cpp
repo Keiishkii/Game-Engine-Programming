@@ -1,6 +1,3 @@
-#define STB_DEFINE
-#define STB_ONLY
-
 #include "stb/stb_vorbis.h"
 
 #include "AudioClip.h"
@@ -19,10 +16,10 @@ namespace Engine
 			std::string path = resourcesDirectory + subPath;
 	
 
-			short* audioData = NULL;
+			short* decodedAudio = NULL;
 			int channels = 0, sampleRate = 0;
 
-			size_t sampleCount = stb_vorbis_decode_filename(path.c_str(), &channels, &sampleRate, &audioData);
+			int sampleCount = stb_vorbis_decode_filename(path.c_str(), &channels, &sampleRate, &decodedAudio);
 			sampleCount = sampleCount - sampleCount % 4;
 
 			if (sampleCount == -1)
@@ -35,10 +32,10 @@ namespace Engine
 
 				_audioBuffer->SetFormat((channels == 1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16);
 				_audioBuffer->SetFrequency(sampleRate);
-				_audioBuffer->SetData(audioData, sampleCount);
+				_audioBuffer->SetData(decodedAudio, sampleCount);
 			}
 
-			free(audioData);
+			free(decodedAudio);
 		}
 
 

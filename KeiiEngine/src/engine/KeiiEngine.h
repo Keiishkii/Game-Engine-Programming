@@ -41,6 +41,7 @@
 
 // Audio
 	#include "audio/AudioManager.h"
+	#include "audio/AudioBuffer.h"
 
 // Graphics
 	#include "graphics/GraphicsManager.h"

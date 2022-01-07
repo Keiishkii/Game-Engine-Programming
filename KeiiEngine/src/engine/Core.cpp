@@ -123,6 +123,7 @@ namespace Engine
 	std::shared_ptr<Debugger> Core::Debugger() { return _debugger; }
 
 	std::shared_ptr<Graphics::GraphicsManager> Core::GraphicsManager() { return _graphicsManager; }
+	std::shared_ptr<Audio::AudioManager> Core::AudioManager() { return _audioManager; }
 	std::shared_ptr<ResourceManager> Core::ResourceManager() { return _resourceManager; }
 	std::shared_ptr<TimeManager> Core::TimeManager() { return _timeManager; }
 	std::shared_ptr<InputManager> Core::InputManager() { return _inputManager; }

@@ -38,12 +38,13 @@ namespace Engine
 
 			if (_audioClip && !Audio::AudioManager::AudioErrorEncountered()) [[likely]]
 			{
-				std::cout << "SOUND!" << std::endl;
 				alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
 				alSource3f(_sourceID, AL_POSITION, 0.0f, 0.0f, 0.0f);
+
 				alSourcei(_sourceID, AL_BUFFER, _audioClip->GetBufferID());
 				//alSourcef(_sourceID, AL_PITCH, variance);
-				alSourcef(_sourceID, AL_GAIN, 1);
+				//alSourcef(_sourceID, AL_GAIN, 1);
+
 				alSourcePlay(_sourceID);
 			}
 		}
@@ -58,6 +59,12 @@ namespace Engine
 		void AudioSource::SetAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip)
 		{
 			_audioClip = audioClip;
+		}
+
+
+		AudioSource::~AudioSource()
+		{
+			alDeleteSources(1, &_sourceID);
 		}
 	}
 }

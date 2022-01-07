@@ -8,6 +8,7 @@ namespace Engine
 {
 	struct Core;
 
+	namespace ResourceManagement { struct AudioClip; }
 	namespace Audio
 	{
 		struct AudioManager
@@ -26,6 +27,9 @@ namespace Engine
 
 			AudioManager(std::shared_ptr<Engine::Core> core);
 			~AudioManager();
+
+			void PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip);
+			//void PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip, float volume);
 		};
 	}
 }
