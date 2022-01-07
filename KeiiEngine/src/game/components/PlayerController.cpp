@@ -17,10 +17,7 @@ namespace Game
 
 	void PlayerController::Update()
 	{
-		if (Input()->KeyHeld(Input()->ESCAPE))
-			Core()->Stop();
-
-		//if (_cameraTransform)
+		if (_cameraTransform) [[likely]]
 		{
 			glm::vec3 cameraPosition = _cameraTransform->Position(), position = Transform()->Position();
 			glm::quat flattenedLookVector = glm::quatLookAt(glm::normalize(glm::vec3((cameraPosition.x - position.x), 0, ((cameraPosition.z - position.z)))), glm::vec3(0, 1, 0));

@@ -1,0 +1,87 @@
+Hello welcome to PBR
+
+PBR or Physical based rendering is the rendering 
+technique designed to simulate real world phenominon
+
+
+
+		[THEORY]
+
+The bases of PBR is the irradiance equation, the irradiance of a point
+in space describe the amount of light energy that the point coming 
+from all directions in the hemisphere above the point
+
+To calcullate this samples are taken from theoretically every direction and summed together.
+A single direction sample is known as a direction radiance.
+
+In practice however sampling infinatly many directions is imposible instead there are two different
+aproaches, IBL and light sampling.
+
+IBL or Image based lighting, sums up the integral by taking quantifiable steps around the hemisphere
+and using the resultant direction as a coordiante on a convoluted cube map of the enviroment
+and sampling this to get the avarage lighting from a given direction.
+
+The simpler aroach to this however would be to just use point lights in the scene, taking all direction
+but those towards a lights radiance as 0, and summing up only the radiances towards the light sources.
+This gives a reasonaly good looking results however unlike IBL, this looses the reflectance colour of the 
+scene around it.
+
+On top of calculating the radiance of a given direction the Bidirectional Reflectace Distribution 
+Function is also used, this focuses on the properties of the material, in perticular the roughness of the material.
+
+The idea goes that each material consists of many small casasm and mountains acting as ways of distorting the reflectance of light.
+Specifically this relates to the materials Specular lighting. 
+
+Specular lighting is also split from other components, these being the geomertry funciton, distribution funciton and fresnel effect funcition. 
+Each describe a seperate phenominon: 
+
+The Distribution function describes the average magnitude of difference from the angle of all microfacets 
+The Geomerty function describes the amount of light that is both blocked or shadowed by the micro-valleys and mountains across the materials surface
+And lastly the Fresnel effect defines just how much light from the surounding area should be reflected given how shallow the veiwing angle is.
+
+
+
+		[DESIGN]
+
+The diesign of my program is to allow for easy implemenation of shaders and new materials, to do so the renderer is given a material that contains the GLunint ID to the attached shader,
+the materials also contain disctionars of all shared attribute properties, such as textures, vectors and floats - an example of which is the property in_Roughness
+
+When rendering to the screen, I have opted to use a buffering system, drawing the scene to a texture first before following it up by rendering said texture to a screen wide QUAD
+
+Shaders themselves have also been combined into a single text file, containing both the vertex and fragment shader of a given program. 
+To let openGL decern which shader I am comiling I am using defines to allow for the access of specific parts
+
+
+
+		[Analysis]
+		
+My shader analysis will performed on 3 serpate shaders
+A phong shader,
+The shader using the GGX aproaches demonstraighted by the website LearnOpenGL
+And a customised shader using both the aproaches of Torrance-Sparrow Specular Lighting and Oren-Nayar's defuse light calculations.
+
+The tests would involve each shader having its performace calculated against a given number of lights in the scene. Starting from 1 and ending at 13
+
+To get valid perofrmace results for each test, I let the program run for about 10 seconds and the nsampled 24 frames and averaged them. 
+I repeated this as stated for each shader, 13 times where I would increase the light count by one. By the end of it these where my results.
+
+Though not perticularly clear at first, there does apear to be trends forming as lights are added, Torrance-Sparrow starts well but begins to become the slowest out of the 3.
+The phong shader apears the most erratic but unsurprisingly could be considered the most effiecit when converted to a straight plot.
+
+Ideally however the number of tests both with light counts and the averaged sample size would need to be increased.
+However without implementing new aproaches the largest arrays I my system can send to the graphics card is only 13 before the shaders fail to compile.
+
+
+The visual tests however are a bit more cut and dry.
+The red metal of the sword most resembles the red metal of this can, the Phong shader as shown on the right doesn't apear to hold much of a compitition with resembling the reflected lights
+
+The GGX shaders however look alot better, the colour is maintained very well and the bright white glows for when the light is parrallel or at sharp angles looks good. However unsurprisingly the colour of the background is not 
+maintaned unlike real life.
+
+The torrace-Sparrow / Oren-Nayar model definalty beats oout the Phong shader however it has its issues, the white shine is completely lost and even with the same material properties as the GGX shader the whole material seems alot
+darker.
+
+OVerall the best shader with both performance and visual quality taken into acount would have to be the LearnOpenGL style GGX model. The perofrmance differences where barely noticable on increasing the ligth count compared to the Phong shader
+As stated before however it would be intresting to see the results of a much larger sample test in the future.
+
+Thanks for watch

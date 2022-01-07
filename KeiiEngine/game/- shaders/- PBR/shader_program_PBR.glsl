@@ -1,4 +1,4 @@
-#define MAX_LIGHTS 10
+#define MAX_LIGHTS 13
 #define PI 3.1415926538
 
 #ifdef VERTEX_SHADER
@@ -110,7 +110,7 @@
 		vec3 baseReflectivity = mix(vec3(0.04), colour.rgb, out_Metallic);
 
 		vec3 viewRadiance = vec3(0.0);
-		for (int lightIndex = 0; lightIndex < out_LightCount; lightIndex++)
+		for (int lightIndex = 0; lightIndex < min(out_LightCount, MAX_LIGHTS); lightIndex++)
 		{
 			vec3 lightDirection = normalize(out_LightPositions[lightIndex] - out_FragmentPosition);
 			vec3 midDirection = normalize(lightDirection + viewDirection);
@@ -193,15 +193,10 @@
 	{
 		float kValue = pow((out_Roughness + 1), 2) / 8;
 
-		return SubGeomertry(dot_LightNormal, kValue) * SubGeomertry(dot_ViewNormal, kValue);
-	}
+		float termA = (dot_LightNormal) / (dot_LightNormal * (1 - kValue) + kValue);
+		float termB = (dot_ViewNormal) / (dot_ViewNormal * (1 - kValue) + kValue);
 
-	float SubGeomertry(float dotValue, float kValue)
-	{
-		float numerator = dotValue;
-		float denominator = dotValue * (1 - kValue) + kValue;
-
-		return numerator / denominator;
+		return termA * termB;
 	}
 
 	vec3 FresnelSchlick(vec3 baseReflectivity, float dot_MidView)

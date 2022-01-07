@@ -1,4 +1,6 @@
 #include <memory>
+#include <chrono>
+#include <iostream>
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
 
@@ -81,8 +83,13 @@ namespace Engine
 			if (mainCamera) [[likely]]
 			{
 				mainCamera->GenerateNewProjectionMatrix(width, height, 45);
+
+				std::chrono::high_resolution_clock::time_point frameRenderStart = std::chrono::high_resolution_clock::now();
 				GLuint renderTexture = activeScene->RenderSceneToTextureBuffer(mainCamera->Transform()->TransformationMatrix(), mainCamera->ProjectionMatrix(), width, height);
-				
+
+				std::chrono::duration<float> frameRenderDuration = std::chrono::high_resolution_clock::now() - frameRenderStart;
+				std::cout << frameRenderDuration.count() << std::endl;
+
 				glClearColor(0.2f, 0.4f, 0.5f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT);
 				glDisable(GL_DEPTH_TEST);

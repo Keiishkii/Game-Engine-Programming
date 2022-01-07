@@ -15,7 +15,7 @@ namespace Game
 		void CreatePlayerEntity();
 		void CreateMonadoEntity();
 
-		void CreateLights();
+		void CreateLights(int lightCount);
 		void CreateReflectionProbes();
 
 		void CreateDebuggingEntity();

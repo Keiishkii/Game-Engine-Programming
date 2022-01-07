@@ -1,5 +1,5 @@
 {
-	"shader_program": 		"- shaders/- PBR/shader_program_PBR-Torranec-Sparrow-Model.glsl",
+	"shader_program": 		"- shaders/- PBR/shader_program_PBR-Torrance-Sparrow-Model.glsl",
 	
 	"in_Albedo":			"- textures/default.png",
 	

@@ -75,7 +75,9 @@ namespace Engine
 			_timeManager->WaitForEndOfFrame();
 			_debugger->LogUpdate();
 
-			if (_inputManager->Input()->QuitEvent()) [[unlikely]] _running = false;
+
+			if (_inputManager->Input()->KeyHeld(_inputManager->Input()->ESCAPE)) Stop();
+			else if (_inputManager->Input()->QuitEvent()) [[unlikely]] _running = false;
 		}
 	}
 
@@ -91,7 +93,7 @@ namespace Engine
 
 	void Core::Stop()
 	{
-		_running = !_running;
+		_running = false;
 	}
 
 	std::shared_ptr<Core> Core::Self() { return _self.lock(); }

@@ -1,9 +1,0 @@
-{
-	"shader_program": 		"- shaders/shader_program_Phong.glsl",
-	
-	"in_Albedo":	"- textures/default.png",
-	
-	"in_Colour": 			[0, 1, 1, 1],
-	"in_SpecularStrength": 	0.5,
-	"in_Shininess": 		32
-}

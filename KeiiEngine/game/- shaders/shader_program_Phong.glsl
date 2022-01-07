@@ -1,4 +1,4 @@
-#define MAX_LIGHTS 10
+#define MAX_LIGHTS 13
 #define PI 3.1415926538
 
 #ifdef VERTEX_SHADER

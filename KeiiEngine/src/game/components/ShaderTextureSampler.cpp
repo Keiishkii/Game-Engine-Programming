@@ -13,7 +13,7 @@ namespace Game
 {
 	void ShaderTextureSampler::Start()
 	{
-		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_PBR-Torranec-Sparrow-Model.glsl"));
+		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_PBR-Torrance-Sparrow-Model.glsl"));
 		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- PBR/shader_program_PBR.glsl"));
 		_shaders.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/shader_program_Phong.glsl"));
 
@@ -24,6 +24,13 @@ namespace Game
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/red_metal_core.material"));
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/gold.material"));
 		_materials.push_back(Core()->ResourceManager()->FindAsset<ResourceManagement::Material>("- materials/monado/dark_gold.material"));
+
+
+		for (int i = 0; i < _materials.size(); i++)
+		{
+			_materials[i]->MaterialShader = _shaders[1];
+		}
+
 
 		activeMaterialSelection = 0;
 		std::cout << "Material Selected: [" << _materials[activeMaterialSelection]->GetName() << "]" << std::endl;
