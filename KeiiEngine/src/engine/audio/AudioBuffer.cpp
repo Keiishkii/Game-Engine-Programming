@@ -31,6 +31,18 @@ namespace Engine
  			return _ID;
 		}
 
+		ALenum AudioBuffer::GetFormat()
+		{
+			if (_dirty) [[unlikely]]
+			{
+				alBufferData(_ID, _format, &_data.at(0), (ALsizei)(_data.size()), _frequency);
+
+				_dirty = false;
+			}
+
+			return _format;
+		}
+
 
 		void AudioBuffer::SetData(short* audioData, int sampleCount)
 		{

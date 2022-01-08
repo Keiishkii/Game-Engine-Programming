@@ -39,9 +39,8 @@ namespace Engine
 		}
 
 
-		ALuint AudioClip::GetBufferID()
-		{
-			return _audioBuffer->GetID();
-		}
+		ALuint AudioClip::GetBufferID()	{ return _audioBuffer->GetID(); }
+		std::shared_ptr<Audio::AudioBuffer> AudioClip::GetBuffer()	{ return _audioBuffer; }
+		ALenum AudioClip::GetFormat()	{ return _audioBuffer->GetFormat(); }
 	}
 }

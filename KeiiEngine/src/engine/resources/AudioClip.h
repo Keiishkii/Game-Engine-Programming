@@ -22,7 +22,9 @@ namespace Engine
 		public:
 			virtual void Load(const std::string& resourcesDirectory, const std::string& subPath) override;
 
+			std::shared_ptr<Audio::AudioBuffer> GetBuffer();
 			ALuint GetBufferID();
+			ALenum GetFormat();
 		};
 	}
 }

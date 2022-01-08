@@ -5,6 +5,7 @@
 #include "Gizmo.h"
 #include "engine/audio/AudioManager.h"
 #include "engine/error-handling/Exception.h"
+#include "engine/error-handling/Debugger.h"
 #include "engine/resources/ResourceManager.h"
 #include "engine/resources/AudioClip.h"
 #include "engine/resources/Texture.h"
@@ -13,6 +14,7 @@
 
 
 using Engine::ErrorHandling::Exception;
+using Engine::ErrorHandling::Debugger;
 
 namespace Engine
 {
@@ -47,19 +49,24 @@ namespace Engine
 
 		void AudioSource::PlayAudioClip()
 		{
-			if (_audioClip && !Audio::AudioManager::AudioErrorEncountered()) [[likely]]
+			if (_audioClip && _audioClip->GetBuffer() && !Audio::AudioManager::AudioErrorEncountered()) [[likely]]
 			{
-				alSourcei(_sourceID, AL_BUFFER, _audioClip->GetBufferID());
+				if (_audioClip->GetFormat() == AL_FORMAT_STEREO16) [[unlikely]]
+				{
+					Debugger::PrintWarning("Audio file '" + _audioClip->GetName() + "' is of type 'AL_FORMAT_STEREO16' this will not work with spatial sound.");
+				}
 
+				alSourcei(_sourceID, AL_BUFFER, _audioClip->GetBufferID());
+				
 				alSourcePlay(_sourceID);
 			}
 		}
 
 
-
-		void AudioSource::PlayOnStart(bool playOnStart)
+		void AudioSource::PlayOnStart(bool playOnStart)	{ _playOnStart = playOnStart; }
+		void AudioSource::Looping(bool looping)	
 		{ 
-			_playOnStart = playOnStart;
+			alSourcei(_sourceID, AL_LOOPING, (looping) ? AL_TRUE : AL_FALSE);
 		}
 
 		void AudioSource::SetAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip)

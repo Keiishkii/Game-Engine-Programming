@@ -15,7 +15,9 @@ namespace Engine
 		private:
 			ALuint _sourceID;
 
-			bool _playOnStart;
+			bool _playOnStart = false;
+			bool _looping = false;
+
 			std::shared_ptr<ResourceManagement::AudioClip> _audioClip;
 		public:
 
@@ -31,6 +33,7 @@ namespace Engine
 
 			void SetAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip);
 			void PlayOnStart(bool playOnStart);
+			void Looping(bool playOnStart);
 		};
 	}
 }

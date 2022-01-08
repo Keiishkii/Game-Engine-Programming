@@ -130,8 +130,10 @@ namespace Game
 		std::shared_ptr<Entity> debuggingEntity = AddEntity("Debugger");
 		{
 			std::shared_ptr<Components::AudioSource> audioSource2 = debuggingEntity->AddComponent<Components::AudioSource>();
-			audioSource2->SetAudioClip(Core()->ResourceManager()->FindAsset<ResourceManagement::AudioClip>("- audio/forest.ogg"));
-			audioSource2->PlayAudioClip();
+			audioSource2->SetAudioClip(Core()->ResourceManager()->FindAsset<ResourceManagement::AudioClip>("- audio/sfx/gun_fire.ogg"));
+			//audioSource2->SetAudioClip(Core()->ResourceManager()->FindAsset<ResourceManagement::AudioClip>("- audio/forest.ogg"));
+			audioSource2->PlayOnStart(true);
+			audioSource2->Looping(true);
 
 			//std::shared_ptr<Game::ShaderTextureSampler> shaderTextureSampler = debuggingEntity->AddComponent<Game::ShaderTextureSampler>();
 		}

@@ -24,6 +24,7 @@ namespace Engine
 			AudioBuffer();
 
 			ALuint GetID();
+			ALenum GetFormat();
 			std::vector<char>& GetData();
 
 			void SetFrequency(ALsizei frequency);
