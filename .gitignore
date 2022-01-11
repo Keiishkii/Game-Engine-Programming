@@ -34,7 +34,8 @@
 *.app
 
 
-!/OpenAL
+!OpenAL32.lib
+!EFX-Util.lib
 
 !SDL2.dll
 !glew32.dll
