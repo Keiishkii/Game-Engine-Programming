@@ -40,6 +40,7 @@
 !EFX-Util.lib
 		
 	#PhysX
+	# - - Libs
 !LowLevel_static_64.lib
 !LowLevelAABB_static_64.lib
 !LowLevelDynamics_static_64.lib
@@ -56,6 +57,14 @@
 !SimulationController_static_64.lib
 !SnippetRender_static_64.lib
 !SnippetUtils_static_64.lib
+	# - - Dll's
+!glut32.dll
+!PhysX_64.dll
+!PhysXCommon_64.dll
+!PhysXCooking_64.dll
+!PhysXDevice64.dll
+!PhysXFoundation_64.dll
+!PhysXGpu_64.dll
 
 	#SDL2
 !SDL2.dll
