@@ -21,15 +21,24 @@ namespace Engine
 			_indexIterator = std::find(_activeIndexes.begin(), _activeIndexes.end(), returnedID);
 		}
 
-		ErrorHandling::Debugger::Print("Allocating object with ID " + std::to_string(returnedID));
-
+		#if _DEBUG
+		{
+			ErrorHandling::Debugger::Print("Allocating object with ID " + std::to_string(returnedID));
+		}
+		#endif
+		
 		_activeIndexes.push_back(returnedID);
 		return returnedID;
 	}
 
 	void SystemIndexer::ReturnIndex(unsigned int index)
 	{
-		ErrorHandling::Debugger::Print("Returning " + std::to_string(index) + " to free index's.");
+		#if _DEBUG
+		{
+			ErrorHandling::Debugger::Print("Returning " + std::to_string(index) + " to free index's.");
+		}
+		#endif
+
 		_indexIterator = std::find(_activeIndexes.begin(), _activeIndexes.end(), index);
 		
 		if (_indexIterator != _activeIndexes.end())

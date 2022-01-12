@@ -25,6 +25,7 @@
 #include "graphics/PolygonMaterialGroup.h"
 #include "graphics/VertexArray.h"
 #include "graphics/VertexBuffer.h"
+#include "physics/PhysicsManager.h"
 #include "resources/ResourceManager.h"
 #include "resources/ShaderProgram.h"
 #include "resources/Model.h"
@@ -51,6 +52,10 @@ namespace Engine
 
 				// Error Handling
 			core->_debugger = std::make_shared<ErrorHandling::Debugger>();
+
+			// Resource Manager
+			core->_physicsManager = std::make_shared<Physics::PhysicsManager>();
+			core->_physicsManager->Initialise(core);
 
 				// Resource Manager
 			core->_resourceManager = std::make_shared<ResourceManagement::ResourceManager>();
@@ -80,18 +85,6 @@ namespace Engine
 		return core;
 	}
 
-	Core::~Core()
-	{
-		_activeScene.reset();
-		_resourceManager.reset();
-		_graphicsManager.reset();
-		_audioManager.reset();
-		_timeManager.reset();
-		_inputManager.reset();
-		_systemIndexer.reset();
-		_debugger.reset();
-	}
-
 
 
 	void Core::MainLoop()
@@ -116,7 +109,30 @@ namespace Engine
 			if (_inputManager->Input()->QuitEvent()) [[unlikely]] 
 				_running = false;
 		}
+
+		Destroy();
 	}
+
+
+
+	void Core::Stop()
+	{
+		_running = !_running;
+	}
+
+	void Core::Destroy()
+	{
+		_activeScene->Destroy();
+		_resourceManager.reset();
+		_graphicsManager.reset();
+		_audioManager.reset();
+		_timeManager.reset();
+		_inputManager.reset();
+		_systemIndexer.reset();
+		_debugger.reset();
+	}
+
+
 
 	void Core::Update()
 	{
@@ -128,11 +144,6 @@ namespace Engine
 	{
 		_activeScene->PhysicsUpdate();
 		_debugger->LogFixedUpdate();
-	}
-
-	void Core::Stop()
-	{
-		_running = !_running;
 	}
 
 	std::shared_ptr<Core> Core::Self() { return _self.lock(); }

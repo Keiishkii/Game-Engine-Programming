@@ -59,7 +59,7 @@ namespace Engine
 		void RenderScene(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix);
 	public:
 		virtual void LoadScene();
-		~Scene();
+		void Destroy();
 
 		std::shared_ptr<Entity> AddEntity(std::string name);
 		void RemoveEntity(std::shared_ptr<Entity> entity);

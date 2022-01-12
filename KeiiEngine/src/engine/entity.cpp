@@ -19,10 +19,7 @@ namespace Engine
 		_components.clear();
 		_componentList.clear();
 
-		if (SystemIndexer())
-		{
-			SystemIndexer()->ReturnIndex(_systemIndex);
-		}
+		SystemIndexer()->ReturnIndex(_systemIndex);
 	}
 
 	void Entity::Initialise(std::shared_ptr<Entity> self, std::shared_ptr<Engine::Core> core)

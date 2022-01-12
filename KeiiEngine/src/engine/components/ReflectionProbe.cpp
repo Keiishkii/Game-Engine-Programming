@@ -16,7 +16,12 @@ namespace Engine
 		void ReflectionProbe::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
 			Scene()->_reflectionProbes[_systemIndex] = std::dynamic_pointer_cast<ReflectionProbe>(self);
-			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/reflection_probe.png"));
+
+			#if _DEBUG
+			{
+				Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/reflection_probe.png"));
+			}
+			#endif
 		}
 
 		ReflectionProbe::~ReflectionProbe()

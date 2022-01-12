@@ -24,45 +24,45 @@ namespace Engine
 	{
 		void Gizmo::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity, std::shared_ptr<ResourceManagement::Texture> gizmoTexture)
 		{
-			#if _DEBUG
-				_gizmoTexture = gizmoTexture;
-				_gizmoShaderProgram = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/gizmo_shader_program.glsl");
-				_gizmoVertexArrayObject = std::make_shared<Graphics::VertexArray>();
+			_gizmoTexture = gizmoTexture;
+			_gizmoShaderProgram = Core()->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/gizmo_shader_program.glsl");
+			_gizmoVertexArrayObject = std::make_shared<Graphics::VertexArray>();
 
-				_colour = glm::vec3(1, 1, 1);
+			_colour = glm::vec3(1, 1, 1);
 
-				std::shared_ptr<Graphics::VertexBuffer> positionBuffer = std::make_shared<Graphics::VertexBuffer>();
-				{
-					positionBuffer->Add(glm::vec3(-1, -1, 0));
-					positionBuffer->Add(glm::vec3(1, -1, 0));
-					positionBuffer->Add(glm::vec3(1, 1, 0));
-					positionBuffer->Add(glm::vec3(-1, -1, 0));
-					positionBuffer->Add(glm::vec3(1, 1, 0));
-					positionBuffer->Add(glm::vec3(-1, 1, 0));
-				}
-				std::shared_ptr<Graphics::VertexBuffer> textureUVBuffer = std::make_shared<Graphics::VertexBuffer>();
-				{
-					textureUVBuffer->Add(glm::vec3(0, 0, 0));
-					textureUVBuffer->Add(glm::vec3(1, 0, 0));
-					textureUVBuffer->Add(glm::vec3(1, 1, 0));
-					textureUVBuffer->Add(glm::vec3(0, 0, 0));
-					textureUVBuffer->Add(glm::vec3(1, 1, 0));
-					textureUVBuffer->Add(glm::vec3(0, 1, 0));
-				}
-				std::shared_ptr<Graphics::VertexBuffer> normalBuffer = std::make_shared<Graphics::VertexBuffer>();
-				{
-					normalBuffer->Add(glm::vec3(0, 0, 0));
-					normalBuffer->Add(glm::vec3(0, 0, 0));
-					normalBuffer->Add(glm::vec3(0, 0, 0));
-					normalBuffer->Add(glm::vec3(0, 0, 0));
-					normalBuffer->Add(glm::vec3(0, 0, 0));
-					normalBuffer->Add(glm::vec3(0, 0, 0));
-				}
+			std::shared_ptr<Graphics::VertexBuffer> positionBuffer = std::make_shared<Graphics::VertexBuffer>();
+			{
+				positionBuffer->Add(glm::vec3(-1, -1, 0));
+				positionBuffer->Add(glm::vec3(1, -1, 0));
+				positionBuffer->Add(glm::vec3(1, 1, 0));
+				positionBuffer->Add(glm::vec3(-1, -1, 0));
+				positionBuffer->Add(glm::vec3(1, 1, 0));
+				positionBuffer->Add(glm::vec3(-1, 1, 0));
+			}
 
-				_gizmoVertexArrayObject->SetBuffer("in_Position",	positionBuffer);
-				_gizmoVertexArrayObject->SetBuffer("in_Normal",		normalBuffer);
-				_gizmoVertexArrayObject->SetBuffer("in_TextureUV",	textureUVBuffer);
-			#endif
+			std::shared_ptr<Graphics::VertexBuffer> textureUVBuffer = std::make_shared<Graphics::VertexBuffer>();
+			{
+				textureUVBuffer->Add(glm::vec3(0, 0, 0));
+				textureUVBuffer->Add(glm::vec3(1, 0, 0));
+				textureUVBuffer->Add(glm::vec3(1, 1, 0));
+				textureUVBuffer->Add(glm::vec3(0, 0, 0));
+				textureUVBuffer->Add(glm::vec3(1, 1, 0));
+				textureUVBuffer->Add(glm::vec3(0, 1, 0));
+			}
+
+			std::shared_ptr<Graphics::VertexBuffer> normalBuffer = std::make_shared<Graphics::VertexBuffer>();
+			{
+				normalBuffer->Add(glm::vec3(0, 0, 0));
+				normalBuffer->Add(glm::vec3(0, 0, 0));
+				normalBuffer->Add(glm::vec3(0, 0, 0));
+				normalBuffer->Add(glm::vec3(0, 0, 0));
+				normalBuffer->Add(glm::vec3(0, 0, 0));
+				normalBuffer->Add(glm::vec3(0, 0, 0));
+			}
+
+			_gizmoVertexArrayObject->SetBuffer("in_Position", positionBuffer);
+			_gizmoVertexArrayObject->SetBuffer("in_Normal", normalBuffer);
+			_gizmoVertexArrayObject->SetBuffer("in_TextureUV", textureUVBuffer);
 		}
 
 		void Gizmo::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)

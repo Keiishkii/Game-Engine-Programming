@@ -20,7 +20,7 @@ namespace Engine
 		_core = core;
 	}
 
-	Scene::~Scene()
+	void Scene::Destroy()
 	{
 		_entitys.clear();
 		_entityList.clear();

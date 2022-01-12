@@ -30,10 +30,7 @@ namespace Engine
 
 		Component::~Component()
 		{
-			if (SystemIndexer())
-			{
-				SystemIndexer()->ReturnIndex(_systemIndex);
-			}
+			SystemIndexer()->ReturnIndex(_systemIndex);
 		}
 
 		void Component::Start() { }

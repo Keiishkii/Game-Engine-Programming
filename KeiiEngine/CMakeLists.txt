@@ -11,16 +11,18 @@ include_directories(
 
 if(MSVC)
  	include_directories(
- 		contrib/SDL2/include/SDL2 	#For SDL.h
- 		contrib/glew/include/GL 	#For glew.h
-		contrib/FBXSDK/include 		#For fbxsdk.h
-		contrib/OpenAL/include 		#For fbxsdk.h
+ 		contrib/SDL2/include/SDL2 		#For SDL.h
+ 		contrib/glew/include/GL 		#For glew.h
+		contrib/FBXSDK/include 			#For fbxsdk.h
+		contrib/OpenAL/include 			#For OpenAL.h
+		contrib/PhysX-4.1/include 		#For PhysX-4.1.h
 	)
 	link_directories(
  		${CMAKE_SOURCE_DIR}/contrib/SDL2/lib/x64
  		${CMAKE_SOURCE_DIR}/contrib/glew/lib/Release/x64
  		${CMAKE_SOURCE_DIR}/contrib/FBXSDK/lib/vs2017/x64/release
  		${CMAKE_SOURCE_DIR}/contrib/OpenAL/libs/Win64
+ 		${CMAKE_SOURCE_DIR}/contrib/PhysX-4.1/lib
 	)
 else()
  	#Linux, Emscripten, macOS equivalents
@@ -49,6 +51,11 @@ add_library(keiiengine
 	
 	src/engine/Core.cpp
 	src/engine/Core.h
+	
+	
+		#Physics
+	src/engine/physics/PhysicsManager.cpp
+	src/engine/physics/PhysicsManager.h
 	
 	
 		#Time
@@ -161,6 +168,23 @@ target_link_libraries(keiiengine
 	openGL32
 	libfbxsdk
 	OpenAL32
+	
+	LowLevel_static_64
+	LowLevelAABB_static_64
+	LowLevelDynamics_static_64
+	PhysX_64
+	PhysXCharacterKinematic_static_64
+	PhysXCommon_64
+	PhysXCooking_64
+	PhysXExtensions_static_64
+	PhysXFoundation_64
+	PhysXPvdSDK_static_64
+	PhysXTask_static_64
+	PhysXVehicle_static_64
+	SceneQuery_static_64
+	SimulationController_static_64
+	SnippetRender_static_64
+	SnippetUtils_static_64
 )
 
 add_executable(game
@@ -216,6 +240,15 @@ if(WIN32)
 	configure_file(contrib/SDL2/lib/x64/SDL2.dll SDL2.dll COPYONLY)
 	configure_file(contrib/FBXSDK/lib/vs2017/x64/debug/libfbxsdk.dll libfbxsdk.dll COPYONLY)
 	configure_file(contrib/glew/bin/Release/x64/glew32.dll glew32.dll COPYONLY)
+	
+		#PhysX
+	configure_file(contrib/PhysX-4.1/dlls/glut32.dll glut32.dll COPYONLY)
+	configure_file(contrib/PhysX-4.1/dlls/PhysX_64.dll PhysX_64.dll COPYONLY)
+	configure_file(contrib/PhysX-4.1/dlls/PhysXCommon_64.dll PhysXCommon_64.dll COPYONLY)
+	configure_file(contrib/PhysX-4.1/dlls/PhysXCooking_64.dll PhysXCooking_64.dll COPYONLY)
+	configure_file(contrib/PhysX-4.1/dlls/PhysXDevice64.dll PhysXDevice64.dll COPYONLY)
+	configure_file(contrib/PhysX-4.1/dlls/PhysXFoundation_64.dll PhysXFoundation_64.dll COPYONLY)
+	configure_file(contrib/PhysX-4.1/dlls/PhysXGpu_64.dll PhysXGpu_64.dll COPYONLY)
 endif()
 
 Message (\n Build  Succesful \n)

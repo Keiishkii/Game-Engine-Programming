@@ -14,6 +14,11 @@ namespace Engine
 		struct Texture;
 	}
 
+	namespace Physics
+	{
+		struct PhysicsManager;
+	}
+
 	namespace Audio { struct AudioManager; }
 	namespace ErrorHandling { struct Debugger; }
 	namespace Graphics
@@ -46,6 +51,7 @@ namespace Engine
 		std::shared_ptr<TimeManager> _timeManager;
 		std::shared_ptr<InputManager> _inputManager;
 		std::shared_ptr<ResourceManagement::ResourceManager> _resourceManager;
+		std::shared_ptr<Physics::PhysicsManager> _physicsManager;
 		std::shared_ptr<Graphics::GraphicsManager> _graphicsManager;
 		std::shared_ptr<Audio::AudioManager> _audioManager;
 		std::shared_ptr<ErrorHandling::Debugger> _debugger;
@@ -66,8 +72,6 @@ namespace Engine
 		static std::shared_ptr<Core> Initialise();
 		static std::shared_ptr<Core> Initialise(int windowWidth, int windowHeight, int FPS, int fixedFPS);
 
-		~Core();
-
 		template <typename T>
 		void Start(std::shared_ptr<T> defaultScene)
 		{
@@ -83,6 +87,7 @@ namespace Engine
 		}
 
 		void Stop();
+		void Destroy();
 
 		std::shared_ptr<ErrorHandling::Debugger> Debugger();
 		std::shared_ptr<Graphics::GraphicsManager> GraphicsManager();

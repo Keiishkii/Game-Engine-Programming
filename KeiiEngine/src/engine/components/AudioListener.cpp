@@ -15,7 +15,12 @@ namespace Engine
 		void AudioListener::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
 			Scene()->_audioListeners[_systemIndex] = std::dynamic_pointer_cast<AudioListener>(self);
-			Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/audio_listener.png"));
+							
+			#if _DEBUG
+			{
+				Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/audio_listener.png"));
+			}
+			#endif
 		}
 
 		AudioListener::~AudioListener()
