@@ -10,6 +10,9 @@ include_directories(
 )
 
 if(MSVC)
+	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MT")
+
  	include_directories(
  		contrib/SDL2/include/SDL2 		#For SDL.h
  		contrib/glew/include/GL 		#For glew.h
@@ -27,8 +30,6 @@ if(MSVC)
 else()
  	#Linux, Emscripten, macOS equivalents
 endif()
-
-
 
 if(MSVC)
 	add_definitions(-DSDL_MAIN_HANDLED)
@@ -240,6 +241,7 @@ if(WIN32)
 	configure_file(contrib/SDL2/lib/x64/SDL2.dll SDL2.dll COPYONLY)
 	configure_file(contrib/FBXSDK/lib/vs2017/x64/debug/libfbxsdk.dll libfbxsdk.dll COPYONLY)
 	configure_file(contrib/glew/bin/Release/x64/glew32.dll glew32.dll COPYONLY)
+	configure_file(contrib/OpenAL/OpenAL32.dll OpenAL32.dll COPYONLY)
 	
 		#PhysX
 	configure_file(contrib/PhysX-4.1/dlls/glut32.dll glut32.dll COPYONLY)

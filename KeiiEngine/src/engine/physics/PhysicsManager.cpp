@@ -1,4 +1,5 @@
 #include <ctype.h>
+
 #include "PhysicsManager.h"
 
 using namespace physx;
@@ -10,6 +11,9 @@ namespace Engine
 		void PhysicsManager::Initialise(std::shared_ptr<Engine::Core> core)
 		{
 			_core = core;
+
+			_phsyXDefaultAllocator = std::make_shared<PxDefaultAllocator>();
+			_phsyXDefaultErrorCallback = std::make_shared<PxDefaultErrorCallback>();
 
 			_phsyXFoundation = NULL;
 			_phsyXFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, *_phsyXDefaultAllocator, *_phsyXDefaultErrorCallback);

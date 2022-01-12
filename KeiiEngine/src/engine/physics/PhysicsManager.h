@@ -1,3 +1,4 @@
+#define NDEBUG
 #include "PxPhysicsAPI.h"
 #include <memory>
 

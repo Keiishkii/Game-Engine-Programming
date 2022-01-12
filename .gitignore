@@ -36,8 +36,11 @@
 
 # - - - Include libs
 	#OpenAL
+	# - - Libs
 !OpenAL32.lib
 !EFX-Util.lib
+	# - - Dll's
+!OpenAL32.dll
 		
 	#PhysX
 	# - - Libs
