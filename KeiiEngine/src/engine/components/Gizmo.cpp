@@ -67,7 +67,7 @@ namespace Engine
 
 		void Gizmo::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 		{
-			#if _DEBUG
+			#if DEBUG
 				_gizmoShaderProgram->UseShader();
 
 

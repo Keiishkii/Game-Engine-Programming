@@ -29,7 +29,7 @@ namespace Engine
 				throw Exception("Failed to generate 'Audio Source' ID");
 			}
 				
-			#if _DEBUG
+			#if DEBUG
 			{
 				Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/audio_source.png"));
 			}

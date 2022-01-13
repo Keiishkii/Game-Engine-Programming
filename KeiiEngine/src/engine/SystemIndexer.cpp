@@ -21,9 +21,9 @@ namespace Engine
 			_indexIterator = std::find(_activeIndexes.begin(), _activeIndexes.end(), returnedID);
 		}
 
-		#if _DEBUG
+		#if DEBUG
 		{
-			ErrorHandling::Debugger::Print("Allocating object with ID " + std::to_string(returnedID));
+			ErrorHandling::Debugger::Print("Allocating ID " + std::to_string(returnedID) + " to object.");
 		}
 		#endif
 		
@@ -33,9 +33,9 @@ namespace Engine
 
 	void SystemIndexer::ReturnIndex(unsigned int index)
 	{
-		#if _DEBUG
+		#if DEBUG
 		{
-			ErrorHandling::Debugger::Print("Returning " + std::to_string(index) + " to free index's.");
+			ErrorHandling::Debugger::Print("Returning ID " + std::to_string(index) + " for reallocation.");
 		}
 		#endif
 

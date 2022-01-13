@@ -17,7 +17,7 @@ namespace Engine
 		{
 			Scene()->_reflectionProbes[_systemIndex] = std::dynamic_pointer_cast<ReflectionProbe>(self);
 
-			#if _DEBUG
+			#if DEBUG
 			{
 				Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/reflection_probe.png"));
 			}

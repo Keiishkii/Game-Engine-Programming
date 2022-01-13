@@ -9,6 +9,8 @@ include_directories(
 	contrib 				#For glm.hpp
 )
 
+add_compile_options("$<$<CONFIG:DEBUG>:-DDEBUG>")
+
 if(MSVC)
 	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
 	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MT")
@@ -253,4 +255,4 @@ if(WIN32)
 	configure_file(contrib/PhysX-4.1/dlls/PhysXGpu_64.dll PhysXGpu_64.dll COPYONLY)
 endif()
 
-Message (\n Build  Succesful \n)
+Message ("\nBuild Succesful\n")

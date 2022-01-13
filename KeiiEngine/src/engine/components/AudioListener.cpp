@@ -16,7 +16,7 @@ namespace Engine
 		{
 			Scene()->_audioListeners[_systemIndex] = std::dynamic_pointer_cast<AudioListener>(self);
 							
-			#if _DEBUG
+			#if DEBUG
 			{
 				Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/audio_listener.png"));
 			}

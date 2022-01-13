@@ -24,7 +24,7 @@ namespace Engine
 		{
 			Scene()->_cameras[_systemIndex] = std::dynamic_pointer_cast<Camera>(self);
 
-			#if _DEBUG
+			#if DEBUG
 			{
 				Entity()->AddComponent<Gizmo>(Core()->ResourceManager()->FindAsset<ResourceManagement::Texture>("- textures/gizmo/camera.png"));
 			}

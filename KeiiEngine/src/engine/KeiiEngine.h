@@ -1,6 +1,6 @@
 #ifndef ENGINE_KEIIENGINE
-#define ENGINE_KEIIENGINE
-#define _USE_MATH_DEFINES
+	#define ENGINE_KEIIENGINE
+	#define _USE_MATH_DEFINES
 
 	#include "Core.h"
 	#include "Entity.h"
