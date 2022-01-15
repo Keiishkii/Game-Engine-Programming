@@ -17,8 +17,6 @@ namespace Game
 
 
 	private:
-		float Lerp(float x, float y, float t);
-		glm::vec3 Lerp(glm::vec3 x, glm::vec3 y, float t);
 	public:
 		virtual void Start() override;
 		virtual void Update() override;

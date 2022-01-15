@@ -11,4 +11,16 @@ namespace Engine
 	{
 		quaternion = glm::quat(-quaternion.x, -quaternion.z, -quaternion.y, quaternion.w);
 	}
+
+
+
+	glm::vec3 Maths::Lerp(glm::vec3 x, glm::vec3 y, float t)
+	{
+		return x * (1.f - t) + y * t;
+	}
+
+	float Maths::Lerp(float x, float y, float t)
+	{
+		return x * (1.f - t) + y * t;
+	}
 }

@@ -23,7 +23,7 @@ namespace Game
 
 			_orbitDistanceTarget += (scrollDelta * _orbitZoomSpeedMulitplier);
 			_orbitDistanceTarget = std::max(1.5f, std::min(_orbitDistanceTarget, 8.0f));
-			_orbitDistance = Lerp(_orbitDistance, _orbitDistanceTarget, 0.075f);
+			_orbitDistance = Engine::Maths::Lerp(_orbitDistance, _orbitDistanceTarget, 0.075f);
 
 
 			glm::vec3 positionOfPlayer = _orbitTarget->Position();
@@ -50,7 +50,7 @@ namespace Game
 
 			_orbitDistanceTarget += (scrollDelta * _orbitZoomSpeedMulitplier);
 			_orbitDistanceTarget = std::max(1.5f, std::min(_orbitDistanceTarget, 8.0f));
-			_orbitDistance = Lerp(_orbitDistance, _orbitDistanceTarget, 0.075f);
+			_orbitDistance = Engine::Maths::Lerp(_orbitDistance, _orbitDistanceTarget, 0.075f);
 
 
 			glm::vec3 positionOfPlayer = _orbitTarget->Position();
@@ -60,7 +60,7 @@ namespace Game
 				cos(_xValue) * cos(_yValue) * _orbitDistance);
 
 
-			Transform()->Position() = Lerp(Transform()->Position(), position, 0.075f);
+			Transform()->Position() = Engine::Maths::Lerp(Transform()->Position(), position, 0.075f);
 			Transform()->Rotation() = glm::identity<glm::quat>() * glm::quatLookAt(glm::normalize(positionOfPlayer + _orbitOffset - Transform()->Position()), glm::vec3(0, 1, 0));
 		}
 	}
@@ -68,15 +68,5 @@ namespace Game
 	void CameraController::SetOrbitTarget(std::shared_ptr<Engine::Components::Transform> transform)
 	{
 		_orbitTarget = transform;
-	}
-
-	glm::vec3 CameraController::Lerp(glm::vec3 x, glm::vec3 y, float t) 
-	{
-		return x * (1.f - t) + y * t;
-	}
-
-	float CameraController::Lerp(float x, float y, float t)
-	{
-		return x * (1.f - t) + y * t;
 	}
 }

@@ -95,7 +95,6 @@ namespace Engine
 
 				_gizmoShaderProgram->DrawTriangles(_gizmoVertexArrayObject->GetID(_gizmoShaderProgram), 6);
 
-
 				_gizmoShaderProgram->StopUsingShader();
 			#endif
 		}

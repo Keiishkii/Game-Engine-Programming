@@ -33,7 +33,6 @@ namespace Engine
 				}
 				#endif // DEBUG
 
-
 				_loadBaseClass = true;
 			}
 		}

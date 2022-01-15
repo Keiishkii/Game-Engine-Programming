@@ -2,10 +2,16 @@
 	#define ENGINE_KEIIENGINE
 	#define _USE_MATH_DEFINES
 
+	#include "PhysX-4.1/include/PxPhysicsAPI.h"
+
 	#include "Core.h"
 	#include "Entity.h"
 	
+// Scenes
 	#include "Scene.h"
+
+// Maths
+	#include "engine-maths/Maths.h"
 
 // Time
 	#include "time/TimeManager.h"

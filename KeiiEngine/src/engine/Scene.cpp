@@ -4,6 +4,7 @@
 
 #include "Core.h"
 #include "Entity.h"
+#include "components/Camera.h"
 #include "error-handling/Debugger.h"
 #include "graphics/GraphicsManager.h"
 #include "physics/PhysicsManager.h"
