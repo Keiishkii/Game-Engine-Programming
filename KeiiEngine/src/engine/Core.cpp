@@ -50,12 +50,15 @@ namespace Engine
 		{		// System Indexer
 			core->_systemIndexer = std::make_shared<Engine::SystemIndexer>();
 
+			// Time Manager
+			core->_timeManager = std::make_shared<Engine::TimeManager>(FPS, fixedFPS);
+
 				// Error Handling
 			core->_debugger = std::make_shared<ErrorHandling::Debugger>();
 
 			// Resource Manager
 			core->_physicsManager = std::make_shared<Physics::PhysicsManager>();
-			core->_physicsManager->Initialise(core);
+			core->_physicsManager->Initialise(core, core->_timeManager);
 
 				// Resource Manager
 			core->_resourceManager = std::make_shared<ResourceManagement::ResourceManager>();
@@ -67,9 +70,6 @@ namespace Engine
 
 				// Audio Manager
 			core->_audioManager = std::make_shared<Audio::AudioManager>(core);
-
-				// Time Manager
-			core->_timeManager = std::make_shared<Engine::TimeManager>(FPS, fixedFPS);
 
 				// Input Manager
 			core->_inputManager = std::make_shared<Engine::InputManager>();
@@ -103,6 +103,8 @@ namespace Engine
 			}
 
 			GraphicsManager()->RenderFrame(ActiveScene());
+			
+			ActiveScene()->CleanEntityList();
 
 			_timeManager->WaitForEndOfFrame();
 
@@ -110,7 +112,7 @@ namespace Engine
 				_running = false;
 		}
 
-		Destroy();
+		PreDestructor();
 	}
 
 
@@ -120,15 +122,23 @@ namespace Engine
 		_running = !_running;
 	}
 
-	void Core::Destroy()
+	void Core::PreDestructor()
 	{
-		_activeScene->Destroy();
+		_activeScene->PreDestructor();
+		_activeScene.reset();
+
 		_resourceManager.reset();
+
 		_graphicsManager.reset();
+
 		_audioManager.reset();
+
 		_timeManager.reset();
+
 		_inputManager.reset();
+
 		_systemIndexer.reset();
+
 		_debugger.reset();
 	}
 
@@ -137,6 +147,7 @@ namespace Engine
 	void Core::Update()
 	{
 		_activeScene->Update();
+
 		_debugger->LogUpdate();
 	}
 
@@ -154,6 +165,7 @@ namespace Engine
 	std::shared_ptr<Graphics::GraphicsManager> Core::GraphicsManager() { return _graphicsManager; }
 	std::shared_ptr<Audio::AudioManager> Core::AudioManager() { return _audioManager; }
 	std::shared_ptr<ResourceManager> Core::ResourceManager() { return _resourceManager; }
+	std::shared_ptr<Physics::PhysicsManager> Core::PhysicsManager() { return _physicsManager; }
 	std::shared_ptr<TimeManager> Core::TimeManager() { return _timeManager; }
 	std::shared_ptr<SystemIndexer> Core::SystemIndexer() { return _systemIndexer; }
 	std::shared_ptr<InputManager> Core::InputManager() { return _inputManager; }

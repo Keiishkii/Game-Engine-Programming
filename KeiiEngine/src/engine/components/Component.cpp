@@ -6,6 +6,7 @@
 #include "engine/Scene.h"
 #include "engine/Entity.h"
 #include "engine/time/TimeManager.h"
+#include "engine/physics/PhysicsManager.h"
 #include "engine/input/InputManager.h"
 #include "engine/input/Inputs.h"
 
@@ -20,18 +21,27 @@ namespace Engine
 			_entity = entity;
 			_transform = entity->Transform();
 			_core = entity->Core();
+			_physicsManager = entity->PhysicsManager();
 			_systemIndexer = Core()->SystemIndexer();
 			_scene = Core()->ActiveScene();
 			_timeManager = Core()->TimeManager();
 			_inputs = Core()->InputManager()->Input();
 
-			_systemIndex = SystemIndexer()->GetIndex();
+			_systemIndex = SystemIndexer()->GetIndex(SystemIndexer::E_COMPONENT);
 		}
 
-		Component::~Component()
+
+
+		void Component::PreDestructor()
 		{
-			SystemIndexer()->ReturnIndex(_systemIndex);
+			if (!_preDestructorCalled)
+			{
+				SystemIndexer()->ReturnIndex(_systemIndex);
+				_preDestructorCalled = true;
+			}
 		}
+
+
 
 		void Component::Start() { }
 		void Component::Update() 
@@ -52,7 +62,8 @@ namespace Engine
 		std::shared_ptr<SystemIndexer> Component::SystemIndexer() { return _systemIndexer.lock(); }
 		std::shared_ptr<Engine::Scene> Component::Scene() { return _scene.lock(); }
 		std::shared_ptr<Engine::Entity> Component::Entity() { return _entity.lock(); }
-		std::shared_ptr<Engine::TimeManager> Component::Time() { return _timeManager.lock(); }
+		std::shared_ptr<Engine::TimeManager> Component::TimeManager() { return _timeManager.lock(); }
+		std::shared_ptr<Engine::Physics::PhysicsManager> Component::PhysicsManager() { return _physicsManager.lock(); }
 		std::shared_ptr<Engine::Inputs> Component::Input() { return _inputs.lock(); }
 	}
 }

@@ -6,6 +6,7 @@
 #include "Entity.h"
 #include "error-handling/Debugger.h"
 #include "graphics/GraphicsManager.h"
+#include "physics/PhysicsManager.h"
 #include "resources/ResourceManager.h"
 #include "resources/SkyboxMaterial.h"
 #include "resources/Texture.h"
@@ -18,12 +19,18 @@ namespace Engine
 	void Scene::Initialise(std::shared_ptr<Engine::Core> core)
 	{
 		_core = core;
+		_physicsManager = core->_physicsManager;
 	}
 
-	void Scene::Destroy()
+	void Scene::PreDestructor()
 	{
-		_entitys.clear();
+		for (int i = 0; i < _entityList.size(); i++)
+		{
+			_entityList[i]->PreDestructor();
+		}
+
 		_entityList.clear();
+		_entitys.clear();
 	}
 
 	void Scene::LoadScene() { }
@@ -37,10 +44,13 @@ namespace Engine
 				("There is no 'AudioListner' in the scene."));
 		}
 
-		for (int i = 0; i < Entitys().size(); i++)
+		std::vector<std::shared_ptr<Entity>> entitys = Entitys();
+		for (int i = 0; i < entitys.size(); i++)
 		{
-			Entitys()[i]->Update();
+			entitys[i]->Update();
 		}
+
+		//PhysicsManager()->Simulate(entitys);
 	}
 
 	void Scene::PhysicsUpdate()
@@ -128,8 +138,23 @@ namespace Engine
 
 	void Scene::RemoveEntity(std::shared_ptr<Entity> entity)
 	{
-		_entitys.erase(_entitys.find(entity->_systemIndex));
-		_entityListDirty = true;
+		_entitysMarkedForDelete.push_back(entity->_systemIndex);
+	}
+
+	void Scene::CleanEntityList()
+	{
+		if (_entitysMarkedForDelete.size() > 0)
+		{
+			_entityListDirty = true;
+
+			for (unsigned int index : _entitysMarkedForDelete)
+			{
+				_entitys.find(index)->second->PreDestructor();
+				_entitys.erase(index);
+			}
+
+			_entitysMarkedForDelete.clear();
+		}
 	}
 
 	std::shared_ptr<Entity> Scene::FindEntity(std::string name)
@@ -210,5 +235,6 @@ namespace Engine
 
 
 	std::shared_ptr<Engine::Core> Scene::Core() { return _core.lock(); }
+	std::shared_ptr<Engine::Physics::PhysicsManager> Scene::PhysicsManager() { return _physicsManager.lock(); }
 	std::shared_ptr<ResourceManagement::SkyboxMaterial>& Scene::Skybox() { return _skyboxMaterial; }
 }

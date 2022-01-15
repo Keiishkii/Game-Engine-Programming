@@ -61,6 +61,8 @@ namespace Game
 				rotationComponent->EulerRotation() = glm::vec3(0, 1, 0);
 			}
 
+			std::shared_ptr<Components::CapsuleCollider> capsuleCollider = monado_1->AddComponent<Components::CapsuleCollider>();
+
 			monado_1->Transform()->Position() = glm::vec3(0, 50, -150);
 			monado_1->Transform()->Rotation() = glm::quat(glm::vec3(-M_PI / 2, M_PI / 16, M_PI / 8));
 			monado_1->Transform()->Scale() = glm::vec3(10, 10, 10);

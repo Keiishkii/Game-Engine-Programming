@@ -1,4 +1,5 @@
-#include <vector>
+#include <map>
+#include <string>
 
 namespace Engine
 {
@@ -8,19 +9,21 @@ namespace Engine
 
 	struct SystemIndexer
 	{
+		enum Type { E_COMPONENT, E_ENTITY };
+
 		friend Entity;
 		friend Components::Component;
 
 	private:
-		std::vector<unsigned int> _activeIndexes;
-		std::vector<unsigned int>::iterator _indexIterator;
+		std::map<unsigned int, Type> _activeIndexes;
 	public:
 
 
 	private:
-		unsigned int GetIndex();
+		unsigned int GetIndex(Type type);
 		void ReturnIndex(unsigned int index);
+
+		std::string TypeToString(Type type);
 	public:
-		SystemIndexer();
 	};
 }

@@ -40,6 +40,10 @@ endif()
 add_library(keiiengine
 	src/engine/KeiiEngine.h
 
+		#Engine Maths
+	src/engine/engine-maths/Maths.cpp
+	src/engine/engine-maths/Maths.h
+	
 		#Error Handling
 	src/engine/error-handling/Exception.cpp
 	src/engine/error-handling/Exception.h
@@ -109,6 +113,15 @@ add_library(keiiengine
 		#Components
 	src/engine/components/Component.cpp
 	src/engine/components/Component.h
+	
+	src/engine/components/RigidBody.cpp
+	src/engine/components/RigidBody.h
+	
+	src/engine/components/Collider.cpp
+	src/engine/components/Collider.h
+	
+	src/engine/components/CapsuleCollider.cpp
+	src/engine/components/CapsuleCollider.h
 	
 	src/engine/components/AudioSource.cpp
 	src/engine/components/AudioSource.h

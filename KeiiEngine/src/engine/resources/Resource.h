@@ -14,6 +14,9 @@ namespace Engine
 			friend ResourceManager;
 
 		protected:
+			bool _loadBaseClass = false;
+			bool _initialisedBaseClass = false;
+
 			std::weak_ptr<ResourceManager> _resourceManager;
 			std::weak_ptr<Engine::Core> _core;
 		private:

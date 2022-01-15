@@ -14,7 +14,7 @@ namespace Game
 			Scene()->RemoveEntity(Entity());
 		}
 
-		Transform()->Rotation() = (glm::quat(_eulerRotationSpeed * Time()->TimeSinceStartOfProgram())) * _startingRotation;
+		Transform()->Rotation() = (glm::quat(_eulerRotationSpeed * TimeManager()->TimeSinceStartOfProgram())) * _startingRotation;
 	}
 
 	glm::vec3& Rotator::EulerRotation() { return _eulerRotationSpeed; }

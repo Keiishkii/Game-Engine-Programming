@@ -5,29 +5,23 @@
 
 namespace Engine
 {
-	SystemIndexer::SystemIndexer()
-	{
-
-	}
-
-	unsigned int SystemIndexer::GetIndex()
+	unsigned int SystemIndexer::GetIndex(Type type)
 	{
 		unsigned int returnedID = 1;
 
-		_indexIterator = std::find(_activeIndexes.begin(), _activeIndexes.end(), returnedID);
-		while (_indexIterator != _activeIndexes.end())
+		while (_activeIndexes.contains(returnedID))
 		{
 			returnedID++;
-			_indexIterator = std::find(_activeIndexes.begin(), _activeIndexes.end(), returnedID);
 		}
 
 		#if DEBUG
 		{
-			ErrorHandling::Debugger::Print("Allocating ID " + std::to_string(returnedID) + " to object.");
+			ErrorHandling::Debugger::Print("Allocating ID " + std::to_string(returnedID) + " to " + TypeToString(type) + " object.");
 		}
 		#endif
 		
-		_activeIndexes.push_back(returnedID);
+		_activeIndexes.insert(std::pair<unsigned int, Type>(returnedID, type));
+
 		return returnedID;
 	}
 
@@ -35,13 +29,28 @@ namespace Engine
 	{
 		#if DEBUG
 		{
-			ErrorHandling::Debugger::Print("Returning ID " + std::to_string(index) + " for reallocation.");
+			ErrorHandling::Debugger::Print("Returning ID " + std::to_string(index) + " from object " + TypeToString(_activeIndexes[index]) + " for reallocation.");
 		}
 		#endif
 
-		_indexIterator = std::find(_activeIndexes.begin(), _activeIndexes.end(), index);
-		
-		if (_indexIterator != _activeIndexes.end())
-			_activeIndexes.erase(_indexIterator);
+		_activeIndexes.erase(index);
+	}
+
+	std::string SystemIndexer::TypeToString(Type type)
+	{
+		std::string string;
+		switch (type)
+		{
+			case E_COMPONENT:
+			{
+				string = ("\x1B[92m" + std::string("Component") + "\033[0m");
+			} break;				
+			case E_ENTITY:
+			{
+				string = ("\x1B[32m" + std::string("Entity") + "\033[0m");
+			} break;
+		}
+
+		return string;
 	}
 }

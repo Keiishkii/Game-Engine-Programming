@@ -21,6 +21,11 @@ namespace Engine
 		struct ReflectionProbe;
 	}
 
+	namespace Physics
+	{
+		struct PhysicsManager;
+	}
+
 	struct Entity;
 	struct Core;
 	struct Scene
@@ -35,9 +40,11 @@ namespace Engine
 		bool _entityListDirty;
 		std::map<unsigned int, std::shared_ptr<Entity>> _entitys;
 		std::vector<std::shared_ptr<Entity>> _entityList;
+		std::vector<unsigned int> _entitysMarkedForDelete;
 
 		std::shared_ptr<ResourceManagement::SkyboxMaterial> _skyboxMaterial;
 
+		std::weak_ptr<Engine::Physics::PhysicsManager> _physicsManager;
 		std::map<unsigned int, std::weak_ptr<Components::Camera>> _cameras;
 		std::weak_ptr<Components::Camera> _mainCamera;
 
@@ -57,9 +64,11 @@ namespace Engine
 		void PhysicsUpdate();
 
 		void RenderScene(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix);
+		void CleanEntityList();
+
+		void PreDestructor();
 	public:
 		virtual void LoadScene();
-		void Destroy();
 
 		std::shared_ptr<Entity> AddEntity(std::string name);
 		void RemoveEntity(std::shared_ptr<Entity> entity);
@@ -74,6 +83,7 @@ namespace Engine
 		std::vector<std::weak_ptr<Components::Camera>> Cameras();
 		std::shared_ptr<Components::Camera> MainCamera();
 		std::shared_ptr<Engine::Core> Core();
+		std::shared_ptr<Engine::Physics::PhysicsManager> PhysicsManager();
 		std::shared_ptr<ResourceManagement::SkyboxMaterial>& Skybox();
 	};
 }

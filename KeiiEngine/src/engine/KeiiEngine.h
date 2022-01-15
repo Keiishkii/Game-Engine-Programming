@@ -31,6 +31,9 @@
 
 // Components
 	#include "components/Component.h"
+	#include "components/RigidBody.h"
+	#include "components/Collider.h"
+	#include "components/CapsuleCollider.h"
 	#include "components/AudioListener.h"
 	#include "components/AudioSource.h"
 	#include "components/Transform.h"
@@ -39,6 +42,9 @@
 	#include "components/Light.h"
 	#include "components/Gizmo.h"
 	#include "components/MeshRenderer.h"
+
+// Physics
+#include "physics/PhysicsManager.h"
 
 // Audio
 	#include "audio/AudioManager.h"

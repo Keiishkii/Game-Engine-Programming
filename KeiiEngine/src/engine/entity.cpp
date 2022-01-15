@@ -2,6 +2,7 @@
 
 #include "Entity.h"
 #include "components/Component.h"
+#include "engine/physics/PhysicsManager.h"
 #include "components/Transform.h"
 #include "components/Camera.h"
 #include "Core.h"
@@ -14,10 +15,18 @@ namespace Engine
 		_name = name;
 	}
 
-	Entity::~Entity()
+	void Entity::PreDestructor()
 	{
+		for (std::shared_ptr<Components::Component> component : _componentList)
+		{
+			component->PreDestructor();
+			component->Components::Component::PreDestructor();
+		}
+
 		_components.clear();
 		_componentList.clear();
+
+		PhysicsManager()->PhysXScene()->removeActor(*_physXActor);
 
 		SystemIndexer()->ReturnIndex(_systemIndex);
 	}
@@ -28,9 +37,13 @@ namespace Engine
 		
 		_core = core;
 		_systemIndexer = core->SystemIndexer();
+		_physicsManager = Core()->PhysicsManager();
 		_transform = self->AddComponent<Components::Transform>();
 
-		_systemIndex = SystemIndexer()->GetIndex();
+		_physXActor = PhysicsManager()->PhysXPhysics()->createRigidDynamic(PxTransform());
+		PhysicsManager()->PhysXScene()->addActor(*_physXActor);
+
+		_systemIndex = SystemIndexer()->GetIndex(SystemIndexer::E_ENTITY);
 	}
 
 	void Entity::Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
@@ -61,8 +74,23 @@ namespace Engine
 
 	void Entity::RemoveComponent(std::shared_ptr<Components::Component> component)
 	{
-		_components.erase(_components.find(component->_systemIndex));
-		_componentListDirty = true;
+		_componentsMarkedForDelete.push_back(component->_systemIndex);
+	}
+
+	void Entity::CleanComponentList()
+	{
+		if (_componentsMarkedForDelete.size() > 0)
+		{
+			_componentListDirty = true;
+
+			for (unsigned int index : _componentsMarkedForDelete)
+			{
+				_components.find(index)->second->PreDestructor();
+				_components.erase(index);
+			}
+
+			_componentsMarkedForDelete.clear();
+		}
 	}
 
 	std::vector<std::shared_ptr<Components::Component>> Entity::Components()
@@ -85,6 +113,8 @@ namespace Engine
 	std::string& Entity::Name() { return _name; }
 	std::shared_ptr<Entity> Entity::Self() { return _self.lock(); }
 	std::shared_ptr<Core> Entity::Core() { return _core.lock(); }
+	physx::PxRigidDynamic* Entity::PhysXActor() { return _physXActor; }
+	std::shared_ptr<Engine::Physics::PhysicsManager> Entity::PhysicsManager() { return _physicsManager.lock(); }
 	std::shared_ptr<SystemIndexer> Entity::SystemIndexer() { return _systemIndexer.lock(); }
 	std::shared_ptr<Components::Transform> Entity::Transform() { return _transform.lock(); }
 }

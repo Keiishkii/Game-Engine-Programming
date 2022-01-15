@@ -49,7 +49,7 @@ namespace Game
 				translation = flattenedLookVector * (translation * _movementSpeed);
 
 
-				translation *= Time()->DeltaTime();
+				translation *= TimeManager()->DeltaTime();
 				Transform()->Position() += translation;
 			}
 		}

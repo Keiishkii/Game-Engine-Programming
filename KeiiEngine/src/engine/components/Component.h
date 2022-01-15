@@ -12,6 +12,12 @@ namespace Engine
 	struct TimeManager;
 	struct SystemIndexer;
 	struct Inputs;
+
+	namespace Physics
+	{
+		struct PhysicsManager;
+	}
+
 	namespace Components
 	{
 		struct Camera;
@@ -24,6 +30,7 @@ namespace Engine
 			unsigned int _systemIndex = 0;
 		private:
 			bool _startCalled = false;
+			bool _preDestructorCalled = false;
 
 			std::weak_ptr<Component> _self;
 			std::weak_ptr<Transform> _transform;
@@ -33,6 +40,7 @@ namespace Engine
 			std::weak_ptr<Engine::Scene> _scene;
 			std::weak_ptr<Engine::Entity> _entity;
 			std::weak_ptr<Engine::TimeManager> _timeManager;
+			std::weak_ptr<Engine::Physics::PhysicsManager> _physicsManager;
 			std::weak_ptr<Engine::Inputs> _inputs;
 		public:
 
@@ -45,16 +53,18 @@ namespace Engine
 			virtual void Render(const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix);
 
 			std::shared_ptr<Component> Self();
+			
+			virtual void PreDestructor();
 		public:
 			virtual void Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity);
-			~Component();
 
 			std::shared_ptr<Transform> Transform();
 			std::shared_ptr<Engine::Core> Core();
 			std::shared_ptr<Engine::SystemIndexer> SystemIndexer();
 			std::shared_ptr<Engine::Scene> Scene();
 			std::shared_ptr<Engine::Entity> Entity();
-			std::shared_ptr<Engine::TimeManager> Time();
+			std::shared_ptr<Engine::TimeManager> TimeManager();
+			std::shared_ptr<Engine::Physics::PhysicsManager> PhysicsManager();
 			std::shared_ptr<Engine::Inputs> Input();
 		};
 	}
