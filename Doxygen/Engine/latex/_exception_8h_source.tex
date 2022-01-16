@@ -1,0 +1,30 @@
+\hypertarget{_exception_8h_source}{}\doxysection{Exception.\+h}
+\label{_exception_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/error-\/handling/Exception.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/error-\/handling/Exception.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <exception>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{5 \{}
+\DoxyCodeLine{6     \textcolor{keyword}{namespace }ErrorHandling}
+\DoxyCodeLine{7     \{}
+\DoxyCodeLine{9         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{Exception}} : \textcolor{keyword}{public} std::exception}
+\DoxyCodeLine{10         \{}
+\DoxyCodeLine{11         \textcolor{keyword}{private}:}
+\DoxyCodeLine{12             std::string \_errorMessage;}
+\DoxyCodeLine{13         \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{private}:}
+\DoxyCodeLine{17         \textcolor{keyword}{public}:}
+\DoxyCodeLine{18             \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{Exception}}(std::string errorMessage);}
+\DoxyCodeLine{19             \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{\string~Exception}}() \textcolor{keywordflow}{throw}();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21             \textcolor{keyword}{const} std::string What();}
+\DoxyCodeLine{22             \textcolor{keywordtype}{void} Print();}
+\DoxyCodeLine{23         \};}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}

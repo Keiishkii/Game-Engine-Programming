@@ -1,0 +1,30 @@
+\hypertarget{_audio_listener_8h_source}{}\doxysection{Audio\+Listener.\+h}
+\label{_audio_listener_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/AudioListener.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/AudioListener.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <al.h>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <alc.h>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{12         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_listener}{AudioListener}} : \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}}
+\DoxyCodeLine{13         \{}
+\DoxyCodeLine{14         \textcolor{keyword}{private}:}
+\DoxyCodeLine{15         \textcolor{keyword}{public}:}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keyword}{private}:}
+\DoxyCodeLine{19             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{20         \textcolor{keyword}{public}:}
+\DoxyCodeLine{21             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_listener_a3c2ae5848a3a25d4050df300f651c169}{Initialise}}(\textcolor{keyword}{const} std::shared\_ptr<Component>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Entity>\& entity) \textcolor{keyword}{override};}
+\DoxyCodeLine{22             \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_listener}{\string~AudioListener}}();}
+\DoxyCodeLine{23         \};}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}

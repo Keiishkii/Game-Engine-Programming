@@ -12,6 +12,8 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct Resource;
+
+		/**	The ResourceManager class is used to store, load and give access too various resources across the program.	*/
 		struct ResourceManager
 		{
 		private:

@@ -1,0 +1,54 @@
+\hypertarget{struct_engine_1_1_components_1_1_reflection_probe}{}\doxysection{Engine\+::Components\+::Reflection\+Probe Struct Reference}
+\label{struct_engine_1_1_components_1_1_reflection_probe}\index{Engine::Components::ReflectionProbe@{Engine::Components::ReflectionProbe}}
+
+
+{\ttfamily \#include $<$Reflection\+Probe.\+h$>$}
+
+Inheritance diagram for Engine\+::Components\+::Reflection\+Probe\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_components_1_1_reflection_probe}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_components_1_1_reflection_probe_a9c852cfe76c5a24d2bc86483aaed648b}{Initialise}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&self, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&entity) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_reflection_probe_aea0d401200fa8386d0d659fc5d14a7d2}\label{struct_engine_1_1_components_1_1_reflection_probe_aea0d401200fa8386d0d659fc5d14a7d2}} 
+void {\bfseries Re\+Generate\+Reflection\+Cube\+Map} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_reflection_probe_acb22623b2a1f3e066aa5bc7b2f36102e}\label{struct_engine_1_1_components_1_1_reflection_probe_acb22623b2a1f3e066aa5bc7b2f36102e}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture_cube_map}{Resource\+Management\+::\+Texture\+Cube\+Map}} $>$ {\bfseries Reflection\+Cube\+Map} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_reflection_probe}{Reflection\+Probe}} is a child of \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}, it can be used in the scene to generate cube maps of the scene that can later be used for scene lighting. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_reflection_probe_a9c852cfe76c5a24d2bc86483aaed648b}\label{struct_engine_1_1_components_1_1_reflection_probe_a9c852cfe76c5a24d2bc86483aaed648b}} 
+\index{Engine::Components::ReflectionProbe@{Engine::Components::ReflectionProbe}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Components::ReflectionProbe@{Engine::Components::ReflectionProbe}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}}
+{\footnotesize\ttfamily void Engine\+::\+Components\+::\+Reflection\+Probe\+::\+Initialise (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&}]{self,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} initialiser, this is called both for the base component and the inherited copy of it. 
+\begin{DoxyParams}{Parameters}
+{\em self} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} itself. \\
+\hline
+{\em entity} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} that has ownership of the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}{Engine\+::\+Components\+::\+Component}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Reflection\+Probe.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Reflection\+Probe.\+cpp\end{DoxyCompactItemize}

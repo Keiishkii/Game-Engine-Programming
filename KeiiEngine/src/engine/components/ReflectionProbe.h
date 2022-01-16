@@ -5,6 +5,7 @@ namespace Engine
 	namespace ResourceManagement { struct TextureCubeMap; }
 	namespace Components
 	{
+		/**	The ReflectionProbe is a child of Component, it can be used in the scene to generate cube maps of the scene that can later be used for scene lighting.  	*/
 		struct ReflectionProbe : Component
 		{
 		private:

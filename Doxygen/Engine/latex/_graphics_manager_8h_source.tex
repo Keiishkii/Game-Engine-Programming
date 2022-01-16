@@ -1,0 +1,54 @@
+\hypertarget{_graphics_manager_8h_source}{}\doxysection{Graphics\+Manager.\+h}
+\label{_graphics_manager_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/graphics/GraphicsManager.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/graphics/GraphicsManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include "{}glew.h"{}}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{6     \textcolor{keyword}{namespace }ResourceManagement }
+\DoxyCodeLine{7     \{ }
+\DoxyCodeLine{8         \textcolor{keyword}{struct }SkyboxMaterial; }
+\DoxyCodeLine{9         \textcolor{keyword}{struct }ShaderProgram;}
+\DoxyCodeLine{10     \}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }Graphics}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         \textcolor{keyword}{struct }VertexArray;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{17         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_graphics_1_1_graphics_manager}{GraphicsManager}}}
+\DoxyCodeLine{18         \{}
+\DoxyCodeLine{19             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Core}};}
+\DoxyCodeLine{20             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keyword}{private}:}
+\DoxyCodeLine{23             std::shared\_ptr<SDL\_Window*> \_window;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25             std::weak\_ptr<Engine::Core> \_core;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27             std::shared\_ptr<ResourceManagement::ShaderProgram> \_postProcessingShader;}
+\DoxyCodeLine{28             std::shared\_ptr<Graphics::VertexArray> \_quad;}
+\DoxyCodeLine{29             std::shared\_ptr<Graphics::VertexArray> \_skybox;}
+\DoxyCodeLine{30         \textcolor{keyword}{public}:}
+\DoxyCodeLine{31         }
+\DoxyCodeLine{32         }
+\DoxyCodeLine{33         \textcolor{keyword}{private}:}
+\DoxyCodeLine{34             \textcolor{keywordtype}{void} Initialise(std::shared\_ptr<Engine::Core> core, \textcolor{keywordtype}{int} windowWidth, \textcolor{keywordtype}{int} windowHeight);}
+\DoxyCodeLine{35             \textcolor{keywordtype}{void} SDLInitialisation(\textcolor{keywordtype}{int} windowWidth, \textcolor{keywordtype}{int} windowHeight);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37             \textcolor{keywordtype}{void} RenderFrame(std::shared\_ptr<Scene> activeScene);}
+\DoxyCodeLine{38             \textcolor{keywordtype}{void} RenderSkybox(std::shared\_ptr<ResourceManagement::SkyboxMaterial> skybox, \textcolor{keyword}{const} glm::mat4x4\& transformationMatrix, \textcolor{keyword}{const} glm::mat4x4\& projectionMatrix);}
+\DoxyCodeLine{39         \textcolor{keyword}{public}:}
+\DoxyCodeLine{40             \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_graphics_manager}{\string~GraphicsManager}}();}
+\DoxyCodeLine{41             \textcolor{keywordtype}{void} CreateRenderBuffer(GLuint\& framebufferID, GLuint\& framebufferColourTextureID, GLuint\& frameBufferDepthTextureID, \textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height);}
+\DoxyCodeLine{42             std::shared\_ptr<Graphics::VertexArray> Quad();}
+\DoxyCodeLine{43             std::shared\_ptr<Graphics::VertexArray> Skybox();}
+\DoxyCodeLine{44             std::shared\_ptr<ResourceManagement::ShaderProgram> GetPostProcessingShader();}
+\DoxyCodeLine{45             \textcolor{keywordtype}{void} SetPostProcessingShader(std::shared\_ptr<ResourceManagement::ShaderProgram> postProcessingShader);}
+\DoxyCodeLine{46             std::shared\_ptr<Engine::Core> \mbox{\hyperlink{struct_engine_1_1_core}{Core}}();}
+\DoxyCodeLine{47         \};}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49 \}}
+
+\end{DoxyCode}

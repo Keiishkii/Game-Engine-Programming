@@ -8,6 +8,7 @@ namespace Engine
 {
 	namespace Components
 	{
+		/**	The Collider is a child of Component, and the base class of all other colliders, it is required to allow its child classes to interact with the PhysX engine.  	*/
 		struct Collider : Component
 		{
 		protected:

@@ -1,0 +1,54 @@
+\hypertarget{struct_engine_1_1_components_1_1_light}{}\doxysection{Engine\+::Components\+::Light Struct Reference}
+\label{struct_engine_1_1_components_1_1_light}\index{Engine::Components::Light@{Engine::Components::Light}}
+
+
+{\ttfamily \#include $<$Light.\+h$>$}
+
+Inheritance diagram for Engine\+::Components\+::Light\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_components_1_1_light}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_components_1_1_light_a01f2e566e9a553e5cc4f58626b79aa74}{Initialise}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&self, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&entity) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_light_a335184aa8dadd80d6c18bf2068fa1cb4}\label{struct_engine_1_1_components_1_1_light_a335184aa8dadd80d6c18bf2068fa1cb4}} 
+glm\+::vec3 \& {\bfseries Colour} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_light_a5578caa7dafb90f19e95111deb5a7e9a}\label{struct_engine_1_1_components_1_1_light_a5578caa7dafb90f19e95111deb5a7e9a}} 
+float \& {\bfseries Intensity} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_light}{Light}} is a child of \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}, when placed on an entity in the scene it can be passed into the shader and used to calculate scene lighting. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_light_a01f2e566e9a553e5cc4f58626b79aa74}\label{struct_engine_1_1_components_1_1_light_a01f2e566e9a553e5cc4f58626b79aa74}} 
+\index{Engine::Components::Light@{Engine::Components::Light}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Components::Light@{Engine::Components::Light}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}}
+{\footnotesize\ttfamily void Engine\+::\+Components\+::\+Light\+::\+Initialise (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&}]{self,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} initialiser, this is called both for the base component and the inherited copy of it. 
+\begin{DoxyParams}{Parameters}
+{\em self} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} itself. \\
+\hline
+{\em entity} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} that has ownership of the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}{Engine\+::\+Components\+::\+Component}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Light.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Light.\+cpp\end{DoxyCompactItemize}

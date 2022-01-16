@@ -1,0 +1,112 @@
+\hypertarget{_resource_manager_8h_source}{}\doxysection{Resource\+Manager.\+h}
+\label{_resource_manager_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/ResourceManager.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/ResourceManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <fbxsdk.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}rapidjson/document.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{keyword}{namespace }ErrorHandling \{ \textcolor{keyword}{struct }Exception; \}}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         \textcolor{keyword}{struct }Resource;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{17         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{ResourceManager}}}
+\DoxyCodeLine{18         \{}
+\DoxyCodeLine{19         \textcolor{keyword}{private}:}
+\DoxyCodeLine{20             \textcolor{keywordtype}{bool} \_resourceLocationFound = \textcolor{keyword}{false};}
+\DoxyCodeLine{21             std::string \_resourceLocation;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23             std::shared\_ptr<FbxManager*> \_fbxManager;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25             std::weak\_ptr<Engine::Core> \_core;}
+\DoxyCodeLine{26             std::weak\_ptr<ResourceManager> \_self;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28             std::map<std::string, std::shared\_ptr<Resource>> \_loadedAssets;     }
+\DoxyCodeLine{29         \textcolor{keyword}{public}:}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         \textcolor{keyword}{private}:}
+\DoxyCodeLine{33             \textcolor{keywordtype}{bool} FindResourceFolder();}
+\DoxyCodeLine{34             \textcolor{keywordtype}{void} FBXInitialisation();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36             std::shared\_ptr<ResourceManager> Self();}
+\DoxyCodeLine{37         \textcolor{keyword}{public}:}
+\DoxyCodeLine{38             \textcolor{keyword}{static} \textcolor{keywordtype}{bool} FileExists(std::string path);}
+\DoxyCodeLine{39             \textcolor{keyword}{static} std::string ReadText(std::string path);}
+\DoxyCodeLine{40             \textcolor{keyword}{static} rapidjson::Document ToJSON(std::string content);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42             \textcolor{keywordtype}{void} Initialise(\textcolor{keyword}{const} std::shared\_ptr<ResourceManager>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Core>\& core);}
+\DoxyCodeLine{43             \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{\string~ResourceManager}}();}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45             \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{46             std::shared\_ptr<T> Create()}
+\DoxyCodeLine{47             \{}
+\DoxyCodeLine{48                 std::shared\_ptr<T> resourcePointer = std::make\_shared<T>();}
+\DoxyCodeLine{49                 std::shared\_ptr<ResourceManager> self = Self();}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51                 resourcePointer-\/>Resource::Initialise(self);}
+\DoxyCodeLine{52                 resourcePointer-\/>Initialise(self);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54                 \textcolor{keywordflow}{return} resourcePointer;}
+\DoxyCodeLine{55             \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57             \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{58             std::shared\_ptr<T> FindAsset(std::string assetPath)}
+\DoxyCodeLine{59             \{}
+\DoxyCodeLine{60                 std::shared\_ptr<T> resourcePointer = Create<T>();}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62                 \textcolor{keywordflow}{try}}
+\DoxyCodeLine{63                 \{}
+\DoxyCodeLine{64                     \textcolor{keywordflow}{if} (\_loadedAssets.count(assetPath))}
+\DoxyCodeLine{65                     \{}
+\DoxyCodeLine{66                         resourcePointer = std::dynamic\_pointer\_cast<T>(\_loadedAssets[assetPath]);}
+\DoxyCodeLine{67                         \textcolor{keywordflow}{if} (!resourcePointer)}
+\DoxyCodeLine{68                         \{}
+\DoxyCodeLine{69                             \textcolor{keywordflow}{throw} \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{ErrorHandling::Exception}}(\textcolor{stringliteral}{"{}Dynamic cast failed."{}});}
+\DoxyCodeLine{70                         \}}
+\DoxyCodeLine{71                     \}}
+\DoxyCodeLine{72                     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{73                     \{}
+\DoxyCodeLine{74                         \textcolor{keywordflow}{if} (\_resourceLocationFound)}
+\DoxyCodeLine{75                         \{}
+\DoxyCodeLine{76                             \textcolor{keywordflow}{if} (FileExists(\_resourceLocation + assetPath))}
+\DoxyCodeLine{77                             \{}
+\DoxyCodeLine{78                                 resourcePointer-\/>Resource::Load(\_resourceLocation, assetPath);}
+\DoxyCodeLine{79                                 resourcePointer-\/>Load(\_resourceLocation, assetPath);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81                                 \_loadedAssets.insert(std::pair<std::string, std::shared\_ptr<Resource>>(assetPath, resourcePointer));}
+\DoxyCodeLine{82                             \}}
+\DoxyCodeLine{83                             \textcolor{keywordflow}{else}}
+\DoxyCodeLine{84                             \{}
+\DoxyCodeLine{85                                 \textcolor{keywordflow}{throw} \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{ErrorHandling::Exception}}(\textcolor{stringliteral}{"{}Failed to load asset \(\backslash\)"{}"{}} + assetPath + \textcolor{stringliteral}{"{}\(\backslash\)"{}."{}});}
+\DoxyCodeLine{86                             \}}
+\DoxyCodeLine{87                         \}}
+\DoxyCodeLine{88                         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{89                         \{}
+\DoxyCodeLine{90                             \textcolor{keywordflow}{throw} \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{ErrorHandling::Exception}}(\textcolor{stringliteral}{"{}'Resource' folder not set."{}});}
+\DoxyCodeLine{91                         \}}
+\DoxyCodeLine{92                     \}}
+\DoxyCodeLine{93                 \}}
+\DoxyCodeLine{94                 \textcolor{keywordflow}{catch} (\mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_exception}{ErrorHandling::Exception}} e)}
+\DoxyCodeLine{95                 \{}
+\DoxyCodeLine{96                     e.Print();}
+\DoxyCodeLine{97                 \}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99                 \textcolor{keywordflow}{return} resourcePointer;}
+\DoxyCodeLine{100             \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102             std::shared\_ptr<FbxManager*>\& FBXManager();}
+\DoxyCodeLine{103             std::shared\_ptr<Engine::Core> \mbox{\hyperlink{struct_engine_1_1_core}{Core}}();}
+\DoxyCodeLine{104             std::string GetResourceDirectory();}
+\DoxyCodeLine{105         \};}
+\DoxyCodeLine{106     \}}
+\DoxyCodeLine{107 \}}
+
+\end{DoxyCode}

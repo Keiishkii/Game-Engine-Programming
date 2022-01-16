@@ -1,0 +1,36 @@
+\hypertarget{_vertex_array_8h_source}{}\doxysection{Vertex\+Array.\+h}
+\label{_vertex_array_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/graphics/VertexArray.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/graphics/VertexArray.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <glew.h>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <glm/glm.hpp>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <glm/ext.hpp>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     \textcolor{keyword}{namespace }ResourceManagement \{ \textcolor{keyword}{struct }ShaderProgram; \}}
+\DoxyCodeLine{11     \textcolor{keyword}{namespace }Graphics}
+\DoxyCodeLine{12     \{}
+\DoxyCodeLine{13         \textcolor{keyword}{struct }VertexBuffer;}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{16         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_graphics_1_1_vertex_array}{VertexArray}}}
+\DoxyCodeLine{17         \{}
+\DoxyCodeLine{18         \textcolor{keyword}{private}:}
+\DoxyCodeLine{19             std::map<GLuint, GLuint> \_vaoIDs;}
+\DoxyCodeLine{20             std::map<GLuint, bool> \_shaderDirtyStates;}
+\DoxyCodeLine{21             std::map<std::string, std::shared\_ptr<VertexBuffer>> \_vertexBuffers;}
+\DoxyCodeLine{22         \textcolor{keyword}{public}:}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         \textcolor{keyword}{private}:}
+\DoxyCodeLine{26         \textcolor{keyword}{public}:}
+\DoxyCodeLine{27             \textcolor{keywordtype}{void} SetBuffer(\textcolor{keyword}{const} std::string\& \_buffer, \textcolor{keyword}{const} std::shared\_ptr<VertexBuffer>\& \_content);}
+\DoxyCodeLine{28             GLuint GetID(std::shared\_ptr<ResourceManagement::ShaderProgram> shaderProgram);}
+\DoxyCodeLine{29         \};}
+\DoxyCodeLine{30     \}}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}

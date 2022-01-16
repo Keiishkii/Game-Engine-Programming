@@ -92,15 +92,15 @@ namespace Engine
 		_running = true;
 		while (_running) [[likely]]
 		{
-			_inputManager->ProcessFrameInput();
-					
-			Update();
-			
 			int physicsCycles = _timeManager->CheckForFixedUpdates();
 			for (int i = 0; i < physicsCycles; i++)
 			{
 				PhysicsUpdate();
 			}
+
+			_inputManager->ProcessFrameInput();
+					
+			Update();
 
 			GraphicsManager()->RenderFrame(ActiveScene());
 			

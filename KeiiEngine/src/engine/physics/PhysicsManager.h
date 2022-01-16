@@ -21,6 +21,7 @@ namespace Engine
 
 	namespace Physics
 	{
+		/**	The PhysicsManager is used to load and safely dispose of the PhysX engine, it also gives access to Component classes for the PhysX objects.  	*/
 		struct PhysicsManager
 		{
 			friend Core;

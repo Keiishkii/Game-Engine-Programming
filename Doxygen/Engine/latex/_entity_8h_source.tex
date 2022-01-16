@@ -1,0 +1,113 @@
+\hypertarget{_entity_8h_source}{}\doxysection{Entity.\+h}
+\label{_entity_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/Entity.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/Entity.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}glm/glm.hpp"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}glm/ext.hpp"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}PxPhysicsAPI.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         \textcolor{keyword}{struct }Component;}
+\DoxyCodeLine{15         \textcolor{keyword}{struct }Camera;}
+\DoxyCodeLine{16         \textcolor{keyword}{struct }Transform;}
+\DoxyCodeLine{17     \}}
+\DoxyCodeLine{18     }
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }Physics}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21         \textcolor{keyword}{struct }PhysicsManager;}
+\DoxyCodeLine{22     \}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{25     \textcolor{keyword}{struct }Scene;}
+\DoxyCodeLine{26     \textcolor{keyword}{struct }SystemIndexer;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{29     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}}
+\DoxyCodeLine{30     \{}
+\DoxyCodeLine{31         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_scene}{Engine::Scene}};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{private}:}
+\DoxyCodeLine{34         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \_systemIndex = 0;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         std::string \_name;}
+\DoxyCodeLine{37         physx::PxRigidDynamic* \_physXActor;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39         std::weak\_ptr<Entity> \_self;}
+\DoxyCodeLine{40         std::weak\_ptr<Engine::Core> \_core;}
+\DoxyCodeLine{41         std::weak\_ptr<Engine::Physics::PhysicsManager> \_physicsManager;}
+\DoxyCodeLine{42         std::weak\_ptr<Engine::SystemIndexer> \_systemIndexer;}
+\DoxyCodeLine{43         std::weak\_ptr<Components::Transform> \_transform;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45         \textcolor{keywordtype}{bool} \_componentListDirty;}
+\DoxyCodeLine{46         std::map<unsigned int, std::shared\_ptr<Components::Component>> \_components;}
+\DoxyCodeLine{47         std::vector<std::shared\_ptr<Components::Component>> \_componentList;}
+\DoxyCodeLine{48         std::vector<unsigned int> \_componentsMarkedForDelete;}
+\DoxyCodeLine{49     \textcolor{keyword}{public}:}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     \textcolor{keyword}{private}:}
+\DoxyCodeLine{53         \textcolor{keywordtype}{void} Initialise(std::shared\_ptr<Entity> self, std::shared\_ptr<Engine::Core> core);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55         \textcolor{keywordtype}{void} Update();}
+\DoxyCodeLine{56         \textcolor{keywordtype}{void} Render(\textcolor{keyword}{const} glm::mat4x4\& transformationMatrix, \textcolor{keyword}{const} glm::mat4x4\& projectionMatrix);}
+\DoxyCodeLine{57         \textcolor{keywordtype}{void} PhysicsUpdate();}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59         std::shared\_ptr<Entity> Self();}
+\DoxyCodeLine{60         std::vector<std::shared\_ptr<Components::Component>> Components();}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62         \textcolor{keywordtype}{void} CleanComponentList();}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64         \textcolor{keywordtype}{void} PreDestructor();}
+\DoxyCodeLine{65     \textcolor{keyword}{public}:}
+\DoxyCodeLine{67         \mbox{\hyperlink{struct_engine_1_1_entity_a8ea3b4ed04f7231329be8361ddcb23af}{Entity}}(std::string name);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 }
+\DoxyCodeLine{71         \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{72         std::shared\_ptr<T> \mbox{\hyperlink{struct_engine_1_1_entity_aa4d9e7b4020ce80503f87db04b9f1abe}{AddComponent}}()}
+\DoxyCodeLine{73         \{}
+\DoxyCodeLine{74             std::shared\_ptr<T> component = std::make\_shared<T>();}
+\DoxyCodeLine{75             std::shared\_ptr<Entity> self = Self();}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77             component-\/>Component::Initialise(component, self);}
+\DoxyCodeLine{78             component-\/>Initialise(component, self);}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80             \_components[component-\/>\_systemIndex] = component;}
+\DoxyCodeLine{81             \_componentListDirty = \textcolor{keyword}{true};}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83             \textcolor{keywordflow}{return} component;}
+\DoxyCodeLine{84         \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{88         \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} A>}
+\DoxyCodeLine{89         std::shared\_ptr<T> \mbox{\hyperlink{struct_engine_1_1_entity_af8b623faeda939199a5c27f7d3f10341}{AddComponent}}(A parameter)}
+\DoxyCodeLine{90         \{}
+\DoxyCodeLine{91             std::shared\_ptr<T> component = std::make\_shared<T>();}
+\DoxyCodeLine{92             std::shared\_ptr<Entity> self = Self();}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94             component-\/>Component::Initialise(component, self);}
+\DoxyCodeLine{95             component-\/>Initialise(component, self, parameter);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97             \_components[component-\/>\_systemIndex] = component;}
+\DoxyCodeLine{98             \_componentListDirty = \textcolor{keyword}{true};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100             \textcolor{keywordflow}{return} component;}
+\DoxyCodeLine{101         \}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{105         \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_entity_a9fd331975efe026b6083c17e31f1d342}{RemoveComponent}}(std::shared\_ptr<Components::Component> component);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{109         std::string\& \mbox{\hyperlink{struct_engine_1_1_entity_a92c6a55adba53b3268a0f45cf99ae7dd}{Name}}();}
+\DoxyCodeLine{112         std::shared\_ptr<Core> \mbox{\hyperlink{struct_engine_1_1_entity_a65dfde46b24c0059e61419d38391a5d3}{Core}}();}
+\DoxyCodeLine{115         physx::PxRigidDynamic* \mbox{\hyperlink{struct_engine_1_1_entity_ae96b5e9c20c29938572e1f613059420a}{PhysXActor}}();}
+\DoxyCodeLine{118         std::shared\_ptr<Physics::PhysicsManager> \mbox{\hyperlink{struct_engine_1_1_entity_aef8a3c0ac97b9e07e340c4599a67498d}{PhysicsManager}}();}
+\DoxyCodeLine{121         std::shared\_ptr<SystemIndexer> \mbox{\hyperlink{struct_engine_1_1_entity_afbf7b3f80de520c279e3a00630d94f75}{SystemIndexer}}();}
+\DoxyCodeLine{124         std::shared\_ptr<Components::Transform> \mbox{\hyperlink{struct_engine_1_1_entity_a7ab43425496fc2eee49b497072cc231c}{Transform}}();}
+\DoxyCodeLine{125     \};}
+\DoxyCodeLine{126 \}}
+
+\end{DoxyCode}

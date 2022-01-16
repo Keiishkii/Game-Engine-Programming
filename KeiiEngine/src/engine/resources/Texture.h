@@ -7,6 +7,7 @@ namespace Engine
 {
 	namespace ResourceManagement
 	{
+		/**	The Texture is a type of resource, it acts as the engines storage for .png files, and converts them to a GLuint for use in OpenGL.  	*/
 		struct Texture : Resource
 		{
 		private:

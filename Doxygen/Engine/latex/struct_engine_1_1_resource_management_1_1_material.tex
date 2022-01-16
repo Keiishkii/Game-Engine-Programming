@@ -1,0 +1,62 @@
+\hypertarget{struct_engine_1_1_resource_management_1_1_material}{}\doxysection{Engine\+::Resource\+Management\+::Material Struct Reference}
+\label{struct_engine_1_1_resource_management_1_1_material}\index{Engine::ResourceManagement::Material@{Engine::ResourceManagement::Material}}
+
+
+{\ttfamily \#include $<$Material.\+h$>$}
+
+Inheritance diagram for Engine\+::Resource\+Management\+::Material\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_resource_management_1_1_material}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_material_aeea231a1d0fde61b370ed39ac1bc7b88}{Load}} (const std\+::string \&resources\+Directory, const std\+::string \&sub\+Path) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_a2b0898501f3dd995682e510e28863914}\label{struct_engine_1_1_resource_management_1_1_material_a2b0898501f3dd995682e510e28863914}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_shader_program}{Shader\+Program}} $>$ {\bfseries Material\+Shader}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_a18373a9b2304216c43e9797be92d5983}\label{struct_engine_1_1_resource_management_1_1_material_a18373a9b2304216c43e9797be92d5983}} 
+std\+::map$<$ std\+::string, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ $>$ {\bfseries Properties\+\_\+\+Texture}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_a0dc2168f40c524225bc427d52ddfaf3b}\label{struct_engine_1_1_resource_management_1_1_material_a0dc2168f40c524225bc427d52ddfaf3b}} 
+std\+::map$<$ std\+::string, float $>$ {\bfseries Properties\+\_\+\+Float}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_a53b36d8e72be4cd4dcbcf108ffadd897}\label{struct_engine_1_1_resource_management_1_1_material_a53b36d8e72be4cd4dcbcf108ffadd897}} 
+std\+::map$<$ std\+::string, glm\+::vec2 $>$ {\bfseries Properties\+\_\+\+Vec2}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_a4944aa9de74a618ed39aecedc968fafa}\label{struct_engine_1_1_resource_management_1_1_material_a4944aa9de74a618ed39aecedc968fafa}} 
+std\+::map$<$ std\+::string, glm\+::vec3 $>$ {\bfseries Properties\+\_\+\+Vec3}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_a3d72f9f40c481f144bda2106e0f4bd1a}\label{struct_engine_1_1_resource_management_1_1_material_a3d72f9f40c481f144bda2106e0f4bd1a}} 
+std\+::map$<$ std\+::string, glm\+::vec4 $>$ {\bfseries Properties\+\_\+\+Vec4}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_material}{Material}} is a type of resource, it is used to read in material data from files. This includes texture data and shaders. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_material_aeea231a1d0fde61b370ed39ac1bc7b88}\label{struct_engine_1_1_resource_management_1_1_material_aeea231a1d0fde61b370ed39ac1bc7b88}} 
+\index{Engine::ResourceManagement::Material@{Engine::ResourceManagement::Material}!Load@{Load}}
+\index{Load@{Load}!Engine::ResourceManagement::Material@{Engine::ResourceManagement::Material}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Engine\+::\+Resource\+Management\+::\+Material\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{resources\+Directory,  }\item[{const std\+::string \&}]{sub\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Engine\+::\+Resource\+Management\+::\+Resource}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Material.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Material.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,29 @@
+\hypertarget{_input_manager_8h_source}{}\doxysection{Input\+Manager.\+h}
+\label{_input_manager_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/input/InputManager.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/input/InputManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{6     \textcolor{keyword}{struct }Inputs;}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{9     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_input_manager}{InputManager}}}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Core}};}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keyword}{private}:}
+\DoxyCodeLine{14         std::shared\_ptr<Inputs> \_inputs;}
+\DoxyCodeLine{15     \textcolor{keyword}{public}:}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keyword}{private}:}
+\DoxyCodeLine{19         \textcolor{keywordtype}{void} ProcessFrameInput();}
+\DoxyCodeLine{20     \textcolor{keyword}{public}:}
+\DoxyCodeLine{21         \mbox{\hyperlink{struct_engine_1_1_input_manager}{InputManager}}();}
+\DoxyCodeLine{22         std::shared\_ptr<Inputs> Input();}
+\DoxyCodeLine{23     \};}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}

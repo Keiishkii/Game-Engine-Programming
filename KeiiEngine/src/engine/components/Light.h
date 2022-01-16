@@ -9,6 +9,7 @@ namespace Engine
 	struct Core;
 	namespace Components
 	{
+		/**	The Light is a child of Component, when placed on an entity in the scene it can be passed into the shader and used to calculate scene lighting.  	*/
 		struct Light : Component
 		{
 			friend Engine::Core;

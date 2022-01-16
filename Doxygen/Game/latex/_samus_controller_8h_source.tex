@@ -1,0 +1,39 @@
+\hypertarget{_samus_controller_8h_source}{}\doxysection{Samus\+Controller.\+h}
+\label{_samus_controller_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/player\_controllers/SamusController.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/player\_controllers/SamusController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include "{}engine/KeiiEngine.h"{}}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Game}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{6     \{}
+\DoxyCodeLine{8         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_game_1_1_components_1_1_samus_controller}{SamusController}} : Engine::Components::Component}
+\DoxyCodeLine{9         \{}
+\DoxyCodeLine{10         \textcolor{keyword}{private}:}
+\DoxyCodeLine{11             std::shared\_ptr<Engine::Components::Transform> \_cameraTransform;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13             std::shared\_ptr<Engine::Components::AudioSource> \_rocketAudioSource;}
+\DoxyCodeLine{14             std::shared\_ptr<Engine::Components::AudioSource> \_superRocketAudioSource;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16             \textcolor{keywordtype}{float} \_movementSpeed = 1.0f;}
+\DoxyCodeLine{17         \textcolor{keyword}{public}:}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{keyword}{private}:}
+\DoxyCodeLine{21             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Start() \textcolor{keyword}{override};}
+\DoxyCodeLine{22             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24             \textcolor{keywordtype}{void} WeaponControls(std::shared\_ptr<Inputs> inputs);}
+\DoxyCodeLine{25             \textcolor{keywordtype}{void} MovementControls(std::shared\_ptr<Inputs> inputs);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27             \textcolor{keywordtype}{void} SpawnRocket();}
+\DoxyCodeLine{28             \textcolor{keywordtype}{void} SpawnSuperRocket();}
+\DoxyCodeLine{29         \textcolor{keyword}{public}:}
+\DoxyCodeLine{30             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Initialise(\textcolor{keyword}{const} std::shared\_ptr<Component>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Entity>\& entity) \textcolor{keyword}{override};}
+\DoxyCodeLine{31             \textcolor{keywordtype}{void} SetMovementSpeed(\textcolor{keywordtype}{float} speed);}
+\DoxyCodeLine{32         \};}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}

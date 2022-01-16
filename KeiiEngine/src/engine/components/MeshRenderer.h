@@ -7,6 +7,7 @@ namespace Engine
 	namespace ResourceManagement { struct Model; }
 	namespace Components
 	{
+		/**	The MeshRenderer is a child of Component, when placed on an entity and supplied with a mesh, all triangles within said mesh are drawn at the position of the Entity's transform.  	*/
 		struct MeshRenderer : Component
 		{
 		private:

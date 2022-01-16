@@ -1,0 +1,168 @@
+\hypertarget{struct_engine_1_1_components_1_1_component}{}\doxysection{Engine\+::Components\+::Component Struct Reference}
+\label{struct_engine_1_1_components_1_1_component}\index{Engine::Components::Component@{Engine::Components::Component}}
+
+
+{\ttfamily \#include $<$Component.\+h$>$}
+
+Inheritance diagram for Engine\+::Components\+::Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=10.000000cm]{struct_engine_1_1_components_1_1_component}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}{Initialise}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&self, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&entity)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_transform}{Transform}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a926b78e82b50932514fcb8a3c8250bb4}{Transform}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Engine\+::\+Core}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a6acf9c94d3cc27723175850e248c12c4}{Core}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_system_indexer}{Engine\+::\+System\+Indexer}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a89d62c8f6fb9460e2c962868ee68b07b}{System\+Indexer}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_scene}{Engine\+::\+Scene}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a8f148fb05c65c16ff6e5814d874e04e4}{Scene}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_ab0887f224b768eb38409d93a152d61b8}{Entity}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_time_manager}{Engine\+::\+Time\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a3ef6f2d56f4db1b19a83716c8c82c13e}{Time\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Engine\+::\+Physics\+::\+Physics\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a64299ec7f81f004a720456c5e6facd60}{Physics\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_inputs}{Engine\+::\+Inputs}} $>$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_af0da679214ea3710a97bd5f2ffd26b6e}{Input}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_afe9b5799a96554c3fa4f3d0a7a2909ca}\label{struct_engine_1_1_components_1_1_component_afe9b5799a96554c3fa4f3d0a7a2909ca}} 
+virtual void {\bfseries Start} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a140e202cc5e484d7837850b11f54dc9d}\label{struct_engine_1_1_components_1_1_component_a140e202cc5e484d7837850b11f54dc9d}} 
+virtual void {\bfseries Update} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a6ba5e9ffe98991ba879c52d14a41203c}\label{struct_engine_1_1_components_1_1_component_a6ba5e9ffe98991ba879c52d14a41203c}} 
+virtual void {\bfseries Physics\+Update} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a03443e311369caeb21a4a4b9b4f281de}\label{struct_engine_1_1_components_1_1_component_a03443e311369caeb21a4a4b9b4f281de}} 
+virtual void {\bfseries Render} (const glm\+::mat4x4 \&transformation\+Matrix, const glm\+::mat4x4 \&projection\+Matrix)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_ac0ac21f58661dbe07b2df328b7c3499b}\label{struct_engine_1_1_components_1_1_component_ac0ac21f58661dbe07b2df328b7c3499b}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ {\bfseries Self} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a4e4a23a4308f2d6892a8142b791ce95c}\label{struct_engine_1_1_components_1_1_component_a4e4a23a4308f2d6892a8142b791ce95c}} 
+virtual void {\bfseries Pre\+Destructor} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a32738e13f5abc51d6e16fbc21c0799da}\label{struct_engine_1_1_components_1_1_component_a32738e13f5abc51d6e16fbc21c0799da}} 
+unsigned int {\bfseries \+\_\+system\+Index} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} is the base class of all other components, it stores all required information for other components to work. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a6acf9c94d3cc27723175850e248c12c4}\label{struct_engine_1_1_components_1_1_component_a6acf9c94d3cc27723175850e248c12c4}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!Core@{Core}}
+\index{Core@{Core}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{Core()}{Core()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Engine\+::\+Core}} $>$ Engine\+::\+Components\+::\+Component\+::\+Core (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_ab0887f224b768eb38409d93a152d61b8}\label{struct_engine_1_1_components_1_1_component_ab0887f224b768eb38409d93a152d61b8}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!Entity@{Entity}}
+\index{Entity@{Entity}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{Entity()}{Entity()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ Engine\+::\+Components\+::\+Component\+::\+Entity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}\label{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}}
+{\footnotesize\ttfamily void Engine\+::\+Components\+::\+Component\+::\+Initialise (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&}]{self,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} initialiser, this is called both for the base component and the inherited copy of it. 
+\begin{DoxyParams}{Parameters}
+{\em self} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} itself. \\
+\hline
+{\em entity} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} that has ownership of the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_listener_a3c2ae5848a3a25d4050df300f651c169}{Engine\+::\+Components\+::\+Audio\+Listener}}, \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_source_ab91363d22475d3768b7c1acec40f5727}{Engine\+::\+Components\+::\+Audio\+Source}}, \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera_ad8e35cb2285a1c50c4a9e579633f8204}{Engine\+::\+Components\+::\+Camera}}, \mbox{\hyperlink{struct_engine_1_1_components_1_1_capsule_collider_a9550d4d890181b61d9451a11bf0684b4}{Engine\+::\+Components\+::\+Capsule\+Collider}}, \mbox{\hyperlink{struct_engine_1_1_components_1_1_collider_a3abcbfb53725475a34f0158273ee3f06}{Engine\+::\+Components\+::\+Collider}}, \mbox{\hyperlink{struct_engine_1_1_components_1_1_light_a01f2e566e9a553e5cc4f58626b79aa74}{Engine\+::\+Components\+::\+Light}}, and \mbox{\hyperlink{struct_engine_1_1_components_1_1_reflection_probe_a9c852cfe76c5a24d2bc86483aaed648b}{Engine\+::\+Components\+::\+Reflection\+Probe}}.
+
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_af0da679214ea3710a97bd5f2ffd26b6e}\label{struct_engine_1_1_components_1_1_component_af0da679214ea3710a97bd5f2ffd26b6e}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!Input@{Input}}
+\index{Input@{Input}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{Input()}{Input()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_inputs}{Engine\+::\+Inputs}} $>$ Engine\+::\+Components\+::\+Component\+::\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer of the current frames \mbox{\hyperlink{struct_engine_1_1_inputs}{Inputs}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a64299ec7f81f004a720456c5e6facd60}\label{struct_engine_1_1_components_1_1_component_a64299ec7f81f004a720456c5e6facd60}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!PhysicsManager@{PhysicsManager}}
+\index{PhysicsManager@{PhysicsManager}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{PhysicsManager()}{PhysicsManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Engine\+::\+Physics\+::\+Physics\+Manager}} $>$ Engine\+::\+Components\+::\+Component\+::\+Physics\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores\textquotesingle{}s Physics\+Manager. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a8f148fb05c65c16ff6e5814d874e04e4}\label{struct_engine_1_1_components_1_1_component_a8f148fb05c65c16ff6e5814d874e04e4}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!Scene@{Scene}}
+\index{Scene@{Scene}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{Scene()}{Scene()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_scene}{Engine\+::\+Scene}} $>$ Engine\+::\+Components\+::\+Component\+::\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a89d62c8f6fb9460e2c962868ee68b07b}\label{struct_engine_1_1_components_1_1_component_a89d62c8f6fb9460e2c962868ee68b07b}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!SystemIndexer@{SystemIndexer}}
+\index{SystemIndexer@{SystemIndexer}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{SystemIndexer()}{SystemIndexer()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}} $>$ Engine\+::\+Components\+::\+Component\+::\+System\+Indexer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores\textquotesingle{}s \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a3ef6f2d56f4db1b19a83716c8c82c13e}\label{struct_engine_1_1_components_1_1_component_a3ef6f2d56f4db1b19a83716c8c82c13e}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!TimeManager@{TimeManager}}
+\index{TimeManager@{TimeManager}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{TimeManager()}{TimeManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_time_manager}{Engine\+::\+Time\+Manager}} $>$ Engine\+::\+Components\+::\+Component\+::\+Time\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores\textquotesingle{}s \mbox{\hyperlink{struct_engine_1_1_time_manager}{Time\+Manager}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_component_a926b78e82b50932514fcb8a3c8250bb4}\label{struct_engine_1_1_components_1_1_component_a926b78e82b50932514fcb8a3c8250bb4}} 
+\index{Engine::Components::Component@{Engine::Components::Component}!Transform@{Transform}}
+\index{Transform@{Transform}!Engine::Components::Component@{Engine::Components::Component}}
+\doxysubsubsection{\texorpdfstring{Transform()}{Transform()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_transform}{Transform}} $>$ Engine\+::\+Components\+::\+Component\+::\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}\textquotesingle{}s \mbox{\hyperlink{struct_engine_1_1_components_1_1_transform}{Transform}} component. ~\newline
+ 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Component.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Component.\+cpp\end{DoxyCompactItemize}

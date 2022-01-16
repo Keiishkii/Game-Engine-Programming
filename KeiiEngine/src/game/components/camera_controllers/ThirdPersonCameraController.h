@@ -4,6 +4,7 @@ namespace Game
 {
 	namespace Components
 	{
+		/**	A Component class that allows for the control of a camera, orbiting around a player entity.  	*/
 		struct ThirdPersonCameraController : Engine::Components::Component
 		{
 		private:

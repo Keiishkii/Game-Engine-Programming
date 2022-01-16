@@ -12,6 +12,8 @@ namespace Engine
 	{
 		struct TextureCubeMap;
 		struct ShaderProgram;
+
+		/**	The SkyboxMaterial is a type of resource, it is a type of material file that specifically uses a cubemap as a texture.  	*/
 		struct SkyboxMaterial : Resource
 		{
 		private:

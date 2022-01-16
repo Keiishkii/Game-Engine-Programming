@@ -4,6 +4,7 @@ namespace Game
 {
 	namespace Components
 	{
+		/**	A Component class used to change the post processing shader used during runtime..  	*/
 		struct PostProcessorEffects : Engine::Components::Component
 		{
 		private:

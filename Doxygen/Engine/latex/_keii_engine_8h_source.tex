@@ -1,0 +1,73 @@
+\hypertarget{_keii_engine_8h_source}{}\doxysection{Keii\+Engine.\+h}
+\label{_keii_engine_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/KeiiEngine.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/KeiiEngine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef ENGINE\_KEIIENGINE}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{    \#define ENGINE\_KEIIENGINE}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{    \#define \_USE\_MATH\_DEFINES}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{    \#include "{}PhysX-\/4.1/include/PxPhysicsAPI.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{    \#include "{}Core.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{    \#include "{}Entity.h"{}}}
+\DoxyCodeLine{9     }
+\DoxyCodeLine{10 \textcolor{comment}{// Scenes}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{    \#include "{}Scene.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{comment}{// Maths}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{    \#include "{}engine-\/maths/Maths.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{comment}{// Time}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{    \#include "{}time/TimeManager.h"{}}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{comment}{// Inputs}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{    \#include "{}input/InputManager.h"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{    \#include "{}input/Inputs.h"{}}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{comment}{// Error Handling}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{    \#include "{}error-\/handling/Debugger.h"{}}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{    \#include "{}error-\/handling/Exception.h"{}}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{comment}{// Resournce Management}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{    \#include "{}resources/ResourceManager.h"{}}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{    \#include "{}resources/Resource.h"{}}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{    \#include "{}resources/ShaderProgram.h"{}}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{    \#include "{}resources/Model.h"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{    \#include "{}resources/AudioClip.h"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{    \#include "{}resources/Material.h"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{    \#include "{}resources/SkyboxMaterial.h"{}}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{    \#include "{}resources/Texture.h"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{    \#include "{}resources/TextureCubeMap.h"{}}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{comment}{// Components}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{    \#include "{}components/Component.h"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{    \#include "{}components/RigidBody.h"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{    \#include "{}components/Collider.h"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{    \#include "{}components/CapsuleCollider.h"{}}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{    \#include "{}components/AudioListener.h"{}}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{    \#include "{}components/AudioSource.h"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{    \#include "{}components/Transform.h"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{    \#include "{}components/Camera.h"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{    \#include "{}components/ReflectionProbe.h"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{    \#include "{}components/Light.h"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{    \#include "{}components/Gizmo.h"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{    \#include "{}components/MeshRenderer.h"{}}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{comment}{// Physics}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{    \#include "{}physics/PhysicsManager.h"{}}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{comment}{// Audio}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{    \#include "{}audio/AudioManager.h"{}}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{    \#include "{}audio/AudioBuffer.h"{}}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{comment}{// Graphics}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{    \#include "{}graphics/GraphicsManager.h"{}}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{    \#include "{}graphics/PolygonMaterialGroup.h"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{    \#include "{}graphics/VertexBuffer.h"{}}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{    \#include "{}graphics/VertexArray.h"{}}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keyword}{using namespace }Engine;}
+\DoxyCodeLine{66     \textcolor{keyword}{using} \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_debugger}{Engine::ErrorHandling::Debugger}};}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// !ENGINE\_KEIIENGINE}}
+
+\end{DoxyCode}

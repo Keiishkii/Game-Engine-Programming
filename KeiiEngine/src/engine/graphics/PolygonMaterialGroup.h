@@ -12,6 +12,8 @@ namespace Engine
 	{
 		struct VertexBuffer;
 		struct VertexArray;
+
+		/**	The PolygonMaterialGroup acts a collection for a given VAO and the material designated to it, each one is unique to an indevidual model and material.  	*/
 		struct PolygonMaterialGroup
 		{
 			friend ResourceManagement::Model;

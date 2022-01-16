@@ -1,0 +1,49 @@
+\hypertarget{_polygon_material_group_8h_source}{}\doxysection{Polygon\+Material\+Group.\+h}
+\label{_polygon_material_group_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/graphics/PolygonMaterialGroup.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/graphics/PolygonMaterialGroup.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{6     \{}
+\DoxyCodeLine{7         \textcolor{keyword}{struct }Model;}
+\DoxyCodeLine{8         \textcolor{keyword}{struct }ShaderProgram;}
+\DoxyCodeLine{9     \}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11     \textcolor{keyword}{namespace }Graphics}
+\DoxyCodeLine{12     \{}
+\DoxyCodeLine{13         \textcolor{keyword}{struct }VertexBuffer;}
+\DoxyCodeLine{14         \textcolor{keyword}{struct }VertexArray;}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{17         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_graphics_1_1_polygon_material_group}{PolygonMaterialGroup}}}
+\DoxyCodeLine{18         \{}
+\DoxyCodeLine{19             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_model}{ResourceManagement::Model}};}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21         \textcolor{keyword}{private}:}
+\DoxyCodeLine{22             \textcolor{keywordtype}{int} \_vertexCount = 0;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24             std::shared\_ptr<VertexArray> \_materialGroupVertexArray;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26             std::shared\_ptr<VertexBuffer> \_vertexPositionBuffer;}
+\DoxyCodeLine{27             std::shared\_ptr<VertexBuffer> \_vertexNormalBuffer;}
+\DoxyCodeLine{28             std::shared\_ptr<VertexBuffer> \_textureUVBuffer;}
+\DoxyCodeLine{29         \textcolor{keyword}{public}:}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         \textcolor{keyword}{private}:}
+\DoxyCodeLine{33         \textcolor{keyword}{public}:}
+\DoxyCodeLine{34             \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_polygon_material_group}{PolygonMaterialGroup}}();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36             std::shared\_ptr<VertexBuffer>\& VertexPositionBuffer();}
+\DoxyCodeLine{37             std::shared\_ptr<VertexBuffer>\& VertexNormalBuffer();}
+\DoxyCodeLine{38             std::shared\_ptr<VertexBuffer>\& TextureUVBuffer();}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40             GLuint VertexArrayID(std::shared\_ptr<ResourceManagement::ShaderProgram> shaderProgram);}
+\DoxyCodeLine{41             \textcolor{keywordtype}{int} VertexCount();}
+\DoxyCodeLine{42         \};}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}

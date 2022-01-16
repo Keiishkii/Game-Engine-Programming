@@ -1,0 +1,59 @@
+\hypertarget{struct_engine_1_1_resource_management_1_1_model}{}\doxysection{Engine\+::Resource\+Management\+::Model Struct Reference}
+\label{struct_engine_1_1_resource_management_1_1_model}\index{Engine::ResourceManagement::Model@{Engine::ResourceManagement::Model}}
+
+
+{\ttfamily \#include $<$Model.\+h$>$}
+
+Inheritance diagram for Engine\+::Resource\+Management\+::Model\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_resource_management_1_1_model}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_ad4f8a97e3ca0d7d5d4424a1d1f26c169}\label{struct_engine_1_1_resource_management_1_1_model_ad4f8a97e3ca0d7d5d4424a1d1f26c169}} 
+virtual void {\bfseries Initialise} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{Resource\+Management\+::\+Resource\+Manager}} $>$ \&resource\+Manager) override
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_model_aa71d74bbcdb98eae230970e73d7c67c6}{Load}} (const std\+::string \&resources\+Directory, const std\+::string \&sub\+Path) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_a0b2e0b3ea85ea073fffa12ebc9818bd1}\label{struct_engine_1_1_resource_management_1_1_model_a0b2e0b3ea85ea073fffa12ebc9818bd1}} 
+void {\bfseries Set\+Material} (int material\+Index, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_material}{Material}} $>$ \&material)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_a9816facaa39137e294752228f221c143}\label{struct_engine_1_1_resource_management_1_1_model_a9816facaa39137e294752228f221c143}} 
+int {\bfseries Total\+Vertex\+Count} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_ae38698b6173c8f4d21d889ae41f64891}\label{struct_engine_1_1_resource_management_1_1_model_ae38698b6173c8f4d21d889ae41f64891}} 
+int {\bfseries Total\+Material\+Groups} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_a53ce5f06c51e9c0e485fbfb0e792e383}\label{struct_engine_1_1_resource_management_1_1_model_a53ce5f06c51e9c0e485fbfb0e792e383}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_polygon_material_group}{Graphics\+::\+Polygon\+Material\+Group}} $>$ {\bfseries Get\+Polygon\+Material\+Group} (int material\+Index)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_ae596e562161638722195879594c0dc8d}\label{struct_engine_1_1_resource_management_1_1_model_ae596e562161638722195879594c0dc8d}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_material}{Material}} $>$ {\bfseries Get\+Material} (int material\+Index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_model}{Model}} is a type of resource, it is used to load 3D geometry and the data required to colour it. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_model_aa71d74bbcdb98eae230970e73d7c67c6}\label{struct_engine_1_1_resource_management_1_1_model_aa71d74bbcdb98eae230970e73d7c67c6}} 
+\index{Engine::ResourceManagement::Model@{Engine::ResourceManagement::Model}!Load@{Load}}
+\index{Load@{Load}!Engine::ResourceManagement::Model@{Engine::ResourceManagement::Model}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Engine\+::\+Resource\+Management\+::\+Model\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{resources\+Directory,  }\item[{const std\+::string \&}]{sub\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Engine\+::\+Resource\+Management\+::\+Resource}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Model.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Model.\+cpp\end{DoxyCompactItemize}

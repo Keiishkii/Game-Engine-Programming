@@ -1,0 +1,28 @@
+\hypertarget{_rocket_8h_source}{}\doxysection{Rocket.\+h}
+\label{_rocket_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/Rocket.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/Rocket.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include "{}engine/KeiiEngine.h"{}}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Game}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{6     \{}
+\DoxyCodeLine{8         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_game_1_1_components_1_1_rocket}{Rocket}} : Engine::Components::Component}
+\DoxyCodeLine{9         \{}
+\DoxyCodeLine{10         \textcolor{keyword}{private}:}
+\DoxyCodeLine{11             \textcolor{keywordtype}{float} \_lifeTime = 10.0f;}
+\DoxyCodeLine{12             glm::vec3 \_flightVector = glm::vec3(0);}
+\DoxyCodeLine{13         \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{private}:}
+\DoxyCodeLine{17         \textcolor{keyword}{public}:}
+\DoxyCodeLine{18             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Initialise(\textcolor{keyword}{const} std::shared\_ptr<Component>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Entity>\& entity) \textcolor{keyword}{override};}
+\DoxyCodeLine{19             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{20             \textcolor{keywordtype}{void} SetFlightVector(glm::vec3 flightVector);}
+\DoxyCodeLine{21         \};}
+\DoxyCodeLine{22     \}}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}

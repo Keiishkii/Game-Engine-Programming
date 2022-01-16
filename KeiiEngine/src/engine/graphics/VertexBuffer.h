@@ -7,6 +7,7 @@ namespace Engine
 {
 	namespace Graphics
 	{
+		/**	The VertexBuffer stores a collection of semi-arbitary data that can then be uploaded to the GPU, the engine uses these to store position, normal and UV data from models.  	*/
 		struct VertexBuffer
 		{
 		private:

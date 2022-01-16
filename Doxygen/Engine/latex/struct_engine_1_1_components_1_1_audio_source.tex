@@ -1,0 +1,60 @@
+\hypertarget{struct_engine_1_1_components_1_1_audio_source}{}\doxysection{Engine\+::Components\+::Audio\+Source Struct Reference}
+\label{struct_engine_1_1_components_1_1_audio_source}\index{Engine::Components::AudioSource@{Engine::Components::AudioSource}}
+
+
+{\ttfamily \#include $<$Audio\+Source.\+h$>$}
+
+Inheritance diagram for Engine\+::Components\+::Audio\+Source\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_components_1_1_audio_source}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_source_ab91363d22475d3768b7c1acec40f5727}{Initialise}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&self, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&entity) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_audio_source_ad352bad87516c87504108658efa414cb}\label{struct_engine_1_1_components_1_1_audio_source_ad352bad87516c87504108658efa414cb}} 
+void {\bfseries Play\+Audio\+Clip} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_audio_source_a6c738ffc76442719afe3e7d2f9664cee}\label{struct_engine_1_1_components_1_1_audio_source_a6c738ffc76442719afe3e7d2f9664cee}} 
+void {\bfseries Set\+Audio\+Clip} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_audio_clip}{Resource\+Management\+::\+Audio\+Clip}} $>$ audio\+Clip)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_audio_source_ab7e173f9488b283f1b16bd9af03d663a}\label{struct_engine_1_1_components_1_1_audio_source_ab7e173f9488b283f1b16bd9af03d663a}} 
+void {\bfseries Play\+On\+Start} (bool play\+On\+Start)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_audio_source_a9c06fb97ff92e9185a5b59aea0ea5819}\label{struct_engine_1_1_components_1_1_audio_source_a9c06fb97ff92e9185a5b59aea0ea5819}} 
+void {\bfseries Looping} (bool play\+On\+Start)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_source}{Audio\+Source}} is a child of \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}, it is used play audio in the scene. This object directly syncs with the Open\+AL audio source allowing for 3D audio displacement to occur. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_audio_source_ab91363d22475d3768b7c1acec40f5727}\label{struct_engine_1_1_components_1_1_audio_source_ab91363d22475d3768b7c1acec40f5727}} 
+\index{Engine::Components::AudioSource@{Engine::Components::AudioSource}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Components::AudioSource@{Engine::Components::AudioSource}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}}
+{\footnotesize\ttfamily void Engine\+::\+Components\+::\+Audio\+Source\+::\+Initialise (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&}]{self,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} initialiser, this is called both for the base component and the inherited copy of it. 
+\begin{DoxyParams}{Parameters}
+{\em self} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} itself. \\
+\hline
+{\em entity} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} that has ownership of the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}{Engine\+::\+Components\+::\+Component}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Audio\+Source.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Audio\+Source.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,49 @@
+\hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager}{}\doxysection{Engine\+::Resource\+Management\+::Resource\+Manager Struct Reference}
+\label{struct_engine_1_1_resource_management_1_1_resource_manager}\index{Engine::ResourceManagement::ResourceManager@{Engine::ResourceManagement::ResourceManager}}
+
+
+{\ttfamily \#include $<$Resource\+Manager.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_ae2c74ed6e700720a8dcfcd5122f8af04}\label{struct_engine_1_1_resource_management_1_1_resource_manager_ae2c74ed6e700720a8dcfcd5122f8af04}} 
+void {\bfseries Initialise} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{Resource\+Manager}} $>$ \&self, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Engine\+::\+Core}} $>$ \&core)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_ac703a789c68ab8231cb1d266eda72eb4}\label{struct_engine_1_1_resource_management_1_1_resource_manager_ac703a789c68ab8231cb1d266eda72eb4}} 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ {\bfseries Create} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_a5e862b7dc9ff1354871602d26ecf6c24}\label{struct_engine_1_1_resource_management_1_1_resource_manager_a5e862b7dc9ff1354871602d26ecf6c24}} 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ {\bfseries Find\+Asset} (std\+::string asset\+Path)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_a307cd97825827f818d9bcb68ebd51bc1}\label{struct_engine_1_1_resource_management_1_1_resource_manager_a307cd97825827f818d9bcb68ebd51bc1}} 
+std\+::shared\+\_\+ptr$<$ Fbx\+Manager $\ast$ $>$ \& {\bfseries FBXManager} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_a28c7bc8ea415e68e6e387e6b040fc0b6}\label{struct_engine_1_1_resource_management_1_1_resource_manager_a28c7bc8ea415e68e6e387e6b040fc0b6}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Engine\+::\+Core}} $>$ {\bfseries Core} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_a79442b6097483ccbe3f2b8594af9228c}\label{struct_engine_1_1_resource_management_1_1_resource_manager_a79442b6097483ccbe3f2b8594af9228c}} 
+std\+::string {\bfseries Get\+Resource\+Directory} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_aa794eebd762527b48c078d22bfd94da5}\label{struct_engine_1_1_resource_management_1_1_resource_manager_aa794eebd762527b48c078d22bfd94da5}} 
+static bool {\bfseries File\+Exists} (std\+::string path)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_a8bc17a05c7ec9ba430890af43287eecb}\label{struct_engine_1_1_resource_management_1_1_resource_manager_a8bc17a05c7ec9ba430890af43287eecb}} 
+static std\+::string {\bfseries Read\+Text} (std\+::string path)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_resource_manager_aa6b31da739b95116a256e232d7c9475f}\label{struct_engine_1_1_resource_management_1_1_resource_manager_aa6b31da739b95116a256e232d7c9475f}} 
+static rapidjson\+::\+Document {\bfseries To\+JSON} (std\+::string content)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{Resource\+Manager}} class is used to store, load and give access too various resources across the program. ~\newline
+ 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Resource\+Manager.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Resource\+Manager.\+cpp\end{DoxyCompactItemize}

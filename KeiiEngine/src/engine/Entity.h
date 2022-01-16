@@ -24,6 +24,8 @@ namespace Engine
 	struct Core;
 	struct Scene;
 	struct SystemIndexer;
+
+	/**	Entity is the class in which defines objects within the game world. In other engines this could be considered an Actor or GameObject.  	*/
 	struct Entity
 	{
 		friend Engine::Scene;
@@ -61,8 +63,11 @@ namespace Engine
 
 		void PreDestructor();
 	public:
+		/** Entity Constructor: only used to set the name of the entity; */
 		Entity(std::string name);
 
+
+		/** Adds a component to the entity. */
 		template <typename T>
 		std::shared_ptr<T> AddComponent()
 		{
@@ -78,6 +83,8 @@ namespace Engine
 			return component;
 		}
 
+		/** Adds a component to the entity.
+		@param parameter: a paramter passed at the end of the components constructor.		*/
 		template <typename T, typename A>
 		std::shared_ptr<T> AddComponent(A parameter)
 		{
@@ -93,13 +100,27 @@ namespace Engine
 			return component;
 		}
 
+		/** Removes a component from the entity by using its system index.
+		@param component: a shared pointer to the component to be removed.		*/
 		void RemoveComponent(std::shared_ptr<Components::Component> component);
 
+		/** Get Function: 
+		@return Returns the name given to the Entity.		*/
 		std::string& Name();
+		/** Get Function: 
+		@return Returns a shared pointer to the Core.		*/
 		std::shared_ptr<Core> Core();
+		/** Get Function: 
+		@return Returns a shared pointer to the Entity's PhysXActor.		*/
 		physx::PxRigidDynamic* PhysXActor();
+		/** Get Function: 
+		@return Returns a shared pointer to the Cores PhysicsManager.		*/
 		std::shared_ptr<Physics::PhysicsManager> PhysicsManager();
+		/** Get Function: 
+		@return Returns a shared pointer to the Cores SystemIndexer.		*/
 		std::shared_ptr<SystemIndexer> SystemIndexer();
+		/** Get Function: 
+		@return Returns a shared pointer to the Entity's Transform component.	*/
 		std::shared_ptr<Components::Transform> Transform();
 	};
 }

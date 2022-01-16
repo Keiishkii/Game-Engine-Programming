@@ -11,6 +11,8 @@ namespace Engine
 	namespace Graphics
 	{
 		struct VertexBuffer;
+
+		/**	The VertexArray stores VertexBuffer objects, these are combined when rendering requires them to be uploaded to the GPU.  	*/
 		struct VertexArray
 		{
 		private:

@@ -1,0 +1,52 @@
+\hypertarget{_material_8h_source}{}\doxysection{Material.\+h}
+\label{_material_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/Material.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/Material.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <glm/glm.hpp>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <glew.h>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Resource.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}rapidjson/document.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{using namespace }rapidjson;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14         \textcolor{keyword}{struct }Texture;}
+\DoxyCodeLine{15         \textcolor{keyword}{struct }ShaderProgram;}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{18         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_material}{Material}} : \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Resource}}}
+\DoxyCodeLine{19         \{}
+\DoxyCodeLine{20         \textcolor{keyword}{private}:}
+\DoxyCodeLine{21             std::shared\_ptr<Texture> \_albedoTexture, \_normalTexture;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23             glm::vec4 \_colour = \{1, 1, 1, 1\};}
+\DoxyCodeLine{24             \textcolor{keywordtype}{float} \_roughness = 0;}
+\DoxyCodeLine{25             \textcolor{keywordtype}{float} \_metallic = 0;}
+\DoxyCodeLine{26         \textcolor{keyword}{public}:}
+\DoxyCodeLine{27             std::shared\_ptr<ShaderProgram> MaterialShader;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29             std::map<std::string, std::shared\_ptr<Texture>> Properties\_Texture;}
+\DoxyCodeLine{30             std::map<std::string, float> Properties\_Float;}
+\DoxyCodeLine{31             std::map<std::string, glm::vec2> Properties\_Vec2;}
+\DoxyCodeLine{32             std::map<std::string, glm::vec3> Properties\_Vec3;}
+\DoxyCodeLine{33             std::map<std::string, glm::vec4> Properties\_Vec4;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         \textcolor{keyword}{private}:}
+\DoxyCodeLine{37             \textcolor{keywordtype}{void} AssignProperty\_ShaderProgram(\textcolor{keyword}{const} std::string\& resourcePath);}
+\DoxyCodeLine{38             \textcolor{keywordtype}{void} AssignProperty\_Texture(\textcolor{keyword}{const} std::string\& propertyKey, \textcolor{keyword}{const} std::string\& resourcePath);}
+\DoxyCodeLine{39             \textcolor{keywordtype}{void} AssignProperty\_Float(\textcolor{keyword}{const} std::string\& propertyKey, \textcolor{keywordtype}{float} materialProperty);}
+\DoxyCodeLine{40             \textcolor{keywordtype}{void} AssignProperty\_Vec2(\textcolor{keyword}{const} std::string\& propertyKey, glm::vec2 materialProperty);}
+\DoxyCodeLine{41             \textcolor{keywordtype}{void} AssignProperty\_Vec3(\textcolor{keyword}{const} std::string\& propertyKey, glm::vec3 materialProperty);}
+\DoxyCodeLine{42             \textcolor{keywordtype}{void} AssignProperty\_Vec4(\textcolor{keyword}{const} std::string\& propertyKey, glm::vec4 materialProperty);}
+\DoxyCodeLine{43         \textcolor{keyword}{public}:}
+\DoxyCodeLine{44             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Load(\textcolor{keyword}{const} std::string\& resourcesDirectory, \textcolor{keyword}{const} std::string\& subPath) \textcolor{keyword}{override};}
+\DoxyCodeLine{45         \};}
+\DoxyCodeLine{46     \}}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}

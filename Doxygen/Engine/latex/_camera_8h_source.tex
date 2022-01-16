@@ -1,0 +1,44 @@
+\hypertarget{_camera_8h_source}{}\doxysection{Camera.\+h}
+\label{_camera_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/Camera.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/Camera.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <glm/vec3.hpp>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <glm/vec4.hpp>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <glm/mat4x4.hpp>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11         \textcolor{keyword}{struct }Model;}
+\DoxyCodeLine{12         \textcolor{keyword}{struct }SkyboxMaterial;}
+\DoxyCodeLine{13     \}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{16     \textcolor{keyword}{namespace }Graphics \{ \textcolor{keyword}{struct }GraphicsManager; \}}
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{20         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Camera}} : \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}}
+\DoxyCodeLine{21         \{}
+\DoxyCodeLine{22             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Engine::Core}};}
+\DoxyCodeLine{23             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_graphics_manager}{Engine::Graphics::GraphicsManager}};}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25         \textcolor{keyword}{private}:}
+\DoxyCodeLine{26             glm::mat4x4 \_projectionMatrix;}
+\DoxyCodeLine{27         \textcolor{keyword}{public}:}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \textcolor{keyword}{private}:}
+\DoxyCodeLine{31             \textcolor{keywordtype}{void} GenerateNewProjectionMatrix(\textcolor{keywordtype}{float} windowWidth, \textcolor{keywordtype}{float} windowHeight, \textcolor{keywordtype}{float} fieldOfView);}
+\DoxyCodeLine{32         \textcolor{keyword}{public}:}
+\DoxyCodeLine{33             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera_ad8e35cb2285a1c50c4a9e579633f8204}{Initialise}}(\textcolor{keyword}{const} std::shared\_ptr<Component>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Entity>\& entity) \textcolor{keyword}{override};}
+\DoxyCodeLine{34             \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{\string~Camera}}();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36             glm::mat4x4\& ProjectionMatrix();}
+\DoxyCodeLine{37         \};}
+\DoxyCodeLine{38     \}}
+\DoxyCodeLine{39 \}}
+
+\end{DoxyCode}

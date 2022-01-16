@@ -11,6 +11,7 @@ namespace Engine
 	
 	namespace ResourceManagement
 	{
+		/**	The AudioClip is a type of resource, its used to store the data from audio files. Inparticular .ogg files.  	*/
 		struct AudioClip : Resource
 		{
 		private:

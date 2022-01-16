@@ -1,0 +1,96 @@
+\hypertarget{_scene_8h_source}{}\doxysection{Scene.\+h}
+\label{_scene_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/Scene.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/Scene.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}glew.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}glm/glm.hpp"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}glm/ext.hpp"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     \textcolor{keyword}{namespace }ResourceManagement }
+\DoxyCodeLine{12     \{ }
+\DoxyCodeLine{13         \textcolor{keyword}{struct }SkyboxMaterial; }
+\DoxyCodeLine{14         \textcolor{keyword}{struct }Texture;}
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{17     \{}
+\DoxyCodeLine{18         \textcolor{keyword}{struct }Light;}
+\DoxyCodeLine{19         \textcolor{keyword}{struct }Camera;}
+\DoxyCodeLine{20         \textcolor{keyword}{struct }AudioListener;}
+\DoxyCodeLine{21         \textcolor{keyword}{struct }ReflectionProbe;}
+\DoxyCodeLine{22     \}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{keyword}{namespace }Physics}
+\DoxyCodeLine{25     \{}
+\DoxyCodeLine{26         \textcolor{keyword}{struct }PhysicsManager;}
+\DoxyCodeLine{27     \}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keyword}{struct }Entity;}
+\DoxyCodeLine{30     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{33     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_scene}{Scene}}}
+\DoxyCodeLine{34     \{}
+\DoxyCodeLine{35         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Core}};}
+\DoxyCodeLine{36         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Components::Camera}};}
+\DoxyCodeLine{37         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_components_1_1_audio_listener}{Components::AudioListener}};}
+\DoxyCodeLine{38         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_components_1_1_light}{Components::Light}};}
+\DoxyCodeLine{39         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_components_1_1_reflection_probe}{Components::ReflectionProbe}};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keyword}{private}:}
+\DoxyCodeLine{42         \textcolor{keywordtype}{bool} \_entityListDirty;}
+\DoxyCodeLine{43         std::map<unsigned int, std::shared\_ptr<Entity>> \_entitys;}
+\DoxyCodeLine{44         std::vector<std::shared\_ptr<Entity>> \_entityList;}
+\DoxyCodeLine{45         std::vector<unsigned int> \_entitysMarkedForDelete;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         std::shared\_ptr<ResourceManagement::SkyboxMaterial> \_skyboxMaterial;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         std::weak\_ptr<Engine::Physics::PhysicsManager> \_physicsManager;}
+\DoxyCodeLine{50         std::map<unsigned int, std::weak\_ptr<Components::Camera>> \_cameras;}
+\DoxyCodeLine{51         std::weak\_ptr<Components::Camera> \_mainCamera;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53         std::map<unsigned int, std::weak\_ptr<Components::AudioListener>> \_audioListeners;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55         std::map<unsigned int, std::weak\_ptr<Components::Light>> \_lights;}
+\DoxyCodeLine{56         std::map<unsigned int, std::weak\_ptr<Components::ReflectionProbe>> \_reflectionProbes;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58         std::weak\_ptr<Engine::Core> \_core;}
+\DoxyCodeLine{59     \textcolor{keyword}{public}:}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62     \textcolor{keyword}{private}:}
+\DoxyCodeLine{63         \textcolor{keywordtype}{void} Initialise(std::shared\_ptr<Engine::Core> core);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65         \textcolor{keywordtype}{void} Update();}
+\DoxyCodeLine{66         \textcolor{keywordtype}{void} PhysicsUpdate();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68         \textcolor{keywordtype}{void} RenderScene(\textcolor{keyword}{const} glm::mat4x4\& transformationMatrix, \textcolor{keyword}{const} glm::mat4x4\& projectionMatrix);}
+\DoxyCodeLine{69         \textcolor{keywordtype}{void} CleanEntityList();}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71         \textcolor{keywordtype}{void} PreDestructor();}
+\DoxyCodeLine{72     \textcolor{keyword}{public}:}
+\DoxyCodeLine{74         \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_scene_aed59365e6e49e32bee66d1394d9a6eab}{LoadScene}}();}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{79         std::shared\_ptr<Entity> \mbox{\hyperlink{struct_engine_1_1_scene_a09f9d8fbed26befac132e1924c00cbca}{AddEntity}}(std::string name);}
+\DoxyCodeLine{82         \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_scene_a07f40548e8fa318f9175b82bfc17540a}{RemoveEntity}}(std::shared\_ptr<Entity> entity);}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{87         std::shared\_ptr<Entity> \mbox{\hyperlink{struct_engine_1_1_scene_a92a5005518ded6fd825614494b68b64a}{FindEntity}}(std::string name);}
+\DoxyCodeLine{90         std::vector<std::shared\_ptr<Entity>> \mbox{\hyperlink{struct_engine_1_1_scene_a6e73f300e4df1bfb122e694657d10ee8}{Entitys}}();}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{98         std::shared\_ptr<ResourceManagement::Texture> \mbox{\hyperlink{struct_engine_1_1_scene_a95185fa84f6178d42fbf4f86004b9c17}{RenderSceneToTexture}}(\textcolor{keyword}{const} glm::mat4x4\& transformationMatrix, \textcolor{keyword}{const} glm::mat4x4\& projectionMatrix, \textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height);}
+\DoxyCodeLine{105         GLuint \mbox{\hyperlink{struct_engine_1_1_scene_abbb285161c3372102566c94ed5508f2b}{RenderSceneToTextureBuffer}}(\textcolor{keyword}{const} glm::mat4x4\& transformationMatrix, \textcolor{keyword}{const} glm::mat4x4\& projectionMatrix, \textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{109         std::vector<std::weak\_ptr<Components::Light>> \mbox{\hyperlink{struct_engine_1_1_scene_a39d87165d17303897bce6983f6db1e35}{Lights}}();}
+\DoxyCodeLine{112         std::vector<std::weak\_ptr<Components::Camera>> \mbox{\hyperlink{struct_engine_1_1_scene_a64de7c1bc47d3c383467f6eb5ff72f70}{Cameras}}();}
+\DoxyCodeLine{115         std::shared\_ptr<Components::Camera> \mbox{\hyperlink{struct_engine_1_1_scene_a60bd454183276d748985133b248074d6}{MainCamera}}();}
+\DoxyCodeLine{118         std::shared\_ptr<Engine::Core> \mbox{\hyperlink{struct_engine_1_1_scene_a12525084b30c7f722edcbb7dc75feb34}{Core}}();}
+\DoxyCodeLine{121         std::shared\_ptr<Engine::Physics::PhysicsManager> \mbox{\hyperlink{struct_engine_1_1_scene_a371d43362fd820a5798d0093da573ae8}{PhysicsManager}}();}
+\DoxyCodeLine{124         std::shared\_ptr<ResourceManagement::SkyboxMaterial>\& \mbox{\hyperlink{struct_engine_1_1_scene_ae3161990989bb8d4fb88352edcf68e88}{Skybox}}();}
+\DoxyCodeLine{125     \};}
+\DoxyCodeLine{126 \}}
+
+\end{DoxyCode}

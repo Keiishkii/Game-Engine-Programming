@@ -1,0 +1,92 @@
+\hypertarget{_inputs_8h_source}{}\doxysection{Inputs.\+h}
+\label{_inputs_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/input/Inputs.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/input/Inputs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <glm/glm.hpp>}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{struct }InputManager;}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{8     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_inputs}{Inputs}}}
+\DoxyCodeLine{9     \{}
+\DoxyCodeLine{10         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_input_manager}{InputManager}};}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12     \textcolor{keyword}{public}:}
+\DoxyCodeLine{13         \textcolor{keyword}{enum} Keys }
+\DoxyCodeLine{14         \{ }
+\DoxyCodeLine{15             A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, }
+\DoxyCodeLine{16             k0, k1, k2, k3, k4, k5, k6, k7, k8, k9,}
+\DoxyCodeLine{17             SPACE, LSHIFT, LCNTRL, ESCAPE }
+\DoxyCodeLine{18         \};}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{keyword}{private}:}
+\DoxyCodeLine{21     \textcolor{comment}{// Events}}
+\DoxyCodeLine{22         \textcolor{keywordtype}{bool} \_SDLQuit;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \textcolor{comment}{// Mouse Input}}
+\DoxyCodeLine{25         \textcolor{keywordtype}{float} \_relativeXPosition;}
+\DoxyCodeLine{26         \textcolor{keywordtype}{float} \_relativeYPosition;}
+\DoxyCodeLine{27         \textcolor{keywordtype}{float} \_scrollWheelDelta;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{comment}{// Keyboard Input}}
+\DoxyCodeLine{30         \textcolor{keywordtype}{bool} \_aDown, \_aHeld, \_aReleased;}
+\DoxyCodeLine{31         \textcolor{keywordtype}{bool} \_bDown, \_bHeld, \_bReleased;}
+\DoxyCodeLine{32         \textcolor{keywordtype}{bool} \_cDown, \_cHeld, \_cReleased;}
+\DoxyCodeLine{33         \textcolor{keywordtype}{bool} \_dDown, \_dHeld, \_dReleased;}
+\DoxyCodeLine{34         \textcolor{keywordtype}{bool} \_eDown, \_eHeld, \_eReleased;}
+\DoxyCodeLine{35         \textcolor{keywordtype}{bool} \_fDown, \_fHeld, \_fReleased;}
+\DoxyCodeLine{36         \textcolor{keywordtype}{bool} \_gDown, \_gHeld, \_gReleased;}
+\DoxyCodeLine{37         \textcolor{keywordtype}{bool} \_hDown, \_hHeld, \_hReleased;}
+\DoxyCodeLine{38         \textcolor{keywordtype}{bool} \_iDown, \_iHeld, \_iReleased;}
+\DoxyCodeLine{39         \textcolor{keywordtype}{bool} \_jDown, \_jHeld, \_jReleased;}
+\DoxyCodeLine{40         \textcolor{keywordtype}{bool} \_kDown, \_kHeld, \_kReleased;}
+\DoxyCodeLine{41         \textcolor{keywordtype}{bool} \_lDown, \_lHeld, \_lReleased;}
+\DoxyCodeLine{42         \textcolor{keywordtype}{bool} \_mDown, \_mHeld, \_mReleased;}
+\DoxyCodeLine{43         \textcolor{keywordtype}{bool} \_nDown, \_nHeld, \_nReleased;}
+\DoxyCodeLine{44         \textcolor{keywordtype}{bool} \_oDown, \_oHeld, \_oReleased;}
+\DoxyCodeLine{45         \textcolor{keywordtype}{bool} \_pDown, \_pHeld, \_pReleased;}
+\DoxyCodeLine{46         \textcolor{keywordtype}{bool} \_qDown, \_qHeld, \_qReleased;}
+\DoxyCodeLine{47         \textcolor{keywordtype}{bool} \_rDown, \_rHeld, \_rReleased;}
+\DoxyCodeLine{48         \textcolor{keywordtype}{bool} \_sDown, \_sHeld, \_sReleased;}
+\DoxyCodeLine{49         \textcolor{keywordtype}{bool} \_tDown, \_tHeld, \_tReleased;}
+\DoxyCodeLine{50         \textcolor{keywordtype}{bool} \_uDown, \_uHeld, \_uReleased;}
+\DoxyCodeLine{51         \textcolor{keywordtype}{bool} \_vDown, \_vHeld, \_vReleased;}
+\DoxyCodeLine{52         \textcolor{keywordtype}{bool} \_wDown, \_wHeld, \_wReleased;}
+\DoxyCodeLine{53         \textcolor{keywordtype}{bool} \_xDown, \_xHeld, \_xReleased;}
+\DoxyCodeLine{54         \textcolor{keywordtype}{bool} \_yDown, \_yHeld, \_yReleased;}
+\DoxyCodeLine{55         \textcolor{keywordtype}{bool} \_zDown, \_zHeld, \_zReleased;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57         \textcolor{keywordtype}{bool} \_0Down, \_0Held, \_0Released;}
+\DoxyCodeLine{58         \textcolor{keywordtype}{bool} \_1Down, \_1Held, \_1Released;}
+\DoxyCodeLine{59         \textcolor{keywordtype}{bool} \_2Down, \_2Held, \_2Released;}
+\DoxyCodeLine{60         \textcolor{keywordtype}{bool} \_3Down, \_3Held, \_3Released;}
+\DoxyCodeLine{61         \textcolor{keywordtype}{bool} \_4Down, \_4Held, \_4Released;}
+\DoxyCodeLine{62         \textcolor{keywordtype}{bool} \_5Down, \_5Held, \_5Released;}
+\DoxyCodeLine{63         \textcolor{keywordtype}{bool} \_6Down, \_6Held, \_6Released;}
+\DoxyCodeLine{64         \textcolor{keywordtype}{bool} \_7Down, \_7Held, \_7Released;}
+\DoxyCodeLine{65         \textcolor{keywordtype}{bool} \_8Down, \_8Held, \_8Released;}
+\DoxyCodeLine{66         \textcolor{keywordtype}{bool} \_9Down, \_9Held, \_9Released;}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68         \textcolor{keywordtype}{bool} \_escapeDown, \_escapeHeld, \_escapeReleased;}
+\DoxyCodeLine{69         \textcolor{keywordtype}{bool} \_spaceDown, \_spaceHeld, \_spaceReleased;}
+\DoxyCodeLine{70         \textcolor{keywordtype}{bool} \_lShiftDown, \_lShiftHeld, \_lShiftReleased;}
+\DoxyCodeLine{71         \textcolor{keywordtype}{bool} \_lControlDown, \_lControlHeld, \_lControlReleased;}
+\DoxyCodeLine{72     \textcolor{keyword}{public}:}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keyword}{private}:}
+\DoxyCodeLine{76         \textcolor{keywordtype}{void} RefreshAtStartOfNewFrame();}
+\DoxyCodeLine{77     \textcolor{keyword}{public}:}
+\DoxyCodeLine{78         \textcolor{keywordtype}{bool} KeyDown(Keys key);}
+\DoxyCodeLine{79         \textcolor{keywordtype}{bool} KeyHeld(Keys key);}
+\DoxyCodeLine{80         \textcolor{keywordtype}{bool} KeyReleased(Keys key);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82         glm::vec2 MousePosition();}
+\DoxyCodeLine{83         \textcolor{keywordtype}{float} MouseScrollDelta();}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85         \textcolor{keywordtype}{bool} QuitEvent();}
+\DoxyCodeLine{86     \};}
+\DoxyCodeLine{87 \}}
+
+\end{DoxyCode}

@@ -1,0 +1,59 @@
+\hypertarget{_model_8h_source}{}\doxysection{Model.\+h}
+\label{_model_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/Model.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/Model.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <fbxsdk.h>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <glm/vec3.hpp>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <glm/vec2.hpp>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Resource.h"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11     \textcolor{keyword}{namespace }Graphics \{ \textcolor{keyword}{struct }PolygonMaterialGroup; \}}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }Graphics \{ \textcolor{keyword}{struct }VertexBuffer; \}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{15     \{}
+\DoxyCodeLine{16         \textcolor{keyword}{struct }ResourceManager;}
+\DoxyCodeLine{17         \textcolor{keyword}{struct }Material;}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{20         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_model}{Model}} : \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Resource}}}
+\DoxyCodeLine{21         \{}
+\DoxyCodeLine{22         \textcolor{keyword}{private}:}
+\DoxyCodeLine{23             std::weak\_ptr<FbxManager*> \_fbxManager;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25             std::map<int, std::shared\_ptr<Graphics::PolygonMaterialGroup>> \_polygonMaterialGroups;}
+\DoxyCodeLine{26             std::map<int, std::shared\_ptr<Material>> \_materials;}
+\DoxyCodeLine{27             \textcolor{keywordtype}{int} \_totalVertexCount = 0;}
+\DoxyCodeLine{28         \textcolor{keyword}{public}:}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \textcolor{keyword}{private}:}
+\DoxyCodeLine{32             \textcolor{keywordtype}{bool} LoadScene(FbxManager* pManager, FbxDocument* pScene, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* pFilename);}
+\DoxyCodeLine{33             \textcolor{keywordtype}{void} LoadUVInformation(\textcolor{keyword}{const} FbxMesh* mesh, std::vector<glm::vec2>\& textureUVs);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35             \textcolor{keywordtype}{void} ProbeNode(FbxNode* node);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37             \textcolor{keywordtype}{void} UnpackMesh(FbxMesh* mesh);}
+\DoxyCodeLine{38             \textcolor{keywordtype}{int} GetPolygonMaterial(FbxMesh* mesh, \textcolor{keywordtype}{int} polygonIndex);}
+\DoxyCodeLine{39             \textcolor{keywordtype}{void} AddToPolygonMaterialGroup(FbxMesh* mesh, \textcolor{keywordtype}{int} polygonIndex, \textcolor{keywordtype}{int} materialIndex, \textcolor{keyword}{const} std::vector<glm::vec2>\& textureUVs);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41             std::shared\_ptr<FbxManager*> FBXManager();}
+\DoxyCodeLine{42         \textcolor{keyword}{public}:}
+\DoxyCodeLine{43             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Initialise(\textcolor{keyword}{const} std::shared\_ptr<ResourceManagement::ResourceManager>\& resourceManager) \textcolor{keyword}{override};}
+\DoxyCodeLine{44             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Load(\textcolor{keyword}{const} std::string\& resourcesDirectory, \textcolor{keyword}{const} std::string\& subPath) \textcolor{keyword}{override};}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46             \textcolor{keywordtype}{void} SetMaterial(\textcolor{keywordtype}{int} materialIndex, \textcolor{keyword}{const} std::shared\_ptr<Material>\& material);}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48             \textcolor{keywordtype}{int} TotalVertexCount();}
+\DoxyCodeLine{49             \textcolor{keywordtype}{int} TotalMaterialGroups();}
+\DoxyCodeLine{50             std::shared\_ptr<Graphics::PolygonMaterialGroup> GetPolygonMaterialGroup(\textcolor{keywordtype}{int} materialIndex);}
+\DoxyCodeLine{51             std::shared\_ptr<Material> GetMaterial(\textcolor{keywordtype}{int} materialIndex);}
+\DoxyCodeLine{52         \};}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 \}}
+
+\end{DoxyCode}

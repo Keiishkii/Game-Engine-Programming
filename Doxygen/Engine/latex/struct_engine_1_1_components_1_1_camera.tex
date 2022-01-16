@@ -1,0 +1,51 @@
+\hypertarget{struct_engine_1_1_components_1_1_camera}{}\doxysection{Engine\+::Components\+::Camera Struct Reference}
+\label{struct_engine_1_1_components_1_1_camera}\index{Engine::Components::Camera@{Engine::Components::Camera}}
+
+
+{\ttfamily \#include $<$Camera.\+h$>$}
+
+Inheritance diagram for Engine\+::Components\+::Camera\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_components_1_1_camera}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera_ad8e35cb2285a1c50c4a9e579633f8204}{Initialise}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&self, const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&entity) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_camera_a72e2b96dd31b3ccd965f59d8bdb4a931}\label{struct_engine_1_1_components_1_1_camera_a72e2b96dd31b3ccd965f59d8bdb4a931}} 
+glm\+::mat4x4 \& {\bfseries Projection\+Matrix} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Camera}} is a child of \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}, it is used to render the scene. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_components_1_1_camera_ad8e35cb2285a1c50c4a9e579633f8204}\label{struct_engine_1_1_components_1_1_camera_ad8e35cb2285a1c50c4a9e579633f8204}} 
+\index{Engine::Components::Camera@{Engine::Components::Camera}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Components::Camera@{Engine::Components::Camera}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}}
+{\footnotesize\ttfamily void Engine\+::\+Components\+::\+Camera\+::\+Initialise (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} $>$ \&}]{self,  }\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Engine\+::\+Entity}} $>$ \&}]{entity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+The \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} initialiser, this is called both for the base component and the inherited copy of it. 
+\begin{DoxyParams}{Parameters}
+{\em self} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}} itself. \\
+\hline
+{\em entity} & a pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} that has ownership of the \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_components_1_1_component_a0e2da80a0f02ee97f26fb85a623de4a9}{Engine\+::\+Components\+::\+Component}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Camera.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/components/Camera.\+cpp\end{DoxyCompactItemize}

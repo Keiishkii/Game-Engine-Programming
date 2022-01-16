@@ -9,6 +9,8 @@ namespace Engine
 	namespace ResourceManagement
 	{
 		struct Texture;
+
+		/**	The TextureCubeMap is a type of resource, it combines 6 different .png files to create a cubemap. This is the uploaded to the GPU for OpenGL.  	*/
 		struct TextureCubeMap : Resource
 		{
 		private:

@@ -1,0 +1,36 @@
+\hypertarget{_debugger_8h_source}{}\doxysection{Debugger.\+h}
+\label{_debugger_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/error-\/handling/Debugger.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/error-\/handling/Debugger.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <chrono>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{5 \{}
+\DoxyCodeLine{6     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8     \textcolor{keyword}{namespace }ErrorHandling}
+\DoxyCodeLine{9     \{}
+\DoxyCodeLine{11         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_debugger}{Debugger}}}
+\DoxyCodeLine{12         \{}
+\DoxyCodeLine{13             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Core}};}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15         \textcolor{keyword}{private}:}
+\DoxyCodeLine{16             \textcolor{keywordtype}{int} updates, fixedUpdates;}
+\DoxyCodeLine{17             std::chrono::steady\_clock::time\_point lastUpdateTime, lastFixedUpdateTime;}
+\DoxyCodeLine{18             std::chrono::duration<float> totalUpdateTime, totalFixedUpdateTime;}
+\DoxyCodeLine{19         \textcolor{keyword}{public}:}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22         \textcolor{keyword}{private}:}
+\DoxyCodeLine{23             \textcolor{keywordtype}{void} LogUpdate();}
+\DoxyCodeLine{24             \textcolor{keywordtype}{void} LogFixedUpdate();}
+\DoxyCodeLine{25         \textcolor{keyword}{public}:}
+\DoxyCodeLine{26             \textcolor{keyword}{static} \textcolor{keywordtype}{void} Print(std::string content);}
+\DoxyCodeLine{27             \textcolor{keyword}{static} \textcolor{keywordtype}{void} PrintWarning(std::string content);}
+\DoxyCodeLine{28             \textcolor{keyword}{static} \textcolor{keywordtype}{void} PrintError(std::string content);}
+\DoxyCodeLine{29         \};}
+\DoxyCodeLine{30     \}}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}

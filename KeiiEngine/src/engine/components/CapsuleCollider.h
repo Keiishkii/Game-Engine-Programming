@@ -4,6 +4,7 @@ namespace Engine
 {
 	namespace Components
 	{
+		/**	The CapsuleCollider is a child of Collider, it allows for collisions to be caluclated using the PhysX engine.  	*/
 		struct CapsuleCollider : Collider
 		{
 		private:

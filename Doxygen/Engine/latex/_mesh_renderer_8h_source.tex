@@ -1,0 +1,29 @@
+\hypertarget{_mesh_renderer_8h_source}{}\doxysection{Mesh\+Renderer.\+h}
+\label{_mesh_renderer_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/MeshRenderer.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/MeshRenderer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7     \textcolor{keyword}{namespace }ResourceManagement \{ \textcolor{keyword}{struct }Model; \}}
+\DoxyCodeLine{8     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{9     \{}
+\DoxyCodeLine{11         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_components_1_1_mesh_renderer}{MeshRenderer}} : \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}}
+\DoxyCodeLine{12         \{}
+\DoxyCodeLine{13         \textcolor{keyword}{private}:}
+\DoxyCodeLine{14             std::shared\_ptr<ResourceManagement::Model> \_renderModel;}
+\DoxyCodeLine{15         \textcolor{keyword}{public}:}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keyword}{private}:}
+\DoxyCodeLine{19             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Render(\textcolor{keyword}{const} glm::mat4x4\& transformationMatrix, \textcolor{keyword}{const} glm::mat4x4\& projectionMatrix) \textcolor{keyword}{override};}
+\DoxyCodeLine{20         \textcolor{keyword}{public}:}
+\DoxyCodeLine{21             \textcolor{keywordtype}{void} Initialise(\textcolor{keyword}{const} std::shared\_ptr<Component>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Entity>\& entity, std::shared\_ptr<ResourceManagement::Model> renderModel);}
+\DoxyCodeLine{22         \};}
+\DoxyCodeLine{23     \}}
+\DoxyCodeLine{24 \}}
+
+\end{DoxyCode}

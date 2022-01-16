@@ -12,6 +12,8 @@ namespace Engine
 	namespace Graphics
 	{
 		struct VertexArray;
+
+		/**	The GraphicsManager is the class used control graphical operations, this includes rendering to the screen and post processing effects.  	*/
 		struct GraphicsManager
 		{
 			friend Core;

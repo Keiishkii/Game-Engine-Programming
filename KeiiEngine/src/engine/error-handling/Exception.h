@@ -5,6 +5,7 @@ namespace Engine
 {
 	namespace ErrorHandling
 	{
+		/**	The Exception class used to perform error handling from within the engine and game.  	*/
 		struct Exception : public std::exception
 		{
 		private:

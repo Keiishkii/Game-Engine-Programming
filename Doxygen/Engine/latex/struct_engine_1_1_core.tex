@@ -1,0 +1,198 @@
+\hypertarget{struct_engine_1_1_core}{}\doxysection{Engine\+::Core Struct Reference}
+\label{struct_engine_1_1_core}\index{Engine::Core@{Engine::Core}}
+
+
+{\ttfamily \#include $<$core.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{struct_engine_1_1_core_a7e590f24dcdfb2a1a3f15a09558b7033}{Load\+Scene}} (std\+::shared\+\_\+ptr$<$ T $>$ scene)
+\item 
+void \mbox{\hyperlink{struct_engine_1_1_core_a28072ec0219ef5805612645a609237ae}{Stop}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_debugger}{Error\+Handling\+::\+Debugger}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a5965c4f0154db7d2030a51f56c0cbafa}{Debugger}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_graphics_manager}{Graphics\+::\+Graphics\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a1cad3a6544e6e8d3244db4483c4001c1}{Graphics\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_audio_1_1_audio_manager}{Audio\+::\+Audio\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_acb907fec5f9d118cce0add350fd7ea5f}{Audio\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{Resource\+Management\+::\+Resource\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a729d96a357ccc02ddd651bfa4b715472}{Resource\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Physics\+::\+Physics\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_afe5e3df3d335005e1a422b4d3cfcbfd8}{Physics\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_aee37c9ff8f24bbc37a5d56989ec57e20}{System\+Indexer}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_time_manager}{Time\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a7ef4da950c49fe4b4a9c2373fca78d9f}{Time\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_input_manager}{Input\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a6c28b2ff529134b4b8ed2a692fa64031}{Input\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a618dea446d355d5da4e5e02bc3542537}{Active\+Scene}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Core}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_a25cc325c9edb8857c1c733e92b132862}{Initialise}} ()
+\item 
+static std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Core}} $>$ \mbox{\hyperlink{struct_engine_1_1_core_aab61243f5966c30985cac08cd491934e}{Initialise}} (int window\+Width, int window\+Height, int FPS, int fixed\+FPS)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_core_ae073e3fa23f7efc43070b789bbd5a2ad}\label{struct_engine_1_1_core_ae073e3fa23f7efc43070b789bbd5a2ad}} 
+friend {\bfseries Scene}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{struct_engine_1_1_core}{Core}} acts as the main interface to the engine for games using it. This class contains the main loop of the engine, and has ownership of all sub-\/systems within the project. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_core_a618dea446d355d5da4e5e02bc3542537}\label{struct_engine_1_1_core_a618dea446d355d5da4e5e02bc3542537}} 
+\index{Engine::Core@{Engine::Core}!ActiveScene@{ActiveScene}}
+\index{ActiveScene@{ActiveScene}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{ActiveScene()}{ActiveScene()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}} $>$ Engine\+::\+Core\+::\+Active\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores active \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_acb907fec5f9d118cce0add350fd7ea5f}\label{struct_engine_1_1_core_acb907fec5f9d118cce0add350fd7ea5f}} 
+\index{Engine::Core@{Engine::Core}!AudioManager@{AudioManager}}
+\index{AudioManager@{AudioManager}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{AudioManager()}{AudioManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_audio_1_1_audio_manager}{Audio\+::\+Audio\+Manager}} $>$ Engine\+::\+Core\+::\+Audio\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores Audio\+Manager. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a5965c4f0154db7d2030a51f56c0cbafa}\label{struct_engine_1_1_core_a5965c4f0154db7d2030a51f56c0cbafa}} 
+\index{Engine::Core@{Engine::Core}!Debugger@{Debugger}}
+\index{Debugger@{Debugger}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{Debugger()}{Debugger()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_error_handling_1_1_debugger}{Debugger}} $>$ Engine\+::\+Core\+::\+Debugger (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores Debugger. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a1cad3a6544e6e8d3244db4483c4001c1}\label{struct_engine_1_1_core_a1cad3a6544e6e8d3244db4483c4001c1}} 
+\index{Engine::Core@{Engine::Core}!GraphicsManager@{GraphicsManager}}
+\index{GraphicsManager@{GraphicsManager}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{GraphicsManager()}{GraphicsManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_graphics_manager}{Graphics\+::\+Graphics\+Manager}} $>$ Engine\+::\+Core\+::\+Graphics\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores Graphics\+Manager. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a25cc325c9edb8857c1c733e92b132862}\label{struct_engine_1_1_core_a25cc325c9edb8857c1c733e92b132862}} 
+\index{Engine::Core@{Engine::Core}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Core}} $>$ Engine\+::\+Core\+::\+Initialise (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Called to create a \mbox{\hyperlink{struct_engine_1_1_core}{Core}} object. This function sets up all other sub-\/systems within the engine, then returns a shared pointer to a \mbox{\hyperlink{struct_engine_1_1_core}{Core}} that object can be used to load a scene. \begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{struct_engine_1_1_core_aab61243f5966c30985cac08cd491934e}{Initialise(int window\+Width, int window\+Height, int FPS, int fixed\+FPS)}} ~\newline
+ 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{struct_engine_1_1_core_aab61243f5966c30985cac08cd491934e}\label{struct_engine_1_1_core_aab61243f5966c30985cac08cd491934e}} 
+\index{Engine::Core@{Engine::Core}!Initialise@{Initialise}}
+\index{Initialise@{Initialise}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{Initialise()}{Initialise()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Core}} $>$ Engine\+::\+Core\+::\+Initialise (\begin{DoxyParamCaption}\item[{int}]{window\+Width,  }\item[{int}]{window\+Height,  }\item[{int}]{FPS,  }\item[{int}]{fixed\+FPS }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Called to create a \mbox{\hyperlink{struct_engine_1_1_core}{Core}} object, the extra parameters passed in allow for the initial state of the engine to be altered slightly based on the users preference. This function sets up all other sub-\/systems within the engine, then returns a shared pointer to a \mbox{\hyperlink{struct_engine_1_1_core}{Core}} object that can be used to load a scene. 
+\begin{DoxyParams}{Parameters}
+{\em window\+Width} & the size along the x-\/axis of the program window. \\
+\hline
+{\em window\+Height} & the size along the y-\/axis of the program window. \\
+\hline
+{\em FPS} & the visual frame rate of the program -\/ Update() syncs to this. \\
+\hline
+{\em fixed\+FPS} & the fixed time step of the program -\/ Fixed\+Update() syncs to this. \\
+\hline
+\end{DoxyParams}
+\begin{DoxySeeAlso}{See also}
+\mbox{\hyperlink{struct_engine_1_1_core_a25cc325c9edb8857c1c733e92b132862}{Initialise()}} ~\newline
+ 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{struct_engine_1_1_core_a6c28b2ff529134b4b8ed2a692fa64031}\label{struct_engine_1_1_core_a6c28b2ff529134b4b8ed2a692fa64031}} 
+\index{Engine::Core@{Engine::Core}!InputManager@{InputManager}}
+\index{InputManager@{InputManager}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{InputManager()}{InputManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_input_manager}{Input\+Manager}} $>$ Engine\+::\+Core\+::\+Input\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores \mbox{\hyperlink{struct_engine_1_1_input_manager}{Input\+Manager}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a7e590f24dcdfb2a1a3f15a09558b7033}\label{struct_engine_1_1_core_a7e590f24dcdfb2a1a3f15a09558b7033}} 
+\index{Engine::Core@{Engine::Core}!LoadScene@{LoadScene}}
+\index{LoadScene@{LoadScene}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{LoadScene()}{LoadScene()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void Engine\+::\+Core\+::\+Load\+Scene (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ T $>$}]{scene }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+The funciton used to load scenes, if a scene is already loaded it will be safely shut down and the new one will replace it. 
+\begin{DoxyParams}{Parameters}
+{\em scene} & a pointer to the scene inteded to be loaded. ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_engine_1_1_core_afe5e3df3d335005e1a422b4d3cfcbfd8}\label{struct_engine_1_1_core_afe5e3df3d335005e1a422b4d3cfcbfd8}} 
+\index{Engine::Core@{Engine::Core}!PhysicsManager@{PhysicsManager}}
+\index{PhysicsManager@{PhysicsManager}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{PhysicsManager()}{PhysicsManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Physics\+::\+Physics\+Manager}} $>$ Engine\+::\+Core\+::\+Physics\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores Physics\+Manager. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a729d96a357ccc02ddd651bfa4b715472}\label{struct_engine_1_1_core_a729d96a357ccc02ddd651bfa4b715472}} 
+\index{Engine::Core@{Engine::Core}!ResourceManager@{ResourceManager}}
+\index{ResourceManager@{ResourceManager}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{ResourceManager()}{ResourceManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{Resource\+Manager}} $>$ Engine\+::\+Core\+::\+Resource\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores Resource\+Manager. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a28072ec0219ef5805612645a609237ae}\label{struct_engine_1_1_core_a28072ec0219ef5805612645a609237ae}} 
+\index{Engine::Core@{Engine::Core}!Stop@{Stop}}
+\index{Stop@{Stop}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{Stop()}{Stop()}}
+{\footnotesize\ttfamily void Engine\+::\+Core\+::\+Stop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Stops the main loop from starting the next frame, after which the game will be shut down. ~\newline
+ \mbox{\Hypertarget{struct_engine_1_1_core_aee37c9ff8f24bbc37a5d56989ec57e20}\label{struct_engine_1_1_core_aee37c9ff8f24bbc37a5d56989ec57e20}} 
+\index{Engine::Core@{Engine::Core}!SystemIndexer@{SystemIndexer}}
+\index{SystemIndexer@{SystemIndexer}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{SystemIndexer()}{SystemIndexer()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}} $>$ Engine\+::\+Core\+::\+System\+Indexer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_core_a7ef4da950c49fe4b4a9c2373fca78d9f}\label{struct_engine_1_1_core_a7ef4da950c49fe4b4a9c2373fca78d9f}} 
+\index{Engine::Core@{Engine::Core}!TimeManager@{TimeManager}}
+\index{TimeManager@{TimeManager}!Engine::Core@{Engine::Core}}
+\doxysubsubsection{\texorpdfstring{TimeManager()}{TimeManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_time_manager}{Time\+Manager}} $>$ Engine\+::\+Core\+::\+Time\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores \mbox{\hyperlink{struct_engine_1_1_time_manager}{Time\+Manager}}. ~\newline
+ 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/core.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/Core.\+cpp\end{DoxyCompactItemize}

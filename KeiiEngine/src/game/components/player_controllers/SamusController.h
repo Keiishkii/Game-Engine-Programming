@@ -4,6 +4,7 @@ namespace Game
 {
 	namespace Components
 	{
+		/**	A Component class used to control the player character Samus Aran.  	*/
 		struct SamusController : Engine::Components::Component
 		{
 		private:

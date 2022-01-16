@@ -7,6 +7,7 @@ namespace Engine
 
 	namespace ErrorHandling
 	{
+		/**	The Debugger is the class used to perform error handling from within the engine and game.  	*/
 		struct Debugger
 		{
 			friend Core;

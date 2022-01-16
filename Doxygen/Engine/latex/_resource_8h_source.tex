@@ -1,0 +1,45 @@
+\hypertarget{_resource_8h_source}{}\doxysection{Resource.\+h}
+\label{_resource_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/Resource.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/Resource.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef RESOURCE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define RESOURCE\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{    \#include <string>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{    \#include <memory>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{9     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{10     \{       }
+\DoxyCodeLine{11         \textcolor{keyword}{struct }ResourceManager;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{14         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Resource}}}
+\DoxyCodeLine{15         \{}
+\DoxyCodeLine{16             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{ResourceManager}};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18         \textcolor{keyword}{protected}:}
+\DoxyCodeLine{19             \textcolor{keywordtype}{bool} \_loadBaseClass = \textcolor{keyword}{false};}
+\DoxyCodeLine{20             \textcolor{keywordtype}{bool} \_initialisedBaseClass = \textcolor{keyword}{false};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22             std::weak\_ptr<ResourceManager> \_resourceManager;}
+\DoxyCodeLine{23             std::weak\_ptr<Engine::Core> \_core;}
+\DoxyCodeLine{24         \textcolor{keyword}{private}:}
+\DoxyCodeLine{25             std::string \_name;}
+\DoxyCodeLine{26         \textcolor{keyword}{public}:}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29         \textcolor{keyword}{private}:}
+\DoxyCodeLine{30         \textcolor{keyword}{public}:}
+\DoxyCodeLine{31             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Initialise(\textcolor{keyword}{const} std::shared\_ptr<ResourceManager>\& resourceManager);}
+\DoxyCodeLine{32             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Load(\textcolor{keyword}{const} std::string\& resourcesDirectory, \textcolor{keyword}{const} std::string\& subPath);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34             std::shared\_ptr<ResourceManagement::ResourceManager> \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource_manager}{ResourceManager}}();}
+\DoxyCodeLine{35             std::shared\_ptr<Engine::Core> \mbox{\hyperlink{struct_engine_1_1_core}{Core}}();}
+\DoxyCodeLine{36             \textcolor{keyword}{virtual} std::string GetName();}
+\DoxyCodeLine{37         \};}
+\DoxyCodeLine{38     \}}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

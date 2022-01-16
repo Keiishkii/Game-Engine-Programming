@@ -1,0 +1,74 @@
+\hypertarget{_physics_manager_8h_source}{}\doxysection{Physics\+Manager.\+h}
+\label{_physics_manager_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/physics/PhysicsManager.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/physics/PhysicsManager.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//\#define NDEBUG}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include "{}PxPhysicsAPI.h"{}}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define PVD\_HOST "{}127.0.0.1"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{using namespace }physx;}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{14     \textcolor{keyword}{struct }Entity;}
+\DoxyCodeLine{15     \textcolor{keyword}{struct }TimeManager;}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19         \textcolor{keyword}{struct }CapsuleCollider;}
+\DoxyCodeLine{20     \}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{namespace }Physics}
+\DoxyCodeLine{23     \{}
+\DoxyCodeLine{25         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{PhysicsManager}}}
+\DoxyCodeLine{26         \{}
+\DoxyCodeLine{27             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Core}};}
+\DoxyCodeLine{28             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}};}
+\DoxyCodeLine{29             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_components_1_1_capsule_collider}{Components::CapsuleCollider}};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \textcolor{keyword}{private}:}
+\DoxyCodeLine{32             std::weak\_ptr<Engine::Core> \_core;}
+\DoxyCodeLine{33             std::weak\_ptr<Engine::TimeManager> \_timeManager;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35             PxFoundation* \_phsyXFoundation;}
+\DoxyCodeLine{36             std::shared\_ptr<PxDefaultErrorCallback> \_phsyXDefaultErrorCallback;}
+\DoxyCodeLine{37             std::shared\_ptr<PxDefaultAllocator> \_phsyXDefaultAllocator;}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39             PxPhysics* \_physXPhysics;}
+\DoxyCodeLine{40             PxPvdTransport* \_physXTransport;}
+\DoxyCodeLine{41             PxPvd* \_physXPVD;}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43             PxCooking* \_physXCooking;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45             PxScene* \_physXScene;}
+\DoxyCodeLine{46         \textcolor{keyword}{public}:}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49         \textcolor{keyword}{private}:}
+\DoxyCodeLine{50             \textcolor{keywordtype}{void} Initialise(std::shared\_ptr<Engine::Core> core, std::shared\_ptr<Engine::TimeManager> timeManager);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52             \textcolor{keywordtype}{void} InitialiseFoundation();}
+\DoxyCodeLine{53             \textcolor{keywordtype}{void} InitialisePhysics();}
+\DoxyCodeLine{54             \textcolor{keywordtype}{void} InitialiseCooking();}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56             \textcolor{keywordtype}{void} CreateScene();}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58             PxScene* PhysXScene();}
+\DoxyCodeLine{59             PxPhysics* PhysXPhysics();}
+\DoxyCodeLine{60         \textcolor{keyword}{public}:}
+\DoxyCodeLine{61             \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{\string~PhysicsManager}}();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63             \textcolor{keywordtype}{void} Simulate(std::vector<std::shared\_ptr<Entity>> entitys);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65             std::shared\_ptr<Engine::Core> \mbox{\hyperlink{struct_engine_1_1_core}{Core}}();}
+\DoxyCodeLine{66             std::shared\_ptr<Engine::TimeManager> \mbox{\hyperlink{struct_engine_1_1_time_manager}{TimeManager}}();}
+\DoxyCodeLine{67         \};}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}

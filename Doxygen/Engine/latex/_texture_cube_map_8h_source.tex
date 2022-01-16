@@ -1,0 +1,54 @@
+\hypertarget{_texture_cube_map_8h_source}{}\doxysection{Texture\+Cube\+Map.\+h}
+\label{_texture_cube_map_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/TextureCubeMap.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/TextureCubeMap.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <glew.h>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}glm/glm.hpp"{}}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Resource.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{10     \{}
+\DoxyCodeLine{11         \textcolor{keyword}{struct }Texture;}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{14         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture_cube_map}{TextureCubeMap}} : \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Resource}}}
+\DoxyCodeLine{15         \{}
+\DoxyCodeLine{16         \textcolor{keyword}{private}:}
+\DoxyCodeLine{17             GLuint \_textureID = 0;}
+\DoxyCodeLine{18             GLuint \_textureConvolutionID = 0;}
+\DoxyCodeLine{19             std::vector<std::string> \_faceSuffexes = \{\textcolor{stringliteral}{"{}right"{}}, \textcolor{stringliteral}{"{}left"{}}, \textcolor{stringliteral}{"{}top"{}}, \textcolor{stringliteral}{"{}bottom"{}}, \textcolor{stringliteral}{"{}front"{}}, \textcolor{stringliteral}{"{}back"{}}\};}
+\DoxyCodeLine{20                         }
+\DoxyCodeLine{21             std::shared\_ptr<Texture> \_rightTexture;}
+\DoxyCodeLine{22             std::shared\_ptr<Texture> \_leftTexture;}
+\DoxyCodeLine{23             std::shared\_ptr<Texture> \_topTexture;}
+\DoxyCodeLine{24             std::shared\_ptr<Texture> \_bottomTexture;}
+\DoxyCodeLine{25             std::shared\_ptr<Texture> \_frontTexture;}
+\DoxyCodeLine{26             std::shared\_ptr<Texture> \_backTexture;}
+\DoxyCodeLine{27         \textcolor{keyword}{public}:}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30         \textcolor{keyword}{private}:}
+\DoxyCodeLine{31         \textcolor{keyword}{public}:}
+\DoxyCodeLine{32             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Load(\textcolor{keyword}{const} std::string\& resourcesDirectory, \textcolor{keyword}{const} std::string\& subPath) \textcolor{keyword}{override};}
+\DoxyCodeLine{33             \textcolor{keywordtype}{void} GenerateCubeMap(glm::vec3 position);}
+\DoxyCodeLine{34             \textcolor{keywordtype}{void} GenerateCubeMapConvolution();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36             \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture_cube_map}{\string~TextureCubeMap}}();}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38             GLuint GetCubeMapTextureID();}
+\DoxyCodeLine{39             GLuint GetCubeMapConvolutionTextureID();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41             std::shared\_ptr<Texture>\& RightTexture();}
+\DoxyCodeLine{42             std::shared\_ptr<Texture>\& LeftTexture();}
+\DoxyCodeLine{43             std::shared\_ptr<Texture>\& TopTexture();}
+\DoxyCodeLine{44             std::shared\_ptr<Texture>\& BottomTexture();}
+\DoxyCodeLine{45             std::shared\_ptr<Texture>\& FrontTexture();}
+\DoxyCodeLine{46             std::shared\_ptr<Texture>\& BackTexture();}
+\DoxyCodeLine{47         \};}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49 \}}
+
+\end{DoxyCode}

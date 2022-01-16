@@ -1,0 +1,143 @@
+\hypertarget{struct_engine_1_1_entity}{}\doxysection{Engine\+::Entity Struct Reference}
+\label{struct_engine_1_1_entity}\index{Engine::Entity@{Engine::Entity}}
+
+
+{\ttfamily \#include $<$Entity.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_engine_1_1_entity_a8ea3b4ed04f7231329be8361ddcb23af}{Entity}} (std\+::string name)
+\item 
+{\footnotesize template$<$typename T $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{struct_engine_1_1_entity_aa4d9e7b4020ce80503f87db04b9f1abe}{Add\+Component}} ()
+\item 
+{\footnotesize template$<$typename T , typename A $>$ }\\std\+::shared\+\_\+ptr$<$ T $>$ \mbox{\hyperlink{struct_engine_1_1_entity_af8b623faeda939199a5c27f7d3f10341}{Add\+Component}} (A parameter)
+\item 
+void \mbox{\hyperlink{struct_engine_1_1_entity_a9fd331975efe026b6083c17e31f1d342}{Remove\+Component}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Components\+::\+Component}} $>$ component)
+\item 
+std\+::string \& \mbox{\hyperlink{struct_engine_1_1_entity_a92c6a55adba53b3268a0f45cf99ae7dd}{Name}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Core}} $>$ \mbox{\hyperlink{struct_engine_1_1_entity_a65dfde46b24c0059e61419d38391a5d3}{Core}} ()
+\item 
+physx\+::\+Px\+Rigid\+Dynamic $\ast$ \mbox{\hyperlink{struct_engine_1_1_entity_ae96b5e9c20c29938572e1f613059420a}{Phys\+XActor}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Physics\+::\+Physics\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_entity_aef8a3c0ac97b9e07e340c4599a67498d}{Physics\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}} $>$ \mbox{\hyperlink{struct_engine_1_1_entity_afbf7b3f80de520c279e3a00630d94f75}{System\+Indexer}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_transform}{Components\+::\+Transform}} $>$ \mbox{\hyperlink{struct_engine_1_1_entity_a7ab43425496fc2eee49b497072cc231c}{Transform}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} is the class in which defines objects within the game world. In other engines this could be considered an Actor or Game\+Object. ~\newline
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_entity_a8ea3b4ed04f7231329be8361ddcb23af}\label{struct_engine_1_1_entity_a8ea3b4ed04f7231329be8361ddcb23af}} 
+\index{Engine::Entity@{Engine::Entity}!Entity@{Entity}}
+\index{Entity@{Entity}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{Entity()}{Entity()}}
+{\footnotesize\ttfamily Engine\+::\+Entity\+::\+Entity (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+\mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} Constructor\+: only used to set the name of the entity; 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_entity_aa4d9e7b4020ce80503f87db04b9f1abe}\label{struct_engine_1_1_entity_aa4d9e7b4020ce80503f87db04b9f1abe}} 
+\index{Engine::Entity@{Engine::Entity}!AddComponent@{AddComponent}}
+\index{AddComponent@{AddComponent}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{AddComponent()}{AddComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+std\+::shared\+\_\+ptr$<$ T $>$ Engine\+::\+Entity\+::\+Add\+Component (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Adds a component to the entity. \mbox{\Hypertarget{struct_engine_1_1_entity_af8b623faeda939199a5c27f7d3f10341}\label{struct_engine_1_1_entity_af8b623faeda939199a5c27f7d3f10341}} 
+\index{Engine::Entity@{Engine::Entity}!AddComponent@{AddComponent}}
+\index{AddComponent@{AddComponent}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{AddComponent()}{AddComponent()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , typename A $>$ \\
+std\+::shared\+\_\+ptr$<$ T $>$ Engine\+::\+Entity\+::\+Add\+Component (\begin{DoxyParamCaption}\item[{A}]{parameter }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Adds a component to the entity. 
+\begin{DoxyParams}{Parameters}
+{\em parameter} & a paramter passed at the end of the components constructor. ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_engine_1_1_entity_a65dfde46b24c0059e61419d38391a5d3}\label{struct_engine_1_1_entity_a65dfde46b24c0059e61419d38391a5d3}} 
+\index{Engine::Entity@{Engine::Entity}!Core@{Core}}
+\index{Core@{Core}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{Core()}{Core()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Core}} $>$ Engine\+::\+Entity\+::\+Core (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the \mbox{\hyperlink{struct_engine_1_1_core}{Core}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_entity_a92c6a55adba53b3268a0f45cf99ae7dd}\label{struct_engine_1_1_entity_a92c6a55adba53b3268a0f45cf99ae7dd}} 
+\index{Engine::Entity@{Engine::Entity}!Name@{Name}}
+\index{Name@{Name}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{Name()}{Name()}}
+{\footnotesize\ttfamily std\+::string \& Engine\+::\+Entity\+::\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns the name given to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_entity_aef8a3c0ac97b9e07e340c4599a67498d}\label{struct_engine_1_1_entity_aef8a3c0ac97b9e07e340c4599a67498d}} 
+\index{Engine::Entity@{Engine::Entity}!PhysicsManager@{PhysicsManager}}
+\index{PhysicsManager@{PhysicsManager}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{PhysicsManager()}{PhysicsManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Engine\+::\+Physics\+::\+Physics\+Manager}} $>$ Engine\+::\+Entity\+::\+Physics\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores Physics\+Manager. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_entity_ae96b5e9c20c29938572e1f613059420a}\label{struct_engine_1_1_entity_ae96b5e9c20c29938572e1f613059420a}} 
+\index{Engine::Entity@{Engine::Entity}!PhysXActor@{PhysXActor}}
+\index{PhysXActor@{PhysXActor}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{PhysXActor()}{PhysXActor()}}
+{\footnotesize\ttfamily physx\+::\+Px\+Rigid\+Dynamic $\ast$ Engine\+::\+Entity\+::\+Phys\+XActor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}\textquotesingle{}s Phys\+XActor. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_entity_a9fd331975efe026b6083c17e31f1d342}\label{struct_engine_1_1_entity_a9fd331975efe026b6083c17e31f1d342}} 
+\index{Engine::Entity@{Engine::Entity}!RemoveComponent@{RemoveComponent}}
+\index{RemoveComponent@{RemoveComponent}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{RemoveComponent()}{RemoveComponent()}}
+{\footnotesize\ttfamily void Engine\+::\+Entity\+::\+Remove\+Component (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Components\+::\+Component}} $>$}]{component }\end{DoxyParamCaption})}
+
+Removes a component from the entity by using its system index. 
+\begin{DoxyParams}{Parameters}
+{\em component} & a shared pointer to the component to be removed. ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_engine_1_1_entity_afbf7b3f80de520c279e3a00630d94f75}\label{struct_engine_1_1_entity_afbf7b3f80de520c279e3a00630d94f75}} 
+\index{Engine::Entity@{Engine::Entity}!SystemIndexer@{SystemIndexer}}
+\index{SystemIndexer@{SystemIndexer}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{SystemIndexer()}{SystemIndexer()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}} $>$ Engine\+::\+Entity\+::\+System\+Indexer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores \mbox{\hyperlink{struct_engine_1_1_system_indexer}{System\+Indexer}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_entity_a7ab43425496fc2eee49b497072cc231c}\label{struct_engine_1_1_entity_a7ab43425496fc2eee49b497072cc231c}} 
+\index{Engine::Entity@{Engine::Entity}!Transform@{Transform}}
+\index{Transform@{Transform}!Engine::Entity@{Engine::Entity}}
+\doxysubsubsection{\texorpdfstring{Transform()}{Transform()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_transform}{Components\+::\+Transform}} $>$ Engine\+::\+Entity\+::\+Transform (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}\textquotesingle{}s Transform component. ~\newline
+ 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/Entity.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/entity.\+cpp\end{DoxyCompactItemize}

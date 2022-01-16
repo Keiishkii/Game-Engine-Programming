@@ -1,0 +1,101 @@
+\hypertarget{struct_engine_1_1_resource_management_1_1_shader_program}{}\doxysection{Engine\+::Resource\+Management\+::Shader\+Program Struct Reference}
+\label{struct_engine_1_1_resource_management_1_1_shader_program}\index{Engine::ResourceManagement::ShaderProgram@{Engine::ResourceManagement::ShaderProgram}}
+
+
+{\ttfamily \#include $<$Shader\+Program.\+h$>$}
+
+Inheritance diagram for Engine\+::Resource\+Management\+::Shader\+Program\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_resource_management_1_1_shader_program}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_shader_program_af1e68984649b4528d09048e92f7e3fe8}{Load}} (const std\+::string \&resources\+Directory, const std\+::string \&sub\+Path) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_ae2986681ba9a86d0e74216d314598ab5}\label{struct_engine_1_1_resource_management_1_1_shader_program_ae2986681ba9a86d0e74216d314598ab5}} 
+void {\bfseries Use\+Shader} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_aa2675797bce5eb08f48f640f2625e840}\label{struct_engine_1_1_resource_management_1_1_shader_program_aa2675797bce5eb08f48f640f2625e840}} 
+void {\bfseries Stop\+Using\+Shader} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a4d096c28579582ec400da7ce8bbd8ba5}\label{struct_engine_1_1_resource_management_1_1_shader_program_a4d096c28579582ec400da7ce8bbd8ba5}} 
+void {\bfseries Set\+Material\+Uniforms} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_material}{Material}} $>$ material)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_ab212efa1ddb38806b4b536dda7f3ac32}\label{struct_engine_1_1_resource_management_1_1_shader_program_ab212efa1ddb38806b4b536dda7f3ac32}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, float data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_abc936ec2c367bb73aba84e035375bdc9}\label{struct_engine_1_1_resource_management_1_1_shader_program_abc936ec2c367bb73aba84e035375bdc9}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::vec2 data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_ad31e0c642b62797806d3e8f6f41d140c}\label{struct_engine_1_1_resource_management_1_1_shader_program_ad31e0c642b62797806d3e8f6f41d140c}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::vec3 data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a271d0d036441708b379bcbd65d56f636}\label{struct_engine_1_1_resource_management_1_1_shader_program_a271d0d036441708b379bcbd65d56f636}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::vec4 data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a638408a9e961a134559e75b9af554f7b}\label{struct_engine_1_1_resource_management_1_1_shader_program_a638408a9e961a134559e75b9af554f7b}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::mat4x4 data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a6a66407fc7e5bf050a81cfbf9f412285}\label{struct_engine_1_1_resource_management_1_1_shader_program_a6a66407fc7e5bf050a81cfbf9f412285}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_ae78dcce5c98990fc7a37b77634100bc6}\label{struct_engine_1_1_resource_management_1_1_shader_program_ae78dcce5c98990fc7a37b77634100bc6}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture_cube_map}{Texture\+Cube\+Map}} $>$ data)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_aabd4d8f901e4a6b9362d434b48524818}\label{struct_engine_1_1_resource_management_1_1_shader_program_aabd4d8f901e4a6b9362d434b48524818}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, float data\mbox{[}$\,$\mbox{]}, int count)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a1c169e069f21fa26d4882e587947ede7}\label{struct_engine_1_1_resource_management_1_1_shader_program_a1c169e069f21fa26d4882e587947ede7}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::vec2 data\mbox{[}$\,$\mbox{]}, int count)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a9da7558f9642b3ace3d316842da4f739}\label{struct_engine_1_1_resource_management_1_1_shader_program_a9da7558f9642b3ace3d316842da4f739}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::vec3 data\mbox{[}$\,$\mbox{]}, int count)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_ab46a9fc26a8f4669df9c2cf98f291a18}\label{struct_engine_1_1_resource_management_1_1_shader_program_ab46a9fc26a8f4669df9c2cf98f291a18}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::vec4 data\mbox{[}$\,$\mbox{]}, int count)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a8ddae6d7a1a15b0424f749cd20ddbc1b}\label{struct_engine_1_1_resource_management_1_1_shader_program_a8ddae6d7a1a15b0424f749cd20ddbc1b}} 
+void {\bfseries Set\+Uniform} (std\+::string unifrom\+Location, glm\+::mat4x4 data\mbox{[}$\,$\mbox{]}, int count)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a8f81212a5479c065030ebb4203c480b7}\label{struct_engine_1_1_resource_management_1_1_shader_program_a8f81212a5479c065030ebb4203c480b7}} 
+void {\bfseries Draw\+Triangles} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_graphics_1_1_polygon_material_group}{Graphics\+::\+Polygon\+Material\+Group}} $>$ polygon\+Material\+Group, std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_shader_program}{Shader\+Program}} $>$ shader\+Program)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a19ed8ed01ce278141a3f25ec9786bb19}\label{struct_engine_1_1_resource_management_1_1_shader_program_a19ed8ed01ce278141a3f25ec9786bb19}} 
+void {\bfseries Draw\+Triangles} (GLuint mesh\+ID, int vertex\+Count)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a6f3dcef439c18ec8b7496e7859a92ae2}\label{struct_engine_1_1_resource_management_1_1_shader_program_a6f3dcef439c18ec8b7496e7859a92ae2}} 
+GLuint {\bfseries Get\+Shader\+ID} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a303a4e56ef41bd9c4fb7d9b73845d7ec}\label{struct_engine_1_1_resource_management_1_1_shader_program_a303a4e56ef41bd9c4fb7d9b73845d7ec}} 
+GLint {\bfseries Get\+Uniform\+ID} (const std\+::string \&sample)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_a22a2c4d4b6bd5c6bbc28767d7a50dbfa}\label{struct_engine_1_1_resource_management_1_1_shader_program_a22a2c4d4b6bd5c6bbc28767d7a50dbfa}} 
+GLint {\bfseries Get\+Attribute\+ID} (const std\+::string \&sample)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_shader_program}{Shader\+Program}} is a type of resource, it is used to load shader text files and convert the fragment and vertex code to a singlular shader program that can be used with Open\+GL. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_shader_program_af1e68984649b4528d09048e92f7e3fe8}\label{struct_engine_1_1_resource_management_1_1_shader_program_af1e68984649b4528d09048e92f7e3fe8}} 
+\index{Engine::ResourceManagement::ShaderProgram@{Engine::ResourceManagement::ShaderProgram}!Load@{Load}}
+\index{Load@{Load}!Engine::ResourceManagement::ShaderProgram@{Engine::ResourceManagement::ShaderProgram}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Engine\+::\+Resource\+Management\+::\+Shader\+Program\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{resources\+Directory,  }\item[{const std\+::string \&}]{sub\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Engine\+::\+Resource\+Management\+::\+Resource}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Shader\+Program.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Shader\+Program.\+cpp\end{DoxyCompactItemize}

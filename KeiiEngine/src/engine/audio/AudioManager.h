@@ -11,6 +11,7 @@ namespace Engine
 	namespace ResourceManagement { struct AudioClip; }
 	namespace Audio
 	{
+		/**	The AudioManager is a class required for the instantiation and safe disposal of OpenAL's audio state machine.  	*/
 		struct AudioManager
 		{
 		private:
@@ -28,7 +29,7 @@ namespace Engine
 			AudioManager(std::shared_ptr<Engine::Core> core);
 			~AudioManager();
 
-			void PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip);
+			//void PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip);
 			//void PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip, float volume);
 		};
 	}

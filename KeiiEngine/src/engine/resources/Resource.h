@@ -9,6 +9,8 @@ namespace Engine
 	namespace ResourceManagement
 	{		
 		struct ResourceManager;
+
+		/**	Resource is the base class of all other resources, its purpose is to allow for the ResourceManager to store all resources in a shared dictionary.  	*/
 		struct Resource
 		{
 			friend ResourceManager;

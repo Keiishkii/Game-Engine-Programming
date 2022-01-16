@@ -1,0 +1,71 @@
+\hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map}{}\doxysection{Engine\+::Resource\+Management\+::Texture\+Cube\+Map Struct Reference}
+\label{struct_engine_1_1_resource_management_1_1_texture_cube_map}\index{Engine::ResourceManagement::TextureCubeMap@{Engine::ResourceManagement::TextureCubeMap}}
+
+
+{\ttfamily \#include $<$Texture\+Cube\+Map.\+h$>$}
+
+Inheritance diagram for Engine\+::Resource\+Management\+::Texture\+Cube\+Map\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{struct_engine_1_1_resource_management_1_1_texture_cube_map}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture_cube_map_ae1d3d4eee9419310a0dc09e64ecb5958}{Load}} (const std\+::string \&resources\+Directory, const std\+::string \&sub\+Path) override
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a00aa6489c127b59eed030efd287e4b73}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a00aa6489c127b59eed030efd287e4b73}} 
+void {\bfseries Generate\+Cube\+Map} (glm\+::vec3 position)
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a4a3c64ee74a492318dab99f6069d0e84}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a4a3c64ee74a492318dab99f6069d0e84}} 
+void {\bfseries Generate\+Cube\+Map\+Convolution} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a757014358c0c90a3e94b021ac706f3d3}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a757014358c0c90a3e94b021ac706f3d3}} 
+GLuint {\bfseries Get\+Cube\+Map\+Texture\+ID} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a2a1b004081c09ae45b593e2c920c4ce9}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a2a1b004081c09ae45b593e2c920c4ce9}} 
+GLuint {\bfseries Get\+Cube\+Map\+Convolution\+Texture\+ID} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a3020c08f007f1a2538219b60647fd960}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a3020c08f007f1a2538219b60647fd960}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ \& {\bfseries Right\+Texture} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a851ce227a7e2945015e81855440e2d8d}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a851ce227a7e2945015e81855440e2d8d}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ \& {\bfseries Left\+Texture} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_ac170ee7875c950301e7519b7df4b2748}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_ac170ee7875c950301e7519b7df4b2748}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ \& {\bfseries Top\+Texture} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_aa45636819303a94c70bee6e034c61839}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_aa45636819303a94c70bee6e034c61839}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ \& {\bfseries Bottom\+Texture} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a6e95be4198be5fa1c7b5dfeff0e9929e}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a6e95be4198be5fa1c7b5dfeff0e9929e}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ \& {\bfseries Front\+Texture} ()
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_a78ec6a39f7d6b550e288dcc35582a7bb}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_a78ec6a39f7d6b550e288dcc35582a7bb}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Texture}} $>$ \& {\bfseries Back\+Texture} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+The \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture_cube_map}{Texture\+Cube\+Map}} is a type of resource, it combines 6 different .png files to create a cubemap. This is the uploaded to the GPU for Open\+GL. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_resource_management_1_1_texture_cube_map_ae1d3d4eee9419310a0dc09e64ecb5958}\label{struct_engine_1_1_resource_management_1_1_texture_cube_map_ae1d3d4eee9419310a0dc09e64ecb5958}} 
+\index{Engine::ResourceManagement::TextureCubeMap@{Engine::ResourceManagement::TextureCubeMap}!Load@{Load}}
+\index{Load@{Load}!Engine::ResourceManagement::TextureCubeMap@{Engine::ResourceManagement::TextureCubeMap}}
+\doxysubsubsection{\texorpdfstring{Load()}{Load()}}
+{\footnotesize\ttfamily void Engine\+::\+Resource\+Management\+::\+Texture\+Cube\+Map\+::\+Load (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{resources\+Directory,  }\item[{const std\+::string \&}]{sub\+Path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Engine\+::\+Resource\+Management\+::\+Resource}}.
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Texture\+Cube\+Map.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/resources/Texture\+Cube\+Map.\+cpp\end{DoxyCompactItemize}

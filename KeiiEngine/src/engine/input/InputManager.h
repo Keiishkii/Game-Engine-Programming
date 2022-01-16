@@ -4,6 +4,8 @@ namespace Engine
 {
 	struct Core;
 	struct Inputs;
+
+	/**	The InputManager is used to update the current frames input from SDL2's input events.  	*/
 	struct InputManager
 	{
 		friend Core;

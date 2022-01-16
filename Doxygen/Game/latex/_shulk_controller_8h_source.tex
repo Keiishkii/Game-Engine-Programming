@@ -1,0 +1,30 @@
+\hypertarget{_shulk_controller_8h_source}{}\doxysection{Shulk\+Controller.\+h}
+\label{_shulk_controller_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/player\_controllers/ShulkController.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/player\_controllers/ShulkController.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include "{}engine/KeiiEngine.h"{}}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Game}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{6     \{}
+\DoxyCodeLine{8         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_game_1_1_components_1_1_shulk_controller}{ShulkController}} : Engine::Components::Component}
+\DoxyCodeLine{9         \{}
+\DoxyCodeLine{10         \textcolor{keyword}{private}:}
+\DoxyCodeLine{11             std::shared\_ptr<Engine::Components::Transform> \_cameraTransform;}
+\DoxyCodeLine{12             \textcolor{keywordtype}{float} \_movementSpeed = 1.0f;}
+\DoxyCodeLine{13         \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{private}:}
+\DoxyCodeLine{17             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Start() \textcolor{keyword}{override};}
+\DoxyCodeLine{18             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20             \textcolor{keywordtype}{void} MovementControls(std::shared\_ptr<Inputs> inputs);}
+\DoxyCodeLine{21         \textcolor{keyword}{public}:}
+\DoxyCodeLine{22             \textcolor{keywordtype}{void} SetMovementSpeed(\textcolor{keywordtype}{float} speed);}
+\DoxyCodeLine{23         \};}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}

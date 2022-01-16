@@ -6,6 +6,7 @@ namespace Engine
 {
 	namespace Audio
 	{
+		/**	The AudioBuffer is a class used to store and upload data to OpenAL's audio state-machine.  	*/
 		struct AudioBuffer
 		{
 		private:

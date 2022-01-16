@@ -3,6 +3,8 @@
 namespace Engine
 {
 	struct Core;
+
+	/**	The TimeManager class is used to keep time flow correct during the program.  	*/
 	struct TimeManager
 	{
 		friend Engine::Core;

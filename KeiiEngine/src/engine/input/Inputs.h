@@ -3,6 +3,8 @@
 namespace Engine
 {
 	struct InputManager;
+
+	/**	The Inputs class is used to store the current frames input data, this can then be accessed from Component classes and other places in the program to perfrom user driven actions.  	*/
 	struct Inputs
 	{
 		friend InputManager;

@@ -8,6 +8,7 @@ namespace Engine
 {
 	namespace Components
 	{
+		/**	The AudioListener is a child of Component, its existance is required in the scene for audio to be heard. Each frame the position of the AudioListner component is given to OpenAL to use for its 3D audio system.  	*/
 		struct AudioListener : Component
 		{
 		private:

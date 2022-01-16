@@ -13,6 +13,8 @@ namespace Engine
 	{
 		struct Texture;
 		struct ShaderProgram;
+
+		/**	The Material is a type of resource, it is used to read in material data from files. This includes texture data and shaders.  	*/
 		struct Material : Resource
 		{
 		private:

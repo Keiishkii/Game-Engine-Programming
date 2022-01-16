@@ -1,0 +1,37 @@
+\hypertarget{_light_8h_source}{}\doxysection{Light.\+h}
+\label{_light_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/Light.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/components/Light.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <glm/vec3.hpp>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <glm/vec4.hpp>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <glm/mat4x4.hpp>}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}Component.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9     \textcolor{keyword}{struct }Core;}
+\DoxyCodeLine{10     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{11     \{}
+\DoxyCodeLine{13         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_components_1_1_light}{Light}} : \mbox{\hyperlink{struct_engine_1_1_components_1_1_component}{Component}}}
+\DoxyCodeLine{14         \{}
+\DoxyCodeLine{15             \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_core}{Engine::Core}};}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17         \textcolor{keyword}{private}:}
+\DoxyCodeLine{18             \textcolor{keywordtype}{float} \_intensity;}
+\DoxyCodeLine{19             glm::vec3 \_colour;}
+\DoxyCodeLine{20         \textcolor{keyword}{public}:}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23         \textcolor{keyword}{private}:}
+\DoxyCodeLine{24         \textcolor{keyword}{public}:}
+\DoxyCodeLine{25             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_components_1_1_light_a01f2e566e9a553e5cc4f58626b79aa74}{Initialise}}(\textcolor{keyword}{const} std::shared\_ptr<Component>\& self, \textcolor{keyword}{const} std::shared\_ptr<Engine::Entity>\& entity) \textcolor{keyword}{override};}
+\DoxyCodeLine{26             \mbox{\hyperlink{struct_engine_1_1_components_1_1_light}{\string~Light}}();}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28             glm::vec3\& Colour();}
+\DoxyCodeLine{29             \textcolor{keywordtype}{float}\& Intensity();}
+\DoxyCodeLine{30         \};}
+\DoxyCodeLine{31     \}}
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}

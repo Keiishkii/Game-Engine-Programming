@@ -1,0 +1,74 @@
+\hypertarget{_shader_program_8h_source}{}\doxysection{Shader\+Program.\+h}
+\label{_shader_program_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/ShaderProgram.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/resources/ShaderProgram.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <glew.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}glm/glm.hpp"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}glm/ext.hpp"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include "{}Resource.h"{}}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }Graphics \{ \textcolor{keyword}{struct }PolygonMaterialGroup; \}}
+\DoxyCodeLine{13     \textcolor{keyword}{namespace }ResourceManagement}
+\DoxyCodeLine{14     \{}
+\DoxyCodeLine{15         \textcolor{keyword}{struct }Texture;}
+\DoxyCodeLine{16         \textcolor{keyword}{struct }Material;}
+\DoxyCodeLine{17         \textcolor{keyword}{struct }TextureCubeMap;}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{20         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_shader_program}{ShaderProgram}} : \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_resource}{Resource}}}
+\DoxyCodeLine{21         \{}
+\DoxyCodeLine{22         \textcolor{keyword}{private}:}
+\DoxyCodeLine{23             std::string \_name;}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25             GLuint \_shaderProgramID;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27             std::map<std::string, GLint> \_uniformIDMap;}
+\DoxyCodeLine{28             std::map<std::string, GLint> \_attributeIDMap;}
+\DoxyCodeLine{29         \textcolor{keyword}{public}:}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32         \textcolor{keyword}{private}:}
+\DoxyCodeLine{33             \textcolor{keywordtype}{void} GenerateVertexShader(\textcolor{keyword}{const} std::string\& subPath, \textcolor{keyword}{const} std::string\& shader, GLuint\& shaderID);}
+\DoxyCodeLine{34             \textcolor{keywordtype}{void} GenerateFragmentShader(\textcolor{keyword}{const} std::string\& subPath, \textcolor{keyword}{const} std::string\& shader, GLuint\& shaderID);}
+\DoxyCodeLine{35         \textcolor{keyword}{public}:}
+\DoxyCodeLine{36             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Load(\textcolor{keyword}{const} std::string\& resourcesDirectory, \textcolor{keyword}{const} std::string\& subPath) \textcolor{keyword}{override};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38             \textcolor{keywordtype}{void} UseShader();}
+\DoxyCodeLine{39             \textcolor{keywordtype}{void} StopUsingShader();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41             \textcolor{keywordtype}{void} SetMaterialUniforms(std::shared\_ptr<Material> material);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{            \#pragma region Set Uniforms}}
+\DoxyCodeLine{44             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, \textcolor{keywordtype}{float} data);}
+\DoxyCodeLine{45             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::vec2 data);}
+\DoxyCodeLine{46             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::vec3 data);}
+\DoxyCodeLine{47             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::vec4 data);}
+\DoxyCodeLine{48             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::mat4x4 data);}
+\DoxyCodeLine{49             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, std::shared\_ptr<Texture> data);}
+\DoxyCodeLine{50             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, std::shared\_ptr<TextureCubeMap> data);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, \textcolor{keywordtype}{float} data[], \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{53             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::vec2 data[], \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{54             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::vec3 data[], \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{55             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::vec4 data[], \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{56             \textcolor{keywordtype}{void} SetUniform(std::string unifromLocation, glm::mat4x4 data[], \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{57 \textcolor{preprocessor}{            \#pragma endregion}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{            \#pragma region Draw Triangles}}
+\DoxyCodeLine{60             \textcolor{keywordtype}{void} DrawTriangles(std::shared\_ptr<Graphics::PolygonMaterialGroup> polygonMaterialGroup, std::shared\_ptr<ShaderProgram> shaderProgram);}
+\DoxyCodeLine{61             \textcolor{keywordtype}{void} DrawTriangles(GLuint meshID, \textcolor{keywordtype}{int} vertexCount);}
+\DoxyCodeLine{62 \textcolor{preprocessor}{            \#pragma endregion}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64             GLuint GetShaderID();}
+\DoxyCodeLine{65             GLint GetUniformID(\textcolor{keyword}{const} std::string\& sample);}
+\DoxyCodeLine{66             GLint GetAttributeID(\textcolor{keyword}{const} std::string\& sample);}
+\DoxyCodeLine{67         \};}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}

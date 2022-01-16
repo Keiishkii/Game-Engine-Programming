@@ -1,0 +1,144 @@
+\hypertarget{core_8h_source}{}\doxysection{core.\+h}
+\label{core_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/core.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/engine/core.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <SDL.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <glew.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}glm/glm.hpp"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }Engine}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     \textcolor{keyword}{namespace }ResourceManagement }
+\DoxyCodeLine{11     \{ }
+\DoxyCodeLine{12         \textcolor{keyword}{struct }ResourceManager; }
+\DoxyCodeLine{13         \textcolor{keyword}{struct }ShaderProgram; }
+\DoxyCodeLine{14         \textcolor{keyword}{struct }Texture;}
+\DoxyCodeLine{15     \}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }Physics}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19         \textcolor{keyword}{struct }PhysicsManager;}
+\DoxyCodeLine{20     \}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22     \textcolor{keyword}{namespace }Audio \{ \textcolor{keyword}{struct }AudioManager; \}}
+\DoxyCodeLine{23     \textcolor{keyword}{namespace }ErrorHandling \{ \textcolor{keyword}{struct }Debugger; \}}
+\DoxyCodeLine{24     \textcolor{keyword}{namespace }Graphics}
+\DoxyCodeLine{25     \{}
+\DoxyCodeLine{26         \textcolor{keyword}{struct }GraphicsManager;}
+\DoxyCodeLine{27         \textcolor{keyword}{struct }VertexArray;}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{struct }Entity;}
+\DoxyCodeLine{31     \textcolor{keyword}{namespace }Components }
+\DoxyCodeLine{32     \{ }
+\DoxyCodeLine{33         \textcolor{keyword}{struct }Camera; }
+\DoxyCodeLine{34         \textcolor{keyword}{struct }Light; }
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keyword}{struct }TimeManager;}
+\DoxyCodeLine{38     \textcolor{keyword}{struct }InputManager;}
+\DoxyCodeLine{39     \textcolor{keyword}{struct }Scene;}
+\DoxyCodeLine{40     \textcolor{keyword}{struct }SystemIndexer;}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{43     \textcolor{keyword}{struct }\mbox{\hyperlink{struct_engine_1_1_core}{Core}}}
+\DoxyCodeLine{44     \{}
+\DoxyCodeLine{45         \textcolor{keyword}{friend} \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{private}:}
+\DoxyCodeLine{48         std::weak\_ptr<Core> \_self;                                                                                          }
+\DoxyCodeLine{49         std::shared\_ptr<SystemIndexer> \_systemIndexer;                                                                      }
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51         std::shared\_ptr<Scene> \_activeScene;                                                                                }
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53         std::shared\_ptr<TimeManager> \_timeManager;                                                                          }
+\DoxyCodeLine{54         std::shared\_ptr<InputManager> \_inputManager;                                                                        }
+\DoxyCodeLine{55         std::shared\_ptr<ResourceManagement::ResourceManager> \_resourceManager;                                              }
+\DoxyCodeLine{56         std::shared\_ptr<Physics::PhysicsManager> \_physicsManager;                                                           }
+\DoxyCodeLine{57         std::shared\_ptr<Graphics::GraphicsManager> \_graphicsManager;                                                        }
+\DoxyCodeLine{58         std::shared\_ptr<Audio::AudioManager> \_audioManager;                                                                 }
+\DoxyCodeLine{59         std::shared\_ptr<ErrorHandling::Debugger> \_debugger;                                                                 }
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61         \textcolor{keywordtype}{bool} \_completedCoreInitialisation = \textcolor{keyword}{false};                                                                          }
+\DoxyCodeLine{62         \textcolor{keywordtype}{bool} \_running = \textcolor{keyword}{false};                                                                                              }
+\DoxyCodeLine{63     \textcolor{keyword}{public}:}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{keyword}{private}:}
+\DoxyCodeLine{67         \textcolor{keywordtype}{void} MainLoop();}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69         \textcolor{keywordtype}{void} Update();}
+\DoxyCodeLine{70         \textcolor{keywordtype}{void} PhysicsUpdate();}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72         std::shared\_ptr<Core> Self();}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74         \textcolor{keywordtype}{void} PreDestructor();}
+\DoxyCodeLine{75     \textcolor{keyword}{public}:}
+\DoxyCodeLine{78         \textcolor{keyword}{static} std::shared\_ptr<Core> \mbox{\hyperlink{struct_engine_1_1_core_a25cc325c9edb8857c1c733e92b132862}{Initialise}}();}
+\DoxyCodeLine{85         \textcolor{keyword}{static} std::shared\_ptr<Core> \mbox{\hyperlink{struct_engine_1_1_core_a25cc325c9edb8857c1c733e92b132862}{Initialise}}(\textcolor{keywordtype}{int} windowWidth, \textcolor{keywordtype}{int} windowHeight, \textcolor{keywordtype}{int} FPS, \textcolor{keywordtype}{int} fixedFPS);}
+\DoxyCodeLine{86         }
+\DoxyCodeLine{89         \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{90         \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_core_a7e590f24dcdfb2a1a3f15a09558b7033}{LoadScene}}(std::shared\_ptr<T> scene)}
+\DoxyCodeLine{91         \{}
+\DoxyCodeLine{92             \textcolor{keywordflow}{if} (\_completedCoreInitialisation)}
+\DoxyCodeLine{93             \{}
+\DoxyCodeLine{94                 \textcolor{keywordflow}{if} (\_activeScene)}
+\DoxyCodeLine{95                 \{}
+\DoxyCodeLine{96                     \textcolor{keywordflow}{if} (\_activeScene != scene)}
+\DoxyCodeLine{97                     \{}
+\DoxyCodeLine{98 \textcolor{preprocessor}{                        \#ifdef DEBUG}}
+\DoxyCodeLine{99                         \{}
+\DoxyCodeLine{100                             Engine::ErrorHandling::Debugger::Print(\textcolor{stringliteral}{"{}Unloading Old Scene"{}});}
+\DoxyCodeLine{101                         \}}
+\DoxyCodeLine{102 \textcolor{preprocessor}{                        \#endif }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104                         \_activeScene-\/>Scene::PreDestructor();}
+\DoxyCodeLine{105                         \_activeScene.reset();}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{                        \#ifdef DEBUG}}
+\DoxyCodeLine{108                         \{}
+\DoxyCodeLine{109                             Engine::ErrorHandling::Debugger::Print(\textcolor{stringliteral}{"{}Loading New Scene"{}});}
+\DoxyCodeLine{110                         \}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{                        \#endif }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113                         \_activeScene = scene;}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115                         scene-\/>Scene::Initialise(Self());}
+\DoxyCodeLine{116                         scene-\/>LoadScene();}
+\DoxyCodeLine{117                     \}}
+\DoxyCodeLine{118                 \}}
+\DoxyCodeLine{119                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{120                 \{}
+\DoxyCodeLine{121 \textcolor{preprocessor}{                    \#ifdef DEBUG}}
+\DoxyCodeLine{122                     \{}
+\DoxyCodeLine{123                         Engine::ErrorHandling::Debugger::Print(\textcolor{stringliteral}{"{}Loading Start Scene"{}});}
+\DoxyCodeLine{124                     \}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{                    \#endif }\textcolor{comment}{// DEBUG}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127                     \_activeScene = scene;}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129                     scene-\/>Scene::Initialise(Self());}
+\DoxyCodeLine{130                     scene-\/>LoadScene();}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132                     MainLoop();}
+\DoxyCodeLine{133                 \}}
+\DoxyCodeLine{134             \}}
+\DoxyCodeLine{135         \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{138         \textcolor{keywordtype}{void} \mbox{\hyperlink{struct_engine_1_1_core_a28072ec0219ef5805612645a609237ae}{Stop}}();}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{142         std::shared\_ptr<ErrorHandling::Debugger> \mbox{\hyperlink{struct_engine_1_1_core_a5965c4f0154db7d2030a51f56c0cbafa}{Debugger}}();}
+\DoxyCodeLine{145         std::shared\_ptr<Graphics::GraphicsManager> \mbox{\hyperlink{struct_engine_1_1_core_a1cad3a6544e6e8d3244db4483c4001c1}{GraphicsManager}}();}
+\DoxyCodeLine{148         std::shared\_ptr<Audio::AudioManager> \mbox{\hyperlink{struct_engine_1_1_core_acb907fec5f9d118cce0add350fd7ea5f}{AudioManager}}();}
+\DoxyCodeLine{151         std::shared\_ptr<ResourceManagement::ResourceManager> \mbox{\hyperlink{struct_engine_1_1_core_a729d96a357ccc02ddd651bfa4b715472}{ResourceManager}}();}
+\DoxyCodeLine{154         std::shared\_ptr<Physics::PhysicsManager> \mbox{\hyperlink{struct_engine_1_1_core_afe5e3df3d335005e1a422b4d3cfcbfd8}{PhysicsManager}}();}
+\DoxyCodeLine{157         std::shared\_ptr<SystemIndexer> \mbox{\hyperlink{struct_engine_1_1_core_aee37c9ff8f24bbc37a5d56989ec57e20}{SystemIndexer}}();}
+\DoxyCodeLine{160         std::shared\_ptr<TimeManager> \mbox{\hyperlink{struct_engine_1_1_core_a7ef4da950c49fe4b4a9c2373fca78d9f}{TimeManager}}();}
+\DoxyCodeLine{163         std::shared\_ptr<InputManager> \mbox{\hyperlink{struct_engine_1_1_core_a6c28b2ff529134b4b8ed2a692fa64031}{InputManager}}();}
+\DoxyCodeLine{166         std::shared\_ptr<Scene> \mbox{\hyperlink{struct_engine_1_1_core_a618dea446d355d5da4e5e02bc3542537}{ActiveScene}}();}
+\DoxyCodeLine{167     \};}
+\DoxyCodeLine{168 \}}
+
+\end{DoxyCode}

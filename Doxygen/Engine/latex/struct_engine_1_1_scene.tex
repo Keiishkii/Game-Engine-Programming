@@ -1,0 +1,210 @@
+\hypertarget{struct_engine_1_1_scene}{}\doxysection{Engine\+::Scene Struct Reference}
+\label{struct_engine_1_1_scene}\index{Engine::Scene@{Engine::Scene}}
+
+
+{\ttfamily \#include $<$Scene.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{struct_engine_1_1_scene_aed59365e6e49e32bee66d1394d9a6eab}{Load\+Scene}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a09f9d8fbed26befac132e1924c00cbca}{Add\+Entity}} (std\+::string name)
+\item 
+void \mbox{\hyperlink{struct_engine_1_1_scene_a07f40548e8fa318f9175b82bfc17540a}{Remove\+Entity}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ entity)
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a92a5005518ded6fd825614494b68b64a}{Find\+Entity}} (std\+::string name)
+\item 
+std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a6e73f300e4df1bfb122e694657d10ee8}{Entitys}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Resource\+Management\+::\+Texture}} $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a95185fa84f6178d42fbf4f86004b9c17}{Render\+Scene\+To\+Texture}} (const glm\+::mat4x4 \&transformation\+Matrix, const glm\+::mat4x4 \&projection\+Matrix, int width, int height)
+\item 
+GLuint \mbox{\hyperlink{struct_engine_1_1_scene_abbb285161c3372102566c94ed5508f2b}{Render\+Scene\+To\+Texture\+Buffer}} (const glm\+::mat4x4 \&transformation\+Matrix, const glm\+::mat4x4 \&projection\+Matrix, int width, int height)
+\item 
+std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_light}{Components\+::\+Light}} $>$ $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a39d87165d17303897bce6983f6db1e35}{Lights}} ()
+\item 
+std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Components\+::\+Camera}} $>$ $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a64de7c1bc47d3c383467f6eb5ff72f70}{Cameras}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Components\+::\+Camera}} $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a60bd454183276d748985133b248074d6}{Main\+Camera}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Engine\+::\+Core}} $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a12525084b30c7f722edcbb7dc75feb34}{Core}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Engine\+::\+Physics\+::\+Physics\+Manager}} $>$ \mbox{\hyperlink{struct_engine_1_1_scene_a371d43362fd820a5798d0093da573ae8}{Physics\+Manager}} ()
+\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_skybox_material}{Resource\+Management\+::\+Skybox\+Material}} $>$ \& \mbox{\hyperlink{struct_engine_1_1_scene_ae3161990989bb8d4fb88352edcf68e88}{Skybox}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{struct_engine_1_1_scene_a0f230a6b5cf07458784e823b80e3e8ff}\label{struct_engine_1_1_scene_a0f230a6b5cf07458784e823b80e3e8ff}} 
+friend {\bfseries Core}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{struct_engine_1_1_scene}{Scene}} defines the currently loaded enviroment, within which all Entitys are listed. ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a09f9d8fbed26befac132e1924c00cbca}\label{struct_engine_1_1_scene_a09f9d8fbed26befac132e1924c00cbca}} 
+\index{Engine::Scene@{Engine::Scene}!AddEntity@{AddEntity}}
+\index{AddEntity@{AddEntity}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{AddEntity()}{AddEntity()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ Engine\+::\+Scene\+::\+Add\+Entity (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+Creates an entity and adds it to the scene with the given name. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the name given to the entity. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a pointer to the newly created entity ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a64de7c1bc47d3c383467f6eb5ff72f70}\label{struct_engine_1_1_scene_a64de7c1bc47d3c383467f6eb5ff72f70}} 
+\index{Engine::Scene@{Engine::Scene}!Cameras@{Cameras}}
+\index{Cameras@{Cameras}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{Cameras()}{Cameras()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Components\+::\+Camera}} $>$ $>$ Engine\+::\+Scene\+::\+Cameras (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a vector list of all Camera components in the scene. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a12525084b30c7f722edcbb7dc75feb34}\label{struct_engine_1_1_scene_a12525084b30c7f722edcbb7dc75feb34}} 
+\index{Engine::Scene@{Engine::Scene}!Core@{Core}}
+\index{Core@{Core}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{Core()}{Core()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_core}{Engine\+::\+Core}} $>$ Engine\+::\+Scene\+::\+Core (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer of \mbox{\hyperlink{struct_engine_1_1_core}{Core}}. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a6e73f300e4df1bfb122e694657d10ee8}\label{struct_engine_1_1_scene_a6e73f300e4df1bfb122e694657d10ee8}} 
+\index{Engine::Scene@{Engine::Scene}!Entitys@{Entitys}}
+\index{Entitys@{Entitys}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{Entitys()}{Entitys()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ $>$ Engine\+::\+Scene\+::\+Entitys (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Checks if the entity dictionary has changed, either returns or regenerates the entity list to match the dictionary. \begin{DoxyReturn}{Returns}
+Returns a list of all \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}\textquotesingle{}s. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a92a5005518ded6fd825614494b68b64a}\label{struct_engine_1_1_scene_a92a5005518ded6fd825614494b68b64a}} 
+\index{Engine::Scene@{Engine::Scene}!FindEntity@{FindEntity}}
+\index{FindEntity@{FindEntity}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{FindEntity()}{FindEntity()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$ Engine\+::\+Scene\+::\+Find\+Entity (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+Searches the list of \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}\textquotesingle{}s and returns the first that shares the same name as the given string. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the name of the entity wanted. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a shared pointer to the entity with the same name. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a39d87165d17303897bce6983f6db1e35}\label{struct_engine_1_1_scene_a39d87165d17303897bce6983f6db1e35}} 
+\index{Engine::Scene@{Engine::Scene}!Lights@{Lights}}
+\index{Lights@{Lights}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{Lights()}{Lights()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::weak\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_light}{Components\+::\+Light}} $>$ $>$ Engine\+::\+Scene\+::\+Lights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a vector list of all Light components in the scene. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_aed59365e6e49e32bee66d1394d9a6eab}\label{struct_engine_1_1_scene_aed59365e6e49e32bee66d1394d9a6eab}} 
+\index{Engine::Scene@{Engine::Scene}!LoadScene@{LoadScene}}
+\index{LoadScene@{LoadScene}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{LoadScene()}{LoadScene()}}
+{\footnotesize\ttfamily void Engine\+::\+Scene\+::\+Load\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+A virtual function used by child \mbox{\hyperlink{struct_engine_1_1_scene}{Scene}} classes to load there \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}}\textquotesingle{}s. ~\newline
+ \mbox{\Hypertarget{struct_engine_1_1_scene_a60bd454183276d748985133b248074d6}\label{struct_engine_1_1_scene_a60bd454183276d748985133b248074d6}} 
+\index{Engine::Scene@{Engine::Scene}!MainCamera@{MainCamera}}
+\index{MainCamera@{MainCamera}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{MainCamera()}{MainCamera()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_components_1_1_camera}{Components\+::\+Camera}} $>$ Engine\+::\+Scene\+::\+Main\+Camera (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns returns a shared pointer of the Camera at index\mbox{[}0\mbox{]}. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a371d43362fd820a5798d0093da573ae8}\label{struct_engine_1_1_scene_a371d43362fd820a5798d0093da573ae8}} 
+\index{Engine::Scene@{Engine::Scene}!PhysicsManager@{PhysicsManager}}
+\index{PhysicsManager@{PhysicsManager}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{PhysicsManager()}{PhysicsManager()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_physics_1_1_physics_manager}{Engine\+::\+Physics\+::\+Physics\+Manager}} $>$ Engine\+::\+Scene\+::\+Physics\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Cores\textquotesingle{}s Physics\+Manager. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a07f40548e8fa318f9175b82bfc17540a}\label{struct_engine_1_1_scene_a07f40548e8fa318f9175b82bfc17540a}} 
+\index{Engine::Scene@{Engine::Scene}!RemoveEntity@{RemoveEntity}}
+\index{RemoveEntity@{RemoveEntity}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{RemoveEntity()}{RemoveEntity()}}
+{\footnotesize\ttfamily void Engine\+::\+Scene\+::\+Remove\+Entity (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} $>$}]{entity }\end{DoxyParamCaption})}
+
+Removes the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} from the scene. 
+\begin{DoxyParams}{Parameters}
+{\em entity} & a shared pointer to the \mbox{\hyperlink{struct_engine_1_1_entity}{Entity}} about to be removed. ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{struct_engine_1_1_scene_a95185fa84f6178d42fbf4f86004b9c17}\label{struct_engine_1_1_scene_a95185fa84f6178d42fbf4f86004b9c17}} 
+\index{Engine::Scene@{Engine::Scene}!RenderSceneToTexture@{RenderSceneToTexture}}
+\index{RenderSceneToTexture@{RenderSceneToTexture}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{RenderSceneToTexture()}{RenderSceneToTexture()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_texture}{Resource\+Management\+::\+Texture}} $>$ Engine\+::\+Scene\+::\+Render\+Scene\+To\+Texture (\begin{DoxyParamCaption}\item[{const glm\+::mat4x4 \&}]{transformation\+Matrix,  }\item[{const glm\+::mat4x4 \&}]{projection\+Matrix,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+Renders the scene from the perspective of the given matrices, then returns it as a texture resource. 
+\begin{DoxyParams}{Parameters}
+{\em transformation\+Matrix} & the matrix of the cameras transform. \\
+\hline
+{\em projection\+Matrix} & the projection matrix used by the camera. \\
+\hline
+{\em width} & the width of the image. \\
+\hline
+{\em height} & the height of the image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a Texture of the rendered scene. ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_abbb285161c3372102566c94ed5508f2b}\label{struct_engine_1_1_scene_abbb285161c3372102566c94ed5508f2b}} 
+\index{Engine::Scene@{Engine::Scene}!RenderSceneToTextureBuffer@{RenderSceneToTextureBuffer}}
+\index{RenderSceneToTextureBuffer@{RenderSceneToTextureBuffer}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{RenderSceneToTextureBuffer()}{RenderSceneToTextureBuffer()}}
+{\footnotesize\ttfamily GLuint Engine\+::\+Scene\+::\+Render\+Scene\+To\+Texture\+Buffer (\begin{DoxyParamCaption}\item[{const glm\+::mat4x4 \&}]{transformation\+Matrix,  }\item[{const glm\+::mat4x4 \&}]{projection\+Matrix,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+Renders the scene from the perspective of the given matrices, then returns it in the form of a texture buffer. 
+\begin{DoxyParams}{Parameters}
+{\em transformation\+Matrix} & the matrix of the cameras transform. \\
+\hline
+{\em projection\+Matrix} & the projection matrix used by the camera. \\
+\hline
+{\em width} & the width of the image. \\
+\hline
+{\em height} & the height of the image. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a GLuint for the texture buffer that the scene is rendered too. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{struct_engine_1_1_scene_ae3161990989bb8d4fb88352edcf68e88}\label{struct_engine_1_1_scene_ae3161990989bb8d4fb88352edcf68e88}} 
+\index{Engine::Scene@{Engine::Scene}!Skybox@{Skybox}}
+\index{Skybox@{Skybox}!Engine::Scene@{Engine::Scene}}
+\doxysubsubsection{\texorpdfstring{Skybox()}{Skybox()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{struct_engine_1_1_resource_management_1_1_skybox_material}{Resource\+Management\+::\+Skybox\+Material}} $>$ \& Engine\+::\+Scene\+::\+Skybox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Get Function\+: \begin{DoxyReturn}{Returns}
+Returns a shared pointer to the Scenes\textquotesingle{}s Skybox\+Material. ~\newline
+ 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/Scene.\+h\item 
+D\+:/-\/ Git Repositorys/\+Game-\/\+Engine-\/\+Programming/\+Keii\+Engine/src/engine/Scene.\+cpp\end{DoxyCompactItemize}

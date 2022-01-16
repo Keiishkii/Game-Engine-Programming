@@ -10,6 +10,7 @@ namespace Engine
 
 	namespace Components
 	{
+		/**	The AudioSource is a child of Component, it is used play audio in the scene. This object directly syncs with the OpenAL audio source allowing for 3D audio displacement to occur.  	*/
 		struct AudioSource : Component
 		{
 		private:

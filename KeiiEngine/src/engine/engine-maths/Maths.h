@@ -3,6 +3,7 @@
 
 namespace Engine
 {
+	/**	The Maths class is used to contain engine specific maths functions like Lerping and space conversions.  	*/
 	struct Maths
 	{
 	private:

@@ -82,8 +82,7 @@ namespace Engine
 		}
 
 
-
-		void AudioManager::PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip)
+		/*void AudioManager::PlayAudioClip(std::shared_ptr<ResourceManagement::AudioClip> audioClip)
 		{
 			if (audioClip && !Audio::AudioManager::AudioErrorEncountered()) [[likely]]
 			{
@@ -101,8 +100,7 @@ namespace Engine
 
 				alDeleteSources(1, &sourceID);
 			}
-		}
-
+		}*/
 
 
 		AudioManager::~AudioManager()

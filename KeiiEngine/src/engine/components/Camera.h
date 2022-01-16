@@ -16,6 +16,7 @@ namespace Engine
 	namespace Graphics { struct GraphicsManager; }
 	namespace Components
 	{
+		/**	The Camera is a child of Component, it is used to render the scene.  	*/
 		struct Camera : Component
 		{
 			friend Engine::Core;
@@ -23,8 +24,6 @@ namespace Engine
 
 		private:
 			glm::mat4x4 _projectionMatrix;
-
-			std::shared_ptr<ResourceManagement::Model> _skyboxCube;
 		public:
 
 

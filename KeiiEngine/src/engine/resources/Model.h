@@ -16,6 +16,7 @@ namespace Engine
 		struct ResourceManager;
 		struct Material;
 
+		/**	The Model is a type of resource, it is used to load 3D geometry and the data required to colour it.  	*/
 		struct Model : Resource
 		{
 		private:

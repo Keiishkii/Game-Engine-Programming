@@ -15,6 +15,8 @@ namespace Engine
 		struct Texture;
 		struct Material;
 		struct TextureCubeMap;
+
+		/**	The ShaderProgram is a type of resource, it is used to load shader text files and convert the fragment and vertex code to a singlular shader program that can be used with OpenGL.  	*/
 		struct ShaderProgram : Resource
 		{
 		private:

@@ -1,0 +1,27 @@
+\hypertarget{_post_processor_effects_8h_source}{}\doxysection{Post\+Processor\+Effects.\+h}
+\label{_post_processor_effects_8h_source}\index{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/PostProcessorEffects.h@{D:/-\/ Git Repositorys/Game-\/Engine-\/Programming/KeiiEngine/src/game/components/PostProcessorEffects.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#include "{}engine/KeiiEngine.h"{}}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{keyword}{namespace }Game}
+\DoxyCodeLine{4 \{}
+\DoxyCodeLine{5     \textcolor{keyword}{namespace }Components}
+\DoxyCodeLine{6     \{}
+\DoxyCodeLine{8         \textcolor{keyword}{struct }\mbox{\hyperlink{struct_game_1_1_components_1_1_post_processor_effects}{PostProcessorEffects}} : Engine::Components::Component}
+\DoxyCodeLine{9         \{}
+\DoxyCodeLine{10         \textcolor{keyword}{private}:}
+\DoxyCodeLine{11             \textcolor{keywordtype}{int} \_selectedShaderIndex = 0;}
+\DoxyCodeLine{12             std::vector<std::shared\_ptr<Engine::ResourceManagement::ShaderProgram>> \_postProcessingShaders;}
+\DoxyCodeLine{13         \textcolor{keyword}{public}:}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16         \textcolor{keyword}{private}:}
+\DoxyCodeLine{17         \textcolor{keyword}{public}:}
+\DoxyCodeLine{18             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Start() \textcolor{keyword}{override};}
+\DoxyCodeLine{19             \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update() \textcolor{keyword}{override};}
+\DoxyCodeLine{20         \};}
+\DoxyCodeLine{21     \}}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}

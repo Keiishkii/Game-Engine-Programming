@@ -19,6 +19,7 @@ namespace Engine
 	struct Core;
 	namespace Components
 	{
+		/**	The Gizmo is a child of Component, it is used in Debug mode to create visable renders for other invisable components like; AudioListner, AudioSource, Camera, Light and ReflectionProbe.  	*/
 		struct Gizmo : Component
 		{
 		private:
