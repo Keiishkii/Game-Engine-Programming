@@ -44,7 +44,6 @@ namespace Engine
 		std::map<unsigned int, std::shared_ptr<Components::Component>> _components;
 		std::vector<std::shared_ptr<Components::Component>> _componentList;
 		std::vector<unsigned int> _componentsMarkedForDelete;
-
 	public:
 
 

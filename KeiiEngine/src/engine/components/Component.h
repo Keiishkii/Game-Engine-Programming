@@ -30,6 +30,8 @@ namespace Engine
 			unsigned int _systemIndex = 0;
 		private:
 			bool _startCalled = false;
+
+			bool _initialiseCalled = false;
 			bool _preDestructorCalled = false;
 
 			std::weak_ptr<Component> _self;

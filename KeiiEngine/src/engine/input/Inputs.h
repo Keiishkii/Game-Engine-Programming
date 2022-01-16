@@ -11,6 +11,7 @@ namespace Engine
 		enum Keys 
 		{ 
 			A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z, 
+			k0, k1, k2, k3, k4, k5, k6, k7, k8, k9,
 			SPACE, LSHIFT, LCNTRL, ESCAPE 
 		};
 
@@ -50,6 +51,17 @@ namespace Engine
 		bool _xDown, _xHeld, _xReleased;
 		bool _yDown, _yHeld, _yReleased;
 		bool _zDown, _zHeld, _zReleased;
+
+		bool _0Down, _0Held, _0Released;
+		bool _1Down, _1Held, _1Released;
+		bool _2Down, _2Held, _2Released;
+		bool _3Down, _3Held, _3Released;
+		bool _4Down, _4Held, _4Released;
+		bool _5Down, _5Held, _5Released;
+		bool _6Down, _6Held, _6Released;
+		bool _7Down, _7Held, _7Released;
+		bool _8Down, _8Held, _8Released;
+		bool _9Down, _9Held, _9Released;
 
 		bool _escapeDown, _escapeHeld, _escapeReleased;
 		bool _spaceDown, _spaceHeld, _spaceReleased;

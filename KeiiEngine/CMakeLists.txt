@@ -206,22 +206,39 @@ target_link_libraries(keiiengine
 add_executable(game
 	src/game/Main.cpp
 
-		#Custom Scenes
-	src/game/CustomScene.cpp
-	src/game/CustomScene.h
-
-		#Components
-	src/game/components/PlayerController.cpp
-	src/game/components/PlayerController.h
+		#Custom Scenes	
+	src/game/scenes/Scene_1.cpp
+	src/game/scenes/Scene_1.h
 	
-	src/game/components/Rotator.cpp
-	src/game/components/Rotator.h
+	src/game/scenes/Scene_2.cpp
+	src/game/scenes/Scene_2.h
+	
+	src/game/scenes/Scene_3.cpp
+	src/game/scenes/Scene_3.h
 
-	src/game/components/CameraController.cpp
-	src/game/components/CameraController.h
-
-	src/game/components/ShaderTextureSampler.cpp
-	src/game/components/ShaderTextureSampler.h
+		#Components		
+	src/game/components/SceneSwitcher.cpp
+	src/game/components/SceneSwitcher.h
+	
+	src/game/components/PostProcessorEffects.cpp
+	src/game/components/PostProcessorEffects.h
+	
+	src/game/components/Rocket.cpp
+	src/game/components/Rocket.h
+	
+				#Camera Controllers
+	src/game/components/camera_controllers/FirstPersonCameraController.cpp
+	src/game/components/camera_controllers/FirstPersonCameraController.h
+	
+	src/game/components/camera_controllers/ThirdPersonCameraController.cpp
+	src/game/components/camera_controllers/ThirdPersonCameraController.h
+		
+				#Player Controllers
+	src/game/components/player_controllers/SamusController.cpp
+	src/game/components/player_controllers/SamusController.h	
+	
+	src/game/components/player_controllers/ShulkController.cpp
+	src/game/components/player_controllers/ShulkController.h		
 )
 
 target_link_libraries(game keiiengine)

@@ -32,6 +32,7 @@ namespace Engine
 			case SDL_KEYDOWN:
 				switch (event.key.keysym.sym)
 				{
+					//Letters
 				case SDLK_a:
 					_inputs->_aDown = true;
 					_inputs->_aHeld = true;
@@ -136,6 +137,48 @@ namespace Engine
 					_inputs->_zDown = true;
 					_inputs->_zHeld = true;
 					break;
+					//Numbers
+				case SDLK_0:
+					_inputs->_0Down = true;
+					_inputs->_0Held = true;
+					break;
+				case SDLK_1:
+					_inputs->_1Down = true;
+					_inputs->_1Held = true;
+					break;
+				case SDLK_2:
+					_inputs->_2Down = true;
+					_inputs->_2Held = true;
+					break;
+				case SDLK_3:
+					_inputs->_3Down = true;
+					_inputs->_3Held = true;
+					break;
+				case SDLK_4:
+					_inputs->_4Down = true;
+					_inputs->_4Held = true;
+					break;
+				case SDLK_5:
+					_inputs->_5Down = true;
+					_inputs->_5Held = true;
+					break;
+				case SDLK_6:
+					_inputs->_6Down = true;
+					_inputs->_6Held = true;
+					break;
+				case SDLK_7:
+					_inputs->_7Down = true;
+					_inputs->_7Held = true;
+					break;
+				case SDLK_8:
+					_inputs->_8Down = true;
+					_inputs->_8Held = true;
+					break;
+				case SDLK_9:
+					_inputs->_9Down = true;
+					_inputs->_9Held = true;
+					break;
+					//Special Keys
 				case SDLK_ESCAPE:
 					_inputs->_escapeDown = true;
 					_inputs->_escapeHeld = true;
@@ -157,6 +200,7 @@ namespace Engine
 			case SDL_KEYUP:
 				switch (event.key.keysym.sym)
 				{
+					//Letters
 				case SDLK_a:
 					_inputs->_aReleased = true;
 					_inputs->_aHeld = false;
@@ -261,6 +305,48 @@ namespace Engine
 					_inputs->_zReleased = true;
 					_inputs->_zHeld = false;
 					break;
+					//Numbers
+				case SDLK_0:
+					_inputs->_0Released = true;
+					_inputs->_0Held = false;
+					break;
+				case SDLK_1:
+					_inputs->_1Released = true;
+					_inputs->_1Held = false;
+					break;
+				case SDLK_2:
+					_inputs->_2Released = true;
+					_inputs->_2Held = false;
+					break;
+				case SDLK_3:
+					_inputs->_3Released = true;
+					_inputs->_3Held = false;
+					break;
+				case SDLK_4:
+					_inputs->_4Released = true;
+					_inputs->_4Held = false;
+					break;
+				case SDLK_5:
+					_inputs->_5Released = true;
+					_inputs->_5Held = false;
+					break;
+				case SDLK_6:
+					_inputs->_6Released = true;
+					_inputs->_6Held = false;
+					break;
+				case SDLK_7:
+					_inputs->_7Released = true;
+					_inputs->_7Held = false;
+					break;
+				case SDLK_8:
+					_inputs->_8Released = true;
+					_inputs->_8Held = false;
+					break;
+				case SDLK_9:
+					_inputs->_9Released = true;
+					_inputs->_9Held = false;
+					break;
+					//Special Keys
 				case SDLK_ESCAPE:
 					_inputs->_escapeReleased = true;
 					_inputs->_escapeHeld = false;

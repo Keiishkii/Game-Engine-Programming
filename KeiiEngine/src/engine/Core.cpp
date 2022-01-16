@@ -108,8 +108,9 @@ namespace Engine
 
 			_timeManager->WaitForEndOfFrame();
 
-			if (_inputManager->Input()->QuitEvent()) [[unlikely]] 
-				_running = false;
+			std::shared_ptr<Inputs> inputs = _inputManager->Input();
+			if (inputs->QuitEvent() || inputs->KeyHeld(inputs->ESCAPE)) [[unlikely]]
+				Stop();
 		}
 
 		PreDestructor();
@@ -119,7 +120,7 @@ namespace Engine
 
 	void Core::Stop()
 	{
-		_running = !_running;
+		_running = false;
 	}
 
 	void Core::PreDestructor()

@@ -60,8 +60,9 @@ namespace Engine
 					Debugger::PrintWarning("Audio file '" + _audioClip->GetName() + "' is of type 'AL_FORMAT_STEREO16' this will not work with spatial sound.");
 				}
 
+				alSourceStop(_sourceID);
 				alSourcei(_sourceID, AL_BUFFER, _audioClip->GetBufferID());
-				
+			
 				alSourcePlay(_sourceID);
 			}
 		}

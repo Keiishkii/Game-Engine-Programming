@@ -75,16 +75,50 @@ namespace Engine
 		static std::shared_ptr<Core> Initialise(int windowWidth, int windowHeight, int FPS, int fixedFPS);
 
 		template <typename T>
-		void Start(std::shared_ptr<T> defaultScene)
+		void LoadScene(std::shared_ptr<T> scene)
 		{
 			if (_completedCoreInitialisation)
 			{
-				_activeScene = defaultScene;
+				if (_activeScene)
+				{
+					if (_activeScene != scene)
+					{
+						#ifdef DEBUG
+						{
+							Engine::ErrorHandling::Debugger::Print("Unloading Old Scene");
+						}
+						#endif // DEBUG
 
-				defaultScene->Scene::Initialise(Self());
-				defaultScene->LoadScene();
+						_activeScene->Scene::PreDestructor();
+						_activeScene.reset();
 
-				MainLoop();
+						#ifdef DEBUG
+						{
+							Engine::ErrorHandling::Debugger::Print("Loading New Scene");
+						}
+						#endif // DEBUG
+
+						_activeScene = scene;
+
+						scene->Scene::Initialise(Self());
+						scene->LoadScene();
+					}
+				}
+				else
+				{
+					#ifdef DEBUG
+					{
+						Engine::ErrorHandling::Debugger::Print("Loading Start Scene");
+					}
+					#endif // DEBUG
+
+					_activeScene = scene;
+
+					scene->Scene::Initialise(Self());
+					scene->LoadScene();
+
+					MainLoop();
+				}
 			}
 		}
 

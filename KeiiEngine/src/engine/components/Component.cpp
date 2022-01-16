@@ -16,18 +16,23 @@ namespace Engine
 	{
 		void Component::Initialise(const std::shared_ptr<Component>& self, const std::shared_ptr<Engine::Entity>& entity)
 		{
-			self->_self = self;
+			if (!_initialiseCalled)
+			{
+				self->_self = self;
 
-			_entity = entity;
-			_transform = entity->Transform();
-			_core = entity->Core();
-			_physicsManager = entity->PhysicsManager();
-			_systemIndexer = Core()->SystemIndexer();
-			_scene = Core()->ActiveScene();
-			_timeManager = Core()->TimeManager();
-			_inputs = Core()->InputManager()->Input();
+				_entity = entity;
+				_transform = entity->Transform();
+				_core = entity->Core();
+				_physicsManager = entity->PhysicsManager();
+				_systemIndexer = Core()->SystemIndexer();
+				_scene = Core()->ActiveScene();
+				_timeManager = Core()->TimeManager();
+				_inputs = Core()->InputManager()->Input();
 
-			_systemIndex = SystemIndexer()->GetIndex(SystemIndexer::E_COMPONENT);
+				_systemIndex = SystemIndexer()->GetIndex(SystemIndexer::E_COMPONENT);
+
+				_initialiseCalled = true;
+			}
 		}
 
 

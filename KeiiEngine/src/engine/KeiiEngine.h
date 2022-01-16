@@ -50,7 +50,7 @@
 	#include "components/MeshRenderer.h"
 
 // Physics
-#include "physics/PhysicsManager.h"
+	#include "physics/PhysicsManager.h"
 
 // Audio
 	#include "audio/AudioManager.h"
@@ -63,4 +63,5 @@
 	#include "graphics/VertexArray.h"
 
 	using namespace Engine;
+	using Engine::ErrorHandling::Debugger;
 #endif // !ENGINE_KEIIENGINE

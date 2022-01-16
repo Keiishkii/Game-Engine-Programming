@@ -27,7 +27,7 @@ namespace Engine
 			_core = core;
 
 			SDLInitialisation(windowWidth, windowHeight);
-			SetPostProcessingShader(core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/buffer_shader_shader.glsl"));
+			SetPostProcessingShader(core->ResourceManager()->FindAsset<ResourceManagement::ShaderProgram>("- shaders/- Post Processing/buffer_shader_shader.glsl"));
 		}
 
 		void GraphicsManager::SDLInitialisation(int windowWidth, int windowHeight)
@@ -101,28 +101,31 @@ namespace Engine
 
 		void GraphicsManager::RenderSkybox(std::shared_ptr<ResourceManagement::SkyboxMaterial> skybox, const glm::mat4x4& transformationMatrix, const glm::mat4x4& projectionMatrix)
 		{
-			std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = skybox->GetShaderProgram();
-
-			if (shaderProgram)
+			if (skybox)
 			{
-				glDepthFunc(GL_LEQUAL);
+				std::shared_ptr<ResourceManagement::ShaderProgram> shaderProgram = skybox->GetShaderProgram();
 
-				shaderProgram->UseShader();
+				if (shaderProgram)
+				{
+					glDepthFunc(GL_LEQUAL);
 
-
-				shaderProgram->SetUniform("in_Albedo", skybox->GetAlbedoTextureCubeMap());
-
-				shaderProgram->SetUniform("in_Colour", skybox->Colour());
-
-				shaderProgram->SetUniform("in_Veiwing", glm::mat4x4(glm::mat3x3(glm::inverse(transformationMatrix))));
-				shaderProgram->SetUniform("in_Projection", projectionMatrix);
-
-				shaderProgram->DrawTriangles(Skybox()->GetID(shaderProgram), 36);
+					shaderProgram->UseShader();
 
 
-				shaderProgram->StopUsingShader();
+					shaderProgram->SetUniform("in_Albedo", skybox->GetAlbedoTextureCubeMap());
 
-				glDepthFunc(GL_LESS);
+					shaderProgram->SetUniform("in_Colour", skybox->Colour());
+
+					shaderProgram->SetUniform("in_Veiwing", glm::mat4x4(glm::mat3x3(glm::inverse(transformationMatrix))));
+					shaderProgram->SetUniform("in_Projection", projectionMatrix);
+
+					shaderProgram->DrawTriangles(Skybox()->GetID(shaderProgram), 36);
+
+
+					shaderProgram->StopUsingShader();
+
+					glDepthFunc(GL_LESS);
+				}
 			}
 		}
 

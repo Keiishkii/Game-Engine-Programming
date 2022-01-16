@@ -40,6 +40,18 @@ namespace Engine
 		_xDown = false, _xReleased = false;
 		_yDown = false, _yReleased = false;
 		_zDown = false, _zReleased = false;
+
+		_0Down = false, _0Released = false;
+		_1Down = false, _1Released = false;
+		_2Down = false, _2Released = false;
+		_3Down = false, _3Released = false;
+		_4Down = false, _4Released = false;
+		_5Down = false, _5Released = false;
+		_6Down = false, _6Released = false;
+		_7Down = false, _7Released = false;
+		_8Down = false, _8Released = false;
+		_9Down = false, _9Released = false;
+
 		_escapeDown = false, _escapeReleased = false;
 		_spaceDown = false, _spaceReleased = false;
 		_lShiftDown = false, _lShiftReleased = false;	
@@ -51,6 +63,7 @@ namespace Engine
 		bool result = false;
 		switch (key)
 		{
+			// Letters
 			case A:
 			{
 				result = _aDown;
@@ -155,6 +168,48 @@ namespace Engine
 			{
 				result = _zDown;
 			} break;
+			// Numbers
+			case k0:
+			{
+				result = _0Down;
+			} break;
+			case k1:
+			{
+				result = _1Down;
+			} break;
+			case k2:
+			{
+				result = _2Down;
+			} break;
+			case k3:
+			{
+				result = _3Down;
+			} break;
+			case k4:
+			{
+				result = _4Down;
+			} break;
+			case k5:
+			{
+				result = _5Down;
+			} break;
+			case k6:
+			{
+				result = _6Down;
+			} break;
+			case k7:
+			{
+				result = _7Down;
+			} break;
+			case k8:
+			{
+				result = _8Down;
+			} break;
+			case k9:
+			{
+				result = _9Down;
+			} break;
+			// Special Keys
 			case ESCAPE:
 			{
 				result = _escapeDown;
@@ -181,6 +236,7 @@ namespace Engine
 		bool result = false;
 		switch (key)
 		{
+			// Letters
 			case A:
 			{
 				result = _aHeld;
@@ -285,6 +341,48 @@ namespace Engine
 			{
 				result = _zHeld;
 			} break;
+			// Numbers
+			case k0:
+			{
+				result = _0Held;
+			} break;
+			case k1:
+			{
+				result = _1Held;
+			} break;
+			case k2:
+			{
+				result = _2Held;
+			} break;
+			case k3:
+			{
+				result = _3Held;
+			} break;
+			case k4:
+			{
+				result = _4Held;
+			} break;
+			case k5:
+			{
+				result = _5Held;
+			} break;
+			case k6:
+			{
+				result = _6Held;
+			} break;
+			case k7:
+			{
+				result = _7Held;
+			} break;
+			case k8:
+			{
+				result = _8Held;
+			} break;
+			case k9:
+			{
+				result = _9Held;
+			} break;
+			// Special Keys
 			case ESCAPE:
 			{
 				result = _escapeHeld;
@@ -311,6 +409,7 @@ namespace Engine
 		bool result = false;
 		switch (key)
 		{
+			//Letters
 			case A:
 			{
 				result = _aReleased;
@@ -415,6 +514,48 @@ namespace Engine
 			{
 				result = _zReleased;
 			} break;
+			// Numbers
+			case k0:
+			{
+				result = _0Released;
+			} break;
+			case k1:
+			{
+				result = _1Released;
+			} break;
+			case k2:
+			{
+				result = _2Released;
+			} break;
+			case k3:
+			{
+				result = _3Released;
+			} break;
+			case k4:
+			{
+				result = _4Released;
+			} break;
+			case k5:
+			{
+				result = _5Released;
+			} break;
+			case k6:
+			{
+				result = _6Released;
+			} break;
+			case k7:
+			{
+				result = _7Released;
+			} break;
+			case k8:
+			{
+				result = _8Released;
+			} break;
+			case k9:
+			{
+				result = _9Released;
+			} break;
+			// Special Keys
 			case ESCAPE:
 			{
 				result = _escapeReleased;
